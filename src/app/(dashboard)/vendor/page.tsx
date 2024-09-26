@@ -8,9 +8,9 @@ export default function Vendor() {
   return (
     <>
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-7">
+        <div className="col-span-12 xl:col-span-7">
           <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-6">
+            <div className="col-span-12 md:col-span-6">
               <DashboardCard
                 title={'Total Income'}
                 total={'$8063.02'}
@@ -20,7 +20,8 @@ export default function Vendor() {
                 className={'bg-clr-e8'}
               />
             </div>
-            <div className="col-span-6">
+
+            <div className="col-span-12 md:col-span-6">
               <DashboardCard
                 title={'Total Bookings'}
                 total={'10'}
@@ -32,7 +33,7 @@ export default function Vendor() {
             </div>
           </div>
         </div>
-        <div className="col-span-5">5</div>
+        <div className="col-span-12 xl:col-span-5">5</div>
       </div>
     </>
   )
