@@ -13,7 +13,14 @@ const config: Config = {
         'clr-48': '#394148',
         'clr-81': '#637381',
         'clr-fb': '#9042FB',
-        'clr-ff': '#F6F0FF'
+        'clr-ff': '#F6F0FF',
+        'clr-f8': '#F6F7F8',
+        'clr-96': '#848A96',
+        'clr-e8': '#D3FFE8',
+        'clr-eb': '#FFEAEB'
+      },
+      backgroundImage: {
+        'icon-search': "url('/assets/ic_search.svg')"
       }
     }
   },

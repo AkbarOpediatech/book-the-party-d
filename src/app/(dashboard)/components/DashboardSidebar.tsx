@@ -1,5 +1,5 @@
 'use client'
-import { dashboardVendorNavigation } from '@/utils'
+import { cn, dashboardVendorNavigation } from '@/utils'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -149,7 +149,10 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
 
                       {items.type === 'separator' && (
                         <small
-                          className={`block px-4 text-xs font-bold uppercase text-clr-48 ${items.className}`}
+                          className={cn(
+                            `block px-4 text-xs font-bold uppercase text-clr-48`,
+                            items.title === 'others' && 'mb-2 mt-6'
+                          )}
                         >
                           {items.title}
                         </small>

@@ -38,8 +38,7 @@ export const dashboardVendorNavigation: NavigationItem[] = [
 
   {
     type: 'separator',
-    title: 'Others',
-    className: 'mt-6 mb-2'
+    title: 'others'
   },
 
   {
