@@ -1,4 +1,5 @@
 import DashboardCard from '../components/DashboardCard'
+import BookingStatistics from './components/BookingStatistics'
 import ICDecrease from '/public/assets/ic_decrese.svg'
 import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
@@ -9,7 +10,7 @@ export default function Vendor() {
     <>
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 xl:col-span-7">
-          <div className="grid grid-cols-12 gap-6">
+          <div className="mb-11 grid grid-cols-12 gap-6">
             <div className="col-span-12 md:col-span-6">
               <DashboardCard
                 title={'Total Income'}
@@ -31,6 +32,10 @@ export default function Vendor() {
                 className={'bg-clr-eb'}
               />
             </div>
+          </div>
+          {/* Booking Statistics */}
+          <div className="h-[500px] w-full rounded-xl bg-white p-5">
+            <BookingStatistics />
           </div>
         </div>
         <div className="col-span-12 xl:col-span-5">5</div>

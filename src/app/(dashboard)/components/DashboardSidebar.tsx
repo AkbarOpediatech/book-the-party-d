@@ -79,7 +79,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                           {items.type === 'button' && (
                             <Link
                               href={items.href}
-                              className="hover:text-clr-fb hover:bg-clr-ff flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out"
+                              className="flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb"
                             >
                               <span>
                                 <Image width={24} height={24} src={items.icon} alt="icon" />
@@ -138,7 +138,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                       {items.type === 'button' && (
                         <Link
                           href={items.href}
-                          className="hover:text-clr-fb hover:bg-clr-ff flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out"
+                          className="flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb"
                         >
                           <span>
                             <Image width={24} height={24} src={items.icon} alt="icon" />

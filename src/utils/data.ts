@@ -35,12 +35,10 @@ export const dashboardVendorNavigation: NavigationItem[] = [
     href: '/listing',
     icon: ListingIcon
   },
-
   {
     type: 'separator',
     title: 'others'
   },
-
   {
     type: 'button',
     name: 'Live chat with admin',
