@@ -12,3 +12,11 @@ export type NavigationItem = {
       icon: any
     }
 )
+
+export type DashboardBookingHistory = {
+  id: number
+  img: any
+  link: string
+  title: string
+  desc: string
+}

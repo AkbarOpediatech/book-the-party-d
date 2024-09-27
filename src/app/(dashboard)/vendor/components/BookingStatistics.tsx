@@ -2,66 +2,18 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const data = [
-  {
-    name: 'Jan',
-    uv: 100,
-    pv: 25
-  },
-  {
-    name: 'Feb',
-    uv: 25,
-    pv: 40
-  },
-  {
-    name: 'Mar',
-    uv: 25,
-    pv: 75
-  },
-  {
-    name: 'Apr',
-    uv: 25,
-    pv: 80
-  },
-  {
-    name: 'May',
-    uv: 0,
-    pv: 80
-  },
-  {
-    name: 'Jun',
-    uv: 0,
-    pv: 80
-  },
-  {
-    name: 'Jul',
-    uv: 0,
-    pv: 80
-  },
-  {
-    name: 'Aug',
-    uv: 0,
-    pv: 80
-  },
-  {
-    name: 'Sep',
-    uv: 0,
-    pv: 80
-  },
-  {
-    name: 'Oct',
-    uv: 0,
-    pv: 65
-  },
-  {
-    name: 'Nov',
-    uv: 0,
-    pv: 50
-  },
-  {
-    name: 'Dec',
-    uv: 0,
-    pv: 40
-  }
+  { name: 'Jan', uv: 100, pv: 25 },
+  { name: 'Feb', uv: 25, pv: 40 },
+  { name: 'Mar', uv: 25, pv: 75 },
+  { name: 'Apr', uv: 25, pv: 80 },
+  { name: 'May', uv: 0, pv: 80 },
+  { name: 'Jun', uv: 0, pv: 80 },
+  { name: 'Jul', uv: 0, pv: 80 },
+  { name: 'Aug', uv: 0, pv: 80 },
+  { name: 'Sep', uv: 0, pv: 80 },
+  { name: 'Oct', uv: 0, pv: 65 },
+  { name: 'Nov', uv: 0, pv: 50 },
+  { name: 'Dec', uv: 0, pv: 40 }
 ]
 
 const BookingStatistics = () => {
@@ -83,8 +35,18 @@ const BookingStatistics = () => {
           </linearGradient>
         </defs>
         <CartesianGrid vertical={false} strokeDasharray={1} />
-        <XAxis dataKey="name" stroke="0" className="text-clr-ab text-xs" tickMargin={10} />
-        <YAxis dataKey="uv" stroke="0" className="text-clr-ab mt-5 text-xs" tickMargin={17} />
+        <XAxis
+          dataKey="name"
+          stroke="none" // Changed from '0' to 'none'
+          className="text-xs text-clr-ab"
+          tickMargin={10}
+        />
+        <YAxis
+          dataKey="uv"
+          stroke="none" // Changed from '0' to 'none'
+          className="mt-5 text-xs text-clr-ab"
+          tickMargin={17}
+        />
         <Tooltip />
         <Area type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} fill="url(#colorUv)" />
       </AreaChart>
