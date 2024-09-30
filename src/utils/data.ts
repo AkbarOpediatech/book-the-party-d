@@ -13,7 +13,7 @@ import DashboardIcon from '/public/assets/ic_dashboard.svg'
 import ListingIcon from '/public/assets/ic_ecommerce.svg'
 import SubscriptionIcon from '/public/assets/ic_subscription.svg'
 
-export const dashboardVendorNavigation: NavigationItem[] = [
+export const vendorNavigation: NavigationItem[] = [
   {
     type: 'separator',
     title: 'General'
@@ -21,13 +21,13 @@ export const dashboardVendorNavigation: NavigationItem[] = [
   {
     type: 'button',
     name: 'dashboard',
-    href: '/vendor/dashboard',
+    href: '/dashboard/vendor/dashboard',
     icon: DashboardIcon
   },
   {
     type: 'button',
     name: 'banking',
-    href: '/banking',
+    href: '/dashboard/vendor/banking',
     icon: BankingIcon
   },
   {

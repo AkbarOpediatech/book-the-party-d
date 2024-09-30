@@ -1,6 +1,7 @@
 'use client'
 import { ApexOptions } from 'apexcharts'
-import ReactApexChart from 'react-apexcharts'
+import dynamic from 'next/dynamic'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const BookingHistoryChart: React.FC = () => {
   const series: number[] = [90, 50] // Represents the percentages for each label

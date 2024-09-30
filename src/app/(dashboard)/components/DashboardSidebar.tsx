@@ -1,10 +1,11 @@
 'use client'
-import { cn, dashboardVendorNavigation } from '@/utils'
+import { cn, vendorNavigation } from '@/utils'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { Fragment } from 'react'
 import Avatar from '/public/assets/avatar.jpeg'
 import DLogo from '/public/assets/dashboard-logo.svg'
 
@@ -14,6 +15,8 @@ type IProps = {
 }
 
 const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => {
+  const currentpath = usePathname()
+
   return (
     <>
       {/* Mobile menu */}
@@ -74,7 +77,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
 
                   <div className="dashboard-navigation space-y-1 px-4 py-6">
                     <ul className="space-y-1">
-                      {dashboardVendorNavigation.map((items, index) => (
+                      {vendorNavigation.map((items, index) => (
                         <li key={index}>
                           {items.type === 'button' && (
                             <Link
@@ -133,12 +136,12 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
 
               <div className="dashboard-navigation space-y-1 px-4 py-6">
                 <ul className="space-y-1">
-                  {dashboardVendorNavigation.map((items, index) => (
+                  {vendorNavigation.map((items, index) => (
                     <li key={index}>
                       {items.type === 'button' && (
                         <Link
                           href={items.href}
-                          className="flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb"
+                          className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
                         >
                           <span>
                             <Image width={24} height={24} src={items.icon} alt="icon" />

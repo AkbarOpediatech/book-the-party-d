@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon } from '@heroicons/react/16/solid'
+import { ArrowRightEndOnRectangleIcon, Bars3Icon, WrenchScrewdriverIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avater from '/public/assets/avatar.jpeg'
@@ -20,26 +20,74 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           {/* input filed */}
           <input
             placeholder="Search"
-            className="bg-icon-search bg-clr-f8 placeholder:text-clr-96 h-12 w-full max-w-[467px] bg-left bg-no-repeat px-2 pl-10 placeholder:font-semibold focus:outline-none"
+            className="h-12 w-full max-w-[467px] bg-clr-f8 bg-icon-search bg-left bg-no-repeat px-2 pl-10 placeholder:font-semibold placeholder:text-clr-96 focus:outline-none"
             style={{ backgroundPosition: '10px' }}
           />
         </div>
 
         {/* user function */}
         <div className="flex items-center gap-6">
-          <button>
-            <Image className="h-5 w-5" src={ICNotification} alt="icon" />
-          </button>
+          {/* Notification */}
+          <Menu>
+            <MenuButton className={'h-10 w-10 overflow-hidden rounded-full'}>
+              <Image className="h-5 w-5" src={ICNotification} alt="icon" />
+            </MenuButton>
 
+            <MenuItems
+              anchor="bottom end"
+              className={
+                'w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0'
+              }
+            >
+              <MenuItem>
+                <Link
+                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+                  href="/settings"
+                >
+                  <WrenchScrewdriverIcon className="size-4 fill-black/30" />
+                  Settings
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+                  href="/settings"
+                >
+                  <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                  Logout
+                </Link>
+              </MenuItem>
+            </MenuItems>
+          </Menu>
+
+          {/* User Profile */}
           <Menu>
             <MenuButton className={'h-10 w-10 overflow-hidden rounded-full'}>
               <Image src={Avater} alt="avater" />
             </MenuButton>
 
-            <MenuItems anchor="bottom end" className={'mt-2 w-48 rounded bg-blue-100 p-3'}>
+            <MenuItems
+              anchor="bottom end"
+              className={
+                'mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0'
+              }
+            >
               <MenuItem>
-                <Link className="block" href="/settings">
+                <Link
+                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+                  href="/settings"
+                >
+                  <WrenchScrewdriverIcon className="size-4 fill-black/30" />
                   Settings
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+                  href="/settings"
+                >
+                  <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                  Logout
                 </Link>
               </MenuItem>
             </MenuItems>
