@@ -43,7 +43,7 @@ export default function Vendor() {
         {/* Booking history */}
         <div className="w-full rounded-2xl bg-white shadow-one">
           <h2 className="py-5 text-center text-base font-bold text-clr-36">Booking history</h2>
-          <BookingHistoryChart />
+          {/* <BookingHistoryChart /> */}
         </div>
       </div>
       <div className="col-span-12 xl:col-span-5">

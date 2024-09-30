@@ -35,18 +35,8 @@ const BookingStatistics = () => {
           </linearGradient>
         </defs>
         <CartesianGrid vertical={false} strokeDasharray={1} />
-        <XAxis
-          dataKey="name"
-          stroke="none" // Changed from '0' to 'none'
-          className="text-xs text-clr-ab"
-          tickMargin={10}
-        />
-        <YAxis
-          dataKey="uv"
-          stroke="none" // Changed from '0' to 'none'
-          className="mt-5 text-xs text-clr-ab"
-          tickMargin={17}
-        />
+        <XAxis dataKey="name" className="text-xs text-clr-ab" />
+        <YAxis className="mt-5 text-xs text-clr-ab" />
         <Tooltip />
         <Area type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} fill="url(#colorUv)" />
       </AreaChart>
