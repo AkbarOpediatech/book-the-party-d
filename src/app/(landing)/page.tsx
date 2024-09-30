@@ -7,7 +7,7 @@ export default function Home() {
       <Link href={'/admin'} className="mb-5 block bg-orange-200 text-5xl">
         Go Admin
       </Link>
-      <Link href={'/vendor'} className="block bg-orange-200 text-5xl">
+      <Link href={'/dashboard/vendor/dashboard'} className="block bg-orange-200 text-5xl">
         Go Vendor
       </Link>
     </div>

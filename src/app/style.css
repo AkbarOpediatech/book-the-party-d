@@ -7,3 +7,7 @@
     @apply rounded-lg border border-clr-ab/20 px-3 py-2 placeholder:text-sm focus:outline-none;
   }
 }
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}

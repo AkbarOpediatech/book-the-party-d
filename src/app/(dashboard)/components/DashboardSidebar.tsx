@@ -117,7 +117,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
             <nav className="flex-1">
               <div className="px-6">
                 {/* brand */}
-                <Link href={'/vendor'} className="nav-brand mb-8 block text-black">
+                <Link href={'/dashboard/vendor/dashboard'} className="nav-brand mb-8 block text-black">
                   <Image width={90} height={40} src={DLogo} alt="logo" />
                 </Link>
 
