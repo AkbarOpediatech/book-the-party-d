@@ -69,7 +69,7 @@ const TransactionHistory = () => {
           <div className={cn('relative rounded-lg bg-clr-fb/5 p-3')}>
             <div className={cn('absolute -left-[1px] top-3 h-5 w-1 rounded-sm bg-clr-fb')}></div>
             <div className={cn('text-clr-682 mb-4 text-sm font-medium')}>Selling fees</div>
-            <div className="flex items-end gap-4">
+            <div className="flex items-end justify-between gap-4">
               <div className="unused-class">
                 <h2 className="text-clr-1d mb-1 text-lg font-bold">$5040,0</h2>
                 <p className="flex gap-2 text-sm font-medium text-clr-fb">
@@ -87,7 +87,7 @@ const TransactionHistory = () => {
           <div className={cn('bg-clr-5E/5 relative rounded-lg p-3')}>
             <div className={cn('bg-clr-5E absolute -left-[1px] top-3 h-5 w-1 rounded-sm')}></div>
             <div className={cn('text-clr-682 mb-4 text-sm font-medium')}>Total payout amount</div>
-            <div className="flex items-end gap-4">
+            <div className="flex items-end justify-between gap-4">
               <div className="unused-class">
                 <h2 className="text-clr-1d mb-1 text-lg font-bold">$650,00</h2>
                 <p className="text-clr-5E flex gap-2 text-sm font-medium">
