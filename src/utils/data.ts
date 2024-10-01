@@ -33,13 +33,13 @@ export const vendorNavigation: NavigationItem[] = [
   {
     type: 'button',
     name: 'bookings',
-    href: '/bookings',
+    href: '/dashboard/vendor/bookings',
     icon: BookingsIcon
   },
   {
     type: 'button',
     name: 'listing',
-    href: '/listing',
+    href: '/dashboard/vendor/listing',
     icon: ListingIcon
   },
   {
@@ -49,13 +49,13 @@ export const vendorNavigation: NavigationItem[] = [
   {
     type: 'button',
     name: 'Live chat with admin',
-    href: '/live-chat-with-admin',
+    href: '/dashboard/vendor/chat',
     icon: LiveChatIcon
   },
   {
     type: 'button',
     name: 'Subscription',
-    href: '/live-chat-with-admin',
+    href: '/dashboard/vendor/subscription',
     icon: SubscriptionIcon
   }
 ]

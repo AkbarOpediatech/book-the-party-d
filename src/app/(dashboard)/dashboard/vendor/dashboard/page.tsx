@@ -9,7 +9,7 @@ import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
 
-export default function Vendor() {
+export default function VendorDashboard() {
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 xl:col-span-7">

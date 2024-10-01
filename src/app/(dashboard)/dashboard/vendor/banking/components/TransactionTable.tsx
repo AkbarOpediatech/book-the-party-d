@@ -40,7 +40,7 @@ const TransactionTable = () => {
           </div>
         </div>
         <div className="no-scroll overflow-x-scroll">
-          <table className="w-full min-w-[1200px]">
+          <table className="w-full">
             <thead className="rounded-md bg-red-200">
               <tr className="text-left">
                 <th className="rounded-l-xl bg-clr-f8 p-4">

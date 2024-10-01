@@ -26,7 +26,12 @@ const config: Config = {
         'clr-1d': '#03091D',
         'clr-682': '#747682',
         'clr-0e8': '#1C60E8',
-        'clr-5E': '#23C55E'
+        'clr-5E': '#23C55E',
+        'clr-1c': '#1FB81C',
+        'clr-07': '#FFC107',
+        'clr-d48': '#E11D48',
+        'clr-16': '#229A16',
+        'clr-03': '#B78103'
       },
       backgroundImage: {
         'icon-search': "url('/assets/ic_search.svg')"
