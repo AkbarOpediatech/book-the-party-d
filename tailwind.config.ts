@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sora: ['var(--font-sora)', 'sans-serif'],
+        inter: ['var(--font-inter)', 'sans-serif']
+      },
       colors: {
         'clr-14': '#919EAB14',
         'clr-48': '#394148',
@@ -34,7 +38,8 @@ const config: Config = {
         'clr-03': '#B78103'
       },
       backgroundImage: {
-        'icon-search': "url('/assets/ic_search.svg')"
+        'icon-search': "url('/assets/ic_search.svg')",
+        'gradient-one': 'linear-gradient(180deg, #9042FB 0%, #5204BC 100%)'
       },
       boxShadow: {
         one: '0px 0px 1.742px 0px rgba(145, 158, 171, 0.20), 0px 10.449px 20.899px -3.483px rgba(145, 158, 171, 0.12)'

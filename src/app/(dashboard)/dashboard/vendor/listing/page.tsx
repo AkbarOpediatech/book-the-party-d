@@ -7,7 +7,6 @@ const VendorListing = () => {
     <div className="bg-white px-7 py-10">
       <div className="mb-10 flex items-center justify-between">
         <TitleAndBreadCrumbs title={'My Listings'} menuitem={'Dashboard'} breadcrumbs={'Items'} />
-
         <DashboardButton />
       </div>
       <ListingTable />
