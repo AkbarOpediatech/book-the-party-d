@@ -29,11 +29,11 @@ const TransactionTable = () => {
         <div className="flex flex-wrap items-center justify-between rounded py-5 md:px-6">
           <h2 className="mb-4 text-base text-clr-36 md:mb-0">Transaction History</h2>
           <div className="flex flex-wrap gap-2 md:grid md:flex-none md:grid-cols-4 md:flex-nowrap md:gap-0 md:space-x-4">
-            <input type="date" className="input-date" placeholder="Start date" />
-            <input type="date" className="input-date" placeholder="End date" />
+            <input type="date" className="input" placeholder="Start date" />
+            <input type="date" className="input" placeholder="End date" />
             <input
               type="text"
-              className="input-date bg-left-[20px] col-span-2 bg-icon-search bg-no-repeat pl-9"
+              className="input bg-left-[20px] col-span-2 bg-icon-search bg-no-repeat pl-9"
               style={{ backgroundPosition: 'left 10px center' }}
               placeholder="Search by transaction id"
             />

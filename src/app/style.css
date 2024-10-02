@@ -5,8 +5,8 @@
 
 /* common classes */
 @layer components {
-  .input-date {
-    @apply rounded-lg border border-clr-ab/20 px-3 py-2 placeholder:text-sm focus:outline-none;
+  .input {
+    @apply rounded-lg border border-clr-ab/20 px-3 py-2 placeholder:text-sm focus-within:border-clr-fb hover:border-clr-fb/50 focus:border-clr-fb focus:outline-none;
   }
 }
 

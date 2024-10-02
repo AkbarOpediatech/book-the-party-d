@@ -43,23 +43,23 @@ const BookingTable = () => {
         <button
           className={cn(
             'flex items-center gap-2 border-b-2 border-b-transparent px-6 py-3 text-sm font-semibold capitalize text-clr-81',
-            tab === 1 && 'border-b-clr-03 border-b-2 text-clr-36'
+            tab === 1 && 'border-b-2 border-b-clr-03 text-clr-36'
           )}
           onClick={() => handleTab(1)}
         >
           pending
-          <span className="bg-clr-03/20 rounded-md p-1 text-xs font-bold">24</span>
+          <span className="rounded-md bg-clr-03/20 p-1 text-xs font-bold">24</span>
         </button>
 
         <button
           className={cn(
             'flex items-center gap-2 border-b-2 border-b-transparent px-6 py-3 text-sm font-semibold capitalize text-clr-81',
-            tab === 2 && 'border-b-clr-16 border-b-2 text-clr-36'
+            tab === 2 && 'border-b-2 border-b-clr-16 text-clr-36'
           )}
           onClick={() => handleTab(2)}
         >
           complete
-          <span className="bg-clr-16/20 rounded-md p-1 text-xs font-bold">24</span>
+          <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold">24</span>
         </button>
       </div>
       <div className="rounded-lg rounded-tl-none rounded-tr-none bg-white shadow">
@@ -68,7 +68,7 @@ const BookingTable = () => {
           {/* <div className="flex flex-wrap items-center justify-between rounded py-5 md:px-6"> */}
           <div className="mb-4 flex gap-2 md:grid md:flex-none md:grid-cols-5 md:flex-nowrap md:gap-0 md:space-x-4">
             <Select
-              className={'input-date text-sm text-clr-36 focus:outline-none'}
+              className={'input text-sm text-clr-36 focus:outline-none'}
               name="status"
               aria-label="Categories"
             >
@@ -77,13 +77,13 @@ const BookingTable = () => {
               </option>
             </Select>
 
-            <input type="date" className="input-date" placeholder="Start date" />
+            <input type="date" className="input" placeholder="Start date" />
 
-            <input type="date" className="input-date" placeholder="End date" />
+            <input type="date" className="input" placeholder="End date" />
 
             <input
               type="text"
-              className="input-date bg-left-[20px] col-span-2 bg-icon-search bg-no-repeat pl-9"
+              className="input bg-left-[20px] col-span-2 bg-icon-search bg-no-repeat pl-9"
               style={{ backgroundPosition: 'left 10px center' }}
               placeholder="Search by transaction id"
             />

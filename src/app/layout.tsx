@@ -29,7 +29,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${publicsans.className} ${sora.variable} ${inter.variable}`}>
+      <body
+        className={`${publicsans.className} ${sora.variable} ${inter.variable}`}
+        suppressHydrationWarning={true}
+      >
         <ClientProvider>{children}</ClientProvider>
       </body>
     </html>

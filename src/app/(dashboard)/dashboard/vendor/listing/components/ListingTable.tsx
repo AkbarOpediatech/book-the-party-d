@@ -28,7 +28,7 @@ const ListingTable = () => {
         <div className="flex flex-wrap items-center justify-between rounded py-5 md:px-6">
           <input
             type="text"
-            className="input-date bg-left-[20px] w-full bg-icon-search bg-no-repeat pl-9"
+            className="input bg-left-[20px] w-full bg-icon-search bg-no-repeat pl-9"
             style={{ backgroundPosition: 'left 10px center' }}
             placeholder="Search by transaction id"
           />

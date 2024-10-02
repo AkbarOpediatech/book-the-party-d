@@ -31,7 +31,7 @@ const BookingHistory = () => {
 
       <div className="px-10">
         <Link
-          href={'#'}
+          href={'/dashboard/vendor/bookings'}
           className="block border py-3 text-center text-sm font-bold text-clr-48 hover:bg-slate-100"
         >
           View All

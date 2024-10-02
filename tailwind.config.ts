@@ -39,6 +39,7 @@ const config: Config = {
       },
       backgroundImage: {
         'icon-search': "url('/assets/ic_search.svg')",
+        'icon-arrowdown': "url('/assets/ic-arrowdown.svg')",
         'gradient-one': 'linear-gradient(180deg, #9042FB 0%, #5204BC 100%)'
       },
       boxShadow: {

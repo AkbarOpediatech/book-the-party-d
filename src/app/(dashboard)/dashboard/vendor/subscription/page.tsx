@@ -101,9 +101,13 @@ const VendorSubscription = () => {
           <div className="bg-gradient-one group flex h-full w-full flex-col justify-between rounded-lg border-2 border-clr-fb/50 p-6">
             <div className="unused-class">
               <div className="mb-10">
-                <h2 className="font-sora mb-1 text-2xl font-semibold text-white">Starter</h2>
-                <h1 className="font-sora mb-1 text-3xl font-semibold text-white">$0</h1>
-                <p className="font-sora text-sm font-semibold text-white">per user/month, billed monthly</p>
+                <h2 className="font-sora mb-1 flex items-center gap-2 text-2xl font-semibold text-white">
+                  Pro <span className="rounded bg-slate-50/20 px-2 py-1 text-sm">Most Popular</span>
+                </h2>
+                <h1 className="font-sora mb-1 text-3xl font-semibold text-white">$79</h1>
+                <p className="font-sora text-sm font-semibold text-gray-300">
+                  per user/month, billed monthly
+                </p>
               </div>
 
               <ul className="mb-7">
@@ -134,8 +138,8 @@ const VendorSubscription = () => {
               </ul>
             </div>
 
-            <button className="w-full rounded border border-white px-5 py-2 text-center text-base font-medium text-white group-hover:bg-white group-hover:text-black">
-              Get Started
+            <button className="w-full rounded border border-white bg-white px-5 py-2 text-center text-base font-medium text-black hover:border-black hover:bg-black hover:text-white">
+              Cancel Plan
             </button>
           </div>
         </div>
