@@ -10,8 +10,8 @@ const DashboardMasterCard = () => {
 
   return (
     <div className={cn('flex h-64 flex-col justify-between bg-clr-3f p-6', isBankingPath && 'h-52')}>
-      <div className="flex justify-between">
-        <div>
+      <div className="flex flex-wrap justify-between">
+        <div className="unused-class">
           <small
             className={cn('mb-4 block text-sm font-semibold text-clr-82', isBankingPath && 'mb-3 text-xs')}
           >

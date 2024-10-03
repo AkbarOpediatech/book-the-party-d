@@ -1,7 +1,9 @@
 import DashboardMasterCard from '@/app/(dashboard)/components/DashboardMasterCard'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
-import TransactionHistory from '../components/TransactionHistory'
+import dynamic from 'next/dynamic'
 import TransactionTable from './components/TransactionTable'
+
+const TransactionHistory = dynamic(() => import('../components/TransactionHistory'), { ssr: false })
 
 const VendorBanking = () => {
   return (
