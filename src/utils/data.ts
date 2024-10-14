@@ -15,10 +15,6 @@ import SubscriptionIcon from '/public/assets/ic_subscription.svg'
 
 export const vendorNavigation: NavigationItem[] = [
   {
-    type: 'separator',
-    title: 'General'
-  },
-  {
     type: 'button',
     name: 'dashboard',
     href: '/dashboard/vendor/dashboard',
@@ -42,10 +38,7 @@ export const vendorNavigation: NavigationItem[] = [
     href: '/dashboard/vendor/listing',
     icon: ListingIcon
   },
-  {
-    type: 'separator',
-    title: 'others'
-  },
+
   {
     type: 'button',
     name: 'Live chat with admin',
