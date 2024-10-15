@@ -3,7 +3,7 @@ import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumb
 import dynamic from 'next/dynamic'
 import TransactionTable from './components/TransactionTable'
 
-const TransactionHistory = dynamic(() => import('../components/TransactionHistory'), { ssr: false })
+const TransactionHistory = dynamic(() => import('./components/TransactionHistory'), { ssr: false })
 
 const VendorBanking = () => {
   return (
