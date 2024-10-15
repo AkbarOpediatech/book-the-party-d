@@ -1,5 +1,5 @@
 'use client'
-import { cn, vendorNavigation } from '@/utils'
+import { vendorNavigation } from '@/utils'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -134,32 +134,19 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                 </div>
               </div>
 
-              <div className="dashboard-navigation space-y-1 px-4 py-6">
+              <div className="dashboard-navigation space-y-1 px-4">
                 <ul className="space-y-1">
                   {vendorNavigation.map((items, index) => (
                     <li key={index}>
-                      {items.type === 'button' && (
-                        <Link
-                          href={items.href}
-                          className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
-                        >
-                          <span>
-                            <Image width={24} height={24} src={items.icon} alt="icon" />
-                          </span>
-                          {items.name}
-                        </Link>
-                      )}
-
-                      {items.type === 'separator' && (
-                        <small
-                          className={cn(
-                            `block px-4 text-xs font-bold uppercase text-clr-48`,
-                            items.title === 'others' && 'mb-2 mt-6'
-                          )}
-                        >
-                          {items.title}
-                        </small>
-                      )}
+                      <Link
+                        href={items.href}
+                        className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm font-semibold capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
+                      >
+                        <span>
+                          <Image width={24} height={24} src={items.icon} alt="icon" />
+                        </span>
+                        {items.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>

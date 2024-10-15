@@ -18,29 +18,31 @@ const data = [
 
 const BookingStatistics = () => {
   return (
-    <ResponsiveContainer>
-      <AreaChart
-        data={data}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0
-        }}
-      >
-        <defs>
-          <linearGradient id="colorUv" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#9042fb2e" stopOpacity={1} />
-            <stop offset="100%" stopColor="rgba(45, 153, 255, 0.16)" stopOpacity={0.16} />
-          </linearGradient>
-        </defs>
-        <CartesianGrid vertical={false} strokeDasharray={1} />
-        <XAxis dataKey="name" className="text-xs text-clr-ab" />
-        <YAxis className="mt-5 text-xs text-clr-ab" />
-        <Tooltip />
-        <Area type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} fill="url(#colorUv)" />
-      </AreaChart>
-    </ResponsiveContainer>
+    <div style={{ height: '251px', maxHeight: 'auto' }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={data}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0
+          }}
+        >
+          <defs>
+            <linearGradient id="colorUv" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#9042fb2e" stopOpacity={1} />
+              <stop offset="100%" stopColor="rgba(45, 153, 255, 0.16)" stopOpacity={0.16} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray={1} />
+          <XAxis dataKey="name" axisLine={false} tickLine={false} className="text-xs text-clr-ab" />
+          <YAxis axisLine={false} tickLine={false} className="mt-5 text-xs text-clr-ab" />
+          <Tooltip />
+          <Area type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} fill="url(#colorUv)" />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
 

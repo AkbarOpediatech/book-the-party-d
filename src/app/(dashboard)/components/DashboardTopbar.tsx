@@ -29,8 +29,11 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
         <div className="flex items-center gap-6">
           {/* Notification */}
           <Menu>
-            <MenuButton className={'h-10 w-10 overflow-hidden rounded-full'}>
-              <Image className="h-5 w-5" src={ICNotification} alt="icon" />
+            <MenuButton className="relative">
+              <Image className="size-6" src={ICNotification} alt="icon" />
+              <span className="absolute -top-1 right-0 block size-3 rounded-full bg-clr-fb text-[8px] text-white">
+                8
+              </span>
             </MenuButton>
 
             <MenuItems
@@ -40,22 +43,16 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
               }
             >
               <MenuItem>
-                <Link
-                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-                  href="/settings"
-                >
+                <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                   <WrenchScrewdriverIcon className="size-4 fill-black/30" />
-                  Settings
-                </Link>
+                  notification 1
+                </div>
               </MenuItem>
               <MenuItem>
-                <Link
-                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-                  href="/settings"
-                >
+                <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                   <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                  Logout
-                </Link>
+                  notification 2
+                </div>
               </MenuItem>
             </MenuItems>
           </Menu>

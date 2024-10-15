@@ -37,7 +37,11 @@ export default function VendorDashboard() {
           </div>
         </div>
         {/* Booking Statistics */}
-        <div className="mb-7 h-[500px] w-full rounded-2xl bg-white p-5 shadow-one">
+        <div className="mb-7 w-full rounded-2xl bg-white p-5 shadow-one">
+          <div className="mb-[69px]">
+            <p className="mb-1 font-bold text-clr-36">Booking Statistics</p>
+            <p className="text-xs text-clr-81">(+43%) than last year</p>
+          </div>
           <BookingStatistics />
         </div>
 
