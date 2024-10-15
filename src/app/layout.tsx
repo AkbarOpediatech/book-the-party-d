@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body
-        className={`${publicsans.className} ${sora.variable} ${inter.variable}`}
+        className={`${publicsans.className} ${sora.variable} ${inter.variable} font-Public_sans`}
         suppressHydrationWarning={true}
       >
         <ClientProvider>{children}</ClientProvider>

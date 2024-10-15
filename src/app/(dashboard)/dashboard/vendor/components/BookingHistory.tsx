@@ -14,7 +14,7 @@ const BookingHistory = () => {
           .slice(0, 7)
           .reverse()
           .map((dbhItems, index) => (
-            <li className="mb-6 flex items-center gap-3 rounded-xl p-1 hover:bg-slate-100" key={index}>
+            <li className="mb-4 flex items-center gap-3 rounded-xl p-1 hover:bg-slate-100" key={index}>
               <div className="h-14 w-14 overflow-hidden rounded-xl">
                 <Image src={dbhItems.img} alt="image" />
               </div>

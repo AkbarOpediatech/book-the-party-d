@@ -46,7 +46,10 @@ const DashboardMasterCard = () => {
         </div>
         {/* Withdraw Button  */}
         <button
-          className={cn('rounded-lg bg-clr-fb px-4 py-3 text-sm font-bold text-white', 'px-3 py-2 text-xs')}
+          className={cn(
+            'rounded-lg bg-clr-fb px-4 py-3 text-sm font-bold text-white',
+            false && 'px-3 py-2 text-xs'
+          )}
         >
           Withdraw
         </button>
