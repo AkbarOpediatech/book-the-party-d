@@ -6,3 +6,4 @@ export function cn(...args: ClassValue[]) {
 }
 
 export * from '../utils/data'
+export * from '../utils/type'
