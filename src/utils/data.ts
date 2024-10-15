@@ -1,4 +1,4 @@
-import type { IChartData, IDashboardBookingHistory, INavigationItem } from './type'
+import type { IChartData, IDashboardBookingHistory, INavigationItem, ITransactionType } from './type'
 import BHistory2 from '/public/assets/booking-history-2.png'
 import BHistory3 from '/public/assets/booking-history-3.png'
 import BHistory4 from '/public/assets/booking-history-4.png'
@@ -195,5 +195,35 @@ export const payoutData: IChartData[] = [
   {
     name: 'Page G',
     pv: 3800
+  }
+]
+
+export const transactions: ITransactionType[] = [
+  {
+    id: 1,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Security deposit held',
+    image: BHistory
+  },
+  {
+    id: 2,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Payout amount',
+    image: BHistory
+  },
+  {
+    id: 3,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Amount withdrawn',
+    image: BHistory
   }
 ]

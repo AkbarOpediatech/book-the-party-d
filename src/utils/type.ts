@@ -16,3 +16,13 @@ export type IChartData = {
   name: string
   pv: number
 }
+
+export type ITransactionType = {
+  id: number
+  title: string
+  description: string
+  amount: string
+  date: string
+  status: string
+  image: any
+}
