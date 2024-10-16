@@ -3,6 +3,7 @@ import type {
   IBookingData,
   IChartData,
   IDashboardBookingHistory,
+  IListingsData,
   INavigationItem,
   ITransactionType
 } from './type'
@@ -301,6 +302,36 @@ export const bookingData: IBookingData[] = [
     fee: 70.5,
     totalPayout: 690.48,
     status: 'Request payout',
+    image: BHistory
+  }
+]
+
+export const listingsData: IListingsData[] = [
+  {
+    id: 1,
+    itemName: 'Wedding Decoration',
+    itemDescription: 'Description about the vendor',
+    category: 'Party Set up',
+    price: 250.0,
+    totalBookings: 42,
+    image: BHistory
+  },
+  {
+    id: 2,
+    itemName: 'Wedding Decoration',
+    itemDescription: 'Description about the vendor',
+    category: 'Party Set up',
+    price: 250.0,
+    totalBookings: 42,
+    image: BHistory
+  },
+  {
+    id: 3,
+    itemName: 'Wedding Decoration',
+    itemDescription: 'Description about the vendor',
+    category: 'Party Set up',
+    price: 250.0,
+    totalBookings: 42,
     image: BHistory
   }
 ]

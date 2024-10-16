@@ -35,17 +35,18 @@ const BookingAllTable = () => {
     },
     {
       name: 'Sale Total',
-      selector: (row: IBookingData) => row.saleTotal,
+      cell: (row: IBookingData) => <div>${row.saleTotal}</div>,
       sortable: true
     },
     {
       name: 'Fee(10%)',
-      selector: (row: IBookingData) => row.fee,
+      cell: (row: IBookingData) => <div>${row.fee}</div>,
+
       sortable: true
     },
     {
       name: 'Total payout(incl GST)',
-      selector: (row: IBookingData) => row.fee,
+      cell: (row: IBookingData) => <div>${row.totalPayout}</div>,
       sortable: true
     },
     {

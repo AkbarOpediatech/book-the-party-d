@@ -44,3 +44,13 @@ export type IBookingData = {
   status: string
   image: any
 }
+
+export type IListingsData = {
+  id: number
+  itemName: string
+  itemDescription: string
+  category: string
+  price: number
+  totalBookings: number
+  image: any
+}
