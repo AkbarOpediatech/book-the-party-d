@@ -1,4 +1,11 @@
-import type { IChartData, IDashboardBookingHistory, INavigationItem, ITransactionType } from './type'
+import type {
+  IBookingAnalytics,
+  IBookingData,
+  IChartData,
+  IDashboardBookingHistory,
+  INavigationItem,
+  ITransactionType
+} from './type'
 import BHistory2 from '/public/assets/booking-history-2.png'
 import BHistory3 from '/public/assets/booking-history-3.png'
 import BHistory4 from '/public/assets/booking-history-4.png'
@@ -8,10 +15,14 @@ import BHistory7 from '/public/assets/booking-history-7.png'
 import BHistory from '/public/assets/booking-history.png'
 import BankingIcon from '/public/assets/ic_banking.svg'
 import BookingsIcon from '/public/assets/ic_booking.svg'
+import Canceled from '/public/assets/ic_canceled.svg'
 import LiveChatIcon from '/public/assets/ic_chat.svg'
+import Complete from '/public/assets/ic_complete.svg'
 import DashboardIcon from '/public/assets/ic_dashboard.svg'
 import ListingIcon from '/public/assets/ic_ecommerce.svg'
+import Pending from '/public/assets/ic_pending.svg'
 import SubscriptionIcon from '/public/assets/ic_subscription.svg'
+import Total from '/public/assets/ic_total.svg'
 
 export const vendorNavigation: INavigationItem[] = [
   {
@@ -224,6 +235,72 @@ export const transactions: ITransactionType[] = [
     amount: '$250.00',
     date: '19 Jul 2022',
     status: 'Amount withdrawn',
+    image: BHistory
+  }
+]
+
+export const bookingAnalytics: IBookingAnalytics[] = [
+  {
+    pic: Total,
+    title: 'Total',
+    amount: 24,
+    price: 27500
+  },
+  {
+    pic: Complete,
+    title: 'Completed',
+    amount: 20,
+    price: 4460.61
+  },
+  {
+    pic: Pending,
+    title: 'Pending',
+    amount: 4,
+    price: 4900.51
+  },
+  {
+    pic: Canceled,
+    title: 'Cancelled',
+    amount: 3,
+    price: 4900.51
+  }
+]
+
+export const bookingData: IBookingData[] = [
+  {
+    id: 1,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
+    image: BHistory
+  },
+  {
+    id: 2,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
+    image: BHistory
+  },
+  {
+    id: 3,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
     image: BHistory
   }
 ]
