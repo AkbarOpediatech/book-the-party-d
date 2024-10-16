@@ -32,3 +32,15 @@ export type IBookingAnalytics = {
   amount: number
   price: number
 }
+export type IBookingData = {
+  id: number
+  eventTitle: string
+  eventId: string
+  startDate: string
+  endDate: string
+  saleTotal: number
+  fee: number
+  totalPayout: number
+  status: string
+  image: any
+}

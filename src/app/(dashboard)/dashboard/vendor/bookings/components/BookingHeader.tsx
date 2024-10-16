@@ -1,6 +1,6 @@
 const BookingHeader = () => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded pb-5 pt-3 md:px-4 lg:flex-nowrap">
+    <div className="flex flex-wrap items-center justify-between gap-4 rounded pb-3 pt-5 md:px-4 lg:flex-nowrap">
       <div className="relative">
         <span className="absolute -top-2.5 left-2 block bg-white text-xs text-clr-ab">Categories</span>
         <select name="status" className="input w-[160px] flex-shrink-0 text-base">

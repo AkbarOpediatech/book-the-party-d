@@ -19,7 +19,8 @@ const TransactionHistoryTable = () => {
           </div>
         </div>
       ),
-      sortable: true
+      sortable: true,
+      width: '350px'
     },
     {
       name: 'Amount',
@@ -34,13 +35,14 @@ const TransactionHistoryTable = () => {
     {
       name: 'ID',
       selector: (row: ITransactionType) => row.id,
-      sortable: true
+      sortable: true,
+      width: '100px'
     },
     {
       name: 'Status',
       cell: (row: ITransactionType) => (
         <span
-          className={`rounded px-2 py-1 font-bold ${row.status === 'Security deposit held' ? 'bg-yellow-100 text-yellow-500' : row.status === 'Payout amount' ? 'bg-green-100 text-green-500' : row.status === 'Amount withdrawn' ? 'bg-red-100 text-red-500' : ''}`}
+          className={`whitespace-nowrap rounded px-2 py-1 font-bold ${row.status === 'Security deposit held' ? 'bg-yellow-100 text-yellow-500' : row.status === 'Payout amount' ? 'bg-green-100 text-green-500' : row.status === 'Amount withdrawn' ? 'bg-red-100 text-red-500' : ''}`}
         >
           {row.status}
         </span>
@@ -74,7 +76,8 @@ const TransactionHistoryTable = () => {
             </MenuItem>
           </MenuItems>
         </Menu>
-      )
+      ),
+      width: '50px'
     }
   ]
 

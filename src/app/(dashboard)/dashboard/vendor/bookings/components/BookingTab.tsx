@@ -1,9 +1,12 @@
 'use client'
 import { cn } from '@/utils'
-import { useState } from 'react'
 
-const BookingTab = () => {
-  const [tab, setTab] = useState<number>(0)
+type IProps = {
+  tab: any
+  setTab: any
+}
+
+const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (
     <div className="flex rounded-tl-lg rounded-tr-lg bg-clr-f8">
       <button

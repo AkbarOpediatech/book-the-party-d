@@ -1,5 +1,6 @@
 import type {
   IBookingAnalytics,
+  IBookingData,
   IChartData,
   IDashboardBookingHistory,
   INavigationItem,
@@ -262,5 +263,44 @@ export const bookingAnalytics: IBookingAnalytics[] = [
     title: 'Cancelled',
     amount: 3,
     price: 4900.51
+  }
+]
+
+export const bookingData: IBookingData[] = [
+  {
+    id: 1,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
+    image: BHistory
+  },
+  {
+    id: 2,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
+    image: BHistory
+  },
+  {
+    id: 3,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Request payout',
+    image: BHistory
   }
 ]
