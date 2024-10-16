@@ -26,3 +26,9 @@ export type ITransactionType = {
   status: string
   image: any
 }
+export type IBookingAnalytics = {
+  pic: any
+  title: any
+  amount: number
+  price: number
+}
