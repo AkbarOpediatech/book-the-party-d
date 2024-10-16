@@ -14,3 +14,12 @@
 .no-scroll::-webkit-scrollbar {
   display: none;
 }
+input[type='date']::-webkit-calendar-picker-indicator {
+  opacity: 0.3;
+}
+
+.hudJpJ {
+  border: none !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+}

@@ -1,4 +1,4 @@
-import { DashboardBookingHistory, NavigationItem } from '../type/type'
+import type { IChartData, IDashboardBookingHistory, INavigationItem, ITransactionType } from './type'
 import BHistory2 from '/public/assets/booking-history-2.png'
 import BHistory3 from '/public/assets/booking-history-3.png'
 import BHistory4 from '/public/assets/booking-history-4.png'
@@ -13,7 +13,7 @@ import DashboardIcon from '/public/assets/ic_dashboard.svg'
 import ListingIcon from '/public/assets/ic_ecommerce.svg'
 import SubscriptionIcon from '/public/assets/ic_subscription.svg'
 
-export const vendorNavigation: NavigationItem[] = [
+export const vendorNavigation: INavigationItem[] = [
   {
     type: 'button',
     name: 'dashboard',
@@ -53,7 +53,7 @@ export const vendorNavigation: NavigationItem[] = [
   }
 ]
 
-export const dashboardBookingHistory: DashboardBookingHistory[] = [
+export const dashboardBookingHistory: IDashboardBookingHistory[] = [
   {
     id: 1,
     img: BHistory,
@@ -102,5 +102,128 @@ export const dashboardBookingHistory: DashboardBookingHistory[] = [
     link: '/',
     title: 'Wedding Decoration',
     desc: 'Description about the vendor'
+  }
+]
+
+export const salesData: IChartData[] = [
+  {
+    name: 'Page A',
+    pv: 2400
+  },
+  {
+    name: 'Page B',
+    pv: 1398
+  },
+  {
+    name: 'Page C',
+    pv: 9800
+  },
+  {
+    name: 'Page D',
+    pv: 3908
+  },
+  {
+    name: 'Page E',
+    pv: 4800
+  },
+  {
+    name: 'Page F',
+    pv: 3800
+  },
+  {
+    name: 'Page G',
+    pv: 4300
+  }
+]
+
+export const feesData: IChartData[] = [
+  {
+    name: 'Page A',
+    pv: 3800
+  },
+  {
+    name: 'Page B',
+    pv: 1398
+  },
+  {
+    name: 'Page C',
+    pv: 2400
+  },
+  {
+    name: 'Page D',
+    pv: 3908
+  },
+  {
+    name: 'Page E',
+    pv: 4800
+  },
+  {
+    name: 'Page F',
+    pv: 4300
+  },
+  {
+    name: 'Page G',
+    pv: 9800
+  }
+]
+
+export const payoutData: IChartData[] = [
+  {
+    name: 'Page A',
+    pv: 4800
+  },
+  {
+    name: 'Page B',
+    pv: 1398
+  },
+  {
+    name: 'Page C',
+    pv: 2400
+  },
+  {
+    name: 'Page D',
+    pv: 3908
+  },
+  {
+    name: 'Page E',
+    pv: 9800
+  },
+  {
+    name: 'Page F',
+    pv: 4300
+  },
+  {
+    name: 'Page G',
+    pv: 3800
+  }
+]
+
+export const transactions: ITransactionType[] = [
+  {
+    id: 1,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Security deposit held',
+    image: BHistory
+  },
+  {
+    id: 2,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Payout amount',
+    image: BHistory
+  },
+  {
+    id: 3,
+    title: 'Wedding Decoration',
+    description: 'Description about the vendor',
+    amount: '$250.00',
+    date: '19 Jul 2022',
+    status: 'Amount withdrawn',
+    image: BHistory
   }
 ]
