@@ -11,7 +11,8 @@ const VendorListing = () => {
         <TitleAndBreadCrumbs title={'My Listings'} menuitem={'Dashboard'} breadcrumbs={'Items'} />
         <DashboardButton
           name={'New listing'}
-          type="button"
+          type="link"
+          linkUrl="/dashboard/vendor/listing/add-new"
           icon={<PlusIcon className="size-4 font-bold" />}
         />
       </div>
