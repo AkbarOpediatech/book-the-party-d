@@ -2,8 +2,8 @@
 import { useState } from 'react'
 import AddNew from './components/AddNew'
 import ItemList from './components/ItemList'
-import SetAvailability from './components/SetAvailability'
 import ItemPricing from './components/ItemPricing'
+import SetAvailability from './components/SetAvailability'
 
 const AddNewListing = () => {
   const [step, setStep] = useState<number>(0)
@@ -12,7 +12,7 @@ const AddNewListing = () => {
       {step === 0 && <AddNew setStep={setStep} />}
       {step === 1 && <ItemList setStep={setStep} />}
       {step === 2 && <SetAvailability setStep={setStep} />}
-      {step === 3 && <ItemPricing setStep={setStep} />}
+      {step === 3 && <ItemPricing />}
     </div>
   )
 }

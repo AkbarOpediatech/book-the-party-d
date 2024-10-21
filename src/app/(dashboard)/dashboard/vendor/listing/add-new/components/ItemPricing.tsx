@@ -1,15 +1,15 @@
+'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
-type IProps = {
-  setStep: any
-}
+const ItemPricing = () => {
+  const router = useRouter()
 
-const ItemPricing: React.FC<IProps> = ({ setStep }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setStep(0)
+    router.push('/dashboard/vendor/listing?modal=true')
   }
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
