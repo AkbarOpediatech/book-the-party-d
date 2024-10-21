@@ -14,14 +14,39 @@ const AddNew: React.FC<IProps> = ({ setStep }) => {
           label="Categories"
           type="select"
           customClass="mb-4"
-          options={['Party Packages', 'Party Packages', 'Party Packages']}
+          options={[
+            'Party Packages',
+            'Backdrops & Décor Props',
+            'Tables & Seating',
+            'Vehicle Hire',
+            'Outdoor Hire',
+            'Kid’s Party Entertainment',
+            'Sound, lighting & visual',
+            'Food & Beverage'
+          ]}
         />
         <FormInput
           name="subcategories"
           label="Sub Categories"
           type="select"
           customClass="pb-6 border-b"
-          options={['Birthday', 'Birthday', 'Birthday']}
+          options={[
+            'Themed Party Packages',
+            'Birthday',
+            'Engagement',
+            'Wedding',
+            'Birthday',
+            'Baby Shower',
+            'Bridal Shower',
+            'Gender Reveal',
+            'Graduation',
+            'Marriage Proposal',
+            'Eid',
+            'Fatiha',
+            'Katab el kitab',
+            'Christening',
+            'Baptism'
+          ]}
         />
         <DashboardButton name="Continue" type="button" className="mt-5" onClick={() => setStep(1)} />
       </form>
