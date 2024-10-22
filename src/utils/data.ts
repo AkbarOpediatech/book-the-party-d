@@ -346,3 +346,5 @@ export const listingImportantInfo: string[] = [
   " Being perishable in nature, it's recommended to consume the cake within hours of receiving it.",
   'Flavor can be changed as per choice (charges may vary)'
 ]
+
+export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
