@@ -28,3 +28,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 10px !important;
   overflow: hidden;
 }
+
+.listing-details-inclusion span {
+  color: #9042fb;
+}
