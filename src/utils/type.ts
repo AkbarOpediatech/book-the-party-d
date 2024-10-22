@@ -54,3 +54,9 @@ export type IListingsData = {
   totalBookings: number
   image: any
 }
+
+export type IEventFeatures = {
+  id: number
+  icon: any
+  name: string
+}

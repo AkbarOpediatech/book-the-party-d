@@ -3,10 +3,12 @@ import type {
   IBookingData,
   IChartData,
   IDashboardBookingHistory,
+  IEventFeatures,
   IListingsData,
   INavigationItem,
   ITransactionType
 } from './type'
+import ICKid from '/public/assets//ic-kid.svg'
 import BHistory2 from '/public/assets/booking-history-2.png'
 import BHistory3 from '/public/assets/booking-history-3.png'
 import BHistory4 from '/public/assets/booking-history-4.png'
@@ -14,6 +16,13 @@ import BHistory5 from '/public/assets/booking-history-5.png'
 import BHistory6 from '/public/assets/booking-history-6.png'
 import BHistory7 from '/public/assets/booking-history-7.png'
 import BHistory from '/public/assets/booking-history.png'
+import ICDisplay from '/public/assets/ic-display.svg'
+import ICFood from '/public/assets/ic-food.svg'
+import ICOutdoor from '/public/assets/ic-outdoor.svg'
+import ICPackage from '/public/assets/ic-package.svg'
+import ICTableSetting from '/public/assets/ic-table-setting.svg'
+import ICVehicle from '/public/assets/ic-vehicle.svg'
+import ICVisual from '/public/assets/ic-visual.svg'
 import BankingIcon from '/public/assets/ic_banking.svg'
 import BookingsIcon from '/public/assets/ic_booking.svg'
 import Canceled from '/public/assets/ic_canceled.svg'
@@ -333,5 +342,49 @@ export const listingsData: IListingsData[] = [
     price: 250.0,
     totalBookings: 42,
     image: BHistory
+  }
+]
+
+// landing page
+export const eventFeatures: IEventFeatures[] = [
+  {
+    id: 1,
+    icon: ICPackage,
+    name: 'Party Packages'
+  },
+  {
+    id: 2,
+    icon: ICDisplay,
+    name: 'Backdrops, floral & display props'
+  },
+  {
+    id: 3,
+    icon: ICTableSetting,
+    name: 'Table & Seating'
+  },
+  {
+    id: 4,
+    icon: ICVehicle,
+    name: 'Vehicle hire'
+  },
+  {
+    id: 5,
+    icon: ICFood,
+    name: 'Food & Bevarage'
+  },
+  {
+    id: 6,
+    icon: ICVisual,
+    name: 'Sound, lighting & visual'
+  },
+  {
+    id: 7,
+    icon: ICOutdoor,
+    name: 'Outdoor hire'
+  },
+  {
+    id: 8,
+    icon: ICKid,
+    name: "Kid's party entertainment"
   }
 ]
