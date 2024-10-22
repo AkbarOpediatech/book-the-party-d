@@ -64,7 +64,7 @@ const Inclusions = () => {
           name="inclusion"
           placeholder="Write here"
           type="text"
-          value={newInclusion}
+          // value={newInclusion}
           onChange={handleInputChange}
           // onKeyPress={handleKeyPress} // Press Enter to add inclusion
         />
