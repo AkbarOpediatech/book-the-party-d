@@ -91,13 +91,13 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                             </Link>
                           )}
 
-                          {items.type === 'separator' && (
+                          {/* {items.type === 'separator' && (
                             <small
                               className={`block px-4 text-xs font-bold uppercase text-clr-48 ${items.className}`}
                             >
                               {items.title}
                             </small>
-                          )}
+                          )} */}
                         </li>
                       ))}
                     </ul>
