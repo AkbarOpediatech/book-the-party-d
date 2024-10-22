@@ -2,6 +2,7 @@ import { listingsData, type IListingsData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
+import Link from 'next/link'
 import DataTable, { type TableColumn } from 'react-data-table-component'
 
 const ListingTable = () => {
@@ -9,7 +10,7 @@ const ListingTable = () => {
     {
       name: 'Item Name',
       cell: (row: IListingsData) => (
-        <div className="flex items-center gap-4">
+        <Link href={`/dashboard/vendor/listings/${row.id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
             <Image src={row.image} alt="Product Image" />
           </div>
@@ -17,7 +18,7 @@ const ListingTable = () => {
             <p className="text-sm font-semibold text-clr-36">{row.itemName}</p>
             <p className="text-sm text-clr-81">{row.itemDescription}</p>
           </div>
-        </div>
+        </Link>
       ),
       sortable: true,
       width: '400px'

@@ -4,6 +4,7 @@ import ListingTable from './ListingTable'
 
 const Listings = () => {
   const [tab, setTab] = useState<number>(0)
+
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
       <ListingTab tab={tab} setTab={setTab} />

@@ -24,7 +24,7 @@ const VendorListing = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    router.push('/dashboard/vendor/listing')
+    router.push('/dashboard/vendor/listings')
   }
 
   return (
@@ -34,7 +34,7 @@ const VendorListing = () => {
         <DashboardButton
           name={'New listing'}
           type="link"
-          linkUrl="/dashboard/vendor/listing/add-new"
+          linkUrl="/dashboard/vendor/listings/add-new"
           icon={<PlusIcon className="size-4 font-bold" />}
         />
       </div>

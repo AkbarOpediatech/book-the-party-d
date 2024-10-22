@@ -47,7 +47,7 @@ export const vendorNavigation: INavigationItem[] = [
   {
     type: 'button',
     name: 'listing',
-    href: '/dashboard/vendor/listing',
+    href: '/dashboard/vendor/listings',
     icon: ListingIcon
   },
 

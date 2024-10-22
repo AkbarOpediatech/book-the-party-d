@@ -17,7 +17,7 @@ const ItemPricing = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    router.push('/dashboard/vendor/listing?modal=true')
+    router.push('/dashboard/vendor/listings?modal=true')
   }
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
