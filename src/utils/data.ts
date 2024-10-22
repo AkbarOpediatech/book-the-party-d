@@ -335,3 +335,16 @@ export const listingsData: IListingsData[] = [
     image: BHistory
   }
 ]
+export const listingInclusions: string[] = [
+  'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
+  'We will be able to match 90% to the picture of the cake on the website. The color, shape and size are indicative in nature.',
+  'Delivery is available within the city limits.',
+  'The order can only be cancelled <span>BEFORE 48 HOURS OF THE EVENT DATE.</span> '
+]
+export const listingImportantInfo: string[] = [
+  'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
+  " Being perishable in nature, it's recommended to consume the cake within hours of receiving it.",
+  'Flavor can be changed as per choice (charges may vary)'
+]
+
+export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
