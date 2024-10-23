@@ -9,7 +9,7 @@ type IProps = {
 const ItemList: React.FC<IProps> = ({ setStep }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // setStep(2)
+    setStep(2)
   }
 
   return (
