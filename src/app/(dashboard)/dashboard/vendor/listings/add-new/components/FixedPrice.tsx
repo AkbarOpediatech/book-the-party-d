@@ -3,7 +3,6 @@ import FormInput from '@/app/(dashboard)/components/FormInput'
 const FixedPrice = () => {
   return (
     <div>
-      {' '}
       <FormInput name="priceValue" type="number" placeholder="$450.00" customClass="mb-4" />
       <div>
         <p className="mb-3 text-clr-ab">Security Deposit Amount</p>
