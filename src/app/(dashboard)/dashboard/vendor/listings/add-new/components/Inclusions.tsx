@@ -1,28 +1,27 @@
-import FormInput from '@/app/(dashboard)/components/FormInput'
-import { CheckCircleIcon } from '@heroicons/react/24/outline'
-import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
-import { useState } from 'react'
+import { CheckCircleIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react'
 
 const Inclusions = () => {
   const [inclusions, setInclusions] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
-  const [newInclusion, setNewInclusion] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewInclusion(e.target.value)
+    setInputValue(e.target.value)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // if (e.key === 'Enter' && newInclusion.trim()) {
-    //   e.preventDefault() // Prevent form submission
-    //   setInclusions([...inclusions, newInclusion.trim()])
-    //   setNewInclusion('') // Clear the input
-    //   // setIsAdding(false) // Hide the input field
-    // }
+    if (e.key === 'Enter' && inputValue.trim()) {
+      e.preventDefault()
+      setInclusions([inputValue.trim(), ...inclusions])
+      setInputValue('')
+      setIsAdding(false)
+    }
   }
 
   const handleAddNew = () => {
     setIsAdding(true)
+    setInputValue('')
   }
 
   const handleRemoveInclusion = (index: number) => {
@@ -41,8 +40,8 @@ const Inclusions = () => {
             <p className="max-w-[428px] text-sm font-medium">{inclusion}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button>
-              <PlusCircleIcon className="size-4 text-gray-400" onClick={handleAddNew} />
+            <button onClick={handleAddNew}>
+              <PlusCircleIcon className="size-4 text-gray-400" />
             </button>
             <button onClick={() => handleRemoveInclusion(index)}>
               <TrashIcon className="size-4 text-gray-400" />
@@ -52,14 +51,16 @@ const Inclusions = () => {
       ))}
 
       {isAdding && (
-        <FormInput
-          name="inclusion"
-          placeholder="Write here"
-          type="text"
-          // value={newInclusion}
-          onChange={handleInputChange}
-          // onKeyPress={handleKeyPress}
-        />
+        <div className="relative z-10 mb-4">
+          <input
+            type="text"
+            placeholder="Write here"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
       )}
 
       {!isAdding && inclusions.length === 0 && (
