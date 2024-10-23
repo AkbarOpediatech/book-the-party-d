@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
+import { useState } from 'react'
 
 const MultiplePrice = () => {
   const [priceRanges, setPriceRanges] = useState([{ range: '', price: '', error: '' }])
@@ -60,7 +60,7 @@ const MultiplePrice = () => {
               <TrashIcon className="h-5 w-5 fill-gray-400" />
             </button>
           </div>
-          {/* Error message */}
+
           {row.error && <p className="text-sm text-red-500">{row.error}</p>}
         </div>
       ))}

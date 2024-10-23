@@ -10,14 +10,14 @@ const VendorSubscription = () => {
         breadcrumbs="Subscription"
         className="mb-10"
       />
-      {/* subscriptions */}
+
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-12 md:col-span-4">
           <div className="group flex h-full w-full flex-col justify-between rounded-lg border-2 border-clr-fb/50 p-6">
             <div className="unused-class">
               <div className="mb-10">
-                <h2 className="font-sora mb-1 text-2xl font-semibold text-black">Starter</h2>
-                <h1 className="font-sora mb-1 text-3xl font-semibold text-black">$0</h1>
+                <h2 className="mb-1 font-sora text-2xl font-semibold text-black">Starter</h2>
+                <h1 className="mb-1 font-sora text-3xl font-semibold text-black">$0</h1>
               </div>
 
               <ul className="mb-7">
@@ -58,8 +58,8 @@ const VendorSubscription = () => {
           <div className="group flex h-full w-full flex-col justify-between rounded-lg border-2 border-clr-fb/50 p-6">
             <div className="unused-class">
               <div className="mb-10">
-                <h2 className="font-sora mb-1 text-2xl font-semibold text-black">Starter</h2>
-                <h1 className="font-sora mb-1 text-3xl font-semibold text-black">$0</h1>
+                <h2 className="mb-1 font-sora text-2xl font-semibold text-black">Starter</h2>
+                <h1 className="mb-1 font-sora text-3xl font-semibold text-black">$0</h1>
                 <p className="font-sora text-sm font-semibold text-black">per user/month, billed monthly</p>
               </div>
 
@@ -98,13 +98,13 @@ const VendorSubscription = () => {
         </div>
 
         <div className="col-span-12 md:col-span-4">
-          <div className="bg-gradient-one group flex h-full w-full flex-col justify-between rounded-lg border-2 border-clr-fb/50 p-6">
+          <div className="group flex h-full w-full flex-col justify-between rounded-lg border-2 border-clr-fb/50 bg-gradient-one p-6">
             <div className="unused-class">
               <div className="mb-10">
-                <h2 className="font-sora mb-1 flex items-center gap-2 text-2xl font-semibold text-white">
+                <h2 className="mb-1 flex items-center gap-2 font-sora text-2xl font-semibold text-white">
                   Pro <span className="rounded bg-slate-50/20 px-2 py-1 text-sm">Most Popular</span>
                 </h2>
-                <h1 className="font-sora mb-1 text-3xl font-semibold text-white">$79</h1>
+                <h1 className="mb-1 font-sora text-3xl font-semibold text-white">$79</h1>
                 <p className="font-sora text-sm font-semibold text-gray-300">
                   per user/month, billed monthly
                 </p>

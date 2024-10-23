@@ -19,7 +19,6 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
 
   return (
     <>
-      {/* Mobile menu */}
       <Transition show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>
           <TransitionChild
@@ -57,12 +56,10 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                 </div>
                 <nav className="flex-1">
                   <div className="px-6">
-                    {/* brand */}
                     <Link href={'/vendor'} className="nav-brand mb-8 block text-black">
                       <Image width={90} height={40} src={DLogo} alt="logo" />
                     </Link>
 
-                    {/* user info */}
                     <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
                       <div className="user-img h-10 w-10 overflow-hidden rounded-full">
                         <Image src={Avatar} alt="avatar" />
@@ -90,14 +87,6 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                               {items.name}
                             </Link>
                           )}
-
-                          {/* {items.type === 'separator' && (
-                            <small
-                              className={`block px-4 text-xs font-bold uppercase text-clr-48 ${items.className}`}
-                            >
-                              {items.title}
-                            </small>
-                          )} */}
                         </li>
                       ))}
                     </ul>
@@ -110,18 +99,15 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
         </Dialog>
       </Transition>
 
-      {/* Static sidebar for desktop */}
       <div className="hidden h-screen lg:flex lg:flex-shrink-0">
         <div className="flex w-72 flex-col bg-white py-[26px]">
           <div className="h-0 flex-1 overflow-y-auto">
             <nav className="flex-1">
               <div className="px-6">
-                {/* brand */}
                 <Link href={'/dashboard/vendor/dashboard'} className="nav-brand mb-8 block text-black">
                   <Image width={90} height={40} src={DLogo} alt="logo" />
                 </Link>
 
-                {/* user info */}
                 <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
                   <div className="user-img h-10 w-10 overflow-hidden rounded-full">
                     <Image src={Avatar} alt="avatar" />
