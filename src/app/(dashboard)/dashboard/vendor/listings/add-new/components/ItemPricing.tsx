@@ -11,7 +11,9 @@ const ItemPricing = () => {
   const router = useRouter()
   const [pricingType, setPricingType] = useState<string>('Fixed Price')
 
-  const handlePricingTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePricingTypeChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setPricingType(e.target.value)
   }
 

@@ -5,7 +5,9 @@ type IProps = {
   placeholder?: string
   customClass?: string
   options?: string[]
-  onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void | undefined
 }
 const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, placeholder, onChange }) => {
   return (
