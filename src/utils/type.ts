@@ -54,3 +54,11 @@ export type IListingsData = {
   totalBookings: number
   image: any
 }
+
+export type ISubscriptionDetails = {
+  title: string
+  description?: string
+  tag?: string
+  price: number
+  details: string[]
+}
