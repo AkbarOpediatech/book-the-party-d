@@ -34,6 +34,23 @@ import Pending from '/public/assets/ic_pending.svg'
 import SubscriptionIcon from '/public/assets/ic_subscription.svg'
 import Total from '/public/assets/ic_total.svg'
 
+import PackImg1 from '/public/assets/package1.png'
+import PackImg3 from '/public/assets/package3.png'
+import PackImg4 from '/public/assets/package4.png'
+import PackImg5 from '/public/assets/package5.png'
+import PackImg6 from '/public/assets/package6.png'
+import PackImg7 from '/public/assets/package7.png'
+import PackImg8 from '/public/assets/package8.png'
+
+import discoverImg from '/public/assets/discover-img.png'
+import discoverImg2 from '/public/assets/discover-img2.png'
+import discoverImg3 from '/public/assets/discover-img3.png'
+
+import occasionImg1 from '/public/assets/occasion-img1.png'
+import occasionImg2 from '/public/assets/occasion-img2.png'
+import occasionImg3 from '/public/assets/occasion-img3.png'
+import occasionImg4 from '/public/assets/occasion-img4.png'
+
 export const vendorNavigation: INavigationItem[] = [
   {
     type: 'button',
@@ -388,6 +405,164 @@ export const eventFeatures: IEventFeatures[] = [
     name: "Kid's party entertainment"
   }
 ]
+
+export const specialPackages = [
+  {
+    id: 1,
+    img: PackImg1,
+    name: 'Painting',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 2,
+    img: PackImg4,
+    name: 'Magician',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 3,
+    img: PackImg3,
+    name: 'Clown',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 4,
+    img: PackImg4,
+    name: 'Animals',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 5,
+    img: PackImg5,
+    name: 'Catering',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 6,
+    img: PackImg6,
+    name: 'Sports car',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 7,
+    img: PackImg7,
+    name: 'Animals',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 8,
+    img: PackImg8,
+    name: 'Painting',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 9,
+    img: PackImg3,
+    name: 'Animals',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 10,
+    img: PackImg1,
+    name: 'Sports car',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 11,
+    img: PackImg5,
+    name: 'Magician',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 12,
+    img: PackImg3,
+    name: 'Clown',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 13,
+    img: PackImg4,
+    name: 'Animals',
+    desc: '8 special packages',
+    url: '#'
+  },
+  {
+    id: 14,
+    img: PackImg5,
+    name: 'Catering',
+    desc: '8 special packages',
+    url: '#'
+  }
+]
+
+export const discoverItems = [
+  {
+    id: 1,
+    img: discoverImg,
+    name: 'Sydney',
+    url: '#'
+  },
+  {
+    id: 2,
+    img: discoverImg2,
+    name: 'Brisbane',
+    url: '#'
+  },
+  {
+    id: 3,
+    img: discoverImg3,
+    name: 'Melbourne',
+    url: '#'
+  }
+]
+
+export const occasionItems = [
+  {
+    id: 1,
+    img: occasionImg1,
+    name: 'Capturing your love story',
+    linkName: 'Marriage Proposal',
+    url: '#',
+    bgColor: '#96B487'
+  },
+  {
+    id: 2,
+    img: occasionImg2,
+    name: 'Celebrate Faith',
+    linkName: 'Religious Event',
+    url: '#',
+    bgColor: '#A1A3D8'
+  },
+  {
+    id: 3,
+    img: occasionImg3,
+    name: 'Your dream wedding awaits',
+    linkName: 'Wedding',
+    url: '#',
+    bgColor: '#D1AC73'
+  },
+  {
+    id: 4,
+    img: occasionImg4,
+    name: 'A bundle of joy is on the way',
+    linkName: 'Baby Shower',
+    url: '#',
+    bgColor: '#D89797'
+  }
+]
+// landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
   'We will be able to match 90% to the picture of the cake on the website. The color, shape and size are indicative in nature.',
