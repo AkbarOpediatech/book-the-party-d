@@ -10,7 +10,10 @@ const VendorSubscription = () => {
         breadcrumbs="Subscription"
         className="mb-10"
       />
+
       <Subscription />
+
+
     </div>
   )
 }

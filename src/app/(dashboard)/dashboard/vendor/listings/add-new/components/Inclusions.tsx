@@ -4,33 +4,27 @@ import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 
 const Inclusions = () => {
-  const [inclusions, setInclusions] = useState<string[]>([]) // State to store inclusions
-  const [isAdding, setIsAdding] = useState<boolean>(true) // State to control input visibility
-  const [newInclusion, setNewInclusion] = useState<string>('') // State to store the input text
+  const [inclusions, setInclusions] = useState<string[]>([])
+  const [isAdding, setIsAdding] = useState<boolean>(true)
+  const [newInclusion, setNewInclusion] = useState<string>('')
 
-  // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewInclusion(e.target.value)
   }
 
-  // Handle Enter key to add inclusion and prevent form submission
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // if (e.key === 'Enter' && newInclusion.trim()) {
     //   e.preventDefault() // Prevent form submission
     //   setInclusions([...inclusions, newInclusion.trim()])
     //   setNewInclusion('') // Clear the input
     //   // setIsAdding(false) // Hide the input field
-
     // }
-    console.log('newInclusion.trim()', newInclusion.trim())
   }
 
-  // Show input field when plus icon is clicked
   const handleAddNew = () => {
     setIsAdding(true)
   }
 
-  // Remove inclusion
   const handleRemoveInclusion = (index: number) => {
     const updatedInclusions = inclusions.filter((_, i) => i !== index)
     setInclusions(updatedInclusions)
@@ -40,7 +34,6 @@ const Inclusions = () => {
     <div className="mb-4 flex flex-col gap-3">
       <p>Inclusions</p>
 
-      {/* List of added inclusions */}
       {inclusions.map((inclusion, index) => (
         <div key={index} className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -58,7 +51,6 @@ const Inclusions = () => {
         </div>
       ))}
 
-      {/* Input field to add new inclusion */}
       {isAdding && (
         <FormInput
           name="inclusion"
@@ -66,7 +58,7 @@ const Inclusions = () => {
           type="text"
           // value={newInclusion}
           onChange={handleInputChange}
-          // onKeyPress={handleKeyPress} // Press Enter to add inclusion
+          // onKeyPress={handleKeyPress}
         />
       )}
 

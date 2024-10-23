@@ -9,7 +9,7 @@ import MultiplePrice from './MultiplePrice'
 
 const ItemPricing = () => {
   const router = useRouter()
-  const [pricingType, setPricingType] = useState('Fixed Price')
+  const [pricingType, setPricingType] = useState<string>('Fixed Price')
 
   const handlePricingTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPricingType(e.target.value)
