@@ -6,6 +6,7 @@ import type {
   IEventFeatures,
   IListingsData,
   INavigationItem,
+  ISubscriptionDetails,
   ITransactionType
 } from './type'
 import ICKid from '/public/assets//ic-kid.svg'
@@ -576,3 +577,39 @@ export const listingImportantInfo: string[] = [
 ]
 
 export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
+
+export const subscriptionDetails: ISubscriptionDetails[] = [
+  {
+    title: 'Starter',
+    price: 0,
+    details: [
+      'Submit 2 listing for 3 months',
+      'Can list in 1 category',
+      '20% referral fee of sale',
+      'Limited admin support'
+    ]
+  },
+  {
+    title: 'Essential',
+    price: 39,
+    description: 'per user/month, billed monthly',
+    details: [
+      'Submit up to 5 listings for 6 months',
+      'List in 2 categories',
+      '15% referral fee',
+      'Dedicated support'
+    ]
+  },
+  {
+    title: 'Pro ',
+    price: 79,
+    tag: 'Most Popular',
+    description: 'per user/month, billed monthly',
+    details: [
+      ' Unlimited listings for 12 months',
+      'Unlimited categories',
+      '10% referral fee',
+      'Prionitised admin support'
+    ]
+  }
+]

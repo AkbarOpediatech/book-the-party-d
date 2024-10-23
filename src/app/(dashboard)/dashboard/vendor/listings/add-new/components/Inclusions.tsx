@@ -1,36 +1,29 @@
-import FormInput from '@/app/(dashboard)/components/FormInput'
-import { CheckCircleIcon } from '@heroicons/react/24/outline'
-import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
-import { useState } from 'react'
+import { CheckCircleIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react'
 
 const Inclusions = () => {
-  const [inclusions, setInclusions] = useState<string[]>([]) // State to store inclusions
-  const [isAdding, setIsAdding] = useState<boolean>(true) // State to control input visibility
-  const [newInclusion, setNewInclusion] = useState<string>('') // State to store the input text
+  const [inclusions, setInclusions] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState<string>('')
+  const [isAdding, setIsAdding] = useState<boolean>(true)
 
-  // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewInclusion(e.target.value)
+    setInputValue(e.target.value)
   }
 
-  // Handle Enter key to add inclusion and prevent form submission
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // if (e.key === 'Enter' && newInclusion.trim()) {
-    //   e.preventDefault() // Prevent form submission
-    //   setInclusions([...inclusions, newInclusion.trim()])
-    //   setNewInclusion('') // Clear the input
-    //   // setIsAdding(false) // Hide the input field
-
-    // }
-    console.log('newInclusion.trim()', newInclusion.trim())
+    if (e.key === 'Enter' && inputValue.trim()) {
+      e.preventDefault()
+      setInclusions([inputValue.trim(), ...inclusions])
+      setInputValue('')
+      setIsAdding(false)
+    }
   }
 
-  // Show input field when plus icon is clicked
   const handleAddNew = () => {
     setIsAdding(true)
+    setInputValue('')
   }
 
-  // Remove inclusion
   const handleRemoveInclusion = (index: number) => {
     const updatedInclusions = inclusions.filter((_, i) => i !== index)
     setInclusions(updatedInclusions)
@@ -40,7 +33,6 @@ const Inclusions = () => {
     <div className="mb-4 flex flex-col gap-3">
       <p>Inclusions</p>
 
-      {/* List of added inclusions */}
       {inclusions.map((inclusion, index) => (
         <div key={index} className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -48,9 +40,9 @@ const Inclusions = () => {
             <p className="max-w-[428px] text-sm font-medium">{inclusion}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button>
-              <PlusCircleIcon className="size-4 text-gray-400" onClick={handleAddNew} />
-            </button>
+            <div className="cursor-pointer" onClick={handleAddNew}>
+              <PlusCircleIcon className="size-5 text-gray-400" />
+            </div>
             <button onClick={() => handleRemoveInclusion(index)}>
               <TrashIcon className="size-4 text-gray-400" />
             </button>
@@ -58,16 +50,17 @@ const Inclusions = () => {
         </div>
       ))}
 
-      {/* Input field to add new inclusion */}
       {isAdding && (
-        <FormInput
-          name="inclusion"
-          placeholder="Write here"
-          type="text"
-          // value={newInclusion}
-          onChange={handleInputChange}
-          // onKeyPress={handleKeyPress} // Press Enter to add inclusion
-        />
+        <div className="relative z-10 mb-4">
+          <input
+            type="text"
+            placeholder="Write here"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
       )}
 
       {!isAdding && inclusions.length === 0 && (

@@ -60,3 +60,11 @@ export type IEventFeatures = {
   icon: any
   name: string
 }
+
+export type ISubscriptionDetails = {
+  title: string
+  description?: string
+  tag?: string
+  price: number
+  details: string[]
+}

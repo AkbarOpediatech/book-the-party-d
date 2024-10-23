@@ -1,31 +1,43 @@
+'use client'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import React from 'react'
+import { useState } from 'react'
+import RadioBox from './RadioBox'
 const Hourly = () => {
+  const [selectedValue, setSelectedValue] = useState<string | number>('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value)
+  }
   return (
     <div>
-      {' '}
       <FormInput name="priceValue" type="number" placeholder="$450.00" customClass="mb-4" />
       <div>
         <p className="mb-3 text-clr-ab">Security Deposit Amount</p>
         <div className="flex items-center gap-3">
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="hour1" className="font-medium">
-              6 hours
-            </label>
-            <input type="radio" id="hour1" name="deposit" value="60" className="bg-clr-ab accent-clr-fb" />
-          </div>
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="hour2" className="font-medium">
-              8 Hours
-            </label>
-            <input type="radio" id="hour2" name="deposit" className="bg-clr-ab accent-clr-fb" />
-          </div>
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="hour3" className="font-medium">
-              12 Hours
-            </label>
-            <input type="radio" id="hour3" name="deposit" className="bg-clr-ab accent-clr-fb" />
-          </div>
+          <RadioBox
+            id="hour1"
+            name="deposit"
+            label="6 hours"
+            value="6"
+            checked={selectedValue === '6'}
+            onChange={handleChange}
+          />
+          <RadioBox
+            id="hour2"
+            name="deposit"
+            label="8 hours"
+            value="8"
+            checked={selectedValue === '8'}
+            onChange={handleChange}
+          />
+          <RadioBox
+            id="hour3"
+            name="deposit"
+            label="12 hours"
+            value="12"
+            checked={selectedValue === '12'}
+            onChange={handleChange}
+          />
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           <button className="lg:hidden" onClick={() => setSidebarOpen(true)}>
             <Bars3Icon className="h-6 w-6 text-gray-500" />
           </button>
-          {/* input filed */}
+
           <input
             placeholder="Search"
             className="h-12 w-full max-w-[467px] bg-clr-f8 bg-icon-search bg-left bg-no-repeat px-2 pl-10 placeholder:font-semibold placeholder:text-clr-96 focus:outline-none"
@@ -25,9 +25,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           />
         </div>
 
-        {/* user function */}
         <div className="flex items-center gap-6">
-          {/* Notification */}
           <Menu>
             <MenuButton className="relative">
               <Image className="size-6" src={ICNotification} alt="icon" />
@@ -57,7 +55,6 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
             </MenuItems>
           </Menu>
 
-          {/* User Profile */}
           <Menu>
             <MenuButton className={'h-10 w-10 overflow-hidden rounded-full'}>
               <Image src={Avater} alt="avater" />
