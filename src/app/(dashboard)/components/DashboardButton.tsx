@@ -5,7 +5,7 @@ import type { MouseEventHandler, ReactNode } from 'react'
 
 type ButtonProps = {
   name: string
-  type: 'button'
+  type: 'button' | 'submit'
   className?: string
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined
   icon?: ReactNode

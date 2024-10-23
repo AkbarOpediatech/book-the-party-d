@@ -10,7 +10,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         sora: ['var(--font-sora)', 'sans-serif'],
-        inter: ['var(--font-inter)', 'sans-serif']
+        inter: ['var(--font-inter)', 'sans-serif'],
+        nunito: ['var(--font-nunito)', 'sans-serif'],
+        poppins: ['var(--font-poppins)', 'sans-serif']
       },
       colors: {
         'clr-14': '#919EAB14',
@@ -35,7 +37,11 @@ const config: Config = {
         'clr-07': '#FFC107',
         'clr-d48': '#E11D48',
         'clr-16': '#229A16',
-        'clr-03': '#B78103'
+        'clr-03': '#B78103',
+        'clr-eff': '#F5EEFF',
+        'clr-87': '#96B487',
+        'clr-f2': '#F2F2F2',
+        'clr-c6': '#C6C6C6'
       },
       backgroundImage: {
         'icon-search': "url('/assets/ic_search.svg')",

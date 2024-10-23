@@ -15,7 +15,7 @@ const TotalSell = () => {
             +4,85%
           </p>
         </div>
-        <TotalSellChart />{' '}
+        <TotalSellChart />
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
 'use client'
 import DashboardCard from '../../../components/DashboardCard'
 import DashboardMasterCard from '../../../components/DashboardMasterCard'
-import BookingHistory from '../components/BookingHistory'
-import BookingHistoryChart from '../components/BookingHistoryChart'
-import BookingStatistics from '../components/BookingStatistics'
+import BookingHistory from './components/BookingHistory'
+import BookingHistoryChart from './components/BookingHistoryChart'
+import BookingStatistics from './components/BookingStatistics'
 import ICDecrease from '/public/assets/ic_decrese.svg'
 import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
@@ -36,7 +36,7 @@ export default function VendorDashboard() {
             />
           </div>
         </div>
-        {/* Booking Statistics */}
+
         <div className="mb-7 w-full rounded-2xl bg-white p-5 shadow-one">
           <div className="mb-[69px]">
             <p className="mb-1 font-bold text-clr-36">Booking Statistics</p>
@@ -45,7 +45,6 @@ export default function VendorDashboard() {
           <BookingStatistics />
         </div>
 
-        {/* Booking history */}
         <div className="w-full rounded-2xl bg-white shadow-one">
           <h2 className="py-5 text-center text-base font-bold text-clr-36">Booking history</h2>
           <BookingHistoryChart />
