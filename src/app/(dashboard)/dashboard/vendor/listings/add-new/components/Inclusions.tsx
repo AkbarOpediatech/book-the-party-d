@@ -41,7 +41,7 @@ const Inclusions = () => {
           </div>
           <div className="flex items-center gap-2">
             <div className="cursor-pointer" onClick={handleAddNew}>
-              <PlusCircleIcon className="size-4 text-gray-400" />
+              <PlusCircleIcon className="size-5 text-gray-400" />
             </div>
             <button onClick={() => handleRemoveInclusion(index)}>
               <TrashIcon className="size-4 text-gray-400" />
