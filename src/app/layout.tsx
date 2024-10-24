@@ -1,6 +1,6 @@
 import ClientProvider from '@/components/ClientProvider'
 import type { Metadata } from 'next'
-import { Inter, Nunito, Poppins, Public_Sans, Sora } from 'next/font/google'
+import { Nunito, Public_Sans, Sora } from 'next/font/google'
 import './style.css'
 
 const publicsans = Public_Sans({
@@ -20,18 +20,6 @@ const nunito = Nunito({
   variable: '--font-nunito'
 })
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-inter'
-})
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-poppins'
-})
-
 export const metadata: Metadata = {
   title: 'Book the party',
   description:
@@ -42,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body
-        className={`${publicsans.className} ${sora.variable} ${nunito.variable} ${inter.variable} ${poppins.variable}`}
+        className={`${publicsans.className} ${sora.variable} ${nunito.variable}`}
         suppressHydrationWarning={true}
       >
         <ClientProvider>{children}</ClientProvider>

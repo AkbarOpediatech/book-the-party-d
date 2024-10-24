@@ -75,7 +75,7 @@ const Footer = () => {
 
           <p className="font-poppins text-base font-light text-black">
             Book the Party acknowledges the Traditional Aboriginal and Torres Strait Islander Owners of the
-            land, sea and <br className="lg:block" /> waters of Australia. We respect and recognise their
+            land, sea and <br className="lg:block" /> waters of Australia. We respect and recognize their
             custodianship of culture and Country.
           </p>
         </div>
