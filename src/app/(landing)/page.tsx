@@ -1,3 +1,4 @@
+import Reviews from './components/Reviews'
 import Discover from './home/components/Discover'
 import Featured from './home/components/Featured'
 import Hero from './home/components/Hero'
@@ -12,6 +13,7 @@ export default function Home() {
       <Discover />
       <Occasion />
       <Featured />
+      <Reviews />
     </>
   )
 }

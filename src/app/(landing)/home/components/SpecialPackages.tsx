@@ -23,7 +23,6 @@ const SpecialPackages = () => {
         }}
         modules={[Autoplay]}
         grabCursor={true}
-        navigation={true}
         className="mySwiper"
       >
         {specialPackages.map((items, index) => (
