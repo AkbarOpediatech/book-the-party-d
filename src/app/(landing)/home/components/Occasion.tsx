@@ -25,7 +25,6 @@ const Occasion = () => {
         }}
         modules={[Autoplay]}
         grabCursor={true}
-        navigation={true}
         className="mySwiper mr-0"
         watchSlidesProgress={true}
       >

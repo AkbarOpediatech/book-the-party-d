@@ -1,16 +1,21 @@
 import Link from 'next/link'
+import React from 'react'
 
 type IProps = {
   title: string
   linkURL?: any
   linkName?: string
+  desc?: string
 }
 
-const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName }) => {
+const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc }) => {
   return (
     <>
       <div className="section-heading mb-9 flex items-center justify-between">
-        <h1 className="font-sora text-[32px] font-semibold text-neutral-900">{title}</h1>
+        <div>
+          <h1 className="font-sora text-[32px] font-semibold text-neutral-900">{title}</h1>
+          {desc && <p className="text-xl font-medium text-black/65">{desc}</p>}
+        </div>
         {linkName && (
           <Link
             href={linkURL}
