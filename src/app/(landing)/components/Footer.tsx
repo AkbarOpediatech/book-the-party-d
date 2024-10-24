@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer>
       <div className="bg-clr-f2 py-[47px] pb-[66px]">
-        <div className="mx-auto max-w-[1607px] px-5">
+        <div className="container">
           <h1 className="mb-5 flex items-center gap-2 font-sora text-3xl font-semibold">
             <Image src={ICHelp} alt="icon" />
             Help & support
@@ -75,7 +75,7 @@ const Footer = () => {
 
           <p className="font-poppins text-base font-light text-black">
             Book the Party acknowledges the Traditional Aboriginal and Torres Strait Islander Owners of the
-            land, sea and <br className="lg:block" /> waters of Australia. We respect and recognise their
+            land, sea and <br className="lg:block" /> waters of Australia. We respect and recognize their
             custodianship of culture and Country.
           </p>
         </div>

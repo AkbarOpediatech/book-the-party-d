@@ -9,11 +9,12 @@ const Hero = () => {
       className="hero bg-cover bg-no-repeat pb-[110px] pt-[116px]"
       style={{ backgroundImage: `url(${heroBg.src})` }}
     >
-      <div className="container mx-auto max-w-[1320px] px-5">
-        <h1 className="font-nunito text-[84px] font-black text-white">Party Easy.</h1>
-        <p className="mb-14 font-sora text-2xl font-semibold text-white">
+      <div className="container mx-auto max-w-[1320px]">
+        <h1 className="font-sora text-[84px] font-black text-white">Party Easy.</h1>
+        <p className="mb-14 text-2xl font-semibold text-white">
           Book, discover and explore top-rated parties, <br className="lg:block" /> venues and events.
         </p>
+        {/* search filter */}
         <div className="mb-5 rounded-full bg-white px-10 py-7">
           <ul className="flex items-center gap-5">
             <li>
@@ -50,12 +51,13 @@ const Hero = () => {
             </li>
 
             <li>
-              <button className="bg-clr-87 block w-[148PX] rounded-2xl py-3 font-sora text-sm text-white">
+              <button className="block w-[148PX] rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white">
                 Search
               </button>
             </li>
           </ul>
         </div>
+        {/* event features */}
         <ul className="flex justify-between">
           {eventFeatures.map((eventItems, index) => (
             <li key={index}>
