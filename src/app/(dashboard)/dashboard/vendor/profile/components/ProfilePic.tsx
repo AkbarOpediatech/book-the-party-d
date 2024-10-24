@@ -5,7 +5,7 @@ import avater from '/public/assets/avatar.jpeg'
 import edit from '/public/assets/edit-user.svg'
 
 type IProps = {
-  setShowProfileEdit: any
+  setShowProfileEdit: (showIndex: boolean) => void
 }
 
 const ProfilePic: React.FC<IProps> = ({ setShowProfileEdit }) => {

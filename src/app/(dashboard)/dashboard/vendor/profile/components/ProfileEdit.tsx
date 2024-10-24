@@ -6,8 +6,8 @@ import { useRef, useState } from 'react'
 import upload from '/public/assets/upload.svg'
 
 type IProps = {
-  showProfileEdit: any
-  setShowProfileEdit: any
+  showProfileEdit: boolean
+  setShowProfileEdit: (showIndex: boolean) => void
 }
 
 const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit }) => {

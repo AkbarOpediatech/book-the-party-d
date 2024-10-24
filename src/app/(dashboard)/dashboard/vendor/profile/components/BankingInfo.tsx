@@ -5,7 +5,7 @@ import Info from './Info'
 import edit from '/public/assets/edit-user.svg'
 
 type IProps = {
-  setShowBankInfoEdit: any
+  setShowBankInfoEdit: (showIndex: boolean) => void
 }
 
 const BankingInfo: React.FC<IProps> = ({ setShowBankInfoEdit }) => {

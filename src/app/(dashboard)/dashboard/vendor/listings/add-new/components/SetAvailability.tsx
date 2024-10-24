@@ -3,7 +3,7 @@ import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import React from 'react'
 
 type IProps = {
-  setStep: any
+  setStep: (stepIndex: number) => void
 }
 const SetAvailability: React.FC<IProps> = ({ setStep }) => {
   const handleSubmit = (e: React.FormEvent) => {
