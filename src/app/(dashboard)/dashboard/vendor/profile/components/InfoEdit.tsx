@@ -3,8 +3,8 @@ import FormInput from '@/app/(dashboard)/components/FormInput'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 
 type IProps = {
-  showInfoEdit: any
-  setShowInfoEdit: any
+  showInfoEdit: boolean
+  setShowInfoEdit: (showIndex: boolean) => void
 }
 
 const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit }) => {

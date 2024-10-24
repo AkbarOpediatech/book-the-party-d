@@ -1,13 +1,15 @@
+import type { StaticImageData } from 'next/image'
+
 export type INavigationItem = {
   type: 'button'
   name: string
   href: string
-  icon: any
+  icon: StaticImageData
 }
 
 export type IDashboardBookingHistory = {
   id: number
-  img: any
+  img: string | StaticImageData
   link: string
   title: string
   desc: string
@@ -24,11 +26,11 @@ export type ITransactionType = {
   amount: string
   date: string
   status: string
-  image: any
+  image: string | StaticImageData
 }
 export type IBookingAnalytics = {
-  pic: any
-  title: any
+  pic: string | StaticImageData
+  title: string
   amount: number
   price: number
 }
@@ -42,7 +44,7 @@ export type IBookingData = {
   fee: number
   totalPayout: number
   status: string
-  image: any
+  image: string | StaticImageData
 }
 
 export type IListingsData = {
@@ -52,12 +54,12 @@ export type IListingsData = {
   category: string
   price: number
   totalBookings: number
-  image: any
+  image: string | StaticImageData
 }
 
 export type IEventFeatures = {
   id: number
-  icon: any
+  icon: string | StaticImageData
   name: string
 }
 

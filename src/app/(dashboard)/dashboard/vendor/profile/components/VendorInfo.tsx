@@ -5,7 +5,7 @@ import Info from './Info'
 import edit from '/public/assets/edit-user.svg'
 
 type IProps = {
-  setShowInfoEdit: any
+  setShowInfoEdit: (showIndex: boolean) => void
 }
 
 const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit }) => {

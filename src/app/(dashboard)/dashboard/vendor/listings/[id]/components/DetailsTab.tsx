@@ -1,8 +1,8 @@
 import { detailsTab } from '@/utils'
 
 type IProps = {
-  tab: any
-  setTab: any
+  tab: number
+  setTab: (tabIndex: number) => void
 }
 const DetailsTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (

@@ -2,7 +2,7 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 
 type IProps = {
-  setStep: any
+  setStep: (stepIndex: number) => void
 }
 const AddNew: React.FC<IProps> = ({ setStep }) => {
   return (

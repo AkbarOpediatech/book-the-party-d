@@ -1,6 +1,6 @@
 type IProps = {
-  tab: any
-  setTab: any
+  tab: number
+  setTab: (tabIndex: number) => void
 }
 const ProfileTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (

@@ -3,8 +3,8 @@ import FormInput from '@/app/(dashboard)/components/FormInput'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 
 type IProps = {
-  showBankInfoEdit: any
-  setShowBankInfoEdit: any
+  showBankInfoEdit: boolean
+  setShowBankInfoEdit: (index: boolean) => void
 }
 
 const BankInfoEdit: React.FC<IProps> = ({ setShowBankInfoEdit, showBankInfoEdit }) => {

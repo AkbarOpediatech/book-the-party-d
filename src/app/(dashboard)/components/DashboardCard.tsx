@@ -1,11 +1,11 @@
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 
 type IProps = {
   title: string
   total: string
   percent: string
-  imgSrc1: any
-  imgSrc2: any
+  imgSrc1: StaticImageData
+  imgSrc2: StaticImageData
   className: string
 }
 
