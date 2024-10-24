@@ -1,5 +1,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ArrowRightEndOnRectangleIcon, Bars3Icon, WrenchScrewdriverIcon } from '@heroicons/react/16/solid'
+import {
+  ArrowRightEndOnRectangleIcon,
+  Bars3Icon,
+  UserIcon,
+  WrenchScrewdriverIcon
+} from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import DashboardButton from './DashboardButton'
@@ -78,20 +83,17 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
               <MenuItem>
                 <Link
                   className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-                  href="/settings"
+                  href="/dashboard/vendor/profile"
                 >
-                  <WrenchScrewdriverIcon className="size-4 fill-black/30" />
-                  Settings
+                  <UserIcon className="size-4 fill-black/30" />
+                  Profile
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link
-                  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-                  href="/settings"
-                >
+                <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                   <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
                   Logout
-                </Link>
+                </button>
               </MenuItem>
             </MenuItems>
           </Menu>

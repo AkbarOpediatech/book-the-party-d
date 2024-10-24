@@ -4,7 +4,7 @@ import FileUpload from './FileUpload'
 import Inclusions from './Inclusions'
 
 type IProps = {
-  setStep: any
+  setStep: (stepIndex: number) => void
 }
 const ItemList: React.FC<IProps> = ({ setStep }) => {
   const handleSubmit = (e: React.FormEvent) => {
