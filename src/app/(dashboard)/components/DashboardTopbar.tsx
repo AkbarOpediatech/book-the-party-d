@@ -2,6 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ArrowRightEndOnRectangleIcon, Bars3Icon, WrenchScrewdriverIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import DashboardButton from './DashboardButton'
 import Avater from '/public/assets/avatar.jpeg'
 import ICNotification from '/public/assets/ic_notification.svg'
 
@@ -51,6 +52,14 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
                   <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
                   notification 2
                 </div>
+              </MenuItem>
+              <MenuItem>
+                <DashboardButton
+                  name="See All"
+                  type="link"
+                  linkUrl="/dashboard/vendor/notifications"
+                  className="m-2 flex justify-center"
+                />
               </MenuItem>
             </MenuItems>
           </Menu>
