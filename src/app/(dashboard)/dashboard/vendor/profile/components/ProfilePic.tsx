@@ -4,7 +4,11 @@ import Image from 'next/image'
 import avater from '/public/assets/avatar.jpeg'
 import edit from '/public/assets/edit-user.svg'
 
-const ProfilePic = () => {
+type IProps = {
+  setShowProfileEdit: any
+}
+
+const ProfilePic: React.FC<IProps> = ({ setShowProfileEdit }) => {
   return (
     <div className="mb-4 rounded-lg bg-white p-6 shadow">
       <div className="mb-6 flex items-center gap-2">
@@ -22,7 +26,13 @@ const ProfilePic = () => {
           <p className="mt-3 text-xl text-gray-900">Alex Buckmaster</p>
         </div>
       </div>
-      <DashboardButton icon={<Image src={edit} alt="icon" />} name="Edit" type="button" className="mt-5" />
+      <DashboardButton
+        onClick={() => setShowProfileEdit(true)}
+        icon={<Image src={edit} alt="icon" />}
+        name="Edit"
+        type="button"
+        className="mt-5"
+      />
     </div>
   )
 }

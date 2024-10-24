@@ -4,7 +4,11 @@ import Image from 'next/image'
 import Info from './Info'
 import edit from '/public/assets/edit-user.svg'
 
-const BankingInfo = () => {
+type IProps = {
+  setShowBankInfoEdit: any
+}
+
+const BankingInfo: React.FC<IProps> = ({ setShowBankInfoEdit }) => {
   return (
     <div>
       <div className="mb-6 flex items-center gap-2">
@@ -24,6 +28,7 @@ const BankingInfo = () => {
         name="Edit"
         type="button"
         className="mt-5"
+        onClick={() => setShowBankInfoEdit(true)}
       />
     </div>
   )

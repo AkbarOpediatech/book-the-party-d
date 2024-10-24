@@ -4,7 +4,11 @@ import Image from 'next/image'
 import Info from './Info'
 import edit from '/public/assets/edit-user.svg'
 
-const VendorInfo = () => {
+type IProps = {
+  setShowInfoEdit: any
+}
+
+const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit }) => {
   return (
     <div>
       <div className="mb-6 flex items-center gap-2">
@@ -36,7 +40,13 @@ USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow 
           <Info title="Languages" value="English, French, Spanish" />
         </div>
       </div>
-      <DashboardButton icon={<Image src={edit} alt="icon" />} name="Edit" type="button" className="mt-5" />
+      <DashboardButton
+        onClick={() => setShowInfoEdit(true)}
+        icon={<Image src={edit} alt="icon" />}
+        name="Edit"
+        type="button"
+        className="mt-5"
+      />
     </div>
   )
 }
