@@ -1,25 +1,19 @@
 'use client'
-
-// Import swiper/react
-import { Swiper, SwiperSlide } from 'swiper/react'
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/pagination'
-
-// Import swiper required modules
 import { occasionItems } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+// Import swiper/react
+import 'swiper/css'
+import 'swiper/css/pagination'
 import { Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SectionHeading from '../../components/SectionHeading'
 
 const Occasion = () => {
   return (
-    <section className="occasion pb-[130px]">
-      <div className="mx-auto max-w-[1872px] px-5">
-        <div className="section-heading mb-9">
-          <p className="font-sora text-[32px] font-semibold text-neutral-900">Browse by Occasion</p>
-        </div>
+    <section className="section-padding pt-0">
+      <div className="container">
+        <SectionHeading title="Browse by Occasion" />
       </div>
       <Swiper
         slidesPerView={4}
@@ -31,7 +25,6 @@ const Occasion = () => {
         }}
         modules={[Autoplay]}
         grabCursor={true}
-        navigation={true}
         className="mySwiper mr-0"
         watchSlidesProgress={true}
       >

@@ -1,8 +1,9 @@
-import Discover from './components/Discover'
-import Featured from './components/Featured'
-import Hero from './components/Hero'
-import Occasion from './components/Occasion'
-import SpecialPackages from './components/SpecialPackages'
+import Reviews from './components/Reviews'
+import Discover from './home/components/Discover'
+import Featured from './home/components/Featured'
+import Hero from './home/components/Hero'
+import Occasion from './home/components/Occasion'
+import SpecialPackages from './home/components/SpecialPackages'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Discover />
       <Occasion />
       <Featured />
+      <Reviews />
     </>
   )
 }
