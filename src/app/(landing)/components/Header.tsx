@@ -11,9 +11,9 @@ const Header = () => {
     <header className="bg-clr-eff py-6">
       <div className="container">
         <div className="flex items-center justify-between">
-          <div className="nav-brand">
+          <Link href={'/'}>
             <Image src={NavBrand} alt="nav-brand" />
-          </div>
+          </Link>
           {/* nav-actions */}
           <ul className="flex items-center gap-5">
             <li className="relative">
