@@ -17,7 +17,7 @@ const Header = () => {
           {/* nav-actions */}
           <ul className="flex items-center gap-5">
             <li className="relative">
-              <Link href={'#'} className="inline-block rounded-full bg-clr-fb p-5">
+              <Link href={'/cart'} className="inline-block rounded-full bg-clr-fb p-5">
                 <Image width={20} height={20} src={ICCart} alt="cart-icon" />
                 <span className="absolute -top-1 right-0 inline-flex size-5 items-center justify-center rounded-full bg-white text-xs text-clr-fb">
                   8
