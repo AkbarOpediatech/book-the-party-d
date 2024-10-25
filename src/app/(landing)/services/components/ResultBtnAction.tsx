@@ -1,0 +1,63 @@
+'use client'
+import Image from 'next/image'
+import ICGrid from '/public/assets/ic-grid.svg'
+import ICList from '/public/assets/ic-list.svg'
+
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import { useState } from 'react'
+
+const people = [
+  { id: 1, name: 'Durward Reynolds' },
+  { id: 2, name: 'Kenton Towne' },
+  { id: 3, name: 'Therese Wunsch' },
+  { id: 4, name: 'Benedict Kessler' },
+  { id: 5, name: 'Katelyn Rohan' }
+]
+
+type IProps = {
+  handleGridClick: () => void
+  handleListClick: () => void
+}
+
+const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick }) => {
+  const [selectedPerson, setSelectedPerson] = useState(people[0])
+  return (
+    <div className="mb-6 flex items-center justify-between">
+      <div className="flex items-center gap-5">
+        <div className="btn-group flex gap-5">
+          {/* Grid button */}
+          <button onClick={() => handleGridClick()}>
+            <Image src={ICGrid} alt="Grid icon" />
+          </button>
+
+          {/* List button */}
+          <button onClick={() => handleListClick()}>
+            <Image src={ICList} alt="List icon" />
+          </button>
+        </div>
+        <p className="font-nunito text-xl font-light text-black">Showing 1–12 of 60 results</p>
+      </div>
+      <Listbox value={selectedPerson} onChange={setSelectedPerson}>
+        <ListboxButton className={'flex gap-2 rounded-lg border border-black px-5 py-[10px]'}>
+          {selectedPerson.name}
+          <ChevronDownIcon className="size-6 font-extralight" />
+        </ListboxButton>
+
+        <ListboxOptions anchor="bottom" className={'mt-2 space-y-2 rounded-lg border bg-white py-2'}>
+          {people.map(person => (
+            <ListboxOption
+              key={person.id}
+              value={person}
+              className="cursor-pointer px-8 text-start data-[focus]:bg-blue-100"
+            >
+              {person.name}
+            </ListboxOption>
+          ))}
+        </ListboxOptions>
+      </Listbox>
+    </div>
+  )
+}
+
+export default ResultBtnAction
