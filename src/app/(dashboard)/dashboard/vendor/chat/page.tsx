@@ -1,5 +1,5 @@
 const VendorChat = () => {
-  return <div>LiveChat</div>
+  return <div className="h-full bg-white"></div>
 }
 
 export default VendorChat
