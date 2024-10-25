@@ -41,7 +41,8 @@ const config: Config = {
         'clr-eff': '#F5EEFF',
         'clr-87': '#96B487',
         'clr-f2': '#F2F2F2',
-        'clr-c6': '#C6C6C6'
+        'clr-c6': '#C6C6C6',
+        'clr-0f': '#050F0F'
       },
       backgroundImage: {
         'icon-search': "url('/assets/ic_search.svg')",

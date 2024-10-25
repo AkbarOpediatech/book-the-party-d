@@ -25,13 +25,10 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
   return (
     <div className="mb-6 flex items-center justify-between">
       <div className="flex items-center gap-5">
-        <div className="btn-group flex gap-5">
-          {/* Grid button */}
+        <div className="flex gap-5">
           <button onClick={() => handleGridClick()}>
             <Image src={ICGrid} alt="Grid icon" />
           </button>
-
-          {/* List button */}
           <button onClick={() => handleListClick()}>
             <Image src={ICList} alt="List icon" />
           </button>
