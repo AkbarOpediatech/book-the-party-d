@@ -363,6 +363,35 @@ export const listingsData: IListingsData[] = [
   }
 ]
 
+export const categories: string[] = [
+  'Party Packages',
+  'Backdrops & Décor Props',
+  'Tables & Seating',
+  'Vehicle Hire',
+  'Outdoor Hire',
+  'Kid’s Party Entertainment',
+  'Sound, lighting & visual',
+  'Food & Beverage'
+]
+
+export const subCategories: string[] = [
+  'Themed Party Packages',
+  'Birthday',
+  'Engagement',
+  'Wedding',
+  'Birthday',
+  'Baby Shower',
+  'Bridal Shower',
+  'Gender Reveal',
+  'Graduation',
+  'Marriage Proposal',
+  'Eid',
+  'Fatiha',
+  'Katab el kitab',
+  'Christening',
+  'Baptism'
+]
+
 // landing page
 export const eventFeatures: IEventFeatures[] = [
   {
