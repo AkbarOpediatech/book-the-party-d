@@ -1,3 +1,4 @@
+import { handleInputChange } from '@/components/inputHandlers'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
@@ -6,10 +7,6 @@ const Inclusions = () => {
   const [inclusions, setInclusions] = useState<string[]>([])
   const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputValue.trim()) {
@@ -57,18 +54,11 @@ const Inclusions = () => {
             type="text"
             placeholder="Write here"
             value={inputValue}
-            onChange={handleInputChange}
+            onChange={e => handleInputChange(e, setInputValue)}
             onKeyPress={handleKeyPress}
-            className="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-4 py-2"
           />
         </div>
-      )}
-
-      {!isAdding && inclusions.length === 0 && (
-        <button onClick={handleAddNew} className="flex items-center gap-2 text-gray-400">
-          <PlusCircleIcon className="size-4" />
-          <span className="text-sm">Add inclusion</span>
-        </button>
       )}
     </div>
   )

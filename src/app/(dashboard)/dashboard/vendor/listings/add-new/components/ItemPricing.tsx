@@ -1,6 +1,7 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
+import { handleInputChange } from '@/components/inputHandlers'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import FixedPrice from './FixedPrice'
@@ -10,12 +11,6 @@ import MultiplePrice from './MultiplePrice'
 const ItemPricing = () => {
   const router = useRouter()
   const [pricingType, setPricingType] = useState<string>('Fixed Price')
-
-  const handlePricingTypeChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setPricingType(e.target.value)
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,7 +25,7 @@ const ItemPricing = () => {
           label="Price"
           type="select"
           options={['Fixed Price', 'Hourly', 'Multiple pricing range']}
-          onChange={handlePricingTypeChange}
+          onChange={e => handleInputChange(e, setPricingType)}
           customClass="mb-4"
         />
         {pricingType === 'Fixed Price' && <FixedPrice />}
