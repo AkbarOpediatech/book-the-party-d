@@ -1,6 +1,7 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import FileUpload from './FileUpload'
+import ImportantInfo from './ImportantInfo'
 import Inclusions from './Inclusions'
 
 type IProps = {
@@ -26,6 +27,7 @@ const ItemList: React.FC<IProps> = ({ setStep }) => {
           customClass="mb-4"
         />
         <Inclusions />
+        <ImportantInfo />
         <FileUpload />
         <div className="mt-6 border-b border-gray-200" />
         <DashboardButton name="Continue" type="submit" className="mt-5" />
