@@ -1,3 +1,4 @@
+import { RANGE_REGEX } from '@/components/regex'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import RadioBox from './RadioBox'
@@ -5,8 +6,6 @@ import RadioBox from './RadioBox'
 const MultiplePrice = () => {
   const [priceRanges, setPriceRanges] = useState([{ range: '', price: '', error: '' }])
   const [selectedDeposit, setSelectedDeposit] = useState<string>('')
-
-  const rangeRegex = /^\d+-\d+$/
 
   const handleAddRow = () => {
     setPriceRanges([...priceRanges, { range: '', price: '', error: '' }])
@@ -21,7 +20,7 @@ const MultiplePrice = () => {
     const updatedPriceRanges = priceRanges.map((item, i) => {
       if (i === index) {
         if (field === 'range') {
-          const isValidRange = rangeRegex.test(value)
+          const isValidRange = RANGE_REGEX.test(value)
           return {
             ...item,
             [field]: value,
