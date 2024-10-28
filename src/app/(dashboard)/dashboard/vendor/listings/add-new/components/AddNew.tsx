@@ -1,5 +1,6 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
+import { categories, subCategories } from '@/utils'
 
 type IProps = {
   setStep: (stepIndex: number) => void
@@ -14,39 +15,14 @@ const AddNew: React.FC<IProps> = ({ setStep }) => {
           label="Categories"
           type="select"
           customClass="mb-4"
-          options={[
-            'Party Packages',
-            'Backdrops & Décor Props',
-            'Tables & Seating',
-            'Vehicle Hire',
-            'Outdoor Hire',
-            'Kid’s Party Entertainment',
-            'Sound, lighting & visual',
-            'Food & Beverage'
-          ]}
+          options={categories}
         />
         <FormInput
           name="subcategories"
           label="Sub Categories"
           type="select"
           customClass="pb-6 border-b"
-          options={[
-            'Themed Party Packages',
-            'Birthday',
-            'Engagement',
-            'Wedding',
-            'Birthday',
-            'Baby Shower',
-            'Bridal Shower',
-            'Gender Reveal',
-            'Graduation',
-            'Marriage Proposal',
-            'Eid',
-            'Fatiha',
-            'Katab el kitab',
-            'Christening',
-            'Baptism'
-          ]}
+          options={subCategories}
         />
         <DashboardButton name="Continue" type="button" className="mt-5" onClick={() => setStep(1)} />
       </form>

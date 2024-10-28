@@ -3,15 +3,15 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 
-const Inclusions = () => {
-  const [inclusions, setInclusions] = useState<string[]>([])
+const ImportantInfo = () => {
+  const [importantInfo, setImportantInfo] = useState<string[]>([])
   const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputValue.trim()) {
       e.preventDefault()
-      setInclusions([inputValue.trim(), ...inclusions])
+      setImportantInfo([inputValue.trim(), ...importantInfo])
       setInputValue('')
       setIsAdding(false)
     }
@@ -23,19 +23,19 @@ const Inclusions = () => {
   }
 
   const handleRemoveInclusion = (index: number) => {
-    const updatedInclusions = inclusions.filter((_, i) => i !== index)
-    setInclusions(updatedInclusions)
+    const updatedInclusions = importantInfo.filter((_, i) => i !== index)
+    setImportantInfo(updatedInclusions)
   }
 
   return (
     <div className="mb-4 flex flex-col gap-3">
-      <p>Inclusions</p>
+      <p>Important Info</p>
 
-      {inclusions.map((inclusion, index) => (
+      {importantInfo.map((info, index) => (
         <div key={index} className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <CheckCircleIcon className="size-8 flex-shrink-0 text-clr-fb" />
-            <p className="max-w-[428px] text-sm font-medium">{inclusion}</p>
+            <p className="max-w-[428px] text-sm font-medium">{info}</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="cursor-pointer" onClick={handleAddNew}>
@@ -64,4 +64,4 @@ const Inclusions = () => {
   )
 }
 
-export default Inclusions
+export default ImportantInfo
