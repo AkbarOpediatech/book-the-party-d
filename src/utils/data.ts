@@ -592,6 +592,65 @@ export const occasionItems = [
     bgColor: '#D89797'
   }
 ]
+
+export const formData = [
+  {
+    labelTitle: 'name',
+    htmlFor: 'name',
+    inputId: 'name',
+    inputType: 'name',
+    inputPlaceholder: 'Maguire Harry'
+  },
+  {
+    labelTitle: 'email',
+    htmlFor: 'email',
+    inputId: 'email',
+    inputType: 'email',
+    inputPlaceholder: 'Email Address'
+  },
+  {
+    labelTitle: 'Mobile Number',
+    htmlFor: 'mobileNumber',
+    inputId: 'mobileNumber',
+    inputType: 'number',
+    inputPlaceholder: 'Mobile Number'
+  },
+  {
+    labelTitle: 'Flat, House no., Building, Company, Apartment',
+    htmlFor: 'houseNo',
+    inputId: 'houseNo',
+    inputType: 'text',
+    inputPlaceholder: 'House No 23'
+  },
+  {
+    labelTitle: 'Street Name',
+    htmlFor: 'streetName',
+    inputId: 'streetName',
+    inputType: 'text',
+    inputPlaceholder: 'Parker Rd. Allentown'
+  },
+  {
+    labelTitle: 'Suburb',
+    htmlFor: 'suburb',
+    inputId: 'suburb',
+    inputType: 'text',
+    inputPlaceholder: 'Sydney'
+  },
+  {
+    labelTitle: 'State',
+    htmlFor: 'state',
+    inputId: 'state',
+    inputType: 'text',
+    inputPlaceholder: 'Australia'
+  },
+  {
+    labelTitle: 'Postcode',
+    htmlFor: 'postCode',
+    inputId: 'postCode',
+    inputType: 'text',
+    inputPlaceholder: '311334'
+  }
+]
 // landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
