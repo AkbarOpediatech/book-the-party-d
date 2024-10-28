@@ -1,9 +1,9 @@
+import type { Message } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import avatar from '/public/assets/avatar.jpeg'
-import type { Message } from '@/utils'
 
 interface ConversationProps {
   messages: Message[]
@@ -38,7 +38,24 @@ const Conversation: React.FC<ConversationProps> = ({ messages }) => {
             </div>
             <div className="flex items-center gap-1.5">
               <div className="rounded-[20px] bg-gray-100 p-4">
-                <p className="font-inter text-sm text-gray-900">{message.content}</p>
+                {message.type === 'text' ? (
+                  <p className="font-inter text-sm text-gray-900">{message.content}</p>
+                ) : Array.isArray(message.content) ? (
+                  <div className="flex flex-wrap gap-2">
+                    {message.content.map((url, index) => (
+                      <Image
+                        key={index}
+                        src={url}
+                        alt="Sent Image"
+                        width={80}
+                        height={80}
+                        className="flex-shrink-0 rounded-lg object-cover"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-red-500">Error: Invalid image data</p>
+                )}
               </div>
               {message.sender === 'user' && (
                 <Menu>

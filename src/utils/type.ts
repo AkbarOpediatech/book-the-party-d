@@ -73,6 +73,7 @@ export type ISubscriptionDetails = {
 export interface Message {
   id: number
   sender: 'user' | 'bot'
-  content: string
+  content: string | string[]
   timestamp: string
+  type: 'text' | 'image'
 }
