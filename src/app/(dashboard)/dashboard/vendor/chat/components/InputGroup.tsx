@@ -1,4 +1,5 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import { handleInputChange } from '@/components/inputHandlers'
 import { PaperClipIcon, PhotoIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
@@ -16,10 +17,6 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage }) => {
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value)
-  }
-
   const sendMessage = () => {
     if (text.trim()) {
       onSendMessage(text.trim())
@@ -34,7 +31,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage }) => {
         placeholder="Write a reply..."
         rows={3}
         value={text}
-        onChange={handleInputChange}
+        onChange={e => handleInputChange(e, setText)}
         onKeyDown={handleKeyPress}
       />
 

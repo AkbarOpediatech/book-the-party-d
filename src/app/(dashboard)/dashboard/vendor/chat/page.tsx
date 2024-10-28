@@ -1,15 +1,9 @@
 'use client'
+import type { Message } from '@/utils'
 import { useState } from 'react'
 import ChatHeader from './components/ChatHeader'
 import Conversation from './components/Conversation'
 import InputGroup from './components/InputGroup'
-
-interface Message {
-  id: number
-  sender: 'user' | 'bot'
-  content: string
-  timestamp: string
-}
 
 const VendorChat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([])

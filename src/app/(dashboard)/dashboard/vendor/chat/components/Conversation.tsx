@@ -3,13 +3,7 @@ import { EllipsisVerticalIcon, Square2StackIcon, TrashIcon } from '@heroicons/re
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import avatar from '/public/assets/avatar.jpeg'
-
-interface Message {
-  id: number
-  sender: 'user' | 'bot'
-  content: string
-  timestamp: string
-}
+import type { Message } from '@/utils'
 
 interface ConversationProps {
   messages: Message[]

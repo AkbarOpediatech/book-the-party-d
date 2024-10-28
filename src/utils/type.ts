@@ -70,3 +70,9 @@ export type ISubscriptionDetails = {
   price: number
   details: string[]
 }
+export interface Message {
+  id: number
+  sender: 'user' | 'bot'
+  content: string
+  timestamp: string
+}
