@@ -1,20 +1,30 @@
-'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { PaperClipIcon, PhotoIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
-const InputGroup = () => {
+interface InputGroupProps {
+  onSendMessage: (messageContent: string) => void
+}
+
+const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage }) => {
   const [text, setText] = useState('')
 
-  const handleKeyPress = e => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      console.log('Enter pressed without shift')
+      sendMessage()
     }
   }
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
+  }
+
+  const sendMessage = () => {
+    if (text.trim()) {
+      onSendMessage(text.trim())
+      setText('')
+    }
   }
 
   return (
@@ -37,7 +47,7 @@ const InputGroup = () => {
             <PhotoIcon className="h-5 w-5 text-[#6B7280]" />
           </button>
         </div>
-        <DashboardButton type="button" name="Send message" />
+        <DashboardButton type="button" name="Send message" onClick={sendMessage} />
       </div>
     </div>
   )
