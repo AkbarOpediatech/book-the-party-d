@@ -5,12 +5,12 @@ const SubTotal = () => {
     <>
       <div className="rounded-lg border bg-white p-6">
         <div className="mb-4 flex justify-between border-b pb-4">
-          <span className="text-clr-0f font-sora text-lg font-semibold">Subtotal</span>
-          <span className="text-clr-0f font-sora text-lg font-semibold">$5350</span>
+          <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal</span>
+          <span className="font-sora text-lg font-semibold text-clr-0f">$5350</span>
         </div>
 
         <div className="mb-4">
-          <label htmlFor="discount-code" className="text-clr-0f mb-2 block text-base">
+          <label htmlFor="discount-code" className="mb-2 block text-base text-clr-0f">
             Enter Discount Code
           </label>
           <div className="flex">
@@ -25,30 +25,30 @@ const SubTotal = () => {
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-clr-0f text-base">Booking fee</span>
-          <span className="text-clr-0f text-base">$50</span>
+          <span className="text-base text-clr-0f">Booking fee</span>
+          <span className="text-base text-clr-0f">$50</span>
         </div>
 
         <div className="mb-4 flex items-center justify-between">
-          <span className="text-clr-0f text-base">Additional delivery fee (outside of metro area)</span>
-          <span className="text-clr-0f text-base">$50</span>
+          <span className="text-base text-clr-0f">Additional delivery fee (outside of metro area)</span>
+          <span className="text-base text-clr-0f">$50</span>
         </div>
 
         <div className="mb-4 border-t border-gray-200 pt-4">
           <div className="flex justify-between">
-            <span className="text-clr-0f font-sora text-base font-bold">Grand Total (incl of GST)</span>
-            <span className="text-clr-0f font-sora text-base font-bold">$5400</span>
+            <span className="font-sora text-base font-bold text-clr-0f">Grand Total (incl of GST)</span>
+            <span className="font-sora text-base font-bold text-clr-0f">$5400</span>
           </div>
         </div>
 
         <div className="mb-4 flex items-center justify-between">
-          <span className="text-clr-0f font-sora text-base font-bold">Security Deposit</span>
-          <span className="text-clr-0f font-sora text-base font-bold">$1500</span>
+          <span className="font-sora text-base font-bold text-clr-0f">Security Deposit</span>
+          <span className="font-sora text-base font-bold text-clr-0f">$1500</span>
         </div>
 
         <div className="mb-4 flex items-start">
           <input type="checkbox" id="terms" className="mr-2 mt-1" />
-          <label htmlFor="terms" className="text-clr-0f text-sm">
+          <label htmlFor="terms" className="text-sm text-clr-0f">
             I understand and accept the{' '}
             <Link href="#" className="text-blue-500 underline">
               terms and conditions, privacy policy, cancellation policy, and refund policy.
