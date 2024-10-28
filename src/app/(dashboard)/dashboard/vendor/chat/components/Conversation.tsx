@@ -38,7 +38,6 @@ const Conversation: React.FC<ConversationProps> = ({ messages }) => {
             </div>
             <div className="flex items-center gap-1.5">
               <div className="rounded-[20px] bg-gray-100 p-4">
-                {/* Check message type and render accordingly */}
                 {message.type === 'text' && typeof message.content === 'string' ? (
                   <p className="font-inter text-sm text-gray-900">{message.content}</p>
                 ) : message.type === 'image' ? (

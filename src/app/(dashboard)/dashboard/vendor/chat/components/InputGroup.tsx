@@ -1,5 +1,5 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
-import { PaperClipIcon, PhotoIcon } from '@heroicons/react/16/solid'
+import { PaperClipIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import { useRef, useState } from 'react'
 
 interface InputGroupProps {
@@ -86,7 +86,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
                 className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full bg-red-500 p-1 text-xs text-white"
                 onClick={() => removeImage(index)}
               >
-                X
+                <XMarkIcon />
               </button>
             </div>
           ))}
@@ -101,7 +101,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
             className="ml-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
             onClick={removeFile}
           >
-            X
+            <XMarkIcon />
           </button>
         </div>
       )}
