@@ -58,10 +58,10 @@ const MultiplePrice = () => {
               onChange={e => handleInputChange(index, 'price', e.target.value)}
               className="max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm"
             />
-            <button onClick={handleAddRow}>
+            <button type="button" onClick={handleAddRow}>
               <PlusCircleIcon className="h-5 w-5 fill-gray-400" />
             </button>
-            <button onClick={() => handleRemoveRow(index)}>
+            <button type="button" onClick={() => handleRemoveRow(index)}>
               <TrashIcon className="h-5 w-5 fill-gray-400" />
             </button>
           </div>
