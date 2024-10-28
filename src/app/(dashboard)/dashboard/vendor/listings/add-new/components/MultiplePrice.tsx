@@ -1,10 +1,11 @@
+import { RANGE_REGEX } from '@/components/regex'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
+import RadioBox from './RadioBox'
 
 const MultiplePrice = () => {
   const [priceRanges, setPriceRanges] = useState([{ range: '', price: '', error: '' }])
-
-  const rangeRegex = /^\d+-\d+$/
+  const [selectedDeposit, setSelectedDeposit] = useState<string>('')
 
   const handleAddRow = () => {
     setPriceRanges([...priceRanges, { range: '', price: '', error: '' }])
@@ -19,7 +20,7 @@ const MultiplePrice = () => {
     const updatedPriceRanges = priceRanges.map((item, i) => {
       if (i === index) {
         if (field === 'range') {
-          const isValidRange = rangeRegex.test(value)
+          const isValidRange = RANGE_REGEX.test(value)
           return {
             ...item,
             [field]: value,
@@ -31,6 +32,10 @@ const MultiplePrice = () => {
       return item
     })
     setPriceRanges(updatedPriceRanges)
+  }
+
+  const handleDepositChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDeposit(event.target.value)
   }
 
   return (
@@ -53,10 +58,10 @@ const MultiplePrice = () => {
               onChange={e => handleInputChange(index, 'price', e.target.value)}
               className="max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm"
             />
-            <button onClick={handleAddRow}>
+            <button type="button" onClick={handleAddRow}>
               <PlusCircleIcon className="h-5 w-5 fill-gray-400" />
             </button>
-            <button onClick={() => handleRemoveRow(index)}>
+            <button type="button" onClick={() => handleRemoveRow(index)}>
               <TrashIcon className="h-5 w-5 fill-gray-400" />
             </button>
           </div>
@@ -68,30 +73,38 @@ const MultiplePrice = () => {
       <div>
         <p className="mb-3 text-clr-ab">Security Deposit Amount</p>
         <div className="flex items-center gap-3">
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="deposit1" className="font-medium">
-              25%
-            </label>
-            <input type="radio" id="deposit1" name="deposit" value="25" className="bg-clr-ab accent-clr-fb" />
-          </div>
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="deposit2" className="font-medium">
-              50%
-            </label>
-            <input type="radio" id="deposit2" name="deposit" value="50" className="bg-clr-ab accent-clr-fb" />
-          </div>
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="deposit3" className="font-medium">
-              65%
-            </label>
-            <input type="radio" id="deposit3" name="deposit" value="65" className="bg-clr-ab accent-clr-fb" />
-          </div>
-          <div className="border- flex items-center gap-6 rounded-lg border p-4">
-            <label htmlFor="deposit4" className="font-medium">
-              80%
-            </label>
-            <input type="radio" id="deposit4" name="deposit" value="80" className="bg-clr-ab accent-clr-fb" />
-          </div>
+          <RadioBox
+            id="deposit1"
+            name="deposit"
+            label="25%"
+            value="25"
+            checked={selectedDeposit === '25'}
+            onChange={handleDepositChange}
+          />
+          <RadioBox
+            id="deposit2"
+            name="deposit"
+            label="50%"
+            value="50"
+            checked={selectedDeposit === '50'}
+            onChange={handleDepositChange}
+          />
+          <RadioBox
+            id="deposit3"
+            name="deposit"
+            label="65%"
+            value="65"
+            checked={selectedDeposit === '65'}
+            onChange={handleDepositChange}
+          />
+          <RadioBox
+            id="deposit4"
+            name="deposit"
+            label="80%"
+            value="80"
+            checked={selectedDeposit === '80'}
+            onChange={handleDepositChange}
+          />
         </div>
       </div>
     </div>
