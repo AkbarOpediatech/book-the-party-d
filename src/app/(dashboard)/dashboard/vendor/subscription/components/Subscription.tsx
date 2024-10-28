@@ -7,7 +7,7 @@ const Subscription = () => {
   const [selectedSubscription, setSelectedSubscription] = useState<number | null>(null)
 
   const handleSelect = (index: number) => {
-    setSelectedSubscription(index)
+    setSelectedSubscription(prevSelected => (prevSelected === index ? null : index))
   }
 
   return (
@@ -23,7 +23,14 @@ const Subscription = () => {
             <p
               className={`${selectedSubscription === index ? 'text-white' : 'text-black'} mb-1 font-sora text-2xl font-semibold`}
             >
-              {data.title}
+              {data.title}{' '}
+              {data.tag && (
+                <span
+                  className={`${selectedSubscription === index ? 'bg-[#AB6DFF] text-white' : 'bg-gray-100'} ms-2 rounded px-2 py-1 text-xs font-semibold`}
+                >
+                  {data.tag}
+                </span>
+              )}
             </p>
             <p
               className={`${selectedSubscription === index ? 'text-white' : 'text-black'} font-sora text-[32px] font-semibold`}
