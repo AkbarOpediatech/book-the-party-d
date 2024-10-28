@@ -1,17 +1,19 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
-import { handleInputChange } from '@/components/inputHandlers'
 import { PaperClipIcon, PhotoIcon } from '@heroicons/react/16/solid'
 import { useRef, useState } from 'react'
 
 interface InputGroupProps {
   onSendMessage: (messageContent: string) => void
   onSendImage: (images: File[]) => void
+  onSendFile: (file: File) => void
 }
 
-const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage }) => {
+const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onSendFile }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const imageInputRef = useRef<HTMLInputElement>(null)
   const [text, setText] = useState('')
   const [selectedImages, setSelectedImages] = useState<File[]>([])
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -30,17 +32,33 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage }) =
       onSendImage(selectedImages)
       setSelectedImages([])
     }
+
+    if (selectedFile) {
+      onSendFile(selectedFile)
+      setSelectedFile(null)
+    }
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files)
       setSelectedImages(prev => [...prev, ...filesArray])
     }
   }
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files)
+      setSelectedFile(filesArray[0])
+    }
+  }
+
   const removeImage = (index: number) => {
     setSelectedImages(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const removeFile = () => {
+    setSelectedFile(null)
   }
 
   return (
@@ -50,18 +68,18 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage }) =
         placeholder="Write a reply..."
         rows={3}
         value={text}
-        onChange={e => handleInputChange(e, setText)}
+        onChange={e => setText(e.target.value)}
         onKeyDown={handleKeyPress}
       />
 
       {selectedImages.length > 0 && (
-        <div className="mb-2 flex gap-2 overflow-x-auto">
+        <div className="flex gap-2 overflow-x-auto p-4">
           {selectedImages.map((image, index) => (
             <div key={index} className="relative">
               <img
                 src={URL.createObjectURL(image)}
                 alt={`Selected ${index}`}
-                className="size-16 rounded-lg object-cover"
+                className="size-20 rounded-lg object-cover"
               />
               <button
                 type="button"
@@ -75,21 +93,41 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage }) =
         </div>
       )}
 
+      {selectedFile && (
+        <div className="flex items-center justify-between p-4">
+          <p className="text-sm text-gray-600">Selected file: {selectedFile.name}</p>
+          <button
+            type="button"
+            className="ml-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
+            onClick={removeFile}
+          >
+            X
+          </button>
+        </div>
+      )}
+
       <div className="flex items-center justify-between gap-4 border-t border-gray-200 px-4 py-3">
         <div className="flex items-center gap-4">
-          <button type="button">
+          <button type="button" onClick={() => fileInputRef.current?.click()}>
             <PaperClipIcon className="h-5 w-5 text-[#6B7280]" />
           </button>
-          <button type="button" onClick={() => fileInputRef.current?.click()}>
+          <button type="button" onClick={() => imageInputRef.current?.click()}>
             <PhotoIcon className="h-5 w-5 text-[#6B7280]" />
           </button>
           <input
             className="hidden"
             type="file"
             ref={fileInputRef}
+            accept=".pdf,.doc,.docx,.ppt,.pptx,.txt"
+            onChange={handleFileChange}
+          />
+          <input
+            className="hidden"
+            type="file"
+            ref={imageInputRef}
             accept="image/*"
             multiple
-            onChange={handleFileChange}
+            onChange={handleImageChange}
           />
         </div>
         <DashboardButton type="button" name="Send message" onClick={sendMessage} />

@@ -11,7 +11,7 @@ const VendorChat: React.FC = () => {
   const onSendMessage = (messageContent: string) => {
     const newMessage: Message = {
       id: messages.length + 1,
-      sender: 'user', // Ensure this is strictly "user" | "bot"
+      sender: 'user',
       content: messageContent,
       timestamp: new Date().toLocaleTimeString(),
       type: 'text'
@@ -23,11 +23,23 @@ const VendorChat: React.FC = () => {
     const imageUrls = images.map(image => URL.createObjectURL(image))
 
     const newMessage: Message = {
-      id: messages.length + 1, // Ensure unique ID
+      id: messages.length + 1,
       sender: 'user',
-      content: imageUrls, // Store URLs as an array
+      content: imageUrls,
       timestamp: new Date().toLocaleTimeString(),
-      type: 'image' // Specify type as 'image'
+      type: 'image'
+    }
+
+    setMessages(prevMessages => [...prevMessages, newMessage])
+  }
+
+  const onSendFile = (file: File) => {
+    const newMessage: Message = {
+      id: messages.length + 1,
+      sender: 'user',
+      content: file,
+      timestamp: new Date().toLocaleTimeString(),
+      type: 'file'
     }
 
     setMessages(prevMessages => [...prevMessages, newMessage])
@@ -36,7 +48,7 @@ const VendorChat: React.FC = () => {
     <div className="flex h-full flex-col justify-between bg-white">
       <ChatHeader />
       <Conversation messages={messages} />
-      <InputGroup onSendMessage={onSendMessage} onSendImage={onSendImage} />
+      <InputGroup onSendMessage={onSendMessage} onSendImage={onSendImage} onSendFile={onSendFile} />
     </div>
   )
 }

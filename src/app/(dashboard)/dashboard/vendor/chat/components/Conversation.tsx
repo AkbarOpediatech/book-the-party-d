@@ -1,6 +1,6 @@
 import type { Message } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { EllipsisVerticalIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/16/solid'
+import { ArrowDownIcon, EllipsisVerticalIcon, Square2StackIcon, TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import avatar from '/public/assets/avatar.jpeg'
@@ -38,23 +38,45 @@ const Conversation: React.FC<ConversationProps> = ({ messages }) => {
             </div>
             <div className="flex items-center gap-1.5">
               <div className="rounded-[20px] bg-gray-100 p-4">
-                {message.type === 'text' ? (
+                {/* Check message type and render accordingly */}
+                {message.type === 'text' && typeof message.content === 'string' ? (
                   <p className="font-inter text-sm text-gray-900">{message.content}</p>
-                ) : Array.isArray(message.content) ? (
+                ) : message.type === 'image' ? (
                   <div className="flex flex-wrap gap-2">
-                    {message.content.map((url, index) => (
-                      <Image
-                        key={index}
-                        src={url}
-                        alt="Sent Image"
-                        width={80}
-                        height={80}
-                        className="flex-shrink-0 rounded-lg object-cover"
-                      />
-                    ))}
+                    {Array.isArray(message.content) &&
+                      message.content.map((url, index) => (
+                        <div key={index} className="relative">
+                          <Image
+                            src={url}
+                            alt="Sent Image"
+                            width={80}
+                            height={80}
+                            className="flex-shrink-0 rounded-lg object-cover"
+                          />
+                          <a
+                            href={url}
+                            download
+                            className="absolute bottom-0 right-0 rounded bg-blue-500 p-0.5 text-white"
+                          >
+                            <ArrowDownIcon className="size-3" />
+                          </a>
+                        </div>
+                      ))}
+                  </div>
+                ) : message.type === 'file' ? (
+                  <div className="flex items-center gap-2">
+                    <p className="text-wrap">{(message.content as File).name}</p>
+
+                    <a
+                      href={URL.createObjectURL(message.content as File)}
+                      download={(message.content as File).name}
+                      className="rounded bg-blue-500 p-0.5 text-white"
+                    >
+                      <ArrowDownIcon className="size-3" />
+                    </a>
                   </div>
                 ) : (
-                  <p className="text-red-500">Error: Invalid image data</p>
+                  <p className="text-red-500">Error: Invalid message type</p>
                 )}
               </div>
               {message.sender === 'user' && (
