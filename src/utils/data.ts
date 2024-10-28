@@ -363,6 +363,35 @@ export const listingsData: IListingsData[] = [
   }
 ]
 
+export const categories: string[] = [
+  'Party Packages',
+  'Backdrops & Décor Props',
+  'Tables & Seating',
+  'Vehicle Hire',
+  'Outdoor Hire',
+  'Kid’s Party Entertainment',
+  'Sound, lighting & visual',
+  'Food & Beverage'
+]
+
+export const subCategories: string[] = [
+  'Themed Party Packages',
+  'Birthday',
+  'Engagement',
+  'Wedding',
+  'Birthday',
+  'Baby Shower',
+  'Bridal Shower',
+  'Gender Reveal',
+  'Graduation',
+  'Marriage Proposal',
+  'Eid',
+  'Fatiha',
+  'Katab el kitab',
+  'Christening',
+  'Baptism'
+]
+
 // landing page
 export const eventFeatures: IEventFeatures[] = [
   {
@@ -561,6 +590,65 @@ export const occasionItems = [
     linkName: 'Baby Shower',
     url: '#',
     bgColor: '#D89797'
+  }
+]
+
+export const formData = [
+  {
+    labelTitle: 'name',
+    htmlFor: 'name',
+    inputId: 'name',
+    inputType: 'name',
+    inputPlaceholder: 'Maguire Harry'
+  },
+  {
+    labelTitle: 'email',
+    htmlFor: 'email',
+    inputId: 'email',
+    inputType: 'email',
+    inputPlaceholder: 'Email Address'
+  },
+  {
+    labelTitle: 'Mobile Number',
+    htmlFor: 'mobileNumber',
+    inputId: 'mobileNumber',
+    inputType: 'number',
+    inputPlaceholder: 'Mobile Number'
+  },
+  {
+    labelTitle: 'Flat, House no., Building, Company, Apartment',
+    htmlFor: 'houseNo',
+    inputId: 'houseNo',
+    inputType: 'text',
+    inputPlaceholder: 'House No 23'
+  },
+  {
+    labelTitle: 'Street Name',
+    htmlFor: 'streetName',
+    inputId: 'streetName',
+    inputType: 'text',
+    inputPlaceholder: 'Parker Rd. Allentown'
+  },
+  {
+    labelTitle: 'Suburb',
+    htmlFor: 'suburb',
+    inputId: 'suburb',
+    inputType: 'text',
+    inputPlaceholder: 'Sydney'
+  },
+  {
+    labelTitle: 'State',
+    htmlFor: 'state',
+    inputId: 'state',
+    inputType: 'text',
+    inputPlaceholder: 'Australia'
+  },
+  {
+    labelTitle: 'Postcode',
+    htmlFor: 'postCode',
+    inputId: 'postCode',
+    inputType: 'text',
+    inputPlaceholder: '311334'
   }
 ]
 // landing page end

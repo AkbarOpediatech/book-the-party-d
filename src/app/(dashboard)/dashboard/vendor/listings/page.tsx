@@ -15,10 +15,17 @@ const VendorListing = () => {
     const query = new URLSearchParams(window.location.search)
     if (query.get('modal') === 'true') {
       setIsModalOpen(true)
+
+      const timer = setTimeout(() => {
+        setIsModalOpen(false)
+        router.push('/dashboard/vendor/listings')
+      }, 3000)
+
+      return () => clearTimeout(timer)
     } else {
       setIsModalOpen(false)
     }
-  }, [])
+  }, [router])
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
