@@ -15,8 +15,8 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
 
       <li>
         <button className="flex flex-col justify-start" onClick={() => setCurrentStep(1)}>
-          <span className={`mb-3 inline-block rounded bg-gray-50 p-3 ${currentStep === 1 && 'bg-[#A1A3D8]'}`}>
-            <CreditCardIcon className="size-6" />
+          <span className={`mb-3 inline-block rounded bg-gray-50 p-3 ${currentStep === 1 && 'bg-[#727399]'}`}>
+            <CreditCardIcon className={`size-6 ${currentStep === 1 && 'fill-white'}`} />
           </span>
           <p className="font-sora text-2xl font-light text-clr-0f">Payment Method</p>
         </button>

@@ -6,7 +6,7 @@ import CustomerInfo from './components/CustomerInfo'
 import ProgressBar from './components/ProgressBar'
 
 const Checkout = () => {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(1)
 
   return (
     <section className="cart pb-[100px] pt-[74px]">
