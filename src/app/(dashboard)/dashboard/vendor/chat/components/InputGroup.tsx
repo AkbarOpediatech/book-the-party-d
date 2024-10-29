@@ -73,7 +73,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
       />
 
       {selectedImages.length > 0 && (
-        <div className="flex gap-2 overflow-x-auto p-4">
+        <div className="flex flex-wrap gap-2 overflow-x-auto p-4">
           {selectedImages.map((image, index) => (
             <div key={index} className="relative">
               <img
@@ -98,7 +98,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
           <p className="text-sm text-gray-600">Selected file: {selectedFile.name}</p>
           <button
             type="button"
-            className="ml-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs text-white"
+            className="ml-2 flex size-5 flex-shrink-0 items-center justify-center rounded-full bg-red-500 text-xs text-white"
             onClick={removeFile}
           >
             <XMarkIcon />

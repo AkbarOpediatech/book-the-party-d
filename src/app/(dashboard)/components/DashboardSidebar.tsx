@@ -56,7 +56,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                 </div>
                 <nav className="flex-1">
                   <div className="px-6">
-                    <Link href={'/vendor'} className="nav-brand mb-8 block text-black">
+                    <Link href={'/dashboard/vendor/dashboard'} className="nav-brand mb-8 block text-black">
                       <Image width={90} height={40} src={DLogo} alt="logo" />
                     </Link>
 
@@ -75,7 +75,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                   <div className="dashboard-navigation space-y-1 px-4 py-6">
                     <ul className="space-y-1">
                       {vendorNavigation.map((items, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => setSidebarOpen(false)}>
                           {items.type === 'button' && (
                             <Link
                               href={items.href}

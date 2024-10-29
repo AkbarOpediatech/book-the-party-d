@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex w-full flex-1 flex-col">
         <DashboardTopbar setSidebarOpen={setSidebarOpen} />
 
-        <div className="flex-1 overflow-y-auto bg-clr-f8 px-10 py-6">{children}</div>
+        <div className="flex-1 overflow-y-auto bg-clr-f8 px-5 py-6 lg:px-10">{children}</div>
       </div>
     </div>
   )
