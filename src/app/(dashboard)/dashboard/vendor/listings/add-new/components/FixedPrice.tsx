@@ -14,7 +14,7 @@ const FixedPrice = () => {
       <FormInput name="priceValue" type="number" placeholder="$450.00" customClass="mb-4" />
       <div>
         <p className="mb-3 text-clr-ab">Security Deposit Amount</p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <RadioBox
             id="deposit1"
             name="deposit"

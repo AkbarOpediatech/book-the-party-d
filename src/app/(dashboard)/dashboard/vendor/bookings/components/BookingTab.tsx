@@ -11,7 +11,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
     <div className="flex rounded-tl-lg rounded-tr-lg bg-clr-f8">
       <button
         className={cn(
-          'relative flex items-center gap-2 px-6 py-3 text-sm font-semibold capitalize text-clr-81',
+          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-6 md:py-3',
           tab === 0 && 'text-clr-36'
         )}
         onClick={() => setTab(0)}

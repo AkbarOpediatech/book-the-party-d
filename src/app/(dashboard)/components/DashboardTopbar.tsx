@@ -18,7 +18,7 @@ type IProps = {
 const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
   return (
     <div className="w-full border-l bg-white px-6 py-[22px] md:px-10">
-      <div className="flex flex-wrap items-center justify-between gap-5 lg:flex-nowrap lg:gap-0">
+      <div className="flex items-center justify-between gap-5 lg:flex-nowrap lg:gap-0">
         <div className="flex w-full max-w-[467px] gap-2">
           <button className="lg:hidden" onClick={() => setSidebarOpen(true)}>
             <Bars3Icon className="h-6 w-6 text-gray-500" />
@@ -31,7 +31,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           />
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-shrink-0 items-center gap-6">
           <Menu>
             <MenuButton className="relative">
               <Image className="size-6" src={ICNotification} alt="icon" />
@@ -70,7 +70,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           </Menu>
 
           <Menu>
-            <MenuButton className={'h-10 w-10 overflow-hidden rounded-full'}>
+            <MenuButton className={'size-8 overflow-hidden rounded-full lg:size-10'}>
               <Image src={Avater} alt="avater" />
             </MenuButton>
 

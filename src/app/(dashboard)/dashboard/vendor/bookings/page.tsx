@@ -1,6 +1,5 @@
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
 import React from 'react'
-import BookingAllTable from './components/BookingAllTable'
 import BookingAnalytics from './components/BookingAnalytics'
 import Bookings from './components/Bookings'
 
