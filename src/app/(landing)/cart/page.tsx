@@ -12,7 +12,7 @@ const Cart = () => {
             <CartItems />
           </div>
           <div className="col-span-4">
-            <SubTotal />
+            <SubTotal isCart={true} />
           </div>
         </div>
       </div>

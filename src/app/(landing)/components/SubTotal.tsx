@@ -1,6 +1,49 @@
+'use client'
+import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import SuccessModal from '../checkout/components/SuccessModal'
 
-const SubTotal = () => {
+interface RootState {
+  stepper: {
+    currentStep: number
+  }
+}
+
+type IProps = {
+  setCurrentStep?: any
+  isCart?: boolean
+}
+
+const SubTotal: React.FC<IProps> = ({ isCart }) => {
+  const currentStep = useSelector((state: RootState) => state.stepper.currentStep)
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
+
+  const handleProceedToPay = async () => {
+    if (loading) return
+
+    if (currentStep < 2) {
+      dispatch(nextStep())
+    } else {
+      setLoading(true)
+      try {
+        // async database call for payment
+        // Simulate API call for payment
+        setIsOpen(true)
+      } catch (error) {
+        alert('Payment failed!')
+      } finally {
+        setLoading(false)
+      }
+    }
+  }
+
   return (
     <>
       <div className="rounded-lg border bg-white p-6">
@@ -47,7 +90,13 @@ const SubTotal = () => {
         </div>
 
         <div className="mb-4 flex items-start">
-          <input type="checkbox" id="terms" className="mr-2 mt-1" />
+          <input
+            type="checkbox"
+            id="terms"
+            className="mr-2 mt-1"
+            checked={agreedToTerms}
+            onChange={e => setAgreedToTerms(e.target.checked)}
+          />
           <label htmlFor="terms" className="text-sm text-clr-0f">
             I understand and accept the{' '}
             <Link href="#" className="text-blue-500 underline">
@@ -55,14 +104,29 @@ const SubTotal = () => {
             </Link>
           </label>
         </div>
-
-        <Link
-          href={'/checkout'}
-          className="inline-block w-full rounded-xl bg-purple-500 py-3 text-center text-lg font-semibold text-white"
-        >
-          Proceed to Pay
-        </Link>
+        {isCart ? (
+          <Link
+            href={'/checkout'}
+            onClick={handleProceedToPay}
+            className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
+              agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
+            }`}
+          >
+            {loading ? 'Processing...' : 'Proceed to Pay'}
+          </Link>
+        ) : (
+          <button
+            onClick={handleProceedToPay}
+            disabled={!agreedToTerms || loading}
+            className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
+              agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
+            }`}
+          >
+            {loading ? 'Processing...' : 'Proceed to Pay'}
+          </button>
+        )}
       </div>
+      <SuccessModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }

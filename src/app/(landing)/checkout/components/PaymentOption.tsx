@@ -89,6 +89,20 @@ const PaymentOption = () => {
         </label>
 
         {selectedOption === 'paypal' && <p className="text-gray-600">You selected PayPal.</p>}
+
+        {/* Option 2 */}
+        <label className="block cursor-pointer items-center space-x-2">
+          <input
+            type="radio"
+            name="payment"
+            value="bank"
+            className="relative h-4 w-4 appearance-none rounded-full border border-clr-fb after:absolute after:left-1/2 after:top-1/2 after:hidden after:h-[10px] after:w-[10px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-clr-fb after:focus-within:block focus:ring-clr-fb"
+            onChange={() => handleChange('bank')}
+          />
+          <span className="font-sora text-lg font-bold capitalize text-clr-0f">Bank Transfer</span>
+        </label>
+
+        {selectedOption === 'bank' && <p className="text-gray-600">You selected Bank Transfer.</p>}
       </div>
     </div>
   )

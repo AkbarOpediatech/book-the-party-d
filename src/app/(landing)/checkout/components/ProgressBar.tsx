@@ -1,4 +1,5 @@
 'use client'
+import { cn } from '@/utils'
 import { CreditCardIcon, DocumentTextIcon, HomeIcon } from '@heroicons/react/16/solid'
 
 const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
@@ -15,8 +16,10 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
 
       <li>
         <button className="flex flex-col justify-start" onClick={() => setCurrentStep(1)}>
-          <span className={`mb-3 inline-block rounded bg-gray-50 p-3 ${currentStep === 1 && 'bg-[#727399]'}`}>
-            <CreditCardIcon className={`size-6 ${currentStep === 1 && 'fill-white'}`} />
+          <span
+            className={cn('mb-3 inline-block rounded bg-gray-50 p-3', currentStep >= 1 && 'bg-[#3a3b4e]')}
+          >
+            <CreditCardIcon className={`size-6 ${currentStep >= 1 && 'fill-white'}`} />
           </span>
           <p className="font-sora text-2xl font-light text-clr-0f">Payment Method</p>
         </button>
@@ -25,9 +28,9 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
       <li>
         <button className="flex flex-col items-end" onClick={() => setCurrentStep(2)}>
           <span
-            className={`mb-3 inline-block rounded bg-gray-50 p-3 text-end ${currentStep === 2 && 'bg-[#D1AC73]'}`}
+            className={cn('mb-3 inline-block rounded bg-gray-50 p-3', currentStep === 2 && 'bg-[#a18457]')}
           >
-            <DocumentTextIcon className="size-6" />
+            <DocumentTextIcon className={`size-6 ${currentStep === 2 && 'fill-white'}`} />
           </span>
           <p className="font-sora text-2xl font-light text-clr-0f">Review</p>
         </button>
