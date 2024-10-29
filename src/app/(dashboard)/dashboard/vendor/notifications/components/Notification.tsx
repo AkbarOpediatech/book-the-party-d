@@ -7,7 +7,7 @@ const Notification = () => {
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-3">
-        <div className="size-11 overflow-hidden rounded-full">
+        <div className="size-8 flex-shrink-0 overflow-hidden rounded-full lg:size-11">
           <Image className="object-cover" src={avater} alt="pic" />
         </div>
         <div className="text-gray-500">

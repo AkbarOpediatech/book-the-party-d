@@ -15,7 +15,7 @@ const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit }) => {
         <p className="text-xl font-medium text-gray-900">Vendor information</p>
         <InformationCircleIcon className="size-3 text-gray-400" />
       </div>
-      <div className="grid grid-cols-2 gap-12 border-b border-gray-200 pb-6">
+      <div className="grid grid-cols-1 gap-6 border-b border-gray-200 pb-6 md:grid-cols-2 lg:gap-12">
         <div className="flex flex-col gap-5">
           <Info title="Full name" value="Joseph McFall" />
           <Info

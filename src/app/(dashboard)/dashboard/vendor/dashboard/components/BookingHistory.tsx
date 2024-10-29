@@ -9,7 +9,7 @@ const BookingHistory = () => {
         <h4 className="mb-1 text-lg font-bold text-clr-48">Booking history</h4>
         <p className="text-sm text-clr-81">You have 10 Bookings in total</p>
       </div>
-      <ul className="booking-details px-10">
+      <ul className="booking-details px-5 lg:px-10">
         {dashboardBookingHistory
           .slice(0, 7)
           .reverse()

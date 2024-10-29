@@ -20,7 +20,7 @@ const TransactionHistoryTable = () => {
         </div>
       ),
       sortable: true,
-      width: '350px'
+      width: '450px'
     },
     {
       name: 'Amount',
@@ -47,7 +47,8 @@ const TransactionHistoryTable = () => {
           {row.status}
         </span>
       ),
-      sortable: true
+      sortable: true,
+      width: '200px'
     },
     {
       name: '',
@@ -77,7 +78,7 @@ const TransactionHistoryTable = () => {
           </MenuItems>
         </Menu>
       ),
-      width: '50px'
+      width: '100px'
     }
   ]
 
