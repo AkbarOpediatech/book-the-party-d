@@ -1,3 +1,4 @@
+import { footerNav } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import ICFacebook from '/public/assets/ic-fb.svg'
@@ -20,39 +21,16 @@ const Footer = () => {
           <p className="mb-2 font-poppins text-base font-light text-black">Get Help or get in touch</p>
           {/* footer nav items */}
           <ul className="flex gap-1">
-            <li>
-              <Link className="font-poppins text-base font-light text-black" href={'#'}>
-                About |
-              </Link>
-            </li>
-            <li>
-              <Link className="font-poppins text-base font-light text-black" href={'#'}>
-                Contact |{' '}
-              </Link>
-            </li>
-            <li>
-              <Link className="font-poppins text-base font-light text-black" href={'#'}>
-                FAQ |
-              </Link>
-            </li>
-            <li>
-              <Link className="font-poppins text-base font-light text-black" href={'#'}>
-                Policies |
-              </Link>
-            </li>
-            <li>
-              <Link className="font-poppins text-base font-light text-black" href={'#'}>
-                Terms & Conditions |
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="font-poppins text-base font-light text-black"
-                href={'/dashboard/vendor/dashboard'}
-              >
-                Vendor
-              </Link>
-            </li>
+            {footerNav.map((i, index) => (
+              <li key={index}>
+                <Link
+                  className="mr-2 border-r border-r-gray-500 pr-2 font-poppins text-base font-light text-black"
+                  href={i.url}
+                >
+                  {i.name}
+                </Link>
+              </li>
+            ))}
           </ul>
           {/* footer social items */}
           <ul className="my-5 flex items-center gap-5">

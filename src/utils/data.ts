@@ -685,6 +685,44 @@ export const creditCardForm = [
   }
 ]
 
+export const footerNav = [
+  {
+    id: 0,
+    name: 'About',
+    url: '/about'
+  },
+  {
+    id: 1,
+    name: 'Contact',
+    url: '/contact'
+  },
+  {
+    id: 2,
+    name: 'FAQ',
+    url: '/faq'
+  },
+  {
+    id: 3,
+    name: 'Policies',
+    url: '/policies'
+  },
+  {
+    id: 4,
+    name: 'About',
+    url: '/about'
+  },
+  {
+    id: 5,
+    name: 'Terms & Conditions',
+    url: '/terms-and-conditions'
+  },
+  {
+    id: 6,
+    name: 'Vendor',
+    url: '/dashboard/vendor/dashboard'
+  }
+]
+
 // landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
