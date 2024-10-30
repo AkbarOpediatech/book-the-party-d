@@ -1,13 +1,12 @@
 'use client'
 import { nextStep } from '@/redux/features/stepperSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import useStepper from '@/redux/hooks/useStepper'
 import CustomerDetails from './CustomerDetails'
 import PaymentOption from './PaymentOption'
 import Review from './Review'
 
 const CustomerInfo = () => {
-  const currentStep = useSelector((state: any) => state.stepper.currentStep)
-  const dispatch = useDispatch()
+  const { currentStep, dispatch } = useStepper()
 
   return (
     <>

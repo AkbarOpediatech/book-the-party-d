@@ -1,14 +1,13 @@
 'use client'
 import { setStep } from '@/redux/features/stepperSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import useStepper from '@/redux/hooks/useStepper'
 import CartHead from '../cart/components/CartHead'
 import SubTotal from '../components/SubTotal'
 import CustomerInfo from './components/CustomerInfo'
 import ProgressBar from './components/ProgressBar'
 
 const Checkout = () => {
-  const currentStep = useSelector((state: any) => state.stepper.currentStep)
-  const dispatch = useDispatch()
+  const { currentStep, dispatch } = useStepper()
 
   return (
     <section className="cart pb-[100px] pt-[74px]">

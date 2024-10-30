@@ -1,10 +1,13 @@
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/16/solid'
 import Link from 'next/link'
+import type { Dispatch, SetStateAction } from 'react'
+
 type IProps = {
   isOpen: boolean
-  setIsOpen: any
+  setIsOpen: Dispatch<SetStateAction<boolean>>
 }
+
 const SuccessModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">

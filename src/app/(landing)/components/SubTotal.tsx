@@ -2,7 +2,7 @@
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SuccessModal from '../checkout/components/SuccessModal'
 
@@ -13,7 +13,7 @@ interface RootState {
 }
 
 type IProps = {
-  setCurrentStep?: any
+  setCurrentStep?: Dispatch<SetStateAction<number>>
   isCart?: boolean
 }
 
@@ -33,8 +33,8 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
     } else {
       setLoading(true)
       try {
-        // async database call for payment
-        // Simulate API call for payment
+        //TODO: async database call for payment
+        //TODO: Simulate API call for payment
         setIsOpen(true)
       } catch (error) {
         alert('Payment failed!')

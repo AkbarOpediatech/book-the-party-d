@@ -1,4 +1,3 @@
-// redux/features/stepperSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface StepperState {
