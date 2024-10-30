@@ -35,7 +35,10 @@ const DashboardButton: React.FC<IProps> = props => {
     return (
       <Link
         href={linkUrl}
-        className={cn('flex items-center gap-2 rounded-md bg-clr-fb px-3 py-2 text-white', `${className}`)}
+        className={cn(
+          'flex items-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2',
+          `${className}`
+        )}
       >
         {icon}
         {name}
@@ -46,7 +49,10 @@ const DashboardButton: React.FC<IProps> = props => {
   return (
     <button
       onClick={onClick}
-      className={cn('flex items-center gap-2 rounded-md bg-clr-fb px-3 py-2 text-white', `${className}`)}
+      className={cn(
+        'flex items-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2',
+        `${className}`
+      )}
     >
       {icon}
       {name}

@@ -651,6 +651,40 @@ export const formData = [
     inputPlaceholder: '311334'
   }
 ]
+
+export const creditCardForm = [
+  {
+    id: 0,
+    htmlFor: 'cardNumber',
+    inputId: 'cardNumber',
+    labelTitle: 'Card Number',
+    inputPlaceholder: 'Card Number',
+    inputType: 'number',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  },
+  {
+    id: 1,
+    htmlFor: 'name',
+    inputId: 'name',
+    labelTitle: 'Card Holder Name',
+    inputPlaceholder: 'Card Holder Name',
+    inputType: 'text',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  },
+  {
+    id: 2,
+    htmlFor: 'date',
+    inputId: 'date',
+    labelTitle: 'Expiry Date',
+    inputPlaceholder: 'Expiry Date',
+    inputType: 'date',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  }
+]
+
 // landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',

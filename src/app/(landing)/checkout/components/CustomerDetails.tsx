@@ -6,16 +6,16 @@ import DeliveryAddress from './DeliveryAddress'
 import InputForm from './InputForm'
 
 type IProps = {
-  setCurrentStep: (step: number) => void
+  onNext: (step?: number) => void
 }
 
-const CustomerDetails: React.FC<IProps> = ({ setCurrentStep }) => {
+const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
   const [saveAddress, setSaveAddress] = useState(false)
   const [categoryChecked, setCategoryChecked] = useState(false)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    setCurrentStep(1)
+    onNext()
   }
 
   return (

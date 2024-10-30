@@ -42,27 +42,27 @@ const MultiplePrice = () => {
     <div>
       {priceRanges.map((row, index) => (
         <div key={index} className="mb-4 flex flex-col">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 md:gap-2">
             <input
               type="text"
               placeholder="5-10"
               value={row.range}
               onChange={e => handleInputChange(index, 'range', e.target.value)}
-              className={`max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm ${row.error ? 'border-red-500' : ''}`}
+              className={`max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 font-inter text-sm md:p-3 ${row.error ? 'border-red-500' : ''}`}
             />
-            <p className="text-sm text-clr-ab">will take</p>
+            <p className="text-xs text-clr-ab md:text-sm">will take</p>
             <input
               type="number"
               placeholder="$450.00"
               value={row.price}
               onChange={e => handleInputChange(index, 'price', e.target.value)}
-              className="max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm"
+              className="max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 font-inter text-sm md:p-3"
             />
             <button type="button" onClick={handleAddRow}>
-              <PlusCircleIcon className="h-5 w-5 fill-gray-400" />
+              <PlusCircleIcon className="size-5 fill-gray-400" />
             </button>
             <button type="button" onClick={() => handleRemoveRow(index)}>
-              <TrashIcon className="h-5 w-5 fill-gray-400" />
+              <TrashIcon className="size-5 fill-gray-400" />
             </button>
           </div>
 
@@ -72,7 +72,7 @@ const MultiplePrice = () => {
 
       <div>
         <p className="mb-3 text-clr-ab">Security Deposit Amount</p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <RadioBox
             id="deposit1"
             name="deposit"

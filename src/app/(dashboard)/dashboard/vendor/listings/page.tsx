@@ -33,7 +33,7 @@ const VendorListing = () => {
   }
 
   return (
-    <div className="bg-white px-7 py-10">
+    <div className="bg-white px-5 py-10 lg:px-7">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-5">
         <TitleAndBreadCrumbs title={'My Listings'} menuitem={'Dashboard'} breadcrumbs={'Items'} />
         <DashboardButton

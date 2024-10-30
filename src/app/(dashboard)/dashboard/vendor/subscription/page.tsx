@@ -3,7 +3,7 @@ import Subscription from './components/Subscription'
 
 const VendorSubscription = () => {
   return (
-    <div className="bg-white px-7 py-10">
+    <div className="bg-white px-5 py-10 lg:px-7">
       <TitleAndBreadCrumbs
         title="Subscription"
         menuitem="Dashboard"
@@ -12,8 +12,6 @@ const VendorSubscription = () => {
       />
 
       <Subscription />
-
-
     </div>
   )
 }
