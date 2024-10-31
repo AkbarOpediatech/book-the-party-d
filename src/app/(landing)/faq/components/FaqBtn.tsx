@@ -2,8 +2,8 @@
 import { cn } from '@/utils'
 
 type IProps = {
-  onTabChange: any
-  selectedTab: any
+  onTabChange: (tabIndex: number) => void
+  selectedTab: number
 }
 
 const FaqBtn: React.FC<IProps> = ({ onTabChange, selectedTab }) => {

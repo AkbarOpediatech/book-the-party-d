@@ -8,7 +8,7 @@ import FaqBtn from './components/FaqBtn'
 const FAQ = () => {
   const [selectedTab, setSelectedTab] = useState(0)
 
-  const handleTabChange = (tabIndex: any) => {
+  const handleTabChange = (tabIndex: number) => {
     setSelectedTab(tabIndex)
   }
 

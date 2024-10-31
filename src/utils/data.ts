@@ -689,7 +689,7 @@ export const footerNav = [
   {
     id: 0,
     name: 'About',
-    url: '/about'
+    url: '/about-us'
   },
   {
     id: 1,
