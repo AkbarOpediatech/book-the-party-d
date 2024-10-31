@@ -107,7 +107,6 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
         {isCart ? (
           <Link
             href={'/checkout'}
-            onClick={handleProceedToPay}
             className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
               agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
             }`}
