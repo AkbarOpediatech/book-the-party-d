@@ -752,7 +752,7 @@ export const bookingDetails = [
 ]
 
 // landing page end
-const listingInclusions: string[] = [
+export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
   'We will be able to match 90% to the picture of the cake on the website. The color, shape and size are indicative in nature.',
   'Delivery is available within the city limits.',
