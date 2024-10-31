@@ -1,12 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { setStep } from '@/redux/features/stepperSlice'
+import useStepper from '@/redux/hooks/useStepper'
 import CartHead from '../cart/components/CartHead'
 import SubTotal from '../components/SubTotal'
 import CustomerInfo from './components/CustomerInfo'
 import ProgressBar from './components/ProgressBar'
 
 const Checkout = () => {
-  const [currentStep, setCurrentStep] = useState(0)
+  const { currentStep, dispatch } = useStepper()
 
   return (
     <section className="cart pb-[100px] pt-[74px]">
@@ -15,12 +16,15 @@ const Checkout = () => {
         <div className="grid grid-cols-12 gap-16">
           <div className="col-span-8">
             <div className="mb-11">
-              <ProgressBar currentStep={currentStep} setCurrentStep={setCurrentStep} />
+              <ProgressBar
+                currentStep={currentStep}
+                setCurrentStep={(step: any) => dispatch(setStep(step))}
+              />
             </div>
-            <CustomerInfo currentStep={currentStep} setCurrentStep={setCurrentStep} />
+            <CustomerInfo />
           </div>
           <div className="col-span-4">
-            <SubTotal />
+            <SubTotal setCurrentStep={(step: any) => dispatch(setStep(step))} />
           </div>
         </div>
       </div>

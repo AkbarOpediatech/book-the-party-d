@@ -1,7 +1,7 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import { handleInputChange } from '@/components/inputHandlers'
+import { handleInputChange } from '@/utils/inputHandlers'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import FixedPrice from './FixedPrice'

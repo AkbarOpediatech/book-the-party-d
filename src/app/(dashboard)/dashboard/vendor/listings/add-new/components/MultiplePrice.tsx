@@ -1,4 +1,4 @@
-import { RANGE_REGEX } from '@/components/regex'
+import { RANGE_REGEX } from '@/utils/regex'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import RadioBox from './RadioBox'

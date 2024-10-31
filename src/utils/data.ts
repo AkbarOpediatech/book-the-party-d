@@ -651,6 +651,106 @@ export const formData = [
     inputPlaceholder: '311334'
   }
 ]
+
+export const creditCardForm = [
+  {
+    id: 0,
+    htmlFor: 'cardNumber',
+    inputId: 'cardNumber',
+    labelTitle: 'Card Number',
+    inputPlaceholder: 'Card Number',
+    inputType: 'number',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  },
+  {
+    id: 1,
+    htmlFor: 'name',
+    inputId: 'name',
+    labelTitle: 'Card Holder Name',
+    inputPlaceholder: 'Card Holder Name',
+    inputType: 'text',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  },
+  {
+    id: 2,
+    htmlFor: 'date',
+    inputId: 'date',
+    labelTitle: 'Expiry Date',
+    inputPlaceholder: 'Expiry Date',
+    inputType: 'date',
+    inputClassName: 'text-base',
+    labelClassName: 'text-base'
+  }
+]
+
+export const footerNav = [
+  {
+    id: 0,
+    name: 'About',
+    url: '/about-us'
+  },
+  {
+    id: 1,
+    name: 'Contact',
+    url: '/contact'
+  },
+  {
+    id: 2,
+    name: 'FAQ',
+    url: '/faq'
+  },
+  {
+    id: 3,
+    name: 'Policies',
+    url: '/policies'
+  },
+  {
+    id: 4,
+    name: 'About',
+    url: '/about'
+  },
+  {
+    id: 5,
+    name: 'Terms & Conditions',
+    url: '/terms-and-conditions'
+  },
+  {
+    id: 6,
+    name: 'Vendor',
+    url: '/dashboard/vendor/dashboard'
+  }
+]
+
+export const bookingDetails = [
+  {
+    id: 0,
+    title: 'How can I get more information about the party booking I have made?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 1,
+    title: 'When do I get a confirmation email?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 2,
+    title: 'Where can I check my booking details?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 3,
+    title: 'Can I add additional party requirements to my booking?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 4,
+    title: 'How do I get in touch with the vendor?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  }
+]
+
 // landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
