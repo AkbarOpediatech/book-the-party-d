@@ -1,4 +1,4 @@
-import { handleInputChange } from '@/components/inputHandlers'
+import { handleInputChange } from '@/utils/inputHandlers'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'

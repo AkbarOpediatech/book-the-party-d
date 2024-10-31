@@ -34,7 +34,7 @@ const Contact = () => {
                   </p>
                 </Link>
 
-                <Link href={'/live-chat'} className="bg-clr-d8 block w-full max-w-[345px] p-6">
+                <Link href={'/live-chat'} className="block w-full max-w-[345px] bg-clr-d8 p-6">
                   <div className="flex justify-center">
                     <span className="inline-block rounded-full border-2 p-5">
                       <EnvelopeOpenIcon className="size-5" stroke="white" />
@@ -70,7 +70,7 @@ const Contact = () => {
           </div>
           <div className="col-span-7">
             <form>
-              <ul>
+              <ul className="mb-10">
                 <li className="mb-10 last:mb-0">
                   <ContactInput
                     htmlFor="name"
@@ -122,6 +122,10 @@ const Contact = () => {
                   <textarea name="" id="" className="h-[220px] w-full bg-gray-50 p-5"></textarea>
                 </li>
               </ul>
+
+              <button className="w-full rounded-xl bg-clr-fb py-5 text-2xl font-bold text-white">
+                Submit
+              </button>
             </form>
           </div>
         </div>
