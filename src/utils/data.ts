@@ -723,8 +723,36 @@ export const footerNav = [
   }
 ]
 
+export const bookingDetails = [
+  {
+    id: 0,
+    title: 'How can I get more information about the party booking I have made?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 1,
+    title: 'When do I get a confirmation email?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 2,
+    title: 'Where can I check my booking details?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 3,
+    title: 'Can I add additional party requirements to my booking?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  },
+  {
+    id: 4,
+    title: 'How do I get in touch with the vendor?',
+    desc: "You should receive a confirmation email within 30 minutes of making payment for your booking. If you still haven't received it after that time, please check your junk mail and/or spam filters. "
+  }
+]
+
 // landing page end
-export const listingInclusions: string[] = [
+const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
   'We will be able to match 90% to the picture of the cake on the website. The color, shape and size are indicative in nature.',
   'Delivery is available within the city limits.',

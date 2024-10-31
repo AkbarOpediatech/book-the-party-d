@@ -1,4 +1,4 @@
-import ClientProvider from '@/components/ClientProvider'
+import ClientProvider from '@/ReduxProvider/ClientProvider'
 import type { Metadata } from 'next'
 import { Nunito, Public_Sans, Sora } from 'next/font/google'
 import './style.css'
