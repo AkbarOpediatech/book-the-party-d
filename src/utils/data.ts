@@ -708,16 +708,11 @@ export const footerNav = [
   },
   {
     id: 4,
-    name: 'About',
-    url: '/about'
-  },
-  {
-    id: 5,
     name: 'Terms & Conditions',
     url: '/terms-and-conditions'
   },
   {
-    id: 6,
+    id: 5,
     name: 'Vendor',
     url: '/dashboard/vendor/dashboard'
   }
