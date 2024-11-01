@@ -11,15 +11,15 @@ type IProps = {
 const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc }) => {
   return (
     <>
-      <div className="section-heading mb-9 flex items-center justify-between">
+      <div className="section-heading mb-5 flex items-center justify-between md:mb-9">
         <div>
-          <h1 className="font-sora text-[32px] font-semibold text-neutral-900">{title}</h1>
+          <h1 className="font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]">{title}</h1>
           {desc && <p className="text-xl font-medium text-black/65">{desc}</p>}
         </div>
         {linkName && (
           <Link
             href={linkURL}
-            className="inline-block rounded-lg bg-clr-fb px-8 py-5 text-base font-bold text-white"
+            className="inline-block rounded-lg bg-clr-fb px-8 py-5 text-sm font-bold text-white md:text-base"
           >
             {linkName}
           </Link>

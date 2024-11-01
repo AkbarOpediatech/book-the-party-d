@@ -9,7 +9,7 @@ const DeliveryAddress = () => {
   return (
     <div className="mb-8 border-b pb-8">
       <div className="mb-6 flex justify-between">
-        <h1 className="font-sora text-2xl font-bold text-clr-0f">Select a delivery address</h1>
+        <h1 className="font-sora text-xl font-bold text-clr-0f md:text-2xl">Select a delivery address</h1>
       </div>
       <div className="mb-6 flex gap-6">
         <div className="w-full max-w-[590px] bg-gray-50 p-6">
@@ -31,8 +31,8 @@ const DeliveryAddress = () => {
               )}
             </div>
             <div>
-              <p className="mb-5 font-sora text-[32px] font-bold leading-5">Sydney</p>
-              <p className="text-2xl font-light">4140 oswald Rd. Sydney</p>
+              <p className="mb-5 font-sora text-2xl font-bold leading-5 md:text-[32px]">Sydney</p>
+              <p className="text-xl font-light md:text-2xl">4140 oswald Rd. Sydney</p>
             </div>
           </label>
           <div className="flex gap-6">
@@ -41,7 +41,7 @@ const DeliveryAddress = () => {
               <span className="text-sm font-light text-clr-0f">Edit</span>
             </button>
 
-            <button className="bg-clr-e2 flex w-full max-w-[240px] items-center justify-center gap-3 py-3">
+            <button className="flex w-full max-w-[240px] items-center justify-center gap-3 bg-clr-e2 py-3">
               <TrashIcon className="size-4" stroke="red" />
               <span className="text-sm font-light text-clr-0f">Delete</span>
             </button>
@@ -49,10 +49,10 @@ const DeliveryAddress = () => {
         </div>
       </div>
       <div className="flex gap-5">
-        <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-2xl text-white">
+        <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-xl text-white md:text-2xl">
           Deliver here
         </button>
-        <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-2xl text-white">
+        <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-xl text-white md:text-2xl">
           Add new address
         </button>
       </div>

@@ -1,11 +1,18 @@
 import type {
   IBookingAnalytics,
   IBookingData,
+  IBookingDetails,
   IChartData,
+  ICreditCardForm,
   IDashboardBookingHistory,
+  IDiscoverItems,
   IEventFeatures,
+  IFooterSocialItems,
+  IFormData,
   IListingsData,
   INavigationItem,
+  IOccasionItems,
+  ISpecialPackages,
   ISubscriptionDetails,
   ITransactionType
 } from './type'
@@ -51,6 +58,11 @@ import occasionImg1 from '/public/assets/occasion-img1.png'
 import occasionImg2 from '/public/assets/occasion-img2.png'
 import occasionImg3 from '/public/assets/occasion-img3.png'
 import occasionImg4 from '/public/assets/occasion-img4.png'
+
+import ICFacebook from '/public/assets/ic-fb.svg'
+import ICGoogle from '/public/assets/ic-google.svg'
+
+import ICInstagram from '/public/assets/ic-instagram.svg'
 
 export const vendorNavigation: INavigationItem[] = [
   {
@@ -392,7 +404,6 @@ export const subCategories: string[] = [
   'Baptism'
 ]
 
-// landing page
 export const eventFeatures: IEventFeatures[] = [
   {
     id: 1,
@@ -436,7 +447,7 @@ export const eventFeatures: IEventFeatures[] = [
   }
 ]
 
-export const specialPackages = [
+export const specialPackages: ISpecialPackages[] = [
   {
     id: 1,
     img: PackImg1,
@@ -537,7 +548,7 @@ export const specialPackages = [
   }
 ]
 
-export const discoverItems = [
+export const discoverItems: IDiscoverItems[] = [
   {
     id: 1,
     img: discoverImg,
@@ -558,7 +569,7 @@ export const discoverItems = [
   }
 ]
 
-export const occasionItems = [
+export const occasionItems: IOccasionItems[] = [
   {
     id: 1,
     img: occasionImg1,
@@ -593,7 +604,7 @@ export const occasionItems = [
   }
 ]
 
-export const formData = [
+export const formData: IFormData[] = [
   {
     labelTitle: 'name',
     htmlFor: 'name',
@@ -652,7 +663,7 @@ export const formData = [
   }
 ]
 
-export const creditCardForm = [
+export const creditCardForm: ICreditCardForm[] = [
   {
     id: 0,
     htmlFor: 'cardNumber',
@@ -660,8 +671,8 @@ export const creditCardForm = [
     labelTitle: 'Card Number',
     inputPlaceholder: 'Card Number',
     inputType: 'number',
-    inputClassName: 'text-base',
-    labelClassName: 'text-base'
+    inputClassName: 'text-sm md:text-base',
+    labelClassName: 'text-sm md:text-base'
   },
   {
     id: 1,
@@ -670,8 +681,8 @@ export const creditCardForm = [
     labelTitle: 'Card Holder Name',
     inputPlaceholder: 'Card Holder Name',
     inputType: 'text',
-    inputClassName: 'text-base',
-    labelClassName: 'text-base'
+    inputClassName: 'text-sm md:text-base',
+    labelClassName: 'text-sm md:text-base'
   },
   {
     id: 2,
@@ -680,8 +691,8 @@ export const creditCardForm = [
     labelTitle: 'Expiry Date',
     inputPlaceholder: 'Expiry Date',
     inputType: 'date',
-    inputClassName: 'text-base',
-    labelClassName: 'text-base'
+    inputClassName: 'text-sm md:text-base',
+    labelClassName: 'text-sm md:text-base'
   }
 ]
 
@@ -718,7 +729,25 @@ export const footerNav = [
   }
 ]
 
-export const bookingDetails = [
+export const footerSocialItems: IFooterSocialItems[] = [
+  {
+    id: 0,
+    linkUrl: '#',
+    img: ICFacebook
+  },
+  {
+    id: 1,
+    linkUrl: '#',
+    img: ICGoogle
+  },
+  {
+    id: 2,
+    linkUrl: '#',
+    img: ICInstagram
+  }
+]
+
+export const bookingDetails: IBookingDetails[] = [
   {
     id: 0,
     title: 'How can I get more information about the party booking I have made?',
@@ -746,7 +775,6 @@ export const bookingDetails = [
   }
 ]
 
-// landing page end
 export const listingInclusions: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
   'We will be able to match 90% to the picture of the cake on the website. The color, shape and size are indicative in nature.',

@@ -44,9 +44,9 @@ const Filter = () => {
                   />
                 )}
               </div>
-              <p className="text-2xl text-black">Party setup & prop hire packages</p>
+              <p className="text-xl text-black md:text-2xl">Party setup & prop hire packages</p>
             </label>
-            <p className="text-2xl text-black">(120)</p>
+            <p className="text-xl text-black md:text-2xl">(120)</p>
           </div>
         </DisclosurePanel>
       </Disclosure>
@@ -78,9 +78,9 @@ const Filter = () => {
                   />
                 )}
               </div>
-              <p className="text-2xl text-black">Sydney</p>
+              <p className="text-xl text-black md:text-2xl">Sydney</p>
             </label>
-            <p className="text-2xl text-black">(20)</p>
+            <p className="text-xl text-black md:text-2xl">(20)</p>
           </div>
         </DisclosurePanel>
       </Disclosure>
@@ -112,9 +112,9 @@ const Filter = () => {
                   />
                 )}
               </div>
-              <p className="text-2xl text-black">Party setup & prop hire packages</p>
+              <p className="text-xl text-black md:text-2xl">Party setup & prop hire packages</p>
             </label>
-            <p className="text-2xl text-black">(120)</p>
+            <p className="text-xl text-black md:text-2xl">(120)</p>
           </div>
         </DisclosurePanel>
       </Disclosure>
@@ -163,7 +163,7 @@ const Filter = () => {
                     />
                   )}
                 </div>
-                <p className="text-2xl text-black">{label}</p>
+                <p className="text-xl text-black md:text-2xl">{label}</p>
               </label>
             </div>
           ))}

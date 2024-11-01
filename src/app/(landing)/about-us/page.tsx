@@ -9,7 +9,7 @@ const AboutUs = () => {
         <div className="grid grid-cols-12 items-center gap-14">
           <div className="col-span-6">
             <div className="mb-8">
-              <h1 className="mb-6 font-sora text-[84px] font-bold">Let's Talk</h1>
+              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let's Talk</h1>
             </div>
             <p className="mb-5 text-xl text-black">
               Book The Party is an online party and events booking platform dedicated to providing memorable
@@ -30,13 +30,13 @@ const AboutUs = () => {
             </p>
 
             <div className="btn-group flex gap-5">
-              <button className="flex items-center gap-5 rounded-full bg-clr-fb px-[50px] py-5 text-2xl font-bold text-white">
+              <button className="flex items-center gap-5 rounded-full bg-clr-fb px-[50px] py-5 text-xl font-bold text-white md:text-2xl">
                 View all events
                 <span>
                   <ArrowRightIcon className="size-6" />
                 </span>
               </button>
-              <button className="rounded-full border border-clr-fb px-[50px] py-5 text-2xl font-bold text-clr-fb">
+              <button className="rounded-full border border-clr-fb px-[50px] py-5 text-xl font-bold text-clr-fb md:text-2xl">
                 Contact now
               </button>
             </div>

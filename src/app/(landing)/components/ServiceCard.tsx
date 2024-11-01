@@ -23,15 +23,15 @@ const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price }) => {
         <div className="space-y-2">
           <h2 className="mb-2 font-sora text-lg font-semibold text-neutral-900">{title}</h2>
           <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
-          <p className="text-base font-extrabold italic text-neutral-500">({review} reviews)</p>
-          <button className="flex items-center gap-2 text-base font-extrabold italic text-neutral-500">
+          <p className="text-sm font-extrabold italic text-neutral-500 md:text-base">({review} reviews)</p>
+          <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">
             <MapPinIcon className="size-6" />
             Choose your location
           </button>
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="font-sora text-2xl font-bold text-neutral-900">${price}</p>
+          <p className="font-sora text-xl font-bold text-neutral-900 md:text-2xl">${price}</p>
           <button className="group rounded-full bg-clr-f8 p-1">
             <HeartIcon className="size-6 fill-clr-c6 group-hover:fill-red-600" />
           </button>

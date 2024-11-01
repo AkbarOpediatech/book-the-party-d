@@ -24,7 +24,7 @@ const ContactInput: React.FC<IProps> = ({
   if (inputType === 'select') {
     return (
       <>
-        <label htmlFor={htmlFor} className="mb-5 block text-base capitalize text-black">
+        <label htmlFor={htmlFor} className="mb-5 block text-sm capitalize text-black md:text-base">
           {labelName}
         </label>
         <select name={selectName} id={selectId} className="h-[60px] w-full bg-gray-50 px-5">
@@ -39,7 +39,7 @@ const ContactInput: React.FC<IProps> = ({
   } else if (inputType === 'file') {
     return (
       <>
-        <label className="mb-5 flex h-[60px] w-full items-center justify-between bg-gray-50 px-5 text-base capitalize text-black">
+        <label className="mb-5 flex h-[60px] w-full items-center justify-between bg-gray-50 px-5 text-sm capitalize text-black md:text-base">
           <span className="text-gray-400">upload inspiration photos </span>
           <span>
             <PaperClipIcon className="size-6" />
@@ -52,7 +52,7 @@ const ContactInput: React.FC<IProps> = ({
 
   return (
     <>
-      <label htmlFor={htmlFor} className="mb-5 block text-base capitalize text-black">
+      <label htmlFor={htmlFor} className="mb-5 block text-sm capitalize text-black md:text-base">
         {labelName}
       </label>
       <input

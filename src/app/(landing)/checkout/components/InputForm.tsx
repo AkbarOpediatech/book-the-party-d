@@ -30,7 +30,10 @@ const InputForm: React.FC<IProps> = ({
       </label>
       <input
         id={inputId}
-        className={cn('w-full border bg-white px-4 py-3 text-2xl font-light text-clr-0f', inputClassName)}
+        className={cn(
+          'w-full border bg-white px-4 py-3 text-xl font-light text-clr-0f md:text-2xl',
+          inputClassName
+        )}
         type={inputType}
         placeholder={inputPlaceholder}
       />

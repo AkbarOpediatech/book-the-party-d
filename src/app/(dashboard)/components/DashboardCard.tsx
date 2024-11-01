@@ -15,7 +15,7 @@ const DashboardCard: React.FC<IProps> = ({ title, total, percent, imgSrc1, imgSr
       <div className="card-wrapper flex flex-wrap gap-4 md:justify-between">
         <div className="card-info">
           <h2 className="mb-2 text-sm font-semibold text-clr-48">{title}</h2>
-          <p className="mb-2 text-[32px] font-bold text-clr-48">{total}</p>
+          <p className="mb-2 text-2xl font-bold text-clr-48 md:text-[32px]">{total}</p>
           <p className="flex items-center gap-1 text-sm text-clr-48">
             <Image src={imgSrc1} alt="icon" />
             <span className="font-semibold">{percent}</span>

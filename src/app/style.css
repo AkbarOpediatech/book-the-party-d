@@ -1,24 +1,46 @@
-/* tailwindcss */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* common classes */
 @layer components {
+  input,
+  select,
+  textarea {
+    @apply focus-within:border-clr-fb hover:border-clr-fb/50 focus:border-clr-fb focus:outline-none;
+  }
+
   .section-padding {
-    @apply py-[130px];
+    @apply py-20 md:py-[130px];
   }
 
   .container {
     @apply mx-auto max-w-[1860px] px-5;
   }
+
   .input {
     @apply h-[56px] rounded-lg border border-clr-ab/20 px-3 py-2 placeholder:text-sm focus-within:border-clr-fb hover:border-clr-fb/50 focus:border-clr-fb focus:outline-none;
   }
-  input,
-  select,
-  textarea {
-    @apply focus-within:border-clr-fb hover:border-clr-fb/50 focus:border-clr-fb focus:outline-none;
+
+  .SpecialPackagesSwiper .swiper-button-prev {
+    @apply md:hidden;
+  }
+
+  .SpecialPackagesSwiper .swiper-button-prev::after {
+    content: 'prev';
+    font-family: swiper-icons;
+    font-size: 20px;
+    color: white;
+  }
+
+  .SpecialPackagesSwiper .swiper-button-next {
+    @apply md:hidden;
+  }
+
+  .SpecialPackagesSwiper .swiper-button-next::after {
+    content: 'next';
+    font-family: swiper-icons;
+    font-size: 20px;
+    color: white;
   }
 }
 

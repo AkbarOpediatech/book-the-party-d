@@ -53,7 +53,7 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="discount-code" className="mb-2 block text-base text-clr-0f">
+          <label htmlFor="discount-code" className="mb-2 block text-sm text-clr-0f md:text-base">
             Enter Discount Code
           </label>
           <div className="flex">
@@ -68,25 +68,29 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <span className="text-base text-clr-0f">Booking fee</span>
-          <span className="text-base text-clr-0f">$50</span>
+          <span className="text-sm text-clr-0f md:text-base">Booking fee</span>
+          <span className="text-sm text-clr-0f md:text-base">$50</span>
         </div>
 
         <div className="mb-4 flex items-center justify-between">
-          <span className="text-base text-clr-0f">Additional delivery fee (outside of metro area)</span>
-          <span className="text-base text-clr-0f">$50</span>
+          <span className="text-sm text-clr-0f md:text-base">
+            Additional delivery fee (outside of metro area)
+          </span>
+          <span className="text-sm text-clr-0f md:text-base">$50</span>
         </div>
 
         <div className="mb-4 border-t border-gray-200 pt-4">
           <div className="flex justify-between">
-            <span className="font-sora text-base font-bold text-clr-0f">Grand Total (incl of GST)</span>
-            <span className="font-sora text-base font-bold text-clr-0f">$5400</span>
+            <span className="font-sora text-sm font-bold text-clr-0f md:text-base">
+              Grand Total (incl of GST)
+            </span>
+            <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$5400</span>
           </div>
         </div>
 
         <div className="mb-4 flex items-center justify-between">
-          <span className="font-sora text-base font-bold text-clr-0f">Security Deposit</span>
-          <span className="font-sora text-base font-bold text-clr-0f">$1500</span>
+          <span className="font-sora text-sm font-bold text-clr-0f md:text-base">Security Deposit</span>
+          <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$1500</span>
         </div>
 
         <div className="mb-4 flex items-start">

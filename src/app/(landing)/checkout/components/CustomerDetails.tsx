@@ -22,7 +22,7 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
     <>
       <DeliveryAddress />
       <div className={`bg-gray-50 p-9`}>
-        <h2 className="mb-6 font-sora text-2xl font-bold text-clr-0f">Customer Details</h2>
+        <h2 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Customer Details</h2>
         <form onSubmit={handleSubmit}>
           {formData.map((i, index) => (
             <div className="mb-6 last:mb-0" key={index}>
@@ -53,7 +53,7 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
                   />
                 )}
               </div>
-              <p className="text-base font-light text-black">Use as my default address</p>
+              <p className="text-sm font-light text-black md:text-base">Use as my default address</p>
             </label>
 
             <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
@@ -73,10 +73,10 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
                   />
                 )}
               </div>
-              <p className="text-base font-light text-black">Save address</p>
+              <p className="text-sm font-light text-black md:text-base">Save address</p>
             </label>
           </div>
-          <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-2xl text-white">
+          <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-xl text-white md:text-2xl">
             Proceed to pay
           </button>
         </form>

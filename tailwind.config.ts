@@ -10,9 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sora: ['var(--font-sora)', 'sans-serif'],
-        inter: ['var(--font-inter)', 'sans-serif'],
-        nunito: ['var(--font-nunito)', 'sans-serif'],
-        poppins: ['var(--font-poppins)', 'sans-serif']
+        nunito: ['var(--font-nunito)', 'sans-serif']
       },
       colors: {
         'clr-14': '#919EAB14',

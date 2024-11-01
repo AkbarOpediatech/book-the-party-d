@@ -19,14 +19,14 @@ const ListItems = () => {
             <div className="space-y-2">
               <h2 className="mb-2 font-sora text-lg font-semibold text-neutral-900">Archer TP Link router</h2>
               <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
-              <p className="text-base font-extrabold italic text-neutral-500">(10 reviews)</p>
-              <button className="flex items-center gap-2 text-base font-extrabold italic text-neutral-500">
+              <p className="text-sm font-extrabold italic text-neutral-500 md:text-base">(10 reviews)</p>
+              <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">
                 <MapPinIcon className="size-6" />
                 Choose your location
               </button>
             </div>
 
-            <p className="font-sora text-2xl font-bold text-neutral-900">$ 120</p>
+            <p className="font-sora text-xl font-bold text-neutral-900 md:text-2xl">$ 120</p>
             <div>
               <button className="group inline-block rounded-full bg-clr-f8 p-1">
                 <HeartIcon className="inline-block size-6 fill-clr-c6 group-hover:fill-red-600" />

@@ -46,7 +46,7 @@ export default function VendorDashboard() {
         </div>
 
         <div className="w-full rounded-2xl bg-white shadow-one">
-          <h2 className="py-5 text-center text-base font-bold text-clr-36">Booking history</h2>
+          <h2 className="py-5 text-center text-sm font-bold text-clr-36 md:text-base">Booking history</h2>
           <BookingHistoryChart />
         </div>
       </div>

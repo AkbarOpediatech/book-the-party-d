@@ -21,7 +21,7 @@ const Subscription = () => {
         >
           <div>
             <p
-              className={`${selectedSubscription === index ? 'text-white' : 'text-black'} mb-1 font-sora text-2xl font-semibold`}
+              className={`${selectedSubscription === index ? 'text-white' : 'text-black'} mb-1 font-sora text-xl font-semibold md:text-2xl`}
             >
               {data.title}{' '}
               {data.tag && (
@@ -33,7 +33,7 @@ const Subscription = () => {
               )}
             </p>
             <p
-              className={`${selectedSubscription === index ? 'text-white' : 'text-black'} font-sora text-[32px] font-semibold`}
+              className={`${selectedSubscription === index ? 'text-white' : 'text-black'} font-sora text-2xl font-semibold md:text-[32px]`}
             >
               ${data.price}
             </p>

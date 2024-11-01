@@ -11,7 +11,7 @@ const PaymentOption = () => {
 
   return (
     <div>
-      <h1 className="mb-6 font-sora text-2xl font-bold text-clr-0f">Select a payment method</h1>
+      <h1 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Select a payment method</h1>
       <div className="space-y-4">
         {/* Option 1 */}
         <label className="block cursor-pointer items-center space-x-2 capitalize">
@@ -35,8 +35,8 @@ const PaymentOption = () => {
                   labelTitle="Card Number"
                   inputPlaceholder="Card Number"
                   inputType="number"
-                  inputClassName="text-base"
-                  labelClassName="text-base"
+                  inputClassName="text-sm md:text-base"
+                  labelClassName="text-sm md:text-base"
                 />
               </div>
               <div className="col-span-6">
@@ -46,8 +46,8 @@ const PaymentOption = () => {
                   labelTitle="Card Holder Name"
                   inputPlaceholder="Card Holder Name"
                   inputType="text"
-                  inputClassName="text-base"
-                  labelClassName="text-base"
+                  inputClassName="text-sm md:text-base"
+                  labelClassName="text-sm md:text-base"
                 />
               </div>
               <div className="col-span-6">
@@ -57,8 +57,8 @@ const PaymentOption = () => {
                   labelTitle="Expiry Date"
                   inputPlaceholder="Expiry Date"
                   inputType="date"
-                  inputClassName="text-base"
-                  labelClassName="text-base"
+                  inputClassName="text-sm md:text-base"
+                  labelClassName="text-sm md:text-base"
                 />
               </div>
               <div className="col-span-6">
@@ -68,8 +68,8 @@ const PaymentOption = () => {
                   labelTitle="CVV"
                   inputPlaceholder="CVV"
                   inputType="number"
-                  inputClassName="text-base"
-                  labelClassName="text-base"
+                  inputClassName="text-sm md:text-base"
+                  labelClassName="text-sm md:text-base"
                 />
               </div>
             </div>

@@ -63,6 +63,67 @@ export type IEventFeatures = {
   name: string
 }
 
+export type ISpecialPackages = {
+  id: number
+  img: any
+  name: string
+  desc: string
+  url: string
+}
+
+export type IDiscoverItems = {
+  id: number
+  img: any
+  name: string
+  url: string
+}
+
+export type IOccasionItems = {
+  id: number
+  img: any
+  name: string
+  linkName: string
+  url: string
+  bgColor: string
+}
+
+export type IFormData = {
+  labelTitle: string
+  htmlFor: string
+  inputId: string
+  inputType: string
+  inputPlaceholder: string
+}
+
+export type ICreditCardForm = {
+  id: number
+  htmlFor: string
+  inputId: string
+  labelTitle: string
+  inputPlaceholder: string
+  inputType: string
+  inputClassName: string
+  labelClassName: string
+}
+
+export type IFooterNav = {
+  id: number
+  name: string
+  url: string
+}
+
+export type IFooterSocialItems = {
+  id: number
+  linkUrl: string
+  img: any
+}
+
+export type IBookingDetails = {
+  id: number
+  title: string
+  desc: string
+}
+
 export type ISubscriptionDetails = {
   title: string
   description?: string
@@ -70,7 +131,8 @@ export type ISubscriptionDetails = {
   price: number
   details: string[]
 }
-export interface Message {
+
+export type Message = {
   id: number
   sender: 'user' | 'bot'
   content: string | string[] | File

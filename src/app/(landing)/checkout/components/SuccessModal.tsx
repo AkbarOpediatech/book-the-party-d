@@ -18,20 +18,20 @@ const SuccessModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
               <CheckCircleIcon className="size-24" fill="green" />
             </div>
             <h2 className="text-center text-[42px] font-bold text-black">Payment Successful</h2>
-            <p className="text-center text-2xl text-black">
+            <p className="text-center text-xl text-black md:text-2xl">
               A confirmation email will be sent to your registered email shortly.
             </p>
           </div>
           <div className="flex justify-between">
             <Link
               href={'/'}
-              className="block rounded-2xl border border-black/5 px-4 py-5 text-2xl font-semibold text-black"
+              className="block rounded-2xl border border-black/5 px-4 py-5 text-xl font-semibold text-black md:text-2xl"
             >
               Continue Browsing
             </Link>
             <Link
               href={'/track-booking'}
-              className="block rounded-2xl border border-clr-fb bg-clr-fb px-4 py-5 text-2xl font-semibold text-white"
+              className="block rounded-2xl border border-clr-fb bg-clr-fb px-4 py-5 text-xl font-semibold text-white md:text-2xl"
             >
               Track booking status
             </Link>

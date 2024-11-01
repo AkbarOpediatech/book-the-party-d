@@ -18,7 +18,7 @@ const ItemPricing = () => {
   }
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-2xl font-bold text-clr-36">Item Pricing</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Item Pricing</p>
       <form onSubmit={handleSubmit}>
         <FormInput
           name="price"

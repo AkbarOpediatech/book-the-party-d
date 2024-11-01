@@ -1,4 +1,4 @@
-import ClientProvider from '@/ReduxProvider/ClientProvider'
+import ReduxProvider from '@/ReduxProvider/ReduxProvider'
 import type { Metadata } from 'next'
 import { Nunito, Public_Sans, Sora } from 'next/font/google'
 import './style.css'
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         className={`${publicsans.className} ${sora.variable} ${nunito.variable}`}
         suppressHydrationWarning={true}
       >
-        <ClientProvider>{children}</ClientProvider>
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   )

@@ -43,7 +43,9 @@ const Reviews = () => {
                   <div className="flex items-center gap-3">
                     <Image width={32} height={32} className="rounded-full" src={avatar} alt="avatar" />
                     <div>
-                      <h6 className="mb-1 font-sora text-base font-semibold text-white">Bonnie Green</h6>
+                      <h6 className="mb-1 font-sora text-sm font-semibold text-white md:text-base">
+                        Bonnie Green
+                      </h6>
                       <p className="text-sm text-white">Web developer @themesberg</p>
                     </div>
                   </div>

@@ -22,7 +22,7 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
           <span className="mb-3 inline-block rounded bg-clr-87 p-3">
             <HomeIcon className="size-6" fill="white" />
           </span>
-          <p className="font-sora text-2xl font-light text-clr-0f">Customer details</p>
+          <p className="font-sora text-xl font-light text-clr-0f md:text-2xl">Customer details</p>
         </button>
       </li>
 
@@ -33,7 +33,7 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
           >
             <CreditCardIcon className={`size-6 ${currentStep >= 1 && 'fill-white'}`} />
           </span>
-          <p className="font-sora text-2xl font-light text-clr-0f">Payment Method</p>
+          <p className="font-sora text-xl font-light text-clr-0f md:text-2xl">Payment Method</p>
         </button>
       </li>
 
@@ -44,7 +44,7 @@ const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
           >
             <DocumentTextIcon className={`size-6 ${currentStep === 2 && 'fill-white'}`} />
           </span>
-          <p className="font-sora text-2xl font-light text-clr-0f">Review</p>
+          <p className="font-sora text-xl font-light text-clr-0f md:text-2xl">Review</p>
         </button>
       </li>
     </ul>

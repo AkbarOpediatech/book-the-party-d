@@ -13,8 +13,8 @@ const Contact = () => {
         <div className="grid grid-cols-12 gap-10">
           <div className="col-span-5">
             <div className="mb-16">
-              <h1 className="mb-6 font-sora text-[84px] font-bold">Let's Talk</h1>
-              <p className="mb-16 text-2xl font-light">
+              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let's Talk</h1>
+              <p className="mb-16 text-xl font-light md:text-2xl">
                 Need Assistance? Our Dedicated Support Team is here to Help! Whether you have questions about
                 booking your next event, need assistance with our online platform, or require personalised
                 recommendations to make your celebration unforgettable, our friendly support staff is just a
@@ -118,12 +118,12 @@ const Contact = () => {
                 </li>
 
                 <li className="mb-10 last:mb-0">
-                  <label className="mb-5 block text-base capitalize text-black">Message</label>
+                  <label className="mb-5 block text-sm capitalize text-black md:text-base">Message</label>
                   <textarea name="" id="" className="h-[220px] w-full bg-gray-50 p-5"></textarea>
                 </li>
               </ul>
 
-              <button className="w-full rounded-xl bg-clr-fb py-5 text-2xl font-bold text-white">
+              <button className="w-full rounded-xl bg-clr-fb py-5 text-xl font-bold text-white md:text-2xl">
                 Submit
               </button>
             </form>

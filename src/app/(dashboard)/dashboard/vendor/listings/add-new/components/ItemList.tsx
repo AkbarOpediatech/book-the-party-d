@@ -15,7 +15,7 @@ const ItemList: React.FC<IProps> = ({ setStep }) => {
 
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-2xl font-bold text-clr-36">Item List</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Item List</p>
       <form onSubmit={handleSubmit}>
         <FormInput name="tittle" label="Tittle" type="text" customClass="mb-4" placeholder="Write a tittle" />
         <FormInput name="description" label="Description" type="textarea" customClass="mb-4" />

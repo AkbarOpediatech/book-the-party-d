@@ -19,7 +19,7 @@ const ListingDetails = () => {
   const { id } = params
   return (
     <div className="bg-white px-7 py-3">
-      <p className="mb-[70px] text-2xl font-bold text-clr-36">Listing Details {id}</p>
+      <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {id}</p>
 
       <div className="mb-5 grid grid-cols-3 gap-16">
         <div className="col-span-2">
@@ -37,7 +37,7 @@ const ListingDetails = () => {
             <p className="text-sm text-clr-81"> (11.78kreviews)</p>
           </div>
           <p className="mb-4 text-sm text-clr-81">Location : Sydney</p>
-          <p className="mb-4 text-2xl font-bold text-clr-36"> $62.97</p>
+          <p className="mb-4 text-xl font-bold text-clr-36 md:text-2xl"> $62.97</p>
 
           <div className="mb-5 inline-flex items-center gap-4 rounded-lg border py-4 pl-3 pr-5 text-clr-ab">
             <p>$200 security deposit.</p>

@@ -12,7 +12,7 @@ const SetAvailability: React.FC<IProps> = ({ setStep }) => {
   }
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-2xl font-bold text-clr-36">Set availability</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Set availability</p>
       <form onSubmit={handleSubmit}>
         <p className="mb-2 text-sm font-medium text-gray-900">Scheduling window</p>
 
