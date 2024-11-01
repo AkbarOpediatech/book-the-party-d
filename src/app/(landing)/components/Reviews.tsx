@@ -1,14 +1,12 @@
 'use client'
-import Image from 'next/image'
-import avatar from '/public/assets/avatar.jpeg'
-
-// Import swiper/react
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid'
+import Image from 'next/image'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from './SectionHeading'
+import avatar from '/public/assets/avatar.jpeg'
 
 const Reviews = () => {
   return (
@@ -31,7 +29,7 @@ const Reviews = () => {
             }}
             modules={[Autoplay, Navigation]}
             grabCursor={true}
-            className="relative max-w-[1440px]" // Added padding here to avoid overlap with arrow buttons
+            className="relative max-w-[1440px]"
             breakpoints={{
               220: {
                 slidesPerView: 1,
@@ -72,7 +70,6 @@ const Reviews = () => {
             ))}
           </Swiper>
 
-          {/* Custom Arrow Buttons */}
           <button
             id="swiper-prev2"
             className="absolute left-0 top-1/2 z-10 flex h-[50px] w-[50px] -translate-y-1/2 items-center justify-center rounded-lg bg-clr-87"

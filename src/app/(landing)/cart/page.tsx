@@ -7,13 +7,12 @@ const Cart = () => {
     <section className="cart pb-[100px] pt-[74px]">
       <div className="container">
         <CartHead title="My Cart" actionBtnName="Remove All" />
-        <div className="grid grid-cols-12 gap-16">
-          <div className="col-span-8">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-16">
+          <div className="mb-5 md:mb-0 lg:col-span-2">
             <CartItems />
           </div>
-          <div className="col-span-4">
-            <SubTotal isCart={true} />
-          </div>
+
+          <SubTotal isCart={true} />
         </div>
       </div>
     </section>

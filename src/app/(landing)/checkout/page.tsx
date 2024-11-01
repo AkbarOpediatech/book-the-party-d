@@ -13,8 +13,8 @@ const Checkout = () => {
     <section className="cart pb-[100px] pt-[74px]">
       <div className="container">
         <CartHead title="Event Address" />
-        <div className="grid grid-cols-12 gap-16">
-          <div className="col-span-8">
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-3 lg:gap-16">
+          <div className="lg:col-span-2">
             <div className="mb-11">
               <ProgressBar
                 currentStep={currentStep}
@@ -23,9 +23,8 @@ const Checkout = () => {
             </div>
             <CustomerInfo />
           </div>
-          <div className="col-span-4">
-            <SubTotal setCurrentStep={(step: any) => dispatch(setStep(step))} />
-          </div>
+
+          <SubTotal setCurrentStep={(step: any) => dispatch(setStep(step))} />
         </div>
       </div>
     </section>

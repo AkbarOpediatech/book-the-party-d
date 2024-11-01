@@ -21,7 +21,7 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
   return (
     <>
       <DeliveryAddress />
-      <div className={`bg-gray-50 p-9`}>
+      <div className={`bg-gray-50 p-5 md:p-9`}>
         <h2 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Customer Details</h2>
         <form onSubmit={handleSubmit}>
           {formData.map((i, index) => (
