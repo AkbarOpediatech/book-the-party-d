@@ -32,6 +32,24 @@ const Reviews = () => {
             modules={[Autoplay, Navigation]}
             grabCursor={true}
             className="relative max-w-[1440px]" // Added padding here to avoid overlap with arrow buttons
+            breakpoints={{
+              220: {
+                slidesPerView: 1,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 30
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 40
+              },
+              1280: {
+                slidesPerView: 4,
+                spaceBetween: 50
+              }
+            }}
           >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((items, index) => (
               <SwiperSlide key={index}>

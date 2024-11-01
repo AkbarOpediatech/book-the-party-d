@@ -42,6 +42,31 @@
     font-size: 20px;
     color: white;
   }
+
+  /* featured */
+  .featuredSwiper .swiper-button-prev {
+    @apply md:hidden;
+  }
+
+  .featuredSwiper .swiper-button-prev::after {
+    content: 'prev';
+    font-family: swiper-icons;
+    font-size: 20px;
+    color: #9042fb;
+    font-weight: 700;
+  }
+
+  .featuredSwiper .swiper-button-next {
+    @apply md:hidden;
+  }
+
+  .featuredSwiper .swiper-button-next::after {
+    content: 'next';
+    font-family: swiper-icons;
+    font-size: 20px;
+    color: #9042fb;
+    font-weight: 700;
+  }
 }
 
 /* extra classes */
