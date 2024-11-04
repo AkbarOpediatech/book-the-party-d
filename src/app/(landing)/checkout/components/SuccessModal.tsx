@@ -22,13 +22,15 @@ const SuccessModal: React.FC<IProps> = ({ isOpen, setIsOpen }) => {
               A confirmation email will be sent to your registered email shortly.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center space-y-5 md:justify-between">
+
+          <div className="flex flex-wrap items-center justify-center gap-5 md:justify-between">
             <Link
               href={'/'}
               className="block rounded-2xl border border-black/5 px-4 py-5 text-base font-semibold text-black md:text-2xl"
             >
               Continue Browsing
             </Link>
+
             <Link
               href={'/track-booking'}
               className="block rounded-2xl border border-clr-fb bg-clr-fb px-4 py-5 text-base font-semibold text-white md:text-2xl"
