@@ -2,6 +2,7 @@
 import { formData } from '@/utils'
 import { CheckIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
+import CustomBtn from '../../components/CustomBtn'
 import DeliveryAddress from './DeliveryAddress'
 import InputForm from './InputForm'
 
@@ -35,7 +36,8 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
               />
             </div>
           ))}
-          <div className="mb-5 flex items-center gap-5">
+
+          <div className="mb-5 flex flex-wrap items-center gap-5">
             <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
               <div
                 className={`relative h-4 w-4 rounded-md border border-gray-500 ${categoryChecked && 'border-purple-700 bg-purple-700'}`}
@@ -76,9 +78,8 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
               <p className="text-sm font-light text-black md:text-base">Save address</p>
             </label>
           </div>
-          <button type="submit" className="rounded-xl bg-clr-fb px-10 py-4 text-xl text-white md:text-2xl">
-            Proceed to pay
-          </button>
+
+          <CustomBtn btnName="Proceed to pay" btnType="submit" />
         </form>
       </div>
     </>

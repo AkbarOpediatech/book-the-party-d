@@ -18,11 +18,11 @@ const BookingDetails: React.FC<IProps> = ({ selectedTab }) => {
           )}
           key={index}
         >
-          <DisclosureButton className="group flex w-full items-center justify-between text-xl font-medium capitalize text-neutral-900">
+          <DisclosureButton className="group flex w-full items-center justify-between gap-4 text-start text-base font-medium capitalize text-neutral-900 md:text-xl">
             {i.title}
-            <ChevronDownIcon className="size-5 fill-black group-data-[open]:rotate-180" />
+            <ChevronDownIcon className="size-5 flex-shrink-0 fill-black group-data-[open]:rotate-180" />
           </DisclosureButton>
-          <DisclosurePanel className="mt-[30px] text-xl text-clr-682">{i.desc}</DisclosurePanel>
+          <DisclosurePanel className="mt-[30px] text-base text-clr-682 md:text-xl">{i.desc}</DisclosurePanel>
         </Disclosure>
       ))}
     </>
