@@ -1,7 +1,7 @@
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 
-const baseURL = `${process.env.NEXT_PUBLIC_LIVE_API}/api`
+const baseURL = `${process.env.NEXT_PUBLIC_LIVE_API}`
 
 interface ReqParams {
   method: string
@@ -71,29 +71,17 @@ const request = (link: string, params: ReqParams, header: any = null) => {
             message: data.message || 'Internal Server Error',
             status: status || 500
           }
-
           if (error && error.response) {
-            /*
-             * The request was made and the server responded with a
-             * status code that falls out of the range of 2xx
-             */
             console.log('req error ===========response 1', data, config.url, status)
           } else if (error && error.request) {
-            /*
-             * The request was made but no response was received, `error.request`
-             * is an instance of XMLHttpRequest in the browser and an instance
-             * of http.ClientRequest in Node.js
-             */
             console.log('error.request========= 2 ', error.request)
             throwError.message = error.request
             throwError.status = 500
           } else {
-            // Something happened in setting up the request and triggered an Error
             console.log('Error========== 3', error)
             throwError.message = error.message || error
             throwError.status = status || error.status || 500
           }
-          // throw throwError
           return throwError
         } else if (error.request) {
           console.log('Could not connect to the server')
@@ -106,23 +94,18 @@ const request = (link: string, params: ReqParams, header: any = null) => {
 
 axios.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
     return config
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error)
   }
 )
 
-// Add a response interceptor
 axios.interceptors.response.use(
   function (response) {
-    // Do something with response data
     return response
   },
   function (error) {
-    // Do something with response error
     return Promise.reject(error)
   }
 )

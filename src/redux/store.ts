@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import stepperReducer from './features/stepperSlice'
+import loadingErrorSlice from './features/loadingErrorSlice'
+import stepperSlice from './features/stepperSlice'
 
 export const store = configureStore({
   reducer: {
-    stepper: stepperReducer
+    stepper: stepperSlice,
+    loadingerror: loadingErrorSlice
   }
 })
 

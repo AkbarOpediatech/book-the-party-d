@@ -139,3 +139,27 @@ export type Message = {
   timestamp: string
   type: 'text' | 'image' | 'file'
 }
+
+export type ISignUpFormData = {
+  name: string
+  email: string
+  password: string
+  role: xRole | ''
+}
+
+export type PasswordRequirement = {
+  regex: RegExp
+  label: string
+}
+
+export enum xRole {
+  Admin = 'admin',
+  Vendor = 'vendor',
+  Customer = 'customer'
+}
+
+export enum xInputType {
+  Text = 'text',
+  Email = 'email',
+  Password = 'password'
+}

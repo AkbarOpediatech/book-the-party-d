@@ -1,84 +1,139 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+'use client'
+import { setError, setLoading } from '@/redux/features/loadingErrorSlice'
+import type { AppDispatch, RootState } from '@/redux/store'
+import { passwordRequirements, SignUpInitialState, xInputType, xRole, type ISignUpFormData } from '@/utils'
+import { showAlert, xShowAlert } from '@/utils/alertService'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import InputField from './InputField'
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.'
-  }),
-  password: z.string().min(6, {
-    message: 'Password must be at least 6 characters.'
-  })
-})
-
-type FormData = z.infer<typeof FormSchema>
-
-export default function FormPage() {
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: '',
-      password: ''
+const FormPage: React.FC = () => {
+  const [formData, setFormData] = useState<ISignUpFormData>(SignUpInitialState)
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading, error } = useSelector((state: RootState) => state.loadingerror)
+  const router = useRouter()
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    dispatch(setLoading(true))
+    dispatch(setError(null))
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/
+    if (!passwordRegex.test(formData.password)) {
+      dispatch(setError('Password does not meet the required criteria'))
+      dispatch(setLoading(false))
+      return
     }
-  })
-
-  const onSubmit = async (data: FormData) => {
-    console.log('Submitting form', data)
-
-    const { username: email, password } = data
-
     try {
-      const response = await fetch('http://localhost:5000/api/v1/auth/registration', {
-        method: 'POST',
+      await axios.post(`${process.env.NEXT_PUBLIC_LIVE_API}/auth/registration`, formData, {
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+        }
       })
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-      // Process response here
-      console.log('Registration Successful', response)
+      showAlert('Registration successful, Login please', '', xShowAlert.Success)
+      setFormData(SignUpInitialState)
+      router.push('/login')
     } catch (error: any) {
-      console.error('Registration Failed:', error)
+      dispatch(setError(error.response?.data?.message || 'Registration failed'))
+    } finally {
+      dispatch(setLoading(false))
     }
   }
+  const checkRequirement = (regex: RegExp) => regex.test(formData.password)
+  const roleOptions = Object.values(xRole).map(role => ({
+    value: role,
+    label: role.charAt(0).toUpperCase() + role.slice(1)
+  }))
+  useEffect(() => {
+    if (error) {
+      showAlert(error)
+    }
+  }, [error])
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-      <div>
-        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-          Username
-        </label>
-        <input
-          id="username"
-          placeholder="Username"
-          {...form.register('username')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-        <p className="mt-2 text-sm text-gray-500">This is your public display name.</p>
-      </div>
+    <>
+      <p className="mb-5 text-xl font-medium">Let’s create an account</p>
+      <form onSubmit={handleSubmit} className="mb-5">
+        <div className="mb-4">
+          <InputField
+            LabelName="User Name"
+            LabelHtmlFor="name"
+            InputId="name"
+            InputName="name"
+            InputValue={formData.name}
+            InputOnChange={handleChange}
+            InputPlaceHolder="User Name"
+            InputType={xInputType.Text}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          {...form.register('password')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
-      </div>
+        <div className="mb-4">
+          <InputField
+            LabelHtmlFor="email"
+            LabelName="Email Address"
+            InputId="email"
+            InputType={xInputType.Email}
+            InputName="email"
+            InputOnChange={handleChange}
+            InputValue={formData.email}
+            InputPlaceHolder="example@example.com"
+          />
+        </div>
 
-      <button
-        type="submit"
-        className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-      >
-        Submit
-      </button>
-    </form>
+        <div className="mb-4">
+          <InputField
+            LabelHtmlFor="password"
+            LabelName="Password"
+            InputId="password"
+            InputType={xInputType.Password}
+            InputOnChange={handleChange}
+            InputName="password"
+            InputValue={formData.password}
+            InputPlaceHolder="Password"
+          />
+        </div>
+
+        <ul className="mb-4">
+          {passwordRequirements.map((requirement, index) => (
+            <li
+              key={index}
+              className={`text-sm ${checkRequirement(requirement.regex) ? 'text-green-500' : 'text-red-500'}`}
+            >
+              {checkRequirement(requirement.regex) ? '✔' : '✘'} {requirement.label}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mb-4">
+          <InputField
+            LabelHtmlFor="role"
+            LabelName="Role"
+            isSelect={true}
+            InputId="role"
+            InputName="role"
+            selectValue={formData.role}
+            InputOnChange={handleChange}
+            selectOptions={roleOptions}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="flex w-full items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2"
+          disabled={loading}
+        >
+          {loading ? 'Registering...' : 'Register'}
+        </button>
+        {error && <p className="mt-3 text-red-500">{error}</p>}
+      </form>
+    </>
   )
 }
+
+export default FormPage
