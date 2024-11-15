@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const LoginForm = () => {
   return (
-    <div>
+    <>
       <p className="mb-5 text-xl font-medium">Welcome back</p>
       <form className="mb-5">
         <div className="mb-4">
@@ -40,7 +40,7 @@ const LoginForm = () => {
         </div>
         <DashboardButton name="Sign In" type="submit" className="w-full" />
       </form>
-    </div>
+    </>
   )
 }
 

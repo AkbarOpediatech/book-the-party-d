@@ -12,9 +12,11 @@ import type {
   IListingsData,
   INavigationItem,
   IOccasionItems,
+  ISignUpFormData,
   ISpecialPackages,
   ISubscriptionDetails,
-  ITransactionType
+  ITransactionType,
+  PasswordRequirement
 } from './type'
 import ICKid from '/public/assets//ic-kid.svg'
 import BHistory2 from '/public/assets/booking-history-2.png'
@@ -823,4 +825,21 @@ export const subscriptionDetails: ISubscriptionDetails[] = [
       'Prionitised admin support'
     ]
   }
+]
+
+//TODO:: will remove later
+
+export const SignUpInitialState: ISignUpFormData = {
+  name: '',
+  email: '',
+  password: '',
+  role: ''
+}
+
+export const passwordRequirements: PasswordRequirement[] = [
+  { regex: /[a-z]/, label: 'At least one lowercase letter' },
+  { regex: /[A-Z]/, label: 'At least one uppercase letter' },
+  { regex: /\d/, label: 'At least one number' },
+  { regex: /[!@#$%^&*]/, label: 'At least one special character' },
+  { regex: /.{8,}/, label: 'Minimum 8 characters' }
 ]

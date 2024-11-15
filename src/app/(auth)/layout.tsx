@@ -1,4 +1,4 @@
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>
 }
 
