@@ -20,13 +20,13 @@ const SetAvailability: React.FC<IProps> = ({ setStep }) => {
           {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((data, index) => (
             <div key={index} className="flex items-center gap-2">
               <p className="w-full max-w-10 text-sm font-medium text-gray-900">{data}</p>
-              <select className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm">
+              <select className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm">
                 <option value="9">09:00</option>
                 <option value="10">10:00</option>
                 <option value="11">11:00</option>
               </select>
 
-              <select className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 font-inter text-sm">
+              <select className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm">
                 <option value="11">11:00</option>
                 <option value="1">01:00</option>
                 <option value="2">02:00</option>
