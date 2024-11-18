@@ -1,4 +1,5 @@
 import type {
+  IBillingAddress,
   IBookingAnalytics,
   IBookingData,
   IBookingDetails,
@@ -12,6 +13,8 @@ import type {
   IListingsData,
   INavigationItem,
   IOccasionItems,
+  IPersonalInfo,
+  IProfileMenuItems,
   ISignUpFormData,
   ISpecialPackages,
   ISubscriptionDetails,
@@ -842,4 +845,23 @@ export const passwordRequirements: PasswordRequirement[] = [
   { regex: /\d/, label: 'At least one number' },
   { regex: /[!@#$%^&*]/, label: 'At least one special character' },
   { regex: /.{8,}/, label: 'Minimum 8 characters' }
+]
+
+export const profileMenuItems: IProfileMenuItems[] = [
+  { id: 0, label: 'Account Settings' },
+  { id: 1, label: 'General Settings' }
+]
+
+export const personalInfo: IPersonalInfo[] = [
+  { label: 'Phone Number', value: '+013234235455' },
+  { label: 'Gender', value: 'Male' }
+]
+
+export const billingAddress: IBillingAddress[] = [
+  { label: 'Company Name', value: 'ABC' },
+  { label: 'Building Number', value: '12/A' },
+  { label: 'Country', value: 'Bangladesh' },
+  { label: 'Address', value: '12/A, Rankin Street' },
+  { label: 'Street', value: 'Wari' },
+  { label: 'Postcode', value: '1204' }
 ]

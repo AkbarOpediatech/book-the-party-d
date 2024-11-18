@@ -13,6 +13,7 @@ const Header = () => {
           <Link href={'/'}>
             <Image src={NavBrand} alt="nav-brand" />
           </Link>
+
           <ul className="flex items-center gap-5">
             <li className="relative">
               <Link href={'/cart'} className="inline-block rounded-full bg-clr-fb p-3 lg:p-5">
@@ -33,7 +34,7 @@ const Header = () => {
             </li>
 
             <li>
-              <Link href={'/login'} className="inline-block rounded-full bg-clr-fb p-3 lg:p-5">
+              <Link href={'/profile'} className="inline-block rounded-full bg-clr-fb p-3 lg:p-5">
                 <Image width={20} height={20} src={ICUser} alt="fav-icon" />
               </Link>
             </li>

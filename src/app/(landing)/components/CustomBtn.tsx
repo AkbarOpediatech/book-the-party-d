@@ -1,27 +1,30 @@
 import { cn } from '@/utils'
 import { ArrowRightIcon } from '@heroicons/react/16/solid'
 import Link from 'next/link'
+import type React from 'react'
 
 type IProps = {
-  btnType?: 'button' | 'submit' | 'reset' | undefined
+  btnType?: 'button' | 'submit' | 'reset'
   className?: string
   btnName?: string
   isLink?: boolean
   isLinkIcon?: boolean
-  href?: string | undefined
+  href?: string
   linkName?: string
   isBorderedLink?: boolean
+  onClickFunc?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const CustomBtn: React.FC<IProps> = ({
   btnName,
   className,
-  btnType,
+  btnType = 'button',
   isLink,
   isLinkIcon,
   href,
   linkName,
-  isBorderedLink
+  isBorderedLink,
+  onClickFunc
 }) => {
   return (
     <>
@@ -42,6 +45,7 @@ const CustomBtn: React.FC<IProps> = ({
         </Link>
       ) : (
         <button
+          onClick={onClickFunc}
           type={btnType}
           className={cn(
             'rounded-xl bg-clr-fb px-6 py-4 text-base text-white md:px-10 md:py-4 md:text-2xl',

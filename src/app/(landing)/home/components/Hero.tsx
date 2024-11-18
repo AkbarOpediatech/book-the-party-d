@@ -80,12 +80,13 @@ const Hero: React.FC<IProps> = ({ onSearchClick }) => {
           {eventFeatures.map((eventItems, index) => (
             <li key={index}>
               <Link
-                href={'#'}
+                href={'/services'}
                 className="inline-flex h-full w-[150px] flex-col flex-wrap rounded-2xl border border-white bg-clr-fb px-3 py-5 md:py-10"
               >
                 <div className="mb-3 flex justify-center">
                   <Image src={eventItems.icon} alt="icon" />
                 </div>
+
                 <span className="block text-center font-sora text-sm font-semibold text-white">
                   {eventItems.name}
                 </span>
