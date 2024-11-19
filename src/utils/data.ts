@@ -853,6 +853,8 @@ export const profileMenuItems: IProfileMenuItems[] = [
 ]
 
 export const personalInfo: IPersonalInfo[] = [
+  { label: 'Name', value: 'Albert' },
+  { label: 'Email', value: 'albert@gmail.com' },
   { label: 'Phone Number', value: '+013234235455' },
   { label: 'Gender', value: 'Male' }
 ]

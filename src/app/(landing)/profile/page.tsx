@@ -1,6 +1,7 @@
 'use client'
 import { cn, profileMenuItems } from '@/utils'
 import { useState } from 'react'
+
 import AccountSettings from './component/AccountSettings'
 import GeneralSettings from './component/GeneralSettings'
 
@@ -11,16 +12,16 @@ const Profile = () => {
     <section id="profile">
       <div className="container">
         <div className="section-padding">
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5">
             <div className="col-span-1">
               <h1 className="mb-6 font-sora text-2xl font-semibold text-neutral-900 md:text-6xl">Profile</h1>
-              <ul>
+              <ul className="mb-5 flex w-full gap-2 rounded-xl border px-4 md:mb-0 md:block md:border-0 md:px-0">
                 {profileMenuItems.map(item => (
                   <li key={item.label}>
                     <button
                       onClick={() => setProfileMenu(item.label)}
                       className={cn(
-                        'py-4 text-4xl font-bold text-clr-96',
+                        'py-4 text-base font-bold text-clr-96 md:text-2xl lg:text-4xl',
                         profileMenu === item.label && 'text-clr-27'
                       )}
                     >

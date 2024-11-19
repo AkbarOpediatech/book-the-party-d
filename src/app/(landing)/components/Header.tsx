@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="bg-clr-eff py-6">
       <div className="container">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-5 md:flex-none md:gap-0">
           <Link href={'/'}>
             <Image src={NavBrand} alt="nav-brand" />
           </Link>
