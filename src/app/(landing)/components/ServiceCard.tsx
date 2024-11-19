@@ -3,16 +3,18 @@ import { HeartIcon, MapPinIcon } from '@heroicons/react/16/solid'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 type IProps = {
-  imgSrc: any
-  title: string
-  review: number
-  price: number
+  imgSrc?: any
+  title?: string
+  review?: number
+  price?: number
+  Href?: string
 }
 
-const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price }) => {
+const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price, Href }) => {
   const [starRating, setStarRating] = useState(0)
   return (
     <div className="h-[412px] rounded-3xl border">
@@ -21,7 +23,9 @@ const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price }) => {
       </div>
       <div className="flex h-[224px] flex-col justify-between p-5">
         <div className="space-y-2">
-          <h2 className="mb-2 font-sora text-lg font-semibold text-neutral-900">{title}</h2>
+          <Link href={Href || ''} className="mb-2 font-sora text-lg font-semibold text-neutral-900">
+            {title}
+          </Link>
           <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
           <p className="text-sm font-extrabold italic text-neutral-500 md:text-base">({review} reviews)</p>
           <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">

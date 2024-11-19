@@ -1,4 +1,5 @@
 import type { StaticImageData } from 'next/image'
+import type { xRole } from './Enum'
 
 export type INavigationItem = {
   type: 'button'
@@ -152,14 +153,17 @@ export type PasswordRequirement = {
   label: string
 }
 
-export enum xRole {
-  Admin = 'admin',
-  Vendor = 'vendor',
-  Customer = 'customer'
+export type IProfileMenuItems = {
+  id: number
+  label: string
 }
 
-export enum xInputType {
-  Text = 'text',
-  Email = 'email',
-  Password = 'password'
+export type IPersonalInfo = {
+  label: string
+  value: string
+}
+
+export type IBillingAddress = {
+  label: string
+  value: string
 }

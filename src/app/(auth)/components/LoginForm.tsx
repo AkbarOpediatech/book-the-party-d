@@ -34,7 +34,7 @@ const LoginForm = () => {
             </label>
           </div>
 
-          <Link href="/" className="text-sm font-light text-clr-0f">
+          <Link href="/forget-password" className="text-sm font-light text-clr-0f">
             Forgot Password?
           </Link>
         </div>
