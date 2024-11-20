@@ -1,4 +1,5 @@
 import type {
+  IAdminNavigation,
   IBillingAddress,
   IBookingAnalytics,
   IBookingData,
@@ -68,6 +69,15 @@ import ICFacebook from '/public/assets/ic-fb.svg'
 import ICGoogle from '/public/assets/ic-google.svg'
 
 import ICInstagram from '/public/assets/ic-instagram.svg'
+import ICCart from '/public/assets/ic_cart.svg'
+
+export const session: {
+  _id: string
+  role: 'admin' | 'vendor' | 'user'
+} = {
+  _id: '85958599laksdjf',
+  role: 'admin'
+}
 
 export const vendorNavigation: INavigationItem[] = [
   {
@@ -106,6 +116,47 @@ export const vendorNavigation: INavigationItem[] = [
     name: 'Subscription',
     href: '/dashboard/vendor/subscription',
     icon: SubscriptionIcon
+  }
+]
+
+export const adminNavigation: IAdminNavigation[] = [
+  {
+    type: 'button',
+    name: 'dashboard',
+    href: '/dashboard/admin/dashboard',
+    icon: DashboardIcon,
+    isGeneral: true
+  },
+  {
+    type: 'button',
+    name: 'bookings',
+    href: '/dashboard/admin/bookings',
+    icon: BookingsIcon
+  },
+
+  {
+    type: 'button',
+    name: 'vendors',
+    href: '/dashboard/admin/vendors',
+    icon: ICCart
+  },
+  {
+    type: 'button',
+    name: 'listings',
+    href: '/dashboard/admin/listings',
+    icon: ListingIcon
+  },
+  {
+    type: 'button',
+    name: 'email management',
+    href: '/dashboard/admin/email-management',
+    icon: DashboardIcon
+  },
+  {
+    type: 'button',
+    name: 'live chat',
+    href: '/dashboard/admin/chat',
+    icon: LiveChatIcon
   }
 ]
 

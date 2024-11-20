@@ -1,5 +1,5 @@
 'use client'
-import { vendorNavigation } from '@/utils'
+import { adminNavigation, session, vendorNavigation } from '@/utils'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -107,34 +107,64 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                 <Link href={'/dashboard/vendor/dashboard'} className="nav-brand mb-8 block text-black">
                   <Image width={90} height={40} src={DLogo} alt="logo" />
                 </Link>
+                {session.role === 'vendor' && (
+                  <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
+                    <div className="user-img h-10 w-10 overflow-hidden rounded-full">
+                      <Image src={Avatar} alt="avatar" />
+                    </div>
 
-                <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
-                  <div className="user-img h-10 w-10 overflow-hidden rounded-full">
-                    <Image src={Avatar} alt="avatar" />
+                    <div className="user-info">
+                      <h3 className="text-sm font-semibold capitalize text-clr-48">Alex Buckmaster</h3>
+                      <p className="text-sm capitalize text-clr-81">Vendor</p>
+                    </div>
                   </div>
+                )}
 
-                  <div className="user-info">
-                    <h3 className="text-sm font-semibold text-clr-48">Alex Buckmaster</h3>
-                    <p className="text-sm text-clr-81">Vendor</p>
+                {session.role === 'admin' && (
+                  <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
+                    <div className="user-img h-10 w-10 overflow-hidden rounded-full">
+                      <Image src={Avatar} alt="avatar" />
+                    </div>
+
+                    <div className="user-info">
+                      <h3 className="text-sm font-semibold capitalize text-clr-48">Alex Ashiq</h3>
+                      <p className="text-sm capitalize text-clr-81">admin</p>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="dashboard-navigation space-y-1 px-4">
                 <ul className="space-y-1">
-                  {vendorNavigation.map((items, index) => (
-                    <li key={index}>
-                      <Link
-                        href={items.href}
-                        className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm font-semibold capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
-                      >
-                        <span>
-                          <Image width={24} height={24} src={items.icon} alt="icon" />
-                        </span>
-                        {items.name}
-                      </Link>
-                    </li>
-                  ))}
+                  {session.role === 'admin' &&
+                    adminNavigation.map((items, index) => (
+                      <li key={index}>
+                        <Link
+                          href={items.href}
+                          className={`sidebarNav ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
+                        >
+                          <span>
+                            <Image width={24} height={24} src={items.icon} alt="icon" />
+                          </span>
+                          {items.name}
+                        </Link>
+                      </li>
+                    ))}
+
+                  {session.role === 'vendor' &&
+                    vendorNavigation.map((items, index) => (
+                      <li key={index}>
+                        <Link
+                          href={items.href}
+                          className={`sidebarNav ${currentpath === items.href && 'bg-clr-ff text-clr-fb'}`}
+                        >
+                          <span>
+                            <Image width={24} height={24} src={items.icon} alt="icon" />
+                          </span>
+                          {items.name}
+                        </Link>
+                      </li>
+                    ))}
                 </ul>
               </div>
             </nav>

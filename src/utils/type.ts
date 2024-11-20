@@ -8,6 +8,15 @@ export type INavigationItem = {
   icon: StaticImageData
 }
 
+export type IAdminNavigation = {
+  type: 'button'
+  name: string
+  href: string
+  icon: StaticImageData
+  isGeneral?: boolean
+  isManagement?: boolean
+}
+
 export type IDashboardBookingHistory = {
   id: number
   img: string | StaticImageData
