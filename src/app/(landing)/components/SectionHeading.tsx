@@ -1,3 +1,4 @@
+import { cn } from '@/utils'
 import Link from 'next/link'
 import React from 'react'
 
@@ -6,14 +7,22 @@ type IProps = {
   linkURL?: any
   linkName?: string
   desc?: string
+  sectionHeadingClass?: string
 }
 
-const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc }) => {
+const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc, sectionHeadingClass }) => {
   return (
     <>
       <div className="section-heading mb-5 flex items-center justify-between md:mb-9">
         <div>
-          <h1 className="font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]">{title}</h1>
+          <h1
+            className={cn(
+              'font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]',
+              sectionHeadingClass
+            )}
+          >
+            {title}
+          </h1>
           {desc && <p className="text-xl font-medium text-black/65">{desc}</p>}
         </div>
         {linkName && (
