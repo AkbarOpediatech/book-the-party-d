@@ -1,6 +1,8 @@
+'use client'
 import { useState } from 'react'
+import ListedVendor from './ListedVendor'
 import ListingTab from './ListingTab'
-import ListingTable from './ListingTable'
+import VendorRequest from './VendorRequest'
 
 const Listings = () => {
   const [tab, setTab] = useState<number>(0)
@@ -16,8 +18,8 @@ const Listings = () => {
           placeholder="Search by transaction id"
         />
       </div>
-      {tab === 0 && <ListingTable />}
-      {tab === 1 && <ListingTable />}
+      {tab === 0 && <ListedVendor />}
+      {tab === 1 && <VendorRequest />}
     </div>
   )
 }

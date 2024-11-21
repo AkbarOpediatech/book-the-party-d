@@ -1,4 +1,4 @@
-import type { xInputType } from '@/utils'
+import type { xInputType } from '@/utils/enum'
 import type React from 'react'
 
 type SelectOption = {

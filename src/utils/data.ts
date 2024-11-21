@@ -20,6 +20,7 @@ import type {
   ISpecialPackages,
   ISubscriptionDetails,
   ITransactionType,
+  IVendorsData,
   PasswordRequirement
 } from './type'
 import ICKid from '/public/assets//ic-kid.svg'
@@ -68,15 +69,17 @@ import occasionImg4 from '/public/assets/occasion-img4.png'
 import ICFacebook from '/public/assets/ic-fb.svg'
 import ICGoogle from '/public/assets/ic-google.svg'
 
+import { xRole } from './enum'
+import avatar from '/public/assets/avatar.jpeg'
 import ICInstagram from '/public/assets/ic-instagram.svg'
 import ICCart from '/public/assets/ic_cart.svg'
 
 export const session: {
   _id: string
-  role: 'admin' | 'vendor' | 'user'
+  role: xRole
 } = {
   _id: '85958599laksdjf',
-  role: 'admin'
+  role: xRole.Admin
 }
 
 export const vendorNavigation: INavigationItem[] = [
@@ -428,6 +431,27 @@ export const listingsData: IListingsData[] = [
     price: 250.0,
     totalBookings: 42,
     image: BHistory
+  }
+]
+
+export const vendorsData: IVendorsData[] = [
+  {
+    id: 0,
+    image: avatar,
+    vendorName: 'Ashiq Elahi',
+    vendorDesc: 'Description about the vendor',
+    joinDate: '04 Jan 2024',
+    availability: 'available',
+    totalBookings: 42
+  },
+  {
+    id: 1,
+    image: avatar,
+    vendorName: 'Ashiq Elahi',
+    vendorDesc: 'Description about the vendor',
+    joinDate: '04 Jan 2024',
+    availability: 'not available',
+    totalBookings: 42
   }
 ]
 

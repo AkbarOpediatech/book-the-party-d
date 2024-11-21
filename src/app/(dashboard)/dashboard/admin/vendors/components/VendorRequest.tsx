@@ -1,22 +1,22 @@
-import { listingsData, type IListingsData } from '@/utils'
+import { cn, vendorsData, type IVendorsData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import DataTable, { type TableColumn } from 'react-data-table-component'
 
-const ListingTable = () => {
-  const columns: TableColumn<IListingsData>[] = [
+const VendorRequest = () => {
+  const columns: TableColumn<IVendorsData>[] = [
     {
-      name: 'Item Name',
-      cell: (row: IListingsData) => (
-        <Link href={`/dashboard/vendor/listings/${row.id}`} className="flex items-center gap-4">
+      name: 'Vendor Name',
+      cell: (row: IVendorsData) => (
+        <Link href={`/dashboard/admin/vendors/${row.id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
             <Image src={row.image} alt="Product Image" />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.itemName}</p>
-            <p className="text-sm text-clr-81">{row.itemDescription}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.vendorName}</p>
+            <p className="text-sm text-clr-81">{row.vendorDesc}</p>
           </div>
         </Link>
       ),
@@ -24,28 +24,33 @@ const ListingTable = () => {
       width: '400px'
     },
     {
-      name: 'Category',
-      selector: (row: IListingsData) => row.category,
+      name: 'Join date',
+      selector: (row: IVendorsData) => row.joinDate,
       sortable: true
     },
     {
-      name: 'Price',
-      cell: (row: IListingsData) => (
-        <div className="rounded-md bg-clr-81/20 px-2 py-[1px] text-sm font-bold text-clr-81">
-          ${row.price}
+      name: 'Availability',
+      cell: (row: IVendorsData) => (
+        <div
+          className={cn(
+            'rounded-md px-2 py-[1px] text-sm font-bold capitalize',
+            row.availability === 'available' ? 'bg-clr-1c/20 text-clr-1c' : 'bg-clr-d48/20 text-clr-d48'
+          )}
+        >
+          {row.availability}
         </div>
       ),
       sortable: true
     },
     {
       name: 'Total Bookings',
-      selector: (row: IListingsData) => row.totalBookings,
+      selector: (row: IVendorsData) => row.totalBookings,
       sortable: true
     },
 
     {
       name: '',
-      cell: (row: IListingsData) => (
+      cell: (row: IVendorsData) => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />
@@ -58,7 +63,7 @@ const ListingTable = () => {
           >
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                View Listing
+                View Vendor
               </button>
             </MenuItem>
             <MenuItem>
@@ -108,7 +113,7 @@ const ListingTable = () => {
     <div className="p-2">
       <DataTable
         columns={columns}
-        data={listingsData}
+        data={vendorsData}
         pagination
         customStyles={customStyles}
         selectableRows
@@ -121,4 +126,4 @@ const ListingTable = () => {
   )
 }
 
-export default ListingTable
+export default VendorRequest
