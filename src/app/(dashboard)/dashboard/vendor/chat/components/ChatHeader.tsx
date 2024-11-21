@@ -1,9 +1,3 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import {
-  ArrowRightEndOnRectangleIcon,
-  EllipsisVerticalIcon,
-  WrenchScrewdriverIcon
-} from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import avater from '/public/assets/avatar.jpeg'
 
@@ -15,7 +9,7 @@ const ChatHeader = () => {
           <Image className="object-cover" src={avater} alt="pic" />
         </div>
         <div>
-          <p className="mb-0.5 font-inter font-medium text-gray-900">Admin</p>
+          <p className="font-inter mb-0.5 font-medium text-gray-900">Admin</p>
           <div className="flex items-center gap-1">
             <span className="size-2 rounded-full bg-green-500" />
             <p className="font-inter text-xs font-medium text-green-500">Online</p>
@@ -23,7 +17,7 @@ const ChatHeader = () => {
         </div>
       </div>
 
-      <Menu>
+      {/* <Menu>
         <MenuButton>
           <EllipsisVerticalIcon className="size-5" />
         </MenuButton>
@@ -47,7 +41,7 @@ const ChatHeader = () => {
             </div>
           </MenuItem>
         </MenuItems>
-      </Menu>
+      </Menu> */}
     </div>
   )
 }
