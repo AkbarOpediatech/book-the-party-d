@@ -26,18 +26,22 @@ const Conversation: React.FC<ConversationProps> = ({ messages }) => {
       {messages.map(message => (
         <div
           key={message.id}
-          className={`flex items-start gap-2.5 ${message.sender === 'user' ? 'justify-end' : ''}`}
+          className={`flex items-start gap-2.5 ${message.sender === 'user' ? 'ms-auto flex-row-reverse' : ''}`}
         >
-          <div className="size-8 overflow-hidden rounded-full">
+          <div className="size-8 flex-shrink-0 overflow-hidden rounded-full">
             <Image className="object-cover" src={avatar} alt="User Avatar" />
           </div>
           <div className="w-full max-w-[316px]">
-            <div className="mb-1 flex items-center gap-1.5 font-inter text-sm">
+            <div
+              className={`font-inter mb-1 flex items-center gap-1.5 text-sm ${message.sender === 'user' && 'flex-row-reverse'}`}
+            >
               <p className="text-gray-900">{message.sender === 'user' ? 'You' : 'Bot'}</p>
               <p className="text-gray-500">{message.timestamp}</p>
             </div>
-            <div className="flex items-center gap-1.5">
-              <div className="rounded-[20px] bg-gray-100 p-4">
+            <div className={`flex items-center gap-1.5 ${message.sender === 'user' && 'flex-row-reverse'}`}>
+              <div
+                className={`${message.sender === 'user' ? 'rounded-tl-[20px]' : 'rounded-tr-[20px]'} rounded-bl-[20px] rounded-br-[20px] bg-gray-100 p-4`}
+              >
                 {message.type === 'text' && typeof message.content === 'string' ? (
                   <p className="font-inter text-sm text-gray-900">{message.content}</p>
                 ) : message.type === 'image' ? (

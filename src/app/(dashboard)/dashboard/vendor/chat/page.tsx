@@ -17,6 +17,7 @@ const VendorChat: React.FC = () => {
       type: 'text'
     }
     setMessages(prevMessages => [...prevMessages, newMessage])
+    triggerAutoReply()
   }
 
   const onSendImage = (images: File[]) => {
@@ -31,6 +32,7 @@ const VendorChat: React.FC = () => {
     }
 
     setMessages(prevMessages => [...prevMessages, newMessage])
+    triggerAutoReply()
   }
 
   const onSendFile = (file: File) => {
@@ -43,7 +45,22 @@ const VendorChat: React.FC = () => {
     }
 
     setMessages(prevMessages => [...prevMessages, newMessage])
+    triggerAutoReply()
   }
+
+  const triggerAutoReply = () => {
+    setTimeout(() => {
+      const botReply: Message = {
+        id: messages.length + 1,
+        sender: 'bot',
+        content: 'Thank you for your message! We will get back to you shortly.',
+        timestamp: new Date().toLocaleTimeString(),
+        type: 'text'
+      }
+      setMessages(prevMessages => [...prevMessages, botReply])
+    }, 1000) // 1-second delay
+  }
+
   return (
     <div className="flex h-full flex-col justify-between bg-white">
       <ChatHeader />
