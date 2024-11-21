@@ -5,6 +5,6 @@ export function cn(...args: ClassValue[]) {
   return twMerge(clsx(args))
 }
 
-export * from '../utils/data'
-export * from '../utils/enum'
-export * from '../utils/type'
+export * from '@/utils/data'
+export * from '@/utils/enum'
+export * from '@/utils/type'

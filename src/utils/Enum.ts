@@ -9,3 +9,10 @@ export enum xInputType {
   Email = 'email',
   Password = 'password'
 }
+
+export enum xShowAlert {
+  Success = 'success',
+  Error = 'error',
+  Warning = 'warning',
+  Info = 'info'
+}
