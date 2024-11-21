@@ -69,18 +69,9 @@ import occasionImg4 from '/public/assets/occasion-img4.png'
 import ICFacebook from '/public/assets/ic-fb.svg'
 import ICGoogle from '/public/assets/ic-google.svg'
 
-import { xRole } from './enum'
 import avatar from '/public/assets/avatar.jpeg'
 import ICInstagram from '/public/assets/ic-instagram.svg'
 import ICCart from '/public/assets/ic_cart.svg'
-
-export const session: {
-  _id: string
-  role: xRole
-} = {
-  _id: '85958599laksdjf',
-  role: xRole.Admin
-}
 
 export const vendorNavigation: INavigationItem[] = [
   {
@@ -942,3 +933,22 @@ export const billingAddress: IBillingAddress[] = [
   { label: 'Street', value: 'Wari' },
   { label: 'Postcode', value: '1204' }
 ]
+
+export enum xRole {
+  Admin = 'admin',
+  Vendor = 'vendor',
+  Customer = 'customer'
+}
+
+export enum xInputType {
+  Text = 'text',
+  Email = 'email',
+  Password = 'password'
+}
+
+export enum xShowAlert {
+  Success = 'success',
+  Error = 'error',
+  Warning = 'warning',
+  Info = 'info'
+}
