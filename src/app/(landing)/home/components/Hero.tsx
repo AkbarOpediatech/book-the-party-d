@@ -2,15 +2,28 @@
 import { eventFeatures } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import heroBg from '/public/assets/banner-img.png'
 
 const Hero = () => {
-  const [isSearchOrPackageClicked, setIsSearchOrPackageClicked] = useState(false)
+  const router = useRouter()
+  const [formData, setFormData] = useState({
+    search: '',
+    location: '',
+    category: '',
+    date: ''
+  })
 
-  const handleSearchClick = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = e.target
+    setFormData(prev => ({ ...prev, [id]: value }))
+  }
+
+  const handleSearchClick = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    setIsSearchOrPackageClicked(true)
+    const query = new URLSearchParams(formData).toString()
+    router.push(`/services?${query}`)
   }
 
   return (
@@ -37,7 +50,9 @@ const Hero = () => {
                   className="w-full xl:w-64"
                   id="search"
                   type="search"
-                  placeholder="Outfoor Marquee hire"
+                  placeholder="Outdoor Marquee hire"
+                  value={formData.search}
+                  onChange={handleInputChange}
                   required
                 />
               </li>
@@ -46,32 +61,51 @@ const Hero = () => {
                 <label htmlFor="location" className="mb-1 block font-sora text-sm font-semibold">
                   Location
                 </label>
-                <select name="" id="location" className="w-full xl:w-[250px]">
-                  <option value="0">Sydney</option>
-                  <option value="1">Sydney</option>
+                <select
+                  id="location"
+                  className="w-full xl:w-[250px]"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                >
+                  <option value="Sydney">Sydney</option>
+                  <option value="Melbourne">Melbourne</option>
+                  <option value="Brisbane">Brisbane</option>
                 </select>
               </li>
 
               <li className="w-full border-b pb-5 md:border-b-0 md:pb-0 lg:mr-5 lg:pr-5 xl:border-r">
-                <label htmlFor="categories" className="mb-1 block font-sora text-sm font-semibold">
+                <label htmlFor="category" className="mb-1 block font-sora text-sm font-semibold">
                   Categories
                 </label>
-                <select name="" id="categories" className="w-full xl:w-[250px]">
-                  <option value="0">Wedding</option>
+                <select
+                  id="category"
+                  className="w-full xl:w-[250px]"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
+                  <option value="Wedding">Wedding</option>
+                  <option value="Birthday">Birthday</option>
+                  <option value="Corporate">Corporate</option>
                 </select>
               </li>
 
               <li className="w-full border-b pb-5 md:border-b-0 md:pb-0 lg:mr-5 lg:pr-5 xl:border-r">
-                <label htmlFor="categories" className="mb-1 block font-sora text-sm font-semibold">
+                <label htmlFor="date" className="mb-1 block font-sora text-sm font-semibold">
                   Select Date
                 </label>
-                <input type="date" className="w-full" />
+                <input
+                  type="date"
+                  id="date"
+                  className="w-full"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                />
               </li>
 
               <li>
                 <button
                   type="submit"
-                  className="block w-[148PX] rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
+                  className="block w-[148px] rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
                 >
                   Search
                 </button>

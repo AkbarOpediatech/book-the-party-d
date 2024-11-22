@@ -1,5 +1,4 @@
 'use client'
-
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
@@ -16,6 +15,7 @@ const ListingDetails = () => {
   const [tab, setTab] = useState<number>(0)
   const params = useParams()
   const { id } = params
+
   return (
     <div className="bg-white px-7 py-3">
       <p className="mb-2 text-xl font-bold text-clr-36 md:text-2xl">Vendor Details</p>
