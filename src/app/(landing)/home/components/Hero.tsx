@@ -1,14 +1,18 @@
+'use client'
 import { eventFeatures } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { FormEventHandler } from 'react'
+import { useState } from 'react'
 import heroBg from '/public/assets/banner-img.png'
 
-type IProps = {
-  onSearchClick: FormEventHandler<HTMLFormElement>
-}
+const Hero = () => {
+  const [isSearchOrPackageClicked, setIsSearchOrPackageClicked] = useState(false)
 
-const Hero: React.FC<IProps> = ({ onSearchClick }) => {
+  const handleSearchClick = (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault()
+    setIsSearchOrPackageClicked(true)
+  }
+
   return (
     <section
       className="hero bg-cover bg-no-repeat pb-[100px] pt-[100px] md:pb-[110px] md:pt-[116px]"
@@ -23,7 +27,7 @@ const Hero: React.FC<IProps> = ({ onSearchClick }) => {
         </div>
 
         <div className="mb-5 rounded-2xl bg-white px-7 py-5 xl:rounded-full xl:px-10 xl:py-7">
-          <form onSubmit={onSearchClick}>
+          <form onSubmit={handleSearchClick}>
             <ul className="flex flex-wrap items-center gap-5 xl:flex-nowrap">
               <li className="w-full border-b pb-5 md:border-b-0 md:pb-0">
                 <label htmlFor="search" className="mb-1 block font-sora text-sm font-semibold">

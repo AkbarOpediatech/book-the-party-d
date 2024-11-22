@@ -140,7 +140,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
                     <DashboardButton
                       name="See All"
                       type="link"
-                      linkUrl="/dashboard/vendor/notifications"
+                      linkUrl="/dashboard/admin/notifications"
                       className="m-2 flex justify-center"
                     />
                   </MenuItem>
