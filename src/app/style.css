@@ -90,3 +90,18 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .listing-details-inclusion span {
   color: #9042fb;
 }
+
+.apexcharts-legend-text {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.apexcharts-legend-marker {
+  width: 9px !important;
+  height: 18px !important;
+  border-radius: 0 !important;
+}
+
+g#SvgjsG1112 {
+  display: none !important;
+}
