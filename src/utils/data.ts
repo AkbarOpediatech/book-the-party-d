@@ -136,12 +136,6 @@ export const adminNavigation: IAdminNavigation[] = [
   },
   {
     type: 'button',
-    name: 'listings',
-    href: '/dashboard/admin/listings',
-    icon: ListingIcon
-  },
-  {
-    type: 'button',
     name: 'email management',
     href: '/dashboard/admin/email-management',
     icon: DashboardIcon

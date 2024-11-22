@@ -1,4 +1,3 @@
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '/public/assets/avatar.jpeg'
@@ -11,10 +10,6 @@ const Vendors = () => {
           <h4 className="mb-1 text-lg font-bold text-clr-48">Vendors</h4>
           <p className="text-sm text-clr-81">You have 125 vendors now</p>
         </div>
-
-        <button>
-          <PlusCircleIcon className="size-6" />
-        </button>
       </div>
 
       <ul className="px-5 lg:px-10">

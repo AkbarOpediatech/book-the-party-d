@@ -25,7 +25,7 @@ const ListedVendor = () => {
     },
     {
       name: 'Join date',
-      selector: (row: IVendorsData) => row.joinDate,
+      selector: (row: IVendorsData) => row.joinDate ?? '',
       sortable: true
     },
     {
@@ -42,9 +42,10 @@ const ListedVendor = () => {
       ),
       sortable: true
     },
+
     {
       name: 'Total Bookings',
-      selector: (row: IVendorsData) => row.totalBookings,
+      selector: (row: IVendorsData) => row.totalBookings ?? 0,
       sortable: true
     },
 

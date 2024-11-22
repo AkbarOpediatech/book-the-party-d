@@ -71,9 +71,10 @@ export type IVendorsData = {
   id: number
   image: any
   vendorName: string
-  vendorDesc: string
-  joinDate: string
-  availability: string
+  vendorDesc?: string
+  vendorEmail?: string
+  joinDate: string | ''
+  availability?: string
   totalBookings: number
 }
 

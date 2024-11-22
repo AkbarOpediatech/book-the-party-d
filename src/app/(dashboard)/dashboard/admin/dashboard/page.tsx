@@ -1,6 +1,7 @@
 'use client'
 import DashboardCard from '../../../components/DashboardCard'
 import BalanceStatistics from './components/BalanceStatistics'
+import BookingCategories from './components/BookingCategories'
 import Vendors from './components/Vendors'
 import ICDecrease from '/public/assets/ic_decrese.svg'
 import ICIncrease from '/public/assets/ic_increse.svg'
@@ -43,12 +44,12 @@ export default function VendorDashboard() {
           <BalanceStatistics />
         </div>
 
-        {/* <div className="mb-7 w-full rounded-2xl bg-white p-5 shadow-one">
+        <div className="w-full rounded-2xl bg-white p-5 shadow-one">
           <div className="mb-[69px]">
             <p className="mb-1 text-lg font-bold capitalize text-clr-36">Booking Categories</p>
           </div>
           <BookingCategories />
-        </div> */}
+        </div>
       </div>
 
       <div className="col-span-12 xl:col-span-5">
