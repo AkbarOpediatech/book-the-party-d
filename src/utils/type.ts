@@ -1,5 +1,5 @@
 import type { StaticImageData } from 'next/image'
-import type { xRole } from './enum'
+import type { xRole } from './data'
 
 export type INavigationItem = {
   type: 'button'
