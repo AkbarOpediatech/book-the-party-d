@@ -1,4 +1,4 @@
-import { session } from '@/utils'
+'use client'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   ArrowRightEndOnRectangleIcon,
@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import DashboardButton from './DashboardButton'
 import Avater from '/public/assets/avatar.jpeg'
 import ICNotification from '/public/assets/ic_notification.svg'
@@ -17,6 +18,10 @@ type IProps = {
 }
 
 const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
+  const currentpath = usePathname()
+  const isVendorDashboard = currentpath.startsWith('/dashboard/vendor/')
+  const isAdminDashboard = currentpath.startsWith('/dashboard/admin/')
+
   return (
     <div className="w-full border-l bg-white px-6 py-[22px] md:px-10">
       <div className="flex items-center justify-between gap-5 lg:flex-nowrap lg:gap-0">
@@ -33,7 +38,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-6">
-          {session.role === 'vendor' && (
+          {isVendorDashboard && (
             <>
               <Menu>
                 <MenuButton className="relative">
@@ -103,7 +108,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
             </>
           )}
 
-          {session.role === 'admin' && (
+          {isAdminDashboard && (
             <>
               <Menu>
                 <MenuButton className="relative">
