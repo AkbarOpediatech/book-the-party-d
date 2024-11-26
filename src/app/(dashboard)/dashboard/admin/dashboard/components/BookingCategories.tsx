@@ -1,7 +1,8 @@
 'use client'
 import type { ApexOptions } from 'apexcharts'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import ReactApexChart from 'react-apexcharts'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const BookingCategories = () => {
   const [chartData, setChartData] = useState<{
@@ -13,12 +14,15 @@ const BookingCategories = () => {
       chart: {
         type: 'polarArea'
       },
+
       stroke: {
         colors: ['#fff']
       },
+
       fill: {
         opacity: 0.8
       },
+
       responsive: [
         {
           breakpoint: 480,
@@ -32,6 +36,7 @@ const BookingCategories = () => {
           }
         }
       ],
+
       labels: [
         'Party setup & prop hire packages',
         'Backdrops, Floral & display props',
@@ -48,6 +53,15 @@ const BookingCategories = () => {
   return (
     <>
       <ReactApexChart options={chartData.options} series={chartData.series} type="polarArea" height={350} />
+      <div>
+        <div>
+          <h2 className="mb-2 text-sm text-clr-81">Categories</h2>
+          <p className="text-2xl font-bold text-clr-48">8</p>
+        </div>
+        <div>
+          <h2 className="mb-2 text-sm text-clr-81">Total earning</h2>
+        </div>
+      </div>
     </>
   )
 }

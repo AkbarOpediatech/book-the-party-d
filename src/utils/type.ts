@@ -1,5 +1,5 @@
 import type { StaticImageData } from 'next/image'
-import type { xRole } from './enum'
+import type { xRole } from './data'
 
 export type INavigationItem = {
   type: 'button'
@@ -71,9 +71,10 @@ export type IVendorsData = {
   id: number
   image: any
   vendorName: string
-  vendorDesc: string
-  joinDate: string
-  availability: string
+  vendorDesc?: string
+  vendorEmail?: string
+  joinDate: string | ''
+  availability?: string
   totalBookings: number
 }
 

@@ -1,9 +1,15 @@
 'use client'
 import { setError, setLoading } from '@/redux/features/loadingErrorSlice'
 import type { AppDispatch, RootState } from '@/redux/store'
-import { passwordRequirements, SignUpInitialState, type ISignUpFormData } from '@/utils'
-import { showAlert, xShowAlert } from '@/utils/alertService'
-import { xInputType, xRole } from '@/utils/enum'
+import {
+  passwordRequirements,
+  SignUpInitialState,
+  xInputType,
+  xRole,
+  xShowAlert,
+  type ISignUpFormData
+} from '@/utils'
+import { showAlert } from '@/utils/alertService'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'

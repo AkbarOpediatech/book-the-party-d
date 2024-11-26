@@ -15,11 +15,11 @@ const SpecialPackages = () => {
         slidesPerView={5}
         navigation={true}
         spaceBetween={20}
-        loop={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false
-        }}
+        // loop={true}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false
+        // }}
         modules={[Autoplay, Navigation]}
         grabCursor={true}
         className="SpecialPackagesSwiper"
@@ -37,15 +37,15 @@ const SpecialPackages = () => {
             spaceBetween: 40
           },
           1280: {
-            slidesPerView: 4,
+            slidesPerView: 7,
             spaceBetween: 50
           }
         }}
       >
         {specialPackages.map((items, index) => (
-          <SwiperSlide className="min-h-[250px] overflow-hidden rounded-[32px] xl:min-h-[350px]" key={index}>
+          <SwiperSlide className="min-h-[250px] overflow-hidden rounded-[32px]" key={index}>
             <div className="relative">
-              <Image src={items.img} className="w-full" alt="image" />
+              <Image src={items.img} className="w-full overflow-hidden" alt="image" />
               <div className="border-white-50/50 absolute left-0 top-0 h-full w-full rounded-[32px] border-4 bg-black/20 p-8">
                 <div className="flex h-full flex-col justify-between">
                   <div>

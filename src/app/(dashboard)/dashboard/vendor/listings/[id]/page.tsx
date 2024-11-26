@@ -17,10 +17,10 @@ const ListingDetails = () => {
   const [tab, setTab] = useState<number>(0)
   const params = useParams()
   const { id } = params
+
   return (
     <div className="bg-white px-7 py-3">
       <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {id}</p>
-
       <div className="mb-5 grid grid-cols-3 gap-16">
         <div className="col-span-2">
           <div className="h-[478px] w-full overflow-hidden rounded-xl">

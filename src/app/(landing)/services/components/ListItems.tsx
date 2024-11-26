@@ -4,6 +4,7 @@ import { HeartIcon, MapPinIcon } from '@heroicons/react/16/solid'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 const ListItems = () => {
@@ -17,7 +18,12 @@ const ListItems = () => {
           </div>
           <div className="flex flex-col justify-between px-5">
             <div className="space-y-2">
-              <h2 className="mb-2 font-sora text-lg font-semibold text-neutral-900">Archer TP Link router</h2>
+              <Link
+                href={`/services/${items.id}`}
+                className="mb-2 font-sora text-lg font-semibold text-neutral-900"
+              >
+                Book chair arrangements
+              </Link>
               <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
               <p className="text-sm font-extrabold italic text-neutral-500 md:text-base">(10 reviews)</p>
               <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">

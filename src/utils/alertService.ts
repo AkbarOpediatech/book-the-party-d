@@ -1,11 +1,5 @@
 import Swal from 'sweetalert2'
-
-export enum xShowAlert {
-  Success = 'success',
-  Error = 'error',
-  Warning = 'warning',
-  Info = 'info'
-}
+import type { xShowAlert } from './data'
 
 export const showAlert = (
   title: string,

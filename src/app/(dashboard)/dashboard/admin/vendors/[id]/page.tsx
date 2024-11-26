@@ -1,7 +1,5 @@
 'use client'
-
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
-import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
@@ -17,36 +15,47 @@ const ListingDetails = () => {
   const [tab, setTab] = useState<number>(0)
   const params = useParams()
   const { id } = params
+
   return (
     <div className="bg-white px-7 py-3">
-      <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {id}</p>
+      <p className="mb-2 text-xl font-bold text-clr-36 md:text-2xl">Vendor Details</p>
 
-      <div className="mb-5 grid grid-cols-3 gap-16">
-        <div className="col-span-2">
+      <ul className="mb-10 flex items-center gap-3">
+        <li className="text-xm text-clr-36">Dashboard</li>
+        <span className="block h-1 w-1 rounded-full bg-clr-ab"></span>
+        <li className="text-xm text-clr-36">Vendors</li>
+        <span className="block h-1 w-1 rounded-full bg-clr-ab"></span>
+        <li className="text-xm text-clr-ab">Vendor Details</li>
+      </ul>
+
+      <div className="mb-5 grid grid-cols-2 gap-16">
+        <div className="col-span-1">
           <div className="h-[478px] w-full overflow-hidden rounded-xl">
             <Image className="w-full object-cover" src={details} alt="pic" />
           </div>
         </div>
-        <div>
+
+        <div className="p-10">
           <span className="mb-4 inline-block rounded-md bg-clr-16/20 px-2 py-[1px] text-xs font-bold text-clr-16">
-            Listed
+            Available
           </span>
-          <p className="mb-4 text-xl font-bold text-clr-36">Wedding Decoration</p>
+          <p className="mb-4 text-xl font-bold text-clr-36">Courtney Henry</p>
           <div className="mb-6 flex items-center gap-1">
             <Ratings rating={4.5} />
             <p className="text-sm text-clr-81"> (11.78kreviews)</p>
           </div>
-          <p className="mb-4 text-sm text-clr-81">Location : Sydney</p>
-          <p className="mb-4 text-xl font-bold text-clr-36 md:text-2xl"> $62.97</p>
+          <p className="mb-4 text-xl font-bold text-clr-36 md:text-2xl">
+            <span className="text-clr-ab">Avg event price</span> $62.97
+          </p>
 
-          <div className="mb-5 inline-flex items-center gap-4 rounded-lg border py-4 pl-3 pr-5 text-clr-ab">
-            <p>$200 security deposit.</p>
-            <InformationCircleIcon className="size-6" />
-          </div>
           <div className="mb-9 border-b border-t border-dashed border-clr-ab/25 py-5">
             <p className="mb-4 font-semibold text-clr-36">Category</p>
-            <p className="inline-block rounded-lg border py-4 pl-3 pr-5 text-clr-ab">Party Set up</p>
+            <div className="flex gap-5">
+              <p className="inline-block rounded-lg border py-4 pl-3 pr-5 text-clr-ab">Vehicle hire</p>
+              <p className="inline-block rounded-lg border py-4 pl-3 pr-5 text-clr-ab">Vehicle hire</p>
+            </div>
           </div>
+
           <DashboardButton
             name="Remove Item"
             type="button"
