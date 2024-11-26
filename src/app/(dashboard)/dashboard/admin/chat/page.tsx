@@ -1,9 +1,9 @@
 'use client'
+import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
 import type { Message } from '@/utils'
 import { useState } from 'react'
-import ChatHeader from './components/ChatHeader'
-import Conversation from './components/Conversation'
-import InputGroup from './components/InputGroup'
+import ChatSidebar from './components/ChatSidebar'
+import ChatWindow from './components/ChatWindow'
 
 const VendorChat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([])
@@ -45,11 +45,19 @@ const VendorChat: React.FC = () => {
     setMessages(prevMessages => [...prevMessages, newMessage])
   }
   return (
-    <div className="flex h-full flex-col justify-between bg-white">
-      <ChatHeader />
-      <Conversation messages={messages} />
-      <InputGroup onSendMessage={onSendMessage} onSendImage={onSendImage} onSendFile={onSendFile} />
-    </div>
+    <>
+      <TitleAndBreadCrumbs title={'Chat'} menuitem={'Dashboard'} breadcrumbs={'Chat'} className="mb-10" />
+      <div className="rounded-2xl bg-white shadow-one" style={{ height: 'calc(100vh - 240px)' }}>
+        <div className="flex h-full">
+          <div className="h-full w-full max-w-[300px] overflow-hidden border-r">
+            <ChatSidebar />
+          </div>
+          <div className="flex w-full flex-col">
+            <ChatWindow />
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

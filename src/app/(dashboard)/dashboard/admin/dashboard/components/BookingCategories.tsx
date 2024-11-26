@@ -52,14 +52,18 @@ const BookingCategories = () => {
 
   return (
     <>
-      <ReactApexChart options={chartData.options} series={chartData.series} type="polarArea" height={350} />
-      <div>
-        <div>
+      <div className="border-b border-b-gray-300 pb-10">
+        <ReactApexChart options={chartData.options} series={chartData.series} type="polarArea" height={350} />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="col-span-1 border-r border-r-gray-300 p-4 text-center">
           <h2 className="mb-2 text-sm text-clr-81">Categories</h2>
-          <p className="text-2xl font-bold text-clr-48">8</p>
+          <p className="text-2xl font-bold text-clr-48">{chartData.options.labels?.length}</p>
         </div>
-        <div>
+
+        <div className="p-4 text-center">
           <h2 className="mb-2 text-sm text-clr-81">Total earning</h2>
+          <p className="text-2xl font-bold text-clr-48">$14,765</p>
         </div>
       </div>
     </>

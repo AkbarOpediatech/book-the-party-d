@@ -44,8 +44,8 @@ export default function VendorDashboard() {
           <BalanceStatistics />
         </div>
 
-        <div className="w-full rounded-2xl bg-white p-5 shadow-one">
-          <div className="mb-[69px]">
+        <div className="w-full rounded-2xl bg-white shadow-one">
+          <div className="mb-[69px] p-5">
             <p className="mb-1 text-lg font-bold capitalize text-clr-36">Booking Categories</p>
           </div>
           <BookingCategories />

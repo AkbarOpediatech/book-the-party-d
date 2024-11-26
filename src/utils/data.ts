@@ -136,6 +136,12 @@ export const adminNavigation: IAdminNavigation[] = [
   },
   {
     type: 'button',
+    name: 'listings',
+    href: '/dashboard/admin/listings',
+    icon: ListingIcon
+  },
+  {
+    type: 'button',
     name: 'email management',
     href: '/dashboard/admin/email-management',
     icon: DashboardIcon
@@ -385,6 +391,30 @@ export const bookingData: IBookingData[] = [
     fee: 70.5,
     totalPayout: 690.48,
     status: 'Request payout',
+    image: BHistory
+  },
+  {
+    id: 4,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Objection',
+    image: BHistory
+  },
+  {
+    id: 5,
+    eventTitle: 'Wedding Plan',
+    eventId: 'INV1704-00061',
+    startDate: '13 Jul 2021',
+    endDate: '15 Jul 2021',
+    saleTotal: 767.5,
+    fee: 70.5,
+    totalPayout: 690.48,
+    status: 'Confirmed',
     image: BHistory
   }
 ]
