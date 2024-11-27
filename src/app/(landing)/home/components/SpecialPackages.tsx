@@ -30,15 +30,15 @@ const SpecialPackages = () => {
           },
           768: {
             slidesPerView: 2,
-            spaceBetween: 30
+            spaceBetween: 20
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 40
+            spaceBetween: 20
           },
           1280: {
             slidesPerView: 7,
-            spaceBetween: 50
+            spaceBetween: 20
           }
         }}
       >
