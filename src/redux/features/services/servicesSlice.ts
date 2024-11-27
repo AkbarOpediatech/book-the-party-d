@@ -3,11 +3,13 @@ import { ServiceItem } from './apiSlice'
 
 interface ServicesState {
   selectedService: ServiceItem | null
+  newServiceDraft: Partial<ServiceItem>
   filter: string
 }
 
 const initialState: ServicesState = {
   selectedService: null,
+  newServiceDraft: {},
   filter: ''
 }
 
@@ -20,10 +22,21 @@ const servicesSlice = createSlice({
     },
     setFilter(state, action: PayloadAction<string>) {
       state.filter = action.payload
+    },
+    setNewServiceDraft(state, action: PayloadAction<{ field: string; value: any }>) {
+      const { field, value } = action.payload
+      state.newServiceDraft = {
+        ...state.newServiceDraft,
+        [field]: value
+      }
+    },
+    clearNewServiceDraft(state) {
+      state.newServiceDraft = {}
     }
   }
 })
 
-export const { setSelectedService, setFilter } = servicesSlice.actions
+export const { setSelectedService, setFilter, setNewServiceDraft, clearNewServiceDraft } =
+  servicesSlice.actions
 
 export default servicesSlice.reducer

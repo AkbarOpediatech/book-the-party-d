@@ -3,11 +3,32 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 export interface ServiceItem {
   id: number
-  name: string
-  price: number
+  user: string
+  title: string
   description: string
-  stock: number
+  slug: string
+  featured_image: string | null
+  category: string
+  location: string
+  inclusions: string[]
+  infos: string[]
+  is_featured: boolean
+  price_type: string
+  price: {
+    text: string
+    value: number
+  }[]
+  security_deposit: number
+  cancellation_period_hours: number
+  availability: {
+    days: string
+    start_time: string
+    end_time: string
+  }[]
+  is_unavailable: boolean
+  status: string
 }
+
 export const servicesApi = createApi({
   reducerPath: 'servicesApi',
   baseQuery,
@@ -19,7 +40,7 @@ export const servicesApi = createApi({
     }),
     addService: builder.mutation<ServiceItem, Omit<ServiceItem, 'id'>>({
       query: newService => ({
-        url: '/products',
+        url: '/services',
         method: 'POST',
         body: newService
       }),

@@ -9,7 +9,7 @@ import Listings from './components/Listings'
 
 const VendorListing = () => {
   const router = useRouter()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(true)
 
   //TODO: remove route for modal
   useEffect(() => {
