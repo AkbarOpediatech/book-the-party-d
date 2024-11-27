@@ -1,6 +1,5 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import FileUpload from './FileUpload'
 import ImportantInfo from './ImportantInfo'
 import Inclusions from './Inclusions'
@@ -31,10 +30,7 @@ const ItemList: React.FC<IProps> = ({ setStep }) => {
         <ImportantInfo />
         <FileUpload />
         <div className="mt-6 border-b border-gray-200" />
-        <div className="mt-5 flex items-center gap-4">
-          <GrayBtn name="Back" onClick={() => setStep(0)} />
-          <DashboardButton name="Continue" type="submit" />
-        </div>
+        <DashboardButton name="Continue" type="submit" className="mt-5" />
       </form>
     </div>
   )

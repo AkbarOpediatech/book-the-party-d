@@ -1,75 +1,51 @@
-'use client'
-import { bookingData, cn, type IBookingData } from '@/utils'
+import { listingsData, type IListingsData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
+import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
+import Link from 'next/link'
 import DataTable, { type TableColumn } from 'react-data-table-component'
 
-const BookingAllTable = () => {
-  const columns: TableColumn<IBookingData>[] = [
+const ListingTable = () => {
+  const columns: TableColumn<IListingsData>[] = [
     {
-      name: 'Event',
-      cell: (row: IBookingData) => (
-        <div className="flex items-center gap-4">
+      name: 'Item Name',
+      cell: (row: IListingsData) => (
+        <Link href={`/dashboard/admin/listings/${row.id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
             <Image src={row.image} alt="Product Image" />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.eventTitle}</p>
-            <p className="text-sm text-clr-81">{row.eventId}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.itemName}</p>
+            <p className="text-sm text-clr-81">{row.itemDescription}</p>
           </div>
-        </div>
+        </Link>
       ),
       sortable: true,
-      width: '230px'
+      width: '400px'
     },
     {
-      name: 'Start Date',
-      selector: (row: IBookingData) => row.startDate,
+      name: 'Category',
+      selector: (row: IListingsData) => row.category,
       sortable: true
     },
     {
-      name: 'End Date',
-      selector: (row: IBookingData) => row.endDate,
-      sortable: true
-    },
-    {
-      name: 'Amount',
-      cell: (row: IBookingData) => <div>${row.totalPayout}</div>,
-      sortable: true
-    },
-    {
-      name: 'Security Deposit',
-      cell: (row: IBookingData) => (
-        <div className="text-center">
-          <p className="mb-2 text-sm">${row.totalPayout}</p>
-          <p className="text-sm text-clr-d48/90">Return Deposit</p>
+      name: 'Price',
+      cell: (row: IListingsData) => (
+        <div className="rounded-md bg-clr-81/20 px-2 py-[1px] text-sm font-bold text-clr-81">
+          ${row.price}
         </div>
       ),
+      sortable: true
+    },
+    {
+      name: 'Total Bookings',
+      selector: (row: IListingsData) => row.totalBookings,
       sortable: true
     },
 
     {
-      name: 'Vendor Confirmation',
-      cell: (row: IBookingData) => (
-        <span
-          className={cn(
-            'whitespace-nowrap rounded px-2 py-1 font-bold',
-            row.status === 'Request payout' && 'bg-yellow-100 text-yellow-500',
-            row.status === 'Payout amount' && 'bg-green-100 text-green-500',
-            row.status === 'Amount withdrawn' && 'bg-red-100 text-red-500',
-            row.status === 'Confirmed' && 'bg-clr-16/15 text-clr-16',
-            row.status === 'Objection' && 'bg-clr-d48/15 text-clr-d48'
-          )}
-        >
-          {row.status}
-        </span>
-      ),
-      sortable: true
-    },
-    {
       name: '',
-      cell: (row: IBookingData) => (
+      cell: (row: IListingsData) => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />
@@ -82,14 +58,17 @@ const BookingAllTable = () => {
           >
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <PencilIcon className="size-4 fill-black/30" />
+                View Listing
+              </button>
+            </MenuItem>
+            <MenuItem>
+              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                 Edit
               </button>
             </MenuItem>
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <Square2StackIcon className="size-4 fill-black/30" />
-                Duplicate
+                Delete
               </button>
             </MenuItem>
           </MenuItems>
@@ -129,7 +108,7 @@ const BookingAllTable = () => {
     <div className="p-2">
       <DataTable
         columns={columns}
-        data={bookingData}
+        data={listingsData}
         pagination
         customStyles={customStyles}
         selectableRows
@@ -142,4 +121,4 @@ const BookingAllTable = () => {
   )
 }
 
-export default BookingAllTable
+export default ListingTable

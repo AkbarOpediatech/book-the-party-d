@@ -1,4 +1,6 @@
 'use client'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import DashboardCard from '../../../components/DashboardCard'
 import BalanceStatistics from './components/BalanceStatistics'
 import BookingCategories from './components/BookingCategories'
@@ -38,14 +40,47 @@ export default function VendorDashboard() {
 
         <div className="mb-7 w-full rounded-2xl bg-white p-5 shadow-one">
           <div className="mb-[69px]">
-            <p className="mb-1 text-lg font-bold capitalize text-clr-36">Balance Statistics</p>
-            <p className="text-xs text-clr-81">(+43%) than last year</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="mb-1 text-lg font-bold capitalize text-clr-36">Balance Statistics</p>
+                <p className="text-xs text-clr-81">(+43%) than last year</p>
+              </div>
+
+              <Menu>
+                <MenuButton className="flex items-center gap-2 bg-clr-f8 px-2 py-1 text-sm text-clr-48">
+                  Status <ChevronDownIcon className="size-5" />
+                </MenuButton>
+
+                <MenuItems
+                  anchor="bottom end"
+                  className={
+                    'w-40 origin-top-right border bg-white text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0'
+                  }
+                >
+                  <MenuItem>
+                    <button className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8">
+                      Year
+                    </button>
+                  </MenuItem>
+
+                  <MenuItem>
+                    <button className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8">
+                      Month
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+            <div>
+              {' '}
+              <span className=""></span> month
+            </div>
           </div>
           <BalanceStatistics />
         </div>
 
-        <div className="w-full rounded-2xl bg-white p-5 shadow-one">
-          <div className="mb-[69px]">
+        <div className="w-full rounded-2xl bg-white shadow-one">
+          <div className="mb-[69px] p-5">
             <p className="mb-1 text-lg font-bold capitalize text-clr-36">Booking Categories</p>
           </div>
           <BookingCategories />

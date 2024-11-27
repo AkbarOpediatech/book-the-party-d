@@ -1,7 +1,6 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import { handleInputChange } from '@/utils/inputHandlers'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -9,11 +8,7 @@ import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import MultiplePrice from './MultiplePrice'
 
-type IProps = {
-  setStep: (stepIndex: number) => void
-}
-
-const ItemPricing: React.FC<IProps> = ({ setStep }) => {
+const ItemPricing = () => {
   const router = useRouter()
   const [pricingType, setPricingType] = useState<string>('Fixed Price')
 
@@ -37,11 +32,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
         {pricingType === 'Hourly' && <Hourly />}
         {pricingType === 'Multiple pricing range' && <MultiplePrice />}
         <div className="mt-6 border-b border-gray-200" />
-
-        <div className="mt-5 flex items-center gap-4">
-          <GrayBtn name="Back" onClick={() => setStep(2)} />
-          <DashboardButton name="Submit" type="submit" />
-        </div>
+        <DashboardButton name="Submit" type="submit" className="mt-5" />
       </form>
     </div>
   )

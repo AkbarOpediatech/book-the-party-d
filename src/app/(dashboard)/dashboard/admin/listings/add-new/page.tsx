@@ -12,7 +12,7 @@ const AddNewListing = () => {
       {step === 0 && <AddNew setStep={setStep} />}
       {step === 1 && <ItemList setStep={setStep} />}
       {step === 2 && <SetAvailability setStep={setStep} />}
-      {step === 3 && <ItemPricing setStep={setStep}  />}
+      {step === 3 && <ItemPricing />}
     </div>
   )
 }
