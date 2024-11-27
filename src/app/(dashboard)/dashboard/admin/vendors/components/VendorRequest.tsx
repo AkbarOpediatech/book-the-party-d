@@ -1,4 +1,4 @@
-import { cn, vendorsData, type IVendorsData } from '@/utils'
+import { vendorsData, type IVendorsData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -20,8 +20,7 @@ const VendorRequest = () => {
           </div>
         </Link>
       ),
-      sortable: true,
-      width: '400px'
+      sortable: true
     },
     {
       name: 'Join date',
@@ -29,22 +28,17 @@ const VendorRequest = () => {
       sortable: true
     },
     {
-      name: 'Availability',
+      name: 'Action',
       cell: (row: IVendorsData) => (
-        <div
-          className={cn(
-            'rounded-md px-2 py-[1px] text-sm font-bold capitalize',
-            row.availability === 'available' ? 'bg-clr-1c/20 text-clr-1c' : 'bg-clr-d48/20 text-clr-d48'
-          )}
-        >
-          {row.availability}
+        <div className="flex gap-2">
+          <button className="rounded-md bg-clr-1c/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-1c">
+            Accept
+          </button>
+          <button className="rounded-md bg-clr-d48/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-d48">
+            Decline
+          </button>
         </div>
       ),
-      sortable: true
-    },
-    {
-      name: 'Total Bookings',
-      selector: (row: IVendorsData) => row.totalBookings,
       sortable: true
     },
 

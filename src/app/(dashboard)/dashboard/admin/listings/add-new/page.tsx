@@ -6,13 +6,13 @@ import ItemPricing from './components/ItemPricing'
 import SetAvailability from './components/SetAvailability'
 
 const AddNewListing = () => {
-  const [step, setStep] = useState<number>(3)
+  const [step, setStep] = useState<number>(0)
   return (
     <div>
       {step === 0 && <AddNew setStep={setStep} />}
       {step === 1 && <ItemList setStep={setStep} />}
       {step === 2 && <SetAvailability setStep={setStep} />}
-      {step === 3 && <ItemPricing />} 
+      {step === 3 && <ItemPricing />}
     </div>
   )
 }

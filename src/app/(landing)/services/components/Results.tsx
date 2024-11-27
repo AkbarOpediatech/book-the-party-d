@@ -19,8 +19,6 @@ const Results = () => {
   //TODO: Feching with redux
   const { data: products, isLoading, isError } = useFetchServicesQuery()
 
-  console.log('products', products)
-
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
   return (

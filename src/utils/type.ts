@@ -1,5 +1,5 @@
 import type { StaticImageData } from 'next/image'
-import type { xRole } from './data'
+import type { xRole, xUserStatus, xUserType } from './data'
 
 export type INavigationItem = {
   type: 'button'
@@ -186,4 +186,24 @@ export type IPersonalInfo = {
 export type IBillingAddress = {
   label: string
   value: string
+}
+
+export type IMessage = {
+  text: string
+  time: string
+  isSender: boolean
+}
+
+export type IChatData = {
+  id: number
+  name: string
+  message: string
+  type: xUserType
+  avatar: string
+  status: xUserStatus
+  createdAt: string
+  messages: IMessage[]
+  location: string
+  phone: string
+  mail: string
 }

@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log('user', user)
+        // console.log('user', user)
         token.accessToken = user.token
         token.refreshToken = user.refreshToken
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000
@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
         email: session.user?.email || ''
       }
       session.accessToken = token.accessToken as string // Cast to string
-      console.log('token', session.accessToken)
+      // console.log('token', session.accessToken)
       return session
     }
   },
@@ -93,3 +93,4 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
+

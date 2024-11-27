@@ -17,7 +17,6 @@ const LoginForm = () => {
       password,
       redirect: false
     })
-    console.log('result', result)
 
     if (!result?.ok) {
       setError('Invalid email or password.')

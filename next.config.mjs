@@ -4,6 +4,15 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 const nextConfig = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true' // Enable only when ANALYZE=true
 })({
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+        port: ''
+      }
+    ]
+  },
   reactStrictMode: true, // Your existing Next.js configuration
   swcMinify: true
 })

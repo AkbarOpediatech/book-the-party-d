@@ -1,8 +1,10 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import { EnvelopeIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import BookingStatistics from '../../../vendor/dashboard/components/BookingStatistics'
+import BookingHistoryChart from '../../dashboard/components/BookingHistoryChart'
 import Details from './components/Details'
 import DetailsTab from './components/DetailsTab'
 import ImportantInfo from './components/ImportantInfo'
@@ -13,8 +15,6 @@ import details from '/public/assets/listing-details.png'
 
 const ListingDetails = () => {
   const [tab, setTab] = useState<number>(0)
-  const params = useParams()
-  const { id } = params
 
   return (
     <div className="bg-white px-7 py-3">
@@ -56,11 +56,34 @@ const ListingDetails = () => {
             </div>
           </div>
 
-          <DashboardButton
-            name="Remove Item"
-            type="button"
-            className="flex w-full justify-center font-bold"
-          />
+          <div className="flex gap-5">
+            <DashboardButton
+              name="Send Email"
+              type="button"
+              icon={<EnvelopeIcon className="size-5" />}
+              className="flex w-full justify-center border border-clr-fb bg-transparent font-bold text-black"
+            />
+
+            <DashboardButton
+              name="Remove Item"
+              type="button"
+              className="flex w-full justify-center font-bold"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-10 grid grid-cols-3 gap-5">
+        <div className="col-span-1 w-full rounded-2xl bg-white shadow-one">
+          <h2 className="py-5 text-center text-sm font-bold text-clr-36 md:text-base">Booking history</h2>
+          <BookingHistoryChart />
+        </div>
+        <div className="col-span-2 mb-7 h-full w-full rounded-2xl bg-white p-5 shadow-one">
+          <div className="mb-[69px]">
+            <p className="mb-1 font-bold text-clr-36">Booking Statistics</p>
+            <p className="text-xs text-clr-81">(+43%) than last year</p>
+          </div>
+          <BookingStatistics />
         </div>
       </div>
 

@@ -11,7 +11,6 @@ const VendorListing = () => {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  //TODO: remove route for modal
   useEffect(() => {
     const query = new URLSearchParams(window.location.search)
     if (query.get('modal') === 'true') {
