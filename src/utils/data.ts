@@ -966,8 +966,8 @@ export enum xUserType {
 }
 
 export enum xUserStatus {
-  Active = 'active',
-  Inactive = 'inactive'
+  Active = 'active now',
+  Inactive = 'offline'
 }
 
 const today = new Date()

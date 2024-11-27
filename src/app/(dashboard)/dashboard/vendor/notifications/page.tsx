@@ -23,7 +23,7 @@ const Notifications = () => {
         <p className="text-xl text-gray-500">Today</p>
 
         {allNotifications.slice(0, visibleCount).map((data, index) => (
-          <div key={index}>
+          <div key={index} className="rounded-lg bg-white p-4">
             <Notification />
           </div>
         ))}
