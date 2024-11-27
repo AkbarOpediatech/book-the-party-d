@@ -3,7 +3,6 @@ import LoginForm from '../components/LoginForm'
 
 const Login = () => {
   return (
-    // <div className="flex h-screen items-center justify-center p-4">
     <>
       <LoginForm />
       <div className="flex items-center gap-1 text-sm font-medium">
@@ -13,7 +12,6 @@ const Login = () => {
         </Link>
       </div>
     </>
-    // </div>
   )
 }
 

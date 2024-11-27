@@ -1,11 +1,26 @@
+'use client'
+import {
+  useAddToCartMutation,
+  useFetchCartQuery,
+  useRemoveFromCartMutation
+} from '@/redux/features/cart/apiSlice'
 import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import ProductImg from '/public/assets/package1.png'
 
 const CartItems = () => {
+  const { data: cartItems, isLoading, isError } = useFetchCartQuery()
+  const [addToCart] = useAddToCartMutation()
+  const [removeFromCart] = useRemoveFromCartMutation()
+
+  //TODO: Feching with redux
+  if (isLoading) return <div>Loading cart...</div>
+  if (isError) return <div>Error loading cart.</div>
+
   return (
     <div>
       <div className="bg-white">
+        <p>Carts items {cartItems && cartItems.data.length}</p>
         <div className="cart-scroll overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>

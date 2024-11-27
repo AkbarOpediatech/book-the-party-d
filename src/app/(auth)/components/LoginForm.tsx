@@ -1,7 +1,28 @@
-import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+'use client'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const LoginForm = () => {
+  const [email, setEmail] = useState('customer12@gmail.com')
+  const [password, setPassword] = useState('Opedia@123')
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false
+    })
+    console.log('result', result)
+
+    if (!result?.ok) {
+      setError('Invalid email or password.')
+    }
+  }
   return (
     <>
       <p className="mb-5 text-xl font-medium">Welcome back</p>
@@ -38,7 +59,8 @@ const LoginForm = () => {
             Forgot Password?
           </Link>
         </div>
-        <DashboardButton name="Sign In" type="submit" className="w-full" />
+        <button onClick={handleSubmit}>Sign In</button>
+        {/* <DashboardButton name="Sign In" type="submit" className="w-full" /> */}
       </form>
     </>
   )

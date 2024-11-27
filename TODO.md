@@ -8,9 +8,9 @@
 
 ## _TODOS_:
 
-- [-] Redux Api integration
-- [-] NextAuth integration
-- [-] Authintecation integration with middleware
+- [-] Redux Api integration - Done
+- [-] NextAuth integration - Done
+- [-] Authintecation integration with middleware - [middleware_left_for_private_page]
 
 ---
 
@@ -55,3 +55,32 @@
   - if we need to build on needed, then user want to increment then user fallback or revalidate,
 
 ### [ER-Diagram](https://example.com)
+
+_Approach:_
+
+- get - SSR or SSG
+- post - sensetive post - create internal api for security and performance issues including senitization
+- post - without sensetive post - we can use redux or client side POST methods
+- use Redis from docker
+
+_API integration - final_
+
+- Auth - [Login_with_NextAuth]
+- Address
+- search / filtering
+- categories
+- services -- [Read]
+- cart --- [Read]
+- coupon
+- contact - missing from (backend) \*\*
+- profile api
+- Transaction
+- Booking history - missing from (backend) \*\*
+- Listing / services add
+- Notificatioons done -- Messager broker (RabitMQ) missing from (backend) \*\*
+- subscribe
+- Chat
+- vendor profile
+- Statistics - missing from (backend) \*\*
+- Vendor listing
+- Support from admin
