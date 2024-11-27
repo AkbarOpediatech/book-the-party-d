@@ -1,4 +1,5 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import React from 'react'
 
@@ -41,7 +42,11 @@ const SetAvailability: React.FC<IProps> = ({ setStep }) => {
           ))}
         </div>
         <div className="mt-6 border-b border-gray-200" />
-        <DashboardButton name="Continue" type="submit" className="mt-5" />
+
+        <div className="mt-5 flex items-center gap-4">
+          <GrayBtn name="Back" onClick={() => setStep(1)} />
+          <DashboardButton name="Continue" type="submit" />
+        </div>
       </form>
     </div>
   )
