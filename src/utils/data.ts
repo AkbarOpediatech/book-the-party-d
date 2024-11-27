@@ -5,6 +5,7 @@ import type {
   IBookingData,
   IBookingDetails,
   IChartData,
+  IChatData,
   ICreditCardForm,
   IDashboardBookingHistory,
   IDiscoverItems,
@@ -69,6 +70,7 @@ import occasionImg4 from '/public/assets/occasion-img4.png'
 import ICFacebook from '/public/assets/ic-fb.svg'
 import ICGoogle from '/public/assets/ic-google.svg'
 
+import { format, subDays } from 'date-fns'
 import avatar from '/public/assets/avatar.jpeg'
 import ICInstagram from '/public/assets/ic-instagram.svg'
 import ICCart from '/public/assets/ic_cart.svg'
@@ -956,6 +958,182 @@ export const billingAddress: IBillingAddress[] = [
   { label: 'Address', value: '12/A, Rankin Street' },
   { label: 'Street', value: 'Wari' },
   { label: 'Postcode', value: '1204' }
+]
+
+export enum xUserType {
+  Vendor = 'vendor',
+  Customer = 'customer'
+}
+
+export enum xUserStatus {
+  Active = 'active',
+  Inactive = 'inactive'
+}
+
+const today = new Date()
+const yesterday = subDays(today, 1)
+
+export const chatData: IChatData[] = [
+  {
+    id: 1,
+    name: 'John Doe',
+    message: 'Hello, how can I help you today?',
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=1',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Hello, how can I help you today?', time: '4:02 PM', isSender: false },
+      { text: 'I am good, thank you!', time: '4:05 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 2,
+    name: 'Jane Smith',
+    message: 'I need assistance with my order.',
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=2',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'I need assistance with my order.', time: '3:50 PM', isSender: false },
+      { text: 'Sure, I am available.', time: '3:55 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 3,
+    name: 'Support Bot',
+    message: 'Our support is available 24/7.',
+    type: xUserType.Vendor,
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    status: xUserStatus.Inactive,
+    createdAt: format(yesterday, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Our support is available 24/7.', time: '10:00 AM', isSender: false },
+      { text: 'Thank you for your response.', time: '10:05 AM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 4,
+    name: 'Alice Johnson',
+    message: 'Thank you for the quick response!',
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=4',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Are we meeting today?', time: '11:00 AM', isSender: false },
+      { text: 'Yes, at 3 PM.', time: '11:05 AM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 5,
+    name: 'Mark Brown',
+    message: 'Can you provide more details about the issue?',
+    type: xUserType.Vendor,
+    avatar: 'https://i.pravatar.cc/150?img=5',
+    status: xUserStatus.Active,
+    createdAt: format(yesterday, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Can you provide more details about the issue?', time: '12:30 PM', isSender: false },
+      { text: 'Sure, I’ll explain further.', time: '12:32 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 6,
+    name: 'Lisa Wong',
+    message: "I can't log into my account.",
+    type: xUserType.Vendor,
+    avatar: 'https://i.pravatar.cc/150?img=6',
+    status: xUserStatus.Inactive,
+    createdAt: format(yesterday, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: "I can't log into my account.", time: '1:00 PM', isSender: false },
+      { text: 'Have you tried resetting your password?', time: '1:05 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 7,
+    name: 'Tom Harris',
+    message: 'Have you tried resetting your password?',
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=7',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Have you tried resetting your password?', time: '2:30 PM', isSender: true },
+      { text: 'Yes, but it still doesn’t work.', time: '2:35 PM', isSender: false }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 8,
+    name: 'Emma White',
+    message: "Yes, but it still doesn't work.",
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=8',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Yes, but it still doesn’t work.', time: '3:00 PM', isSender: false },
+      { text: 'We are looking into it.', time: '3:05 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 9,
+    name: 'Michael Green',
+    message: 'We are looking into this issue for you.',
+    type: xUserType.Vendor,
+    avatar: 'https://i.pravatar.cc/150?img=9',
+    status: xUserStatus.Inactive,
+    createdAt: format(yesterday, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'We are looking into this issue for you.', time: '4:00 PM', isSender: true },
+      { text: 'Thanks for the update.', time: '4:05 PM', isSender: false }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  },
+  {
+    id: 10,
+    name: 'Sophie Black',
+    message: 'Thanks for the help!',
+    type: xUserType.Customer,
+    avatar: 'https://i.pravatar.cc/150?img=10',
+    status: xUserStatus.Active,
+    createdAt: format(today, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+    messages: [
+      { text: 'Thanks for the help!', time: '5:00 PM', isSender: false },
+      { text: 'You’re welcome!', time: '5:05 PM', isSender: true }
+    ],
+    location: 'sydney',
+    phone: '+84231647854152',
+    mail: 'getintouch.ashiq@gmail.com'
+  }
 ]
 
 export enum xRole {

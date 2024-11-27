@@ -1,7 +1,14 @@
+import { type IChatData } from '@/utils'
+import { formatDistanceToNow, parseISO } from 'date-fns'
 import Image from 'next/image'
-import avatar from '/public/assets/avatar.jpeg'
+import React from 'react'
 
-function ChatSidebar() {
+type IProps = {
+  chatData: IChatData[]
+  onChatSelect: (chat: IChatData) => void
+}
+
+const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect }) => {
   return (
     <div className="p-5">
       <input
@@ -9,39 +16,41 @@ function ChatSidebar() {
         placeholder="Search Contact…"
         style={{ backgroundPosition: 'left 12px center' }}
       />
+
       <ul>
-        <li className="flex cursor-pointer items-center gap-4 py-3">
-          <div className="relative">
-            <div className="h-11 w-11 overflow-hidden rounded-full">
-              <Image width={44} height={44} src={avatar} alt="avatar" />
-            </div>
-            <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
-          </div>
+        {chatData.map((chat, index) => {
+          const relativeTime = (timestamp: string): string => {
+            const distance = formatDistanceToNow(parseISO(timestamp), { addSuffix: false })
+            if (distance === 'less than a minute') {
+              return 'Just now'
+            }
+            return distance
+          }
+          const relativeTimeResult = relativeTime(chat.createdAt)
+          return (
+            <li
+              key={index}
+              className="flex cursor-pointer items-center gap-4 py-3"
+              onClick={() => onChatSelect(chat)}
+            >
+              <div className="relative">
+                <div className="h-11 w-11 overflow-hidden rounded-full">
+                  <Image width={44} height={44} src={chat.avatar} alt="avatar" />
+                </div>
+                {chat.status === 'active' && (
+                  <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
+                )}
+              </div>
 
-          <div className="w-full max-w-[150px]">
-            <p className="flex w-full justify-between text-sm font-semibold text-clr-36">
-              Rodger Struck <span className="text-xs text-clr-ab">3 days</span>
-            </p>
-            <p className="truncate text-sm font-semibold text-clr-36">
-              How To Boost Traffic How To Boost Traffic How To Boost Traffic{' '}
-            </p>
-          </div>
-        </li>
-
-        <li className="flex cursor-pointer items-center gap-4 py-3">
-          <div className="h-11 w-11 overflow-hidden rounded-full">
-            <Image width={44} height={44} src={avatar} alt="avatar" />
-          </div>
-
-          <div className="w-full max-w-[150px]">
-            <p className="flex w-full justify-between text-sm font-semibold text-clr-36">
-              Rodger Struck <span className="text-xs text-clr-ab">3 days</span>
-            </p>
-            <p className="truncate text-sm text-clr-36">
-              You: How To Boost Traffic How To Boost Traffic How To Boost Traffic{' '}
-            </p>
-          </div>
-        </li>
+              <div className="w-full max-w-[150px]">
+                <p className="flex w-full items-center justify-between text-sm font-semibold text-clr-36">
+                  {chat.name} <span className="text-xs text-clr-ab">{relativeTimeResult}</span>
+                </p>
+                <p className="truncate text-sm font-semibold text-clr-36">{chat.message}</p>
+              </div>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

@@ -1,19 +1,23 @@
+import type { IChatData } from '@/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { ChevronDownIcon, EnvelopeIcon, EyeIcon, PhoneIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
-import Avatar from '/public/assets/avatar.jpeg'
 
-const VendorChatProfile = () => {
+type IProps = {
+  selectedChat: IChatData
+}
+
+const VendorChatProfile: React.FC<IProps> = ({ selectedChat }) => {
   return (
     <div className="w-full max-w-[350px] border-l p-5">
       <div className="flex justify-center">
         <div className="mb-3 h-[90px] w-[90px] overflow-hidden rounded-full">
-          <Image width={90} height={90} src={Avatar} alt="avatar" />
+          <Image width={90} height={90} src={selectedChat.avatar} alt="avatar" />
         </div>
       </div>
       <div className="mb-5">
-        <h2 className="text-center text-sm font-semibold text-clr-36">Lewis Simmons</h2>
-        <p className="text-center text-sm text-clr-81">Customer</p>
+        <h2 className="text-center text-sm font-semibold capitalize text-clr-36">{selectedChat.name}</h2>
+        <p className="text-center text-sm capitalize text-clr-81">{selectedChat.type}</p>
       </div>
 
       <Disclosure defaultOpen={true}>
@@ -22,17 +26,17 @@ const VendorChatProfile = () => {
         </DisclosureButton>
         <DisclosurePanel>
           <ul className="space-y-3">
-            <li className="flex items-center gap-2 text-sm text-clr-36">
+            <li className="flex items-center gap-2 text-sm capitalize text-clr-36">
               <EyeIcon className="size-[14px]" />
-              Location
+              {selectedChat.location}
             </li>
             <li className="flex items-center gap-2 text-sm text-clr-36">
               <PhoneIcon className="size-[14px]" />
-              (229)538-1421
+              {selectedChat.phone}
             </li>
             <li className="flex items-center gap-2 text-sm text-clr-36">
               <EnvelopeIcon className="size-[14px]" />
-              khalid_watsica@reed.ca
+              {selectedChat.mail}
             </li>
           </ul>
         </DisclosurePanel>
