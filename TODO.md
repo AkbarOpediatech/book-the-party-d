@@ -11,6 +11,7 @@
 - [-] Redux Api integration - Done
 - [-] NextAuth integration - Done
 - [-] Authintecation integration with middleware - [middleware_left_for_private_page]
+- [-] Revalidate Redux api left
 
 ---
 
@@ -69,14 +70,14 @@ _API integration - final_
 - Address
 - search / filtering
 - categories
-- services -- [Read]
+- services -- [Read][write]
 - cart --- [Read]
 - coupon
 - contact - missing from (backend) \*\*
 - profile api
 - Transaction
 - Booking history - missing from (backend) \*\*
-- Listing / services add
+- Listing / services [add]
 - Notificatioons done -- Messager broker (RabitMQ) missing from (backend) \*\*
 - subscribe
 - Chat
@@ -84,3 +85,7 @@ _API integration - final_
 - Statistics - missing from (backend) \*\*
 - Vendor listing
 - Support from admin
+
+##### next days Goal
+
+- need to finished review, addredd, location, profile, coupon

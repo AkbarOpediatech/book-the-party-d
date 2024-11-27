@@ -34,13 +34,12 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
 
   const newServiceDraft = useSelector((state: RootState) => state.services.newServiceDraft)
   const handleSubmit = async (e: React.FormEvent) => {
-    // router.push('/dashboard/vendor/listings?modal=true')
     e.preventDefault()
 
-    // if (!title || !description || quantity <= 0) {
-    //   alert('Please fill in all fields with valid values.')
-    //   return
-    // }
+    if (!pricingType) {
+      alert('Please fill in all fields with valid values.')
+      return
+    }
     const demoService: Omit<ServiceItem, 'id'> = {
       user: '671e315ed10e02c3ec3dacc3',
       title: 'Luxury Car Rental',
@@ -80,8 +79,8 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
   ) => {
     const { name, value } = e.target
     dispatch(setNewServiceDraft({ field: 'price_type', value }))
-    console.log('New Service Draft:', newServiceDraft.price_type)
   }
+
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Item Pricing</p>
@@ -92,14 +91,17 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
           type="select"
           options={['fixed', 'hourly', 'multiple_fixed']}
           onChange={e => handleInputChange(e)}
+          // onChange={e => useInputHandler(true, setNewServiceDraft({ field: 'price_type', value }), e)}
           customClass="mb-4"
         />
         {pricingType === 'fixed' && <FixedPrice />}
         {pricingType === 'hourly' && <Hourly />}
         {pricingType === 'Multiple pricing range' && <MultiplePrice />}
         <div className="mt-6 border-b border-gray-200" />
-        <GrayBtn name="Back" onClick={() => setStep(2)} />
-        <DashboardButton name="Submit" type="submit" className="mt-5" />
+        <div className="mt-5 flex items-center gap-4">
+          <GrayBtn name="Back" onClick={() => setStep(2)} />
+          <DashboardButton name="Submit" type="submit" />
+        </div>
       </form>
     </div>
   )
