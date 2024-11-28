@@ -9,7 +9,6 @@ type IProps = {
 }
 
 const ChatHead: React.FC<IProps> = ({ onProfileClick, selectedChat }) => {
-  console.log(selectedChat)
   return (
     <div className="border-b p-5">
       <div className="flex items-center justify-between">
@@ -18,7 +17,7 @@ const ChatHead: React.FC<IProps> = ({ onProfileClick, selectedChat }) => {
             <div className="h-11 w-11 overflow-hidden rounded-full">
               <Image width={44} height={44} src={selectedChat.avatar} alt="avatar" />
             </div>
-            {selectedChat.status === 'active' && (
+            {selectedChat.status === 'active now' && (
               <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
             )}
           </div>

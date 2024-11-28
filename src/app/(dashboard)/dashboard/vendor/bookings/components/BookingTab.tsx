@@ -33,7 +33,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
         )}
         onClick={() => setTab(1)}
       >
-        pending
+        complete
         <span className="rounded-md bg-clr-03/20 p-1 text-xs font-bold text-clr-03">24</span>
         <span
           className={cn(
@@ -49,7 +49,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
         )}
         onClick={() => setTab(2)}
       >
-        complete
+        pending
         <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">24</span>
         <span
           className={cn(

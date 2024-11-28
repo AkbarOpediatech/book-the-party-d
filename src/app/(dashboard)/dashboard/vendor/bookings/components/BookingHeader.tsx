@@ -1,4 +1,11 @@
+import { useState } from 'react'
+// TODO: use it letter
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+
 const BookingHeader = () => {
+  const [startDate, setStartDate] = useState(new Date('Start date'))
+  const [endDate, setEndDate] = useState(new Date('End Date'))
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 rounded px-4 pb-3 pt-5 lg:flex-nowrap">
       <div className="relative">
@@ -7,6 +14,15 @@ const BookingHeader = () => {
           <option value="Wedding">Wedding</option>
         </select>
       </div>
+
+      {/* TODO: use it letter */}
+      {/* <DatePicker
+        selected={startDate}
+        onChange={(date: any) => setStartDate(date)}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
+      /> */}
 
       <input type="date" className="input text-clr-ab" placeholder="Start date" />
       <input type="date" className="input text-clr-ab" placeholder="End date" />

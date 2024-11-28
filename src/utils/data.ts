@@ -4,6 +4,7 @@ import type {
   IBookingAnalytics,
   IBookingData,
   IBookingDetails,
+  ICartItems,
   IChartData,
   IChatData,
   ICreditCardForm,
@@ -942,14 +943,40 @@ export const billingAddress: IBillingAddress[] = [
   { label: 'Postcode', value: '1204' }
 ]
 
+export const cartItems: ICartItems[] = [
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  },
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  },
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  }
+]
 export enum xUserType {
   Vendor = 'vendor',
   Customer = 'customer'
 }
 
 export enum xUserStatus {
-  Active = 'active',
-  Inactive = 'inactive'
+  Active = 'active now',
+  Inactive = 'offline'
 }
 
 const today = new Date()

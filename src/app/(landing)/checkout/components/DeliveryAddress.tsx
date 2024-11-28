@@ -3,7 +3,10 @@ import { CheckIcon } from '@heroicons/react/16/solid'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
-const DeliveryAddress = () => {
+type IProps = {
+  setShowAddress: (show: boolean) => void
+}
+const DeliveryAddress: React.FC<IProps> = ({ setShowAddress }) => {
   const [categoryChecked, setCategoryChecked] = useState(false)
 
   return (
@@ -57,7 +60,8 @@ const DeliveryAddress = () => {
               Deliver here
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={() => setShowAddress(true)}
               className="rounded-xl bg-clr-fb px-5 py-4 text-sm text-white md:px-10 md:text-2xl"
             >
               Add new address

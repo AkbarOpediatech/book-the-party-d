@@ -2,17 +2,29 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export interface CartItem {
-  id: number
-  name: string
+  service: number
+  user: string
+  notes: string
+  price: string
   quantity: number
+  selected_date: {
+    start_date: Date
+    end_date: Date
+  }
 }
+
+// service: IID<IService>
+//   user: IID<IUser>
+//   notes: string
+//   quantity: number
+//   price_id: ObjectId
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery,
   tagTypes: ['Cart'],
   endpoints: builder => ({
-    fetchCart: builder.query<CartItem[], void>({
+    fetchCart: builder.query<any, void>({
       query: () => '/carts',
       providesTags: ['Cart']
     }),

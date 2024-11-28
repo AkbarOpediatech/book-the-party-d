@@ -1,26 +1,32 @@
 'use client'
-import {
-  useAddToCartMutation,
-  useFetchCartQuery,
-  useRemoveFromCartMutation
-} from '@/redux/features/cart/apiSlice'
 import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
-import ProductImg from '/public/assets/package1.png'
+import Swal from 'sweetalert2'
+import { useFetchServiceService } from './CartService'
+import Avatar from '/public/assets/avatar.jpeg'
 
 const CartItems = () => {
-  const { data: cartItems, isLoading, isError } = useFetchCartQuery()
-  const [addToCart] = useAddToCartMutation()
-  const [removeFromCart] = useRemoveFromCartMutation()
+  const { response: cartItems, loading, error } = useFetchServiceService()
 
-  //TODO: Feching with redux
-  if (isLoading) return <div>Loading cart...</div>
-  if (isError) return <div>Error loading cart.</div>
+  if (loading) return <div>Loading cart...</div>
+  if (error) return <div>Error loading cart.</div>
+
+  const handleDelete = async (index: number) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to remove this item from your cart?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    })
+  }
+  console.log('cartItems', cartItems.data)
 
   return (
     <div>
       <div className="bg-white">
-        <p>Carts items {cartItems && cartItems.data.length}</p>
+        <p>Carts items {cartItems && cartItems?.length}</p>
         <div className="cart-scroll overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
@@ -31,35 +37,44 @@ const CartItems = () => {
                 <th className="px-4 py-3 font-sora text-sm font-semibold md:text-lg">Price</th>
                 <th className="px-4 py-3 font-sora text-sm font-semibold md:text-lg">Quantity</th>
                 <th className="px-4 py-3 font-sora text-sm font-semibold md:text-lg">Subtotal</th>
-                <th className="px-4 py-3 font-sora text-sm font-semibold md:text-lg">Action</th>
+                <th className="px-4 py-3 font-sora text-sm font-semibold md:text-lg">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="mb-4 border-b last:mb-0 last:border-b-0">
-                <td className="px-4 py-4">
-                  <div className="flex flex-wrap items-center md:flex-nowrap">
-                    <Image
-                      width={80}
-                      height={80}
-                      src={ProductImg}
-                      alt="Party Item Image"
-                      className="mb-4 h-20 w-20 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
-                    />
-                    <div>
-                      <p className="mb-2 font-sora text-sm font-bold md:text-lg">Party Name here</p>
-                      <p className="font-nunito text-sm font-light text-gray-500">Location: XYZ</p>
+              {cartItems?.data?.map((data: any, index: any) => (
+                <tr key={index} className="mb-4 border-b last:mb-0">
+                  <td className="px-4 py-4">
+                    <div className="flex flex-wrap items-center md:flex-nowrap">
+                      <Image
+                        width={80}
+                        height={80}
+                        src={Avatar}
+                        alt="Party Item Image"
+                        className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
+                      />
+                      <div>
+                        <p className="mb-2 font-sora text-sm font-bold md:text-lg">
+                          {/*{data.service.title}*/}
+                        </p>
+                        <p className="font-nunito text-sm font-light text-gray-500">
+                          Location:{/*  {data.location} */}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">$1999</td>
-                <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">1</td>
-                <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">$1999</td>
-                <td className="px-4 py-4">
-                  <button className="text-red-400">
-                    <TrashIcon className="size-6" />
-                  </button>
-                </td>
-              </tr>
+                  </td>
+                  <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">${data.price}</td>
+                  <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">{data.quantity}</td>
+                  <td className="px-4 py-4">
+                    <button
+                      className="text-red-400"
+                      onClick={() => handleDelete(index)}
+                      aria-label="Delete item"
+                    >
+                      <TrashIcon className="h-6 w-6" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

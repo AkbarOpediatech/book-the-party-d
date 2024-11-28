@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const BookingHistoryChart: React.FC = () => {
-  const series: number[] = [90, 50] // Represents the percentages for each label
-  const labels: string[] = ['Cancelled', 'Success'] // Corresponding labels
-  const colors: string[] = ['#9042FB', '#FFBD12'] // Colors for Cancelled and Success
+  const series: number[] = [90, 50]
+  const labels: string[] = ['Cancelled', 'Success']
+  const colors: string[] = ['#9042FB', '#FFBD12']
 
   const options: ApexOptions = {
     chart: {
@@ -20,8 +20,7 @@ const BookingHistoryChart: React.FC = () => {
           size: '60%'
         },
         dataLabels: {
-          // Corrected the `dataLabels` configuration
-          show: true, // Simply use `show` to control visibility
+          show: true,
           name: {
             offsetY: -10,
             show: true,
@@ -36,8 +35,10 @@ const BookingHistoryChart: React.FC = () => {
           total: {
             show: true,
             label: 'Total',
+            fontSize: '18px',
+            color: '#111',
             formatter: function () {
-              return `20,500`
+              return '20,500'
             }
           }
         }
@@ -55,8 +56,17 @@ const BookingHistoryChart: React.FC = () => {
   return (
     <div className="flex h-full flex-col justify-between rounded-2xl">
       <div id="chart" className="my-10">
-        <ReactApexChart options={options} series={series} type="radialBar" height={300} />
+        <div className="relative">
+          <ReactApexChart options={options} series={series} type="radialBar" height={300} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="text-center">
+              <p className="text-sm font-semibold text-clr-81">Total</p>
+              <p className="text-3xl font-bold text-clr-36">20,500</p>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div className="flex justify-center gap-4 border-t py-5">
         {series.map((value, index) => (
           <div key={index} className="flex items-center gap-2">
