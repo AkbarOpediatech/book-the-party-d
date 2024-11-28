@@ -108,3 +108,13 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .apexcharts-text {
   display: none !important;
 }
+
+.custom-calendar.react-calendar {
+  border: none;
+  width: 100%;
+  padding: 10px;
+}
+
+.react-calendar__tile--active {
+  background: #9042fb !important;
+}
