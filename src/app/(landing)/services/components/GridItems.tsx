@@ -3,7 +3,7 @@ import ServiceCard from '../../components/ServiceCard'
 
 const GridItems = () => {
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-3.5">
       {specialPackages.map((items, index) => (
         <div className="col-span-3" key={index}>
           <ServiceCard

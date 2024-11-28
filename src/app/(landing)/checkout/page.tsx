@@ -1,6 +1,7 @@
 'use client'
 import { setStep } from '@/redux/features/stepperSlice'
 import useStepper from '@/redux/hooks/useStepper'
+import { useState } from 'react'
 import CartHead from '../cart/components/CartHead'
 import SubTotal from '../components/SubTotal'
 import CustomerInfo from './components/CustomerInfo'
@@ -21,6 +22,7 @@ const Checkout = () => {
                 setCurrentStep={(step: any) => dispatch(setStep(step))}
               />
             </div>
+
             <CustomerInfo />
           </div>
 

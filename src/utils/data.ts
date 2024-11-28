@@ -4,6 +4,7 @@ import type {
   IBookingAnalytics,
   IBookingData,
   IBookingDetails,
+  ICartItems,
   IChartData,
   IChatData,
   ICreditCardForm,
@@ -878,6 +879,7 @@ export const listingInclusions: string[] = [
   'Delivery is available within the city limits.',
   'The order can only be cancelled <span>BEFORE 48 HOURS OF THE EVENT DATE.</span> '
 ]
+
 export const listingImportantInfo: string[] = [
   'The order should be placed atleast 3 days before the event to get this Cake Delivered on time.',
   " Being perishable in nature, it's recommended to consume the cake within hours of receiving it.",
@@ -885,6 +887,7 @@ export const listingImportantInfo: string[] = [
 ]
 
 export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
+
 export const adminDetailsTab: string[] = ['Details', 'Review(4)', 'Contact Info']
 
 export const subscriptionDetails: ISubscriptionDetails[] = [
@@ -940,9 +943,17 @@ export const passwordRequirements: PasswordRequirement[] = [
   { regex: /.{8,}/, label: 'Minimum 8 characters' }
 ]
 
+import ICOrderTrackActive from '/public/assets/ic_activeTracker.png'
+import ICProfile from '/public/assets/ic_profile.png'
+import ICProfileActive from '/public/assets/ic_profile_active.png'
+import ICSetting from '/public/assets/ic_setting.png'
+import ICSettingActive from '/public/assets/ic_setting_active.png'
+import ICOrderTrack from '/public/assets/ic_tracker.png'
+
 export const profileMenuItems: IProfileMenuItems[] = [
-  { id: 0, label: 'Account Settings' },
-  { id: 1, label: 'General Settings' }
+  { id: 0, icon: ICProfile, activeIcon: ICProfileActive, label: 'Account Settings' },
+  { id: 1, icon: ICSetting, activeIcon: ICSettingActive, label: 'General Settings' },
+  { id: 2, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Order Tracking' }
 ]
 
 export const personalInfo: IPersonalInfo[] = [
@@ -961,6 +972,32 @@ export const billingAddress: IBillingAddress[] = [
   { label: 'Postcode', value: '1204' }
 ]
 
+export const cartItems: ICartItems[] = [
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  },
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  },
+  {
+    pic: PackImg1,
+    name: 'Party  Name here',
+    location: 'XYZ',
+    price: 1999,
+    quantity: 1,
+    subtotal: 1999
+  }
+]
 export enum xUserType {
   Vendor = 'vendor',
   Customer = 'customer'
