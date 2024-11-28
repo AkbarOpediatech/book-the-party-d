@@ -10,7 +10,7 @@ const Profile = () => {
 
   return (
     <section id="profile">
-      <div className="container">
+      <div className="mx-auto max-w-[1440px]">
         <div className="section-padding">
           <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5">
             <div className="col-span-1">

@@ -1,4 +1,4 @@
-import { detailsTab } from '@/utils'
+import { adminDetailsTab, detailsTab } from '@/utils'
 
 type IProps = {
   tab: number
@@ -7,7 +7,7 @@ type IProps = {
 const DetailsTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (
     <div className="flex items-center gap-10 rounded bg-clr-f8 px-6">
-      {detailsTab.map((data, index) => (
+      {adminDetailsTab.map((data, index) => (
         <button
           key={index}
           onClick={() => setTab(index)}

@@ -885,6 +885,7 @@ export const listingImportantInfo: string[] = [
 ]
 
 export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
+export const adminDetailsTab: string[] = ['Details', 'Review(4)', 'Contact Info']
 
 export const subscriptionDetails: ISubscriptionDetails[] = [
   {
