@@ -7,7 +7,7 @@ const GridItems = () => {
       {specialPackages.map((items, index) => (
         <div className="col-span-3" key={index}>
           <ServiceCard
-            Href={`/services/${items.id}`}
+            Href={`/services/${items.slug}`}
             imgSrc={items.img}
             title={'Book chair arrangements'}
             review={10}

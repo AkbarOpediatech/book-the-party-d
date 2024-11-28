@@ -91,7 +91,6 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
           type="select"
           options={['fixed', 'hourly', 'multiple_fixed']}
           onChange={e => handleInputChange(e)}
-          // onChange={e => useInputHandler(true, setNewServiceDraft({ field: 'price_type', value }), e)}
           customClass="mb-4"
         />
         {pricingType === 'fixed' && <FixedPrice />}

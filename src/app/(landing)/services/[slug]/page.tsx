@@ -5,6 +5,7 @@ import ImportantInfo from '@/app/(dashboard)/dashboard/admin/vendors/[id]/compon
 import Inclusions from '@/app/(dashboard)/dashboard/admin/vendors/[id]/components/Inclusions'
 import Ratings from '@/app/(dashboard)/dashboard/admin/vendors/[id]/components/Ratings'
 import Details from '@/app/(dashboard)/dashboard/vendor/listings/[id]/components/Details'
+import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { InformationCircleIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
@@ -15,11 +16,19 @@ import details from '/public/assets/listing-details.png'
 const ServiceSingle = () => {
   const [tab, setTab] = useState<number>(0)
   const params = useParams()
-  const { id } = params
+  const { slug } = params
+
+  //TODO: Feching with redux
+  const { data: service, isLoading, isError, error } = useFetchServiceByIdQuery(slug as string)
+  const fullResponse: any = service
+  console.log('products', fullResponse?.data)
+
+  if (isLoading) return <div>Loading products...</div>
+  if (isError) return <div>Error loading products.</div>
   return (
     <div>
       <div className="bg-white px-7 py-3">
-        <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {id}</p>
+        <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {slug}</p>
         <div className="mb-5 grid grid-cols-3 gap-16">
           <div className="col-span-2">
             <div className="h-[478px] w-full overflow-hidden rounded-xl">

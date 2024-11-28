@@ -38,6 +38,10 @@ export const servicesApi = createApi({
       query: () => '/services',
       providesTags: ['Services']
     }),
+    fetchServiceById: builder.query<ServiceItem, string>({
+      query: slug => `/services/${slug}`,
+      providesTags: (result, error, slug) => [{ type: 'Services', slug }]
+    }),
     addService: builder.mutation<ServiceItem, Omit<ServiceItem, 'id'>>({
       query: newService => ({
         url: '/services',
@@ -66,6 +70,7 @@ export const servicesApi = createApi({
 
 export const {
   useFetchServicesQuery,
+  useFetchServiceByIdQuery,
   useAddServiceMutation,
   useUpdateServiceMutation,
   useDeleteServiceMutation

@@ -19,7 +19,7 @@ const ListItems = () => {
           <div className="flex flex-col justify-between px-5">
             <div className="space-y-2">
               <Link
-                href={`/services/${items.id}`}
+                href={`/services/${items.slug}`}
                 className="mb-2 font-sora text-lg font-semibold text-neutral-900"
               >
                 Book chair arrangements
