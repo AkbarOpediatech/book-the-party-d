@@ -7,16 +7,16 @@ import NavBrand from '/public/assets/nav-brand.svg'
 
 const Header = () => {
   return (
-    <header className="bg-clr-eff py-6">
+    <header className="bg-clr-eff py-5">
       <div className="custom-container">
         <div className="flex flex-wrap items-center justify-between gap-5 md:flex-none md:gap-0">
           <Link href={'/'}>
-            <Image src={NavBrand} alt="nav-brand" />
+            <Image width={203} height={108} src={NavBrand} alt="nav-brand" />
           </Link>
 
           <ul className="flex items-center gap-5">
             <li className="relative">
-              <Link href={'/cart'} className="inline-block rounded-full bg-clr-fb p-3 lg:p-5">
+              <Link href={'/cart'} className="inline-block rounded-full bg-[#CBA6FF]/60 p-3 lg:p-5">
                 <Image width={20} height={20} src={ICCart} alt="cart-icon" />
                 <span className="absolute -top-1 right-0 inline-flex size-5 items-center justify-center rounded-full bg-white text-xs text-clr-fb">
                   8
