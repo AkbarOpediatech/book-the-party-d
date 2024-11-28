@@ -6,8 +6,8 @@ const Services = () => {
   return (
     <section>
       <div className="section-padding">
-        <div className="container">
-          <div className="grid grid-cols-12 gap-8">
+        <div className="custom-container">
+          <div className="grid grid-cols-12 gap-12">
             <div className="col-span-4">
               <Filter />
             </div>

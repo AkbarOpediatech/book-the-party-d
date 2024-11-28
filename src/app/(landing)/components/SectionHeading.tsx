@@ -13,7 +13,7 @@ type IProps = {
 const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc, sectionHeadingClass }) => {
   return (
     <>
-      <div className="section-heading mb-5 flex items-center justify-between md:mb-9">
+      <div className="section-heading mb-5 flex flex-wrap items-center justify-between gap-4 md:mb-9">
         <div>
           <h1
             className={cn(
@@ -28,7 +28,7 @@ const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc, sect
         {linkName && (
           <Link
             href={linkURL}
-            className="inline-block rounded-lg bg-clr-fb px-8 py-5 text-sm font-bold text-white md:text-base"
+            className="inline-block rounded-lg bg-clr-fb p-3 text-sm font-bold text-white md:text-base lg:px-8 lg:py-5"
           >
             {linkName}
           </Link>

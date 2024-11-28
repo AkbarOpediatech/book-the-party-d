@@ -188,6 +188,14 @@ export type IBillingAddress = {
   value: string
 }
 
+export type ICartItems = {
+  pic: StaticImageData
+  name: string
+  location: string
+  price: number
+  quantity: number
+  subtotal: number
+}
 export type IMessage = {
   text: string
   time: string

@@ -8,7 +8,7 @@ import NavBrand from '/public/assets/nav-brand.svg'
 const Header = () => {
   return (
     <header className="bg-clr-eff py-6">
-      <div className="container">
+      <div className="custom-container">
         <div className="flex flex-wrap items-center justify-between gap-5 md:flex-none md:gap-0">
           <Link href={'/'}>
             <Image src={NavBrand} alt="nav-brand" />
