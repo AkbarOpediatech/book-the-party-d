@@ -121,7 +121,7 @@ const ServiceSingle = () => {
         </div>
         <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:grid-cols-4">
           {specialPackages.slice(0, 4).map((items, index) => (
-            <div className="col-span-1">
+            <div className="col-span-1" key={index}>
               <ServiceCard imgSrc={items.img} title={'Book chair arrangements'} review={10} price={100} />
             </div>
           ))}
