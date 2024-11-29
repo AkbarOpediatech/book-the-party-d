@@ -88,4 +88,5 @@ _API integration - final_
 
 ##### next days Goal
 
-- need to finished review, addredd, location, profile, coupon
+- Need to make service for handling api's
+- Need to finished review, addredd, location, profile, coupon
