@@ -1,4 +1,5 @@
 'use client'
+import { useFetchCartQuery } from '@/redux/features/cart/apiSlice'
 import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Swal from 'sweetalert2'
@@ -7,6 +8,7 @@ import Avatar from '/public/assets/avatar.jpeg'
 
 const CartItems = () => {
   const { response: cartItems, loading, error } = useFetchServiceService()
+  const { data, isLoading, isError } = useFetchCartQuery()
 
   if (loading) return <div>Loading cart...</div>
   if (error) return <div>Error loading cart.</div>
@@ -21,7 +23,7 @@ const CartItems = () => {
       cancelButtonText: 'Cancel'
     })
   }
-  console.log('cartItems', cartItems.data)
+  console.log('cartItems', cartItems?.data)
 
   return (
     <div>

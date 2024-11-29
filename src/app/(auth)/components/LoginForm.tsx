@@ -1,12 +1,14 @@
 'use client'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('customer12@gmail.com')
   const [password, setPassword] = useState('Opedia@123')
   const [error, setError] = useState('')
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,6 +23,7 @@ const LoginForm = () => {
     if (!result?.ok) {
       setError('Invalid email or password.')
     }
+    router.push('/')
   }
   return (
     <>
@@ -58,7 +61,14 @@ const LoginForm = () => {
             Forgot Password?
           </Link>
         </div>
-        <button onClick={handleSubmit}>Sign In</button>
+        <button
+          className={
+            'flex items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2'
+          }
+          onClick={handleSubmit}
+        >
+          Sign In
+        </button>
         {/* <DashboardButton name="Sign In" type="submit" className="w-full" /> */}
       </form>
     </>

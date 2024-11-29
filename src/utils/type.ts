@@ -176,6 +176,8 @@ export type PasswordRequirement = {
 
 export type IProfileMenuItems = {
   id: number
+  icon: any
+  activeIcon: any
   label: string
 }
 

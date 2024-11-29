@@ -11,7 +11,7 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import Reviews from '../../components/Reviews'
-import details from '/public/assets/listing-details.png'
+import detailsPic from '/public/assets/avatar.jpeg'
 
 const ServiceSingle = () => {
   const [tab, setTab] = useState<number>(0)
@@ -26,13 +26,13 @@ const ServiceSingle = () => {
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
   return (
-    <div>
+    <section>
       <div className="bg-white px-7 py-3">
         <p className="mb-[70px] text-xl font-bold text-clr-36 md:text-2xl">Listing Details {slug}</p>
         <div className="mb-5 grid grid-cols-3 gap-16">
           <div className="col-span-2">
             <div className="h-[478px] w-full overflow-hidden rounded-xl">
-              <Image className="w-full object-cover" src={details} alt="pic" />
+              <Image className="w-full object-cover" src={detailsPic} alt="pic" />
             </div>
           </div>
           <div>
@@ -69,7 +69,7 @@ const ServiceSingle = () => {
         {tab === 2 && <ImportantInfo />}
         {tab === 3 && <Reviews />}
       </div>
-    </div>
+    </section>
   )
 }
 
