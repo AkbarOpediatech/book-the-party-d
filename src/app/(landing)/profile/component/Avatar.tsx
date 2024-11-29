@@ -1,7 +1,7 @@
 'use client'
 import { CameraIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import AvatarImage from '/public/assets/avatar.jpeg'
 
 type PersonalData = {
@@ -15,36 +15,47 @@ type IProps = {
 }
 
 const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
-  const [avatar, setAvatar] = useState<any>(AvatarImage)
+  const [avatar, setAvatar] = useState<string>(AvatarImage.src)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const newAvatar = URL.createObjectURL(e.target.files[0])
       setAvatar(newAvatar)
     }
-  }
+  }, [])
+
+  const handleCameraClick = useCallback(() => {
+    fileInputRef.current?.click()
+  }, [])
 
   return (
     <div className="mb-5 flex flex-wrap items-center gap-5 md:mb-12 md:gap-6">
       <div className="relative">
         <div className="h-[100px] w-[100px] overflow-hidden rounded-full md:mb-0 md:h-[200px] md:w-[200px]">
-          <Image width={200} height={200} src={avatar} alt="avatar" />
-          {isEditing && (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="absolute left-0 top-0 h-full w-full cursor-pointer opacity-0"
-            />
+          {isEditing ? (
+            <div onClick={handleCameraClick} className="cursor-pointer">
+              <Image width={200} height={200} src={avatar} alt="avatar" priority />
+            </div>
+          ) : (
+            <Image width={200} height={200} src={avatar} alt="avatar" priority />
           )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
         </div>
         {isEditing && (
-          <div
-            onChange={handleImageChange}
-            className="absolute bottom-[0px] right-1 z-20 cursor-pointer rounded-full bg-white p-2"
+          <button
+            onClick={handleCameraClick}
+            type="button"
+            className="absolute bottom-[0px] right-1 z-20 rounded-full bg-white p-2"
           >
             <CameraIcon className="size-8 cursor-pointer fill-purple-700 stroke-purple-700 text-3xl" />
-          </div>
+          </button>
         )}
       </div>
 

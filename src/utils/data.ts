@@ -80,7 +80,7 @@ export const vendorNavigation: INavigationItem[] = [
   {
     type: 'button',
     name: 'dashboard',
-    href: '/dashboard/vendor/dashboard',
+    href: '/dashboard/vendor',
     icon: DashboardIcon
   },
   {
@@ -104,15 +104,16 @@ export const vendorNavigation: INavigationItem[] = [
 
   {
     type: 'button',
-    name: 'Live chat with admin',
-    href: '/dashboard/vendor/chat',
-    icon: LiveChatIcon
-  },
-  {
-    type: 'button',
     name: 'Subscription',
     href: '/dashboard/vendor/subscription',
     icon: SubscriptionIcon
+  },
+
+  {
+    type: 'button',
+    name: 'Live chat with admin',
+    href: '/dashboard/vendor/chat',
+    icon: LiveChatIcon
   }
 ]
 
@@ -120,7 +121,7 @@ export const adminNavigation: IAdminNavigation[] = [
   {
     type: 'button',
     name: 'dashboard',
-    href: '/dashboard/admin/dashboard',
+    href: '/dashboard/admin',
     icon: DashboardIcon,
     isGeneral: true
   },

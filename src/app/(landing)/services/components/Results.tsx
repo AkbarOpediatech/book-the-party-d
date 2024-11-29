@@ -20,7 +20,6 @@ const Results = () => {
   const { data: products, isLoading, isError } = useFetchServicesQuery()
   const fullResponse: any = products
   console.log('products', fullResponse?.data)
-  console.log('products', fullResponse?.pagination)
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
