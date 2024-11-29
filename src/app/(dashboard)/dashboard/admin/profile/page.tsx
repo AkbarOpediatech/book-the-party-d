@@ -14,7 +14,7 @@ const Profile = () => {
   const [showInfoEdit, setShowInfoEdit] = useState<boolean>(false)
   const [showBankInfoEdit, setShowBankInfoEdit] = useState<boolean>(false)
   return (
-    <div>
+    <>
       <ProfileTab tab={tab} setTab={setTab} />
       <ProfilePic setShowProfileEdit={setShowProfileEdit} />
       <div className="rounded-lg bg-white p-6">
@@ -25,7 +25,7 @@ const Profile = () => {
       <ProfileEdit showProfileEdit={showProfileEdit} setShowProfileEdit={setShowProfileEdit} />
       <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} />
       <BankInfoEdit showBankInfoEdit={showBankInfoEdit} setShowBankInfoEdit={setShowBankInfoEdit} />
-    </div>
+    </>
   )
 }
 

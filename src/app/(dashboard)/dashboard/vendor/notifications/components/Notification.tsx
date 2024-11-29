@@ -11,7 +11,9 @@ const Notification = () => {
           <Image className="object-cover" src={avater} alt="pic" />
         </div>
         <div className="text-gray-500">
-          <p className="mb-1.5">You have a new Booking from Ashley D morgan</p>
+          <p className="mb-1.5">
+            You have a new Booking from <span className="text-clr-fb">Ashley D morgan</span>
+          </p>
           <div className="flex items-center gap-1.5">
             <ClockIcon className="size-3" />
             <p className="text-sm">a few moments ago</p>

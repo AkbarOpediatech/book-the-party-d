@@ -29,7 +29,7 @@ const Reviews = () => {
             }}
             modules={[Autoplay, Navigation]}
             grabCursor={true}
-            className="relative max-w-[1440px]"
+            className="relative max-w-[1312px]"
             breakpoints={{
               220: {
                 slidesPerView: 1,
@@ -37,15 +37,11 @@ const Reviews = () => {
               },
               768: {
                 slidesPerView: 2,
-                spaceBetween: 30
+                spaceBetween: 24
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 40
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 50
+                spaceBetween: 24
               }
             }}
           >
@@ -72,13 +68,13 @@ const Reviews = () => {
 
           <button
             id="swiper-prev2"
-            className="absolute left-0 top-1/2 z-10 flex h-[50px] w-[50px] -translate-y-1/2 items-center justify-center rounded-lg bg-clr-87"
+            className="absolute left-0 top-1/2 z-10 hidden h-[50px] w-[50px] -translate-y-1/2 items-center justify-center rounded-lg bg-clr-87 md:flex"
           >
             <ChevronLeftIcon className="size-6 text-white" />
           </button>
           <button
             id="swiper-next2"
-            className="absolute right-0 top-1/2 z-10 flex h-[50px] w-[50px] -translate-y-1/2 items-center justify-center rounded-lg bg-clr-87"
+            className="absolute right-0 top-1/2 z-10 hidden h-[50px] w-[50px] -translate-y-1/2 items-center justify-center rounded-lg bg-clr-87 md:flex"
           >
             <ChevronRightIcon className="size-6 text-white" />
           </button>

@@ -46,7 +46,7 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
 
   return (
     <>
-      <div className="rounded-lg border bg-white p-6">
+      <div className="border bg-white p-6">
         <div className="mb-4 flex justify-between border-b pb-4">
           <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal</span>
           <span className="font-sora text-lg font-semibold text-clr-0f">$5350</span>
@@ -60,10 +60,10 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
             <input
               type="text"
               id="discount-code"
-              className="w-full rounded-l-md border border-gray-300 p-2 font-semibold"
+              className="w-full border border-purple-500 p-2 font-semibold"
               placeholder="PARTY225"
             />
-            <button className="rounded-r-md bg-purple-500 px-4 py-2 font-sora text-white">Apply</button>
+            <button className="bg-purple-500 px-4 py-2 font-sora text-white">Apply</button>
           </div>
         </div>
 

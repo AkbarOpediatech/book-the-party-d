@@ -1,6 +1,7 @@
 'use client'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import { useState } from 'react'
 import DashboardCard from '../../../components/DashboardCard'
 import BalanceStatistics from './components/BalanceStatistics'
 import BookingCategories from './components/BookingCategories'
@@ -11,6 +12,10 @@ import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
 
 export default function VendorDashboard() {
+  const [selectType, setSelectType] = useState('Status')
+  const handleSelectChange = (value: string) => {
+    setSelectType(value)
+  }
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 xl:col-span-7">
@@ -48,7 +53,7 @@ export default function VendorDashboard() {
 
               <Menu>
                 <MenuButton className="flex items-center gap-2 bg-clr-f8 px-2 py-1 text-sm text-clr-48">
-                  Status <ChevronDownIcon className="size-5" />
+                  {selectType} <ChevronDownIcon className="size-5" />
                 </MenuButton>
 
                 <MenuItems
@@ -58,22 +63,26 @@ export default function VendorDashboard() {
                   }
                 >
                   <MenuItem>
-                    <button className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8">
+                    <button
+                      onClick={() => handleSelectChange('Year')}
+                      type="button"
+                      className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8"
+                    >
                       Year
                     </button>
                   </MenuItem>
 
                   <MenuItem>
-                    <button className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8">
+                    <button
+                      onClick={() => handleSelectChange('Month')}
+                      type="button"
+                      className="group flex w-full items-center gap-2 px-3 py-1.5 text-sm data-[focus]:bg-clr-f8"
+                    >
                       Month
                     </button>
                   </MenuItem>
                 </MenuItems>
               </Menu>
-            </div>
-            <div>
-              {' '}
-              <span className=""></span> month
             </div>
           </div>
           <BalanceStatistics />

@@ -12,6 +12,7 @@ type IProps = {
 
 const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
   const [saveAddress, setSaveAddress] = useState(false)
+  const [showAddress, setShowAddress] = useState<boolean>(false)
   const [categoryChecked, setCategoryChecked] = useState(false)
 
   const handleSubmit = (e: any) => {
@@ -21,67 +22,70 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
 
   return (
     <>
-      <DeliveryAddress />
-      <div className={`bg-gray-50 p-5 md:p-9`}>
-        <h2 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Customer Details</h2>
-        <form onSubmit={handleSubmit}>
-          {formData.map((i, index) => (
-            <div className="mb-6 last:mb-0" key={index}>
-              <InputForm
-                labelTitle={i.labelTitle}
-                htmlFor={i.htmlFor}
-                inputId={i.inputId}
-                inputPlaceholder={i.inputPlaceholder}
-                inputType={i.inputType}
-              />
+      <DeliveryAddress setShowAddress={setShowAddress} />
+
+      {showAddress && (
+        <div className={`bg-gray-50 p-5 md:p-9`}>
+          <h2 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Customer Details</h2>
+          <form onSubmit={handleSubmit}>
+            {formData.map((i, index) => (
+              <div className="mb-6 last:mb-0" key={index}>
+                <InputForm
+                  labelTitle={i.labelTitle}
+                  htmlFor={i.htmlFor}
+                  inputId={i.inputId}
+                  inputPlaceholder={i.inputPlaceholder}
+                  inputType={i.inputType}
+                />
+              </div>
+            ))}
+
+            <div className="mb-5 flex flex-wrap items-center gap-5">
+              <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
+                <div
+                  className={`relative h-4 w-4 rounded-md border border-gray-500 ${categoryChecked && 'border-purple-700 bg-purple-700'}`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={categoryChecked}
+                    onChange={() => setCategoryChecked(!categoryChecked)}
+                    className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
+                  />
+                  {categoryChecked && (
+                    <CheckIcon
+                      className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
+                      fill="white"
+                    />
+                  )}
+                </div>
+                <p className="text-sm font-light text-black md:text-base">Use as my default address</p>
+              </label>
+
+              <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
+                <div
+                  className={`relative h-4 w-4 rounded-md border border-gray-500 ${saveAddress && 'border-purple-700 bg-purple-700'}`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={saveAddress}
+                    onChange={() => setSaveAddress(!saveAddress)}
+                    className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
+                  />
+                  {saveAddress && (
+                    <CheckIcon
+                      className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
+                      fill="white"
+                    />
+                  )}
+                </div>
+                <p className="text-sm font-light text-black md:text-base">Save address</p>
+              </label>
             </div>
-          ))}
 
-          <div className="mb-5 flex flex-wrap items-center gap-5">
-            <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
-              <div
-                className={`relative h-4 w-4 rounded-md border border-gray-500 ${categoryChecked && 'border-purple-700 bg-purple-700'}`}
-              >
-                <input
-                  type="checkbox"
-                  checked={categoryChecked}
-                  onChange={() => setCategoryChecked(!categoryChecked)}
-                  className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
-                />
-                {categoryChecked && (
-                  <CheckIcon
-                    className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
-                    fill="white"
-                  />
-                )}
-              </div>
-              <p className="text-sm font-light text-black md:text-base">Use as my default address</p>
-            </label>
-
-            <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
-              <div
-                className={`relative h-4 w-4 rounded-md border border-gray-500 ${saveAddress && 'border-purple-700 bg-purple-700'}`}
-              >
-                <input
-                  type="checkbox"
-                  checked={saveAddress}
-                  onChange={() => setSaveAddress(!saveAddress)}
-                  className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
-                />
-                {saveAddress && (
-                  <CheckIcon
-                    className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
-                    fill="white"
-                  />
-                )}
-              </div>
-              <p className="text-sm font-light text-black md:text-base">Save address</p>
-            </label>
-          </div>
-
-          <CustomBtn btnName="Proceed to pay" btnType="submit" />
-        </form>
-      </div>
+            <CustomBtn btnName="Save" btnType="submit" />
+          </form>
+        </div>
+      )}
     </>
   )
 }

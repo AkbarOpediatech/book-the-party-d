@@ -11,7 +11,7 @@ const CustomerInfo = () => {
   return (
     <>
       {currentStep === 0 && <CustomerDetails onNext={() => dispatch(nextStep())} />}
-      {currentStep === 1 && <PaymentOption />}
+      {currentStep === 1 && <PaymentOption onNext={() => dispatch(nextStep())} />}
       {currentStep === 2 && <Review />}
     </>
   )

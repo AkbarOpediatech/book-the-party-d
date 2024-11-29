@@ -37,7 +37,7 @@ const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect }) => {
                 <div className="h-11 w-11 overflow-hidden rounded-full">
                   <Image width={44} height={44} src={chat.avatar} alt="avatar" />
                 </div>
-                {chat.status === 'active' && (
+                {chat.status === 'active now' && (
                   <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
                 )}
               </div>

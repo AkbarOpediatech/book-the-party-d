@@ -1,12 +1,21 @@
 'use client'
 import { useState } from 'react'
+import CustomBtn from '../../components/CustomBtn'
 import InputForm from './InputForm'
 
-const PaymentOption = () => {
+type IProps = {
+  onNext: (step?: number) => void
+}
+
+const PaymentOption: React.FC<IProps> = ({ onNext }) => {
   const [selectedOption, setSelectedOption] = useState(null)
 
   const handleChange = (option: any) => {
     setSelectedOption(option)
+  }
+
+  const handleNext = (e: any) => {
+    onNext()
   }
 
   return (
@@ -104,6 +113,7 @@ const PaymentOption = () => {
 
         {selectedOption === 'bank' && <p className="text-gray-600">You selected Bank Transfer.</p>}
       </div>
+      <CustomBtn onClickFunc={handleNext} btnName="Review" btnType="button" className="mt-5" />
     </div>
   )
 }

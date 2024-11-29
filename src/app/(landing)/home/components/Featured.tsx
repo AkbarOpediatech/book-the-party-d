@@ -29,19 +29,19 @@ const Featured = () => {
         breakpoints={{
           220: {
             slidesPerView: 1,
-            spaceBetween: 20
+            spaceBetween: 16
           },
           768: {
             slidesPerView: 2,
-            spaceBetween: 30
+            spaceBetween: 16
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 40
+            spaceBetween: 16
           },
           1280: {
-            slidesPerView: 4,
-            spaceBetween: 50
+            slidesPerView: 7,
+            spaceBetween: 16
           }
         }}
       >
