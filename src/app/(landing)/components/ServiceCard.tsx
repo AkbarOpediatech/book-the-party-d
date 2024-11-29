@@ -19,10 +19,12 @@ const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price, Href }) =
   return (
     <div className="h-[412px] rounded-3xl border">
       <div className="h-[164px] overflow-hidden rounded-t-3xl">
-        <Image src={imgSrc} className="w-full" alt="image" />
+        <Link href={Href || ''}>
+          <Image src={imgSrc} className="w-full" alt="image" />
+        </Link>
       </div>
       <div className="flex h-[224px] flex-col justify-between p-5">
-        <div className="space-y-2">
+        <div className="mb-8 space-y-2">
           <Link href={Href || ''} className="mb-2 font-sora text-lg font-semibold text-neutral-900">
             {title}
           </Link>

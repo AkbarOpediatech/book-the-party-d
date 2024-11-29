@@ -27,13 +27,15 @@ const ContactInput: React.FC<IProps> = ({
         <label htmlFor={htmlFor} className="mb-2 block text-sm capitalize text-black md:mb-5 md:text-base">
           {labelName}
         </label>
-        <select name={selectName} id={selectId} className="h-[60px] w-full bg-gray-50 px-5">
-          {options?.map((i, index) => (
-            <option value={i} key={index}>
-              {i}
-            </option>
-          ))}
-        </select>
+        <div className="bg-gray-50 px-5">
+          <select name={selectName} id={selectId} className="h-[60px] w-full bg-transparent">
+            {options?.map((i, index) => (
+              <option value={i} key={index}>
+                {i}
+              </option>
+            ))}
+          </select>
+        </div>
       </>
     )
   } else if (inputType === 'file') {

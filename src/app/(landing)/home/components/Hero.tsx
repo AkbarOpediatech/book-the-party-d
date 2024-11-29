@@ -63,7 +63,7 @@ const Hero = () => {
                 </label>
                 <select
                   id="location"
-                  className="w-full xl:w-[250px]"
+                  className="w-full text-clr-ab xl:w-[250px]"
                   value={formData.location}
                   onChange={handleInputChange}
                 >
@@ -79,7 +79,7 @@ const Hero = () => {
                 </label>
                 <select
                   id="category"
-                  className="w-full xl:w-[250px]"
+                  className="w-full text-clr-ab xl:w-[250px]"
                   value={formData.category}
                   onChange={handleInputChange}
                 >
@@ -96,7 +96,7 @@ const Hero = () => {
                 <input
                   type="date"
                   id="date"
-                  className="w-full"
+                  className="w-full text-clr-ab"
                   value={formData.date}
                   onChange={handleInputChange}
                 />

@@ -17,7 +17,7 @@ const SectionHeading: React.FC<IProps> = ({ title, linkURL, linkName, desc, sect
         <div>
           <h1
             className={cn(
-              'font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]',
+              'mb-4 font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]',
               sectionHeadingClass
             )}
           >

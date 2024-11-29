@@ -35,8 +35,7 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     updateField: (state, action: PayloadAction<{ field: keyof FormState['formData']; value: string }>) => {
-      const { field, value } = action.payload
-      state.formData[field] = value
+      state.formData[action.payload.field] = action.payload.value
     },
     toggleCategoryChecked: state => {
       state.categoryChecked = !state.categoryChecked
