@@ -1,4 +1,5 @@
 import { footerNav, footerSocialItems } from '@/utils'
+import { ChatBubbleLeftIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import ICHelp from '/public/assets/ic-help.svg'
@@ -46,6 +47,10 @@ const Footer = () => {
             custodianship of culture and Country.
           </p>
         </div>
+
+        <button className="fixed bottom-10 right-10 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-clr-fb">
+          <ChatBubbleLeftIcon className="size-5 text-white" />
+        </button>
       </div>
       <p className="py-5 text-center text-xs font-light md:text-base lg:text-sm">
         Copyright © {year} Vacasky. All rights reserved.

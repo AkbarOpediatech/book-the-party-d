@@ -1,7 +1,27 @@
+import { cancelBooking, closePopup, openPopup } from '@/redux/features/popupSlice'
+import type { RootState } from '@/redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import CancelPopup from './CancelPopup'
+
 type BookingInfoProps = {
   currentStep: number
 }
-const BookingInfo: React.FC<BookingInfoProps> = ({ currentStep }) => {
+const BookingInfo: React.FC<BookingInfoProps> = () => {
+  const dispatch = useDispatch()
+  const { isVisible, currentStep } = useSelector((state: RootState) => state.popup)
+
+  const handleCancelClick = () => {
+    dispatch(openPopup())
+  }
+
+  const handleConfirmCancel = (reason?: string, penalty?: number) => {
+    // Pass the penalty value from the popup here
+    dispatch(cancelBooking({ reason, penalty }))
+  }
+
+  const handleClosePopup = () => {
+    dispatch(closePopup())
+  }
   const summaryData = [
     { label: 'Booking ID', value: '#BKG20241101' },
     { label: 'Service Name', value: 'Birthday Party Arrangements' },
@@ -9,6 +29,10 @@ const BookingInfo: React.FC<BookingInfoProps> = ({ currentStep }) => {
     { label: 'Booking Fee', value: '$421' },
     { label: 'Subtotal', value: '$520' }
   ]
+  const message =
+    currentStep === 1
+      ? 'Cancellation during progress requires a reason and incurs penalty.'
+      : 'Are you sure you want to cancel this booking?'
   return (
     <div className="">
       <div className="rounded-2xl border p-3 lg:p-7">
@@ -21,10 +45,22 @@ const BookingInfo: React.FC<BookingInfoProps> = ({ currentStep }) => {
         ))}
       </div>
       {currentStep !== 2 && (
-        <button className="mt-6 w-full rounded-lg border border-clr-fb py-2 text-sm font-bold text-clr-fb transition hover:bg-clr-fb hover:text-white sm:py-3 sm:text-xl">
+        <button
+          onClick={handleCancelClick}
+          className="mt-6 w-full rounded-lg border border-clr-fb py-2 text-sm font-bold text-clr-fb transition hover:bg-clr-fb hover:text-white sm:py-3 sm:text-xl"
+        >
           Cancel Booking
         </button>
       )}
+      <CancelPopup
+        isVisible={isVisible}
+        title="Cancel Booking"
+        message={message}
+        showReasonInput={currentStep === 1}
+        penaltyNotice={currentStep === 1}
+        onConfirm={handleConfirmCancel}
+        onCancel={handleClosePopup}
+      />
     </div>
   )
 }

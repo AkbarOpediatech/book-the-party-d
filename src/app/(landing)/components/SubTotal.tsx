@@ -93,31 +93,35 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
           <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$1500</span>
         </div>
 
-        <div className="mb-4 flex items-start">
-          <input
-            type="checkbox"
-            id="terms"
-            className="mr-2 mt-1"
-            checked={agreedToTerms}
-            onChange={e => setAgreedToTerms(e.target.checked)}
-          />
-          <label htmlFor="terms" className="text-sm text-clr-0f">
-            I understand and accept the{' '}
-            <Link href="#" className="text-blue-500 underline">
-              terms and conditions, privacy policy, cancellation policy, and refund policy.
+        {isCart && (
+          <>
+            <div className="mb-4 flex items-start">
+              <input
+                type="checkbox"
+                id="terms"
+                className="mr-2 mt-1"
+                checked={agreedToTerms}
+                onChange={e => setAgreedToTerms(e.target.checked)}
+              />
+              <label htmlFor="terms" className="cursor-pointer text-sm text-clr-0f">
+                I understand and accept the{' '}
+                <Link href="#" className="text-blue-500 underline">
+                  terms and conditions, privacy policy, cancellation policy, and refund policy.
+                </Link>
+              </label>
+            </div>
+            <Link
+              href={'/checkout'}
+              className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
+                agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
+              }`}
+            >
+              {loading ? 'Processing...' : 'Continue'}
             </Link>
-          </label>
-        </div>
-        {isCart ? (
-          <Link
-            href={'/checkout'}
-            className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
-              agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
-            }`}
-          >
-            {loading ? 'Processing...' : 'Proceed to Pay'}
-          </Link>
-        ) : (
+          </>
+        )}
+        {/*
+        : (
           <button
             onClick={handleProceedToPay}
             disabled={!agreedToTerms || loading}
@@ -127,7 +131,8 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
           >
             {loading ? 'Processing...' : 'Proceed to Pay'}
           </button>
-        )}
+        )
+        */}
       </div>
       <SuccessModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

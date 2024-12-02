@@ -33,6 +33,18 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
         return 'bg-[#FFEDED]'
     }
   }
+  const status = () => {
+    switch (currentStep) {
+      case 0:
+        return 'Pending'
+      case 1:
+        return 'In Progress'
+      case 2:
+        return 'Complete'
+      default:
+        return 'Pending'
+    }
+  }
 
   return (
     <div className="rounded-2xl border p-3 lg:p-7">
@@ -45,7 +57,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
           className="rounded-xl sm:h-auto sm:w-auto md:h-20 md:w-20 lg:mr-3"
         />
         <div>
-          <p className="text-lg font-semibold text-clr-1d sm:text-2xl">Your booking is pending</p>
+          <p className="text-lg font-semibold text-clr-1d sm:text-2xl">Your booking is {status()}</p>
           <p className="text-sm font-normal text-clr-48 sm:text-base">
             Lorem ipsum dolor sit amet consectetur. Viverra quam non at nunc massa. Turpis quisque lectus
             tortor elementum gravida tellus purus.
@@ -57,7 +69,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
         {bookingData.map((item, index) => (
           <div key={index} className="">
             <p className="text-sm font-medium text-clr-48 sm:text-base">{item.label}:</p>
-            <p className="my-1 text-base font-semibold text-clr-1d sm:my-2 sm:text-xl">{item.value}</p>
+            <p className="my-2 text-base font-semibold text-clr-1d sm:my-2 sm:text-xl">{item.value}</p>
           </div>
         ))}
       </div>

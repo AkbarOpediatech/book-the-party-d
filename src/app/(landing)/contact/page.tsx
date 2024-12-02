@@ -23,7 +23,7 @@ const Contact = () => {
                 message away.
               </p>
 
-              <div className="flex flex-wrap gap-10">
+              <div className="flex flex-wrap gap-10 lg:flex-nowrap">
                 <Link href={'/live-chat'} className="block w-full max-w-[345px] bg-clr-87 p-6">
                   <div className="mb-2 flex justify-center md:mb-5">
                     <span className="inline-block rounded-full border-2 p-3 md:p-5">

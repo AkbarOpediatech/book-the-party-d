@@ -56,7 +56,15 @@ const BookingHistoryChart: React.FC = () => {
   return (
     <div className="flex h-full flex-col justify-between rounded-2xl">
       <div id="chart" className="">
-        <ReactApexChart options={options} series={series} type="radialBar" height={300} />
+        <div className="relative">
+          <ReactApexChart options={options} series={series} type="radialBar" height={300} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="text-center">
+              <p className="text-sm font-semibold text-clr-81">Total</p>
+              <p className="text-3xl font-bold text-clr-36">20,500</p>
+            </div>
+          </div>
+        </div>
         <div className={cn('flex justify-center gap-4 border-t py-5')}>
           {series.map((value, index) => (
             <div key={index} className="flex items-center gap-2">

@@ -1,6 +1,6 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
-import { EnvelopeIcon } from '@heroicons/react/16/solid'
+import { CheckBadgeIcon, EnvelopeIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useState } from 'react'
 import BookingStatistics from '../../../vendor/dashboard/components/BookingStatistics'
@@ -65,11 +65,17 @@ const ListingDetails = () => {
             />
 
             <DashboardButton
-              name="Remove Item"
+              name="Remove Vendor"
               type="button"
               className="flex w-full justify-center font-bold"
             />
           </div>
+          <DashboardButton
+            name="WWCC verified"
+            type="button"
+            icon={<CheckBadgeIcon className="size-7 text-clr-5E" />}
+            className="mt-5 flex w-full justify-center border border-clr-fb bg-transparent font-bold text-black"
+          />
         </div>
       </div>
 

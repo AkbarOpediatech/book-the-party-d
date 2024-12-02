@@ -1,6 +1,7 @@
+// redux/features/customFormSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type FormState = {
+interface FormState {
   formData: {
     name: string
     email: string
@@ -30,8 +31,8 @@ const initialState: FormState = {
   saveAddress: false
 }
 
-const formSlice = createSlice({
-  name: 'form',
+const customFormSlice = createSlice({
+  name: 'customForm',
   initialState,
   reducers: {
     updateField: (state, action: PayloadAction<{ field: keyof FormState['formData']; value: string }>) => {
@@ -46,6 +47,6 @@ const formSlice = createSlice({
   }
 })
 
-export const { updateField, toggleCategoryChecked, toggleSaveAddress } = formSlice.actions
+export const { updateField, toggleCategoryChecked, toggleSaveAddress } = customFormSlice.actions
 
-export default formSlice.reducer
+export default customFormSlice.reducer

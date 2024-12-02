@@ -49,7 +49,7 @@ const Header = () => {
   )
 
   return (
-    <header className="bg-clr-eff py-6">
+    <header className="bg-clr-eff py-5">
       <div className="custom-container">
         <div className="flex flex-wrap items-center justify-between gap-5 md:flex-none md:gap-0">
           <Link href="/">
