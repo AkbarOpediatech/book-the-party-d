@@ -1,32 +1,81 @@
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
+import type { StaticImageData } from 'next/image'
 
-export interface ServiceItem {
-  id: number
-  user: string
-  title: string
+export type IAvailability = {
+  days: string
+  end_time: string
+  start_time: string
+  _id: string
+}
+
+export type ICategory = {
+  createdAt: string
   description: string
+  featured_image: StaticImageData | null
+  hierarchy: string
+  icon: StaticImageData | null
   slug: string
-  featured_image: string | null
-  category: string
-  location: string
-  inclusions: string[]
-  infos: string[]
-  is_featured: boolean
-  price_type: string
-  price: {
-    text: string
-    value: number
-  }[]
-  security_deposit: number
-  cancellation_period_hours: number
-  availability: {
-    days: string
-    start_time: string
-    end_time: string
-  }[]
-  is_unavailable: boolean
   status: string
+  title: string
+  updatedAt: string
+  user: string
+  _id: string
+}
+
+export type ILocation = {
+  createdAt: string
+  description: string
+  featured_image: {
+    name: string
+    reference: string
+    sid: string
+    size: number
+    type: string
+    url: string
+    hierarchy: string
+    location: {
+      coordinates: object[]
+      type: string
+    }[]
+  }[]
+  slug: string
+  status: string
+  title: string
+  type: string
+  updatedAt: string
+  user: string
+  _id: string
+}
+
+export type IPrice = {
+  text: string
+  value: number
+  _id: string
+}
+
+export type ServiceItem = {
+  aproved_by: null | undefined
+  availability: IAvailability[]
+  cancellation_period_hours: number
+  category: ICategory[]
+  createdAt: string
+  description: string
+  featured_image: StaticImageData | null
+  inclusions: object[]
+  infos: object[]
+  is_featured: boolean
+  is_unavailable: boolean
+  location: ILocation[]
+  price: IPrice[]
+  price_type: string
+  security_deposit: number
+  slug: string
+  status: string
+  title: string
+  updatedAt: string
+  user: string
+  _id: string
 }
 
 export const servicesApi = createApi({

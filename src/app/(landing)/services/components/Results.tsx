@@ -16,17 +16,22 @@ const Results = () => {
     setViewMode('list')
   }
 
-  //TODO: Feching with redux
   const { data: products, isLoading, isError } = useFetchServicesQuery()
-  const fullResponse: any = products
-  console.log('products', fullResponse?.data)
+  const fullResponse = products
+  const serviceData = fullResponse?.data //FIXME:
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
   return (
     <>
       <ResultBtnAction handleGridClick={handleGridClick} handleListClick={handleListClick} />
-      <div className="mb-10">{viewMode === 'grid' ? <GridItems /> : <ListItems />}</div>
+      <div className="mb-10">
+        {viewMode === 'grid' ? (
+          <GridItems serviceData={serviceData} />
+        ) : (
+          <ListItems serviceData={serviceData} />
+        )}
+      </div>
       <Pagination />
     </>
   )

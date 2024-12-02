@@ -69,7 +69,7 @@ export type IListingsData = {
 
 export type IVendorsData = {
   id: number
-  image: any
+  image: StaticImageData | string
   vendorName: string
   vendorDesc?: string
   vendorEmail?: string
@@ -86,7 +86,7 @@ export type IEventFeatures = {
 
 export type ISpecialPackages = {
   id: number
-  img: any
+  img: StaticImageData | string
   name: string
   desc: string
   url: string
@@ -95,14 +95,14 @@ export type ISpecialPackages = {
 
 export type IDiscoverItems = {
   id: number
-  img: any
+  img: StaticImageData | string
   name: string
   url: string
 }
 
 export type IOccasionItems = {
   id: number
-  img: any
+  img: StaticImageData | string
   name: string
   linkName: string
   url: string
@@ -137,7 +137,7 @@ export type IFooterNav = {
 export type IFooterSocialItems = {
   id: number
   linkUrl: string
-  img: any
+  img: StaticImageData | string
 }
 
 export type IBookingDetails = {
@@ -176,7 +176,9 @@ export type PasswordRequirement = {
 
 export type IProfileMenuItems = {
   id: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeIcon: any
   label: string
 }
@@ -218,3 +220,73 @@ export type IChatData = {
   phone: string
   mail: string
 }
+
+// export type IServiceData = {
+//   serviceData: {
+//     aproved_by: null | undefined
+//     availability: {
+//       days: string
+//       end_time: string
+//       start_time: string
+//       _id: string
+//     }[]
+//     cancellation_period_hours: number
+//     category: {
+//       createdAt: string
+//       description: string
+//       featured_image: StaticImageData | null
+//       hierarchy: string
+//       icon: StaticImageData | null
+//       slug: string
+//       status: string
+//       title: string
+//       updatedAt: string
+//       user: string
+//       _id: string
+//     }[]
+//     createdAt: string
+//     description: string
+//     featured_image: StaticImageData | null
+//     inclusions: object[]
+//     infos: object[]
+//     is_featured: boolean
+//     is_unavailable: boolean
+//     location: {
+//       createdAt: string
+//       description: string
+//       featured_image: {
+//         name: string
+//         reference: string
+//         sid: string
+//         size: number
+//         type: string
+//         url: string
+//         hierarchy: string
+//         location: {
+//           coordinates: object[]
+//           type: string
+//         }[]
+//       }[]
+//       slug: string
+//       status: string
+//       title: string
+//       type: string
+//       updatedAt: string
+//       user: string
+//       _id: string
+//     }
+//     price: {
+//       text: string
+//       value: number
+//       _id: string
+//     }[]
+//     price_type: string
+//     security_deposit: number
+//     slug: string
+//     status: string
+//     title: string
+//     updatedAt: string
+//     user: string
+//     _id: string
+//   }[]
+// }

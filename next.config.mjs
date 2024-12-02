@@ -2,7 +2,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true' // Enable only when ANALYZE=true
+  enabled: process.env.ANALYZE === 'true'
 })({
   images: {
     remotePatterns: [
@@ -10,10 +10,15 @@ const nextConfig = withBundleAnalyzer({
         protocol: 'https',
         hostname: 'i.pravatar.cc',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'smc-test-bucket123.s3.us-east-1.amazonaws.com',
+        port: ''
       }
     ]
   },
-  reactStrictMode: true, // Your existing Next.js configuration
+  reactStrictMode: true,
   swcMinify: true
 })
 

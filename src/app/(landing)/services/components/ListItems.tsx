@@ -1,20 +1,32 @@
 'use client'
-import { specialPackages } from '@/utils'
+import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import { HeartIcon, MapPinIcon } from '@heroicons/react/16/solid'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import ServiceImage from '/public/assets/package1.png'
 
-const ListItems = () => {
+type IProps = {
+  serviceData: ServiceItem[]
+}
+
+const ListItems: React.FC<IProps> = ({ serviceData }) => {
   const [starRating, setStarRating] = useState(0)
+
   return (
     <>
-      {specialPackages.map((items, index) => (
-        <div className="mb-5 flex h-[250px] rounded-3xl border p-5 last:mb-0">
+      {serviceData?.map((items, index) => (
+        <div className="mb-5 flex h-[250px] rounded-3xl border p-5 last:mb-0" key={index}>
           <div className="overflow-hidden rounded-3xl">
-            <Image src={items.img} className="w-full" alt="image" />
+            <Image
+              width={278}
+              height={165}
+              src={items?.featured_image ? items?.featured_image : ServiceImage}
+              className="w-full"
+              alt="image"
+            />
           </div>
           <div className="flex flex-col justify-between px-5">
             <div className="space-y-2">
@@ -22,17 +34,19 @@ const ListItems = () => {
                 href={`/services/${items.slug}`}
                 className="mb-2 font-sora text-lg font-semibold text-neutral-900"
               >
-                Book chair arrangements
+                {items.title}
               </Link>
               <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
               <p className="text-sm font-extrabold italic text-neutral-500 md:text-base">(10 reviews)</p>
               <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">
                 <MapPinIcon className="size-6" />
-                Choose your location
+                {items.location.title}
               </button>
             </div>
 
-            <p className="font-sora text-xl font-bold text-neutral-900 md:text-2xl">$ 120</p>
+            <p className="font-sora text-xl font-bold text-neutral-900 md:text-2xl">
+              $ {items.price?.[0]?.value || 0}
+            </p>
             <div>
               <button className="group inline-block rounded-full bg-clr-f8 p-1">
                 <HeartIcon className="inline-block size-6 fill-clr-c6 group-hover:fill-red-600" />
