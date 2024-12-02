@@ -49,6 +49,7 @@ export const authOptions: NextAuthOptions = {
               id: response.data.data._id,
               name: response.data.data.name,
               email: response.data.data.email,
+              role: response.data.data.role,
               token: response.data.data.access_token,
               refreshToken: response.data.data.refresh_token
             }
@@ -63,12 +64,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // console.log('user', user)
         token.accessToken = user.token
         token.refreshToken = user.refreshToken
         token.accessTokenExpires = Date.now() + 60 * 60 * 1000
-        token.id = user.id
         token.user = user
+        token.id = user.id
+        token.role = user.role
       }
 
       if (token.accessTokenExpires && Date.now() > (token.accessTokenExpires as number)) {
@@ -78,10 +79,13 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     async session({ session, token }) {
+      // console.log('user - session', token)
       session.user = {
+        role: token.role as string,
         id: token.id as string, // Cast to string
         name: session.user?.name || '',
-        email: session.user?.email || ''
+        email: session.user?.email || '',
+        user: session.user || ''
       }
       session.accessToken = token.accessToken as string // Cast to string
       // console.log('token', session.accessToken)
@@ -93,4 +97,3 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
-

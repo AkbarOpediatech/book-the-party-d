@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('customer12@gmail.com')
+  const [email, setEmail] = useState('vendor@gmail.com')
   const [password, setPassword] = useState('Opedia@123')
   const [error, setError] = useState('')
   const router = useRouter()
@@ -22,8 +22,15 @@ const LoginForm = () => {
 
     if (!result?.ok) {
       setError('Invalid email or password.')
+    } else {
+      router.push('/')
     }
-    router.push('/')
+  }
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value
+    setEmail(inputValue) // Capture the input value
+    console.log('Email on blur:', inputValue)
   }
   return (
     <>
@@ -37,6 +44,7 @@ const LoginForm = () => {
             type="email"
             className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 font-light text-clr-0f"
             placeholder="example@example.com"
+            onBlur={event => setEmail(event.target.value)}
           />
         </div>
         <div className="mb-2">
@@ -47,6 +55,7 @@ const LoginForm = () => {
             type="password"
             className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 font-light text-clr-0f"
             placeholder="example@example.com"
+            onBlur={event => setPassword(event.target.value)}
           />
         </div>
         <div className="mb-6 flex items-center justify-between gap-4">

@@ -1,5 +1,8 @@
+'use client'
+import { roleWiseRoute } from '@/utils/constand'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ArrowRightEndOnRectangleIcon, UserIcon } from '@heroicons/react/16/solid'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import ICCart from '/public/assets/ic-cart.svg'
@@ -20,6 +23,18 @@ const Header = () => {
     count: number
     href: string
     alt: string
+  }
+
+  const { data: session } = useSession()
+  let route = ''
+  if (session?.user?.role) {
+    route = roleWiseRoute[session?.user?.role as keyof typeof roleWiseRoute]
+  }
+
+  const LogoutHandler = () => {
+    signOut({
+      callbackUrl: '/login'
+    })
   }
 
   const NotificationIcon = ({ icon, count, href, alt }: NotificationIconProps) => (
@@ -57,18 +72,30 @@ const Header = () => {
                   anchor="bottom end"
                   className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                 >
-                  <MenuItem>
-                    <Link className={menuItemClasses} href="/login">
-                      <UserIcon className="size-4 fill-black/30" />
-                      Profile
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <button className={menuItemClasses}>
-                      <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                      Logout
-                    </button>
-                  </MenuItem>
+                  {session && session?.user ? (
+                    <>
+                      <MenuItem>
+                        <Link className={menuItemClasses} href={`${route}`}>
+                          <UserIcon className="size-4 fill-black/30" />
+                          Profile
+                        </Link>
+                      </MenuItem>
+
+                      <MenuItem>
+                        <button className={menuItemClasses} onClick={LogoutHandler}>
+                          <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                          Logout
+                        </button>
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <MenuItem>
+                      <Link className={menuItemClasses} href="/login">
+                        <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                        Login
+                      </Link>
+                    </MenuItem>
+                  )}
                 </MenuItems>
               </Menu>
             </li>
