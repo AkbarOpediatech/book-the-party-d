@@ -1,4 +1,5 @@
 'use client'
+import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { useState } from 'react'
 import GridItems from './GridItems'
 import ListItems from './ListItems'
@@ -14,6 +15,14 @@ const Results = () => {
   const handleListClick = () => {
     setViewMode('list')
   }
+
+  //TODO: Feching with redux
+  const { data: products, isLoading, isError } = useFetchServicesQuery()
+  const fullResponse: any = products
+  console.log('products', fullResponse?.data)
+
+  if (isLoading) return <div>Loading products...</div>
+  if (isError) return <div>Error loading products.</div>
   return (
     <>
       <ResultBtnAction handleGridClick={handleGridClick} handleListClick={handleListClick} />

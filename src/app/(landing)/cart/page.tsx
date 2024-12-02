@@ -1,8 +1,21 @@
+'use client'
+
+import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 import SubTotal from '../components/SubTotal'
 import CartHead from './components/CartHead'
 import CartItems from './components/CartItems'
 
 const Cart = () => {
+  const { data: session, status } = useSession()
+
+  useEffect(() => {
+    if (!session) {
+      return
+    }
+    const token = session.accessToken
+    console.log('token', token)
+  }, [session])
   return (
     <section className="cart pb-[100px] pt-[74px]">
       <div className="container">

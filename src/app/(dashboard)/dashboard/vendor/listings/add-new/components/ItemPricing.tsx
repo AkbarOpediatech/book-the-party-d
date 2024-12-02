@@ -2,9 +2,11 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
-import { handleInputChange } from '@/utils/inputHandlers'
-import { useRouter } from 'next/navigation'
+import { useAddServiceMutation, type ServiceItem } from '@/redux/features/services/apiSlice'
+import { clearNewServiceDraft, setNewServiceDraft } from '@/redux/features/services/servicesSlice'
+import type { RootState } from '@/redux/store'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import MultiplePrice from './MultiplePrice'
@@ -14,13 +16,71 @@ type IProps = {
 }
 
 const ItemPricing: React.FC<IProps> = ({ setStep }) => {
-  const router = useRouter()
-  const [pricingType, setPricingType] = useState<string>('Fixed Price')
+  const [pricingType, setPricingType] = useState<string>('fixed')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**TODO:
+   * adding data to store
+   * create a hook to managgin all dispatch
+   * create a apiSlice to manage post request
+   * clean store data
+   *
+   */
+  const [addService, { isLoading, isError, isSuccess, error }] = useAddServiceMutation()
+
+  /**TODO:
+   * Need to work on these: isLoading, isError, isSuccess, error
+   *
+   */
+
+  const newServiceDraft = useSelector((state: RootState) => state.services.newServiceDraft)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    router.push('/dashboard/vendor/listings?modal=true')
+
+    if (!pricingType) {
+      alert('Please fill in all fields with valid values.')
+      return
+    }
+    const demoService: Omit<ServiceItem, 'id'> = {
+      user: '671e315ed10e02c3ec3dacc3',
+      title: 'Luxury Car Rental',
+      description: 'Rent a luxury car for your special occasions or business needs.',
+      featured_image: null,
+      slug: `${new Date()} Luxury-Car-Rental`,
+      category: '67285176c4451f913cfdfd39',
+      location: '6723595d8d9a6dbaaffbf3d9',
+      inclusions: [],
+      infos: [],
+      is_featured: true,
+      price_type: pricingType,
+      price: [{ text: '', value: 50 }],
+      security_deposit: 200,
+      cancellation_period_hours: 40,
+      availability: [
+        { days: 'mon', start_time: '08:00', end_time: '18:00' },
+        { days: 'sat', start_time: '10:00', end_time: '16:00' }
+      ],
+      is_unavailable: false,
+      status: 'publish'
+    }
+
+    try {
+      const response = await addService(demoService).unwrap()
+      console.log('Service added successfully:', response)
+      alert('Service added successfully!')
+      dispatch(clearNewServiceDraft())
+    } catch (err) {
+      console.error('Failed to add product:', err)
+    }
   }
+
+  const dispatch = useDispatch()
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target
+    dispatch(setNewServiceDraft({ field: 'price_type', value }))
+  }
+
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Item Pricing</p>
@@ -29,15 +89,14 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
           name="price"
           label="Price"
           type="select"
-          options={['Fixed Price', 'Hourly', 'Multiple pricing range']}
-          onChange={e => handleInputChange(e, setPricingType)}
+          options={['fixed', 'hourly', 'multiple_fixed']}
+          onChange={e => handleInputChange(e)}
           customClass="mb-4"
         />
-        {pricingType === 'Fixed Price' && <FixedPrice />}
-        {pricingType === 'Hourly' && <Hourly />}
+        {pricingType === 'fixed' && <FixedPrice />}
+        {pricingType === 'hourly' && <Hourly />}
         {pricingType === 'Multiple pricing range' && <MultiplePrice />}
         <div className="mt-6 border-b border-gray-200" />
-
         <div className="mt-5 flex items-center gap-4">
           <GrayBtn name="Back" onClick={() => setStep(2)} />
           <DashboardButton name="Submit" type="submit" />

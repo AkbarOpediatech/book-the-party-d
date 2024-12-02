@@ -10,6 +10,7 @@ import {
   type ISignUpFormData
 } from '@/utils'
 import { showAlert } from '@/utils/alertService'
+import { passwordRegex } from '@/utils/regex'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -31,7 +32,7 @@ const FormPage: React.FC = () => {
     e.preventDefault()
     dispatch(setLoading(true))
     dispatch(setError(null))
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/
+
     if (!passwordRegex.test(formData.password)) {
       dispatch(setError('Password does not meet the required criteria'))
       dispatch(setLoading(false))

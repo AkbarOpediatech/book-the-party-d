@@ -1,12 +1,17 @@
 'use client'
-import { cartItems as initialCartItems } from '@/utils'
+import { useFetchCartQuery } from '@/redux/features/cart/apiSlice'
 import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
-import { useState } from 'react'
 import Swal from 'sweetalert2'
+import { useFetchServiceService } from './CartService'
+import Avatar from '/public/assets/avatar.jpeg'
 
 const CartItems = () => {
-  const [cartItems, setCartItems] = useState(initialCartItems)
+  const { response: cartItems, loading, error } = useFetchServiceService()
+  const { data, isLoading, isError } = useFetchCartQuery()
+
+  if (loading) return <div>Loading cart...</div>
+  if (error) return <div>Error loading cart.</div>
 
   const handleDelete = async (index: number) => {
     const result = await Swal.fire({
@@ -17,18 +22,13 @@ const CartItems = () => {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel'
     })
-
-    if (result.isConfirmed) {
-      const updatedCartItems = cartItems.filter((_, itemIndex) => itemIndex !== index)
-      setCartItems(updatedCartItems)
-
-      Swal.fire('Deleted!', 'The item has been removed from your cart.', 'success')
-    }
   }
+  console.log('cartItems', cartItems?.data)
 
   return (
     <div>
       <div className="bg-white">
+        <p>Carts items {cartItems && cartItems?.length}</p>
         <div className="cart-scroll overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
@@ -43,28 +43,29 @@ const CartItems = () => {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((data, index) => (
+              {cartItems?.data?.map((data: any, index: any) => (
                 <tr key={index} className="mb-4 border-b last:mb-0">
                   <td className="px-4 py-4">
                     <div className="flex flex-wrap items-center md:flex-nowrap">
                       <Image
                         width={80}
                         height={80}
-                        src={data.pic}
+                        src={Avatar}
                         alt="Party Item Image"
                         className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
                       />
                       <div>
-                        <p className="mb-2 font-sora text-sm font-bold md:text-lg">{data.name}</p>
+                        <p className="mb-2 font-sora text-sm font-bold md:text-lg">
+                          {/*{data.service.title}*/}
+                        </p>
                         <p className="font-nunito text-sm font-light text-gray-500">
-                          Location: {data.location}
+                          Location:{/*  {data.location} */}
                         </p>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">${data.price}</td>
                   <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">{data.quantity}</td>
-                  <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">${data.subtotal}</td>
                   <td className="px-4 py-4">
                     <button
                       className="text-red-400"

@@ -1,10 +1,12 @@
 'use client'
+import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import { BookmarkIcon } from '@heroicons/react/24/outline'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
@@ -20,10 +22,24 @@ const ServiceSingle = () => {
   const [starRating, setStarRating] = useState(0)
   const [value, onChange] = useState<Value>(new Date())
 
+  //query [slug]
+
+  const params = useParams()
+  const { slug } = params
+
+  //TODO: Feching with redux
+  const { data: service, isLoading, isError, error } = useFetchServiceByIdQuery(slug as string)
+  const fullResponse: any = service
+
+  console.log('Single products', fullResponse)
+
+  if (isLoading) return <div>Loading products...</div>
+  if (isError) return <div>Error loading products.</div>
+
   return (
     <section id="service_single" className="py-20">
       <div className="container max-w-[1440px]">
-        <SectionHeading title="Birthday Party Arrangementss" />
+        <SectionHeading title={slug as string} />
         <div className="mb-6 h-[438px] w-[738px] overflow-hidden rounded-2xl">
           <Image src={serviceImage} width={738} className="object-right-top" alt="service-image" />
         </div>

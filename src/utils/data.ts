@@ -552,6 +552,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg1,
     name: 'Painting',
     desc: '8 special packages',
+    slug: 'luxury-car-rental',
     url: '#'
   },
   {
@@ -559,6 +560,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg4,
     name: 'Magician',
     desc: '8 special packages',
+    slug: 'magician',
     url: '#'
   },
   {
@@ -566,6 +568,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg3,
     name: 'Clown',
     desc: '8 special packages',
+    slug: 'clown',
     url: '#'
   },
   {
@@ -573,6 +576,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg4,
     name: 'Animals',
     desc: '8 special packages',
+    slug: 'animals',
     url: '#'
   },
   {
@@ -580,6 +584,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg5,
     name: 'Catering',
     desc: '8 special packages',
+    slug: 'catering',
     url: '#'
   },
   {
@@ -587,6 +592,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg6,
     name: 'Sports car',
     desc: '8 special packages',
+    slug: 'sports-car',
     url: '#'
   },
   {
@@ -594,6 +600,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg7,
     name: 'Animals',
     desc: '8 special packages',
+    slug: 'animals',
     url: '#'
   },
   {
@@ -601,6 +608,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg8,
     name: 'Painting',
     desc: '8 special packages',
+    slug: 'painting',
     url: '#'
   },
   {
@@ -608,6 +616,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg3,
     name: 'Animals',
     desc: '8 special packages',
+    slug: 'animals',
     url: '#'
   },
   {
@@ -615,34 +624,7 @@ export const specialPackages: ISpecialPackages[] = [
     img: PackImg1,
     name: 'Sports car',
     desc: '8 special packages',
-    url: '#'
-  },
-  {
-    id: 11,
-    img: PackImg5,
-    name: 'Magician',
-    desc: '8 special packages',
-    url: '#'
-  },
-  {
-    id: 12,
-    img: PackImg3,
-    name: 'Clown',
-    desc: '8 special packages',
-    url: '#'
-  },
-  {
-    id: 13,
-    img: PackImg4,
-    name: 'Animals',
-    desc: '8 special packages',
-    url: '#'
-  },
-  {
-    id: 14,
-    img: PackImg5,
-    name: 'Catering',
-    desc: '8 special packages',
+    slug: 'sports-car',
     url: '#'
   }
 ]

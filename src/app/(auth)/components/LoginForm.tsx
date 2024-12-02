@@ -1,7 +1,37 @@
-import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+'use client'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const LoginForm = () => {
+  const [email, setEmail] = useState('vendor@gmail.com')
+  const [password, setPassword] = useState('Opedia@123')
+  const [error, setError] = useState('')
+  const router = useRouter()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false
+    })
+
+    if (!result?.ok) {
+      setError('Invalid email or password.')
+    } else {
+      router.push('/')
+    }
+  }
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value
+    setEmail(inputValue) // Capture the input value
+    console.log('Email on blur:', inputValue)
+  }
   return (
     <>
       <p className="mb-5 text-xl font-medium">Welcome back</p>
@@ -14,6 +44,7 @@ const LoginForm = () => {
             type="email"
             className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 font-light text-clr-0f"
             placeholder="example@example.com"
+            onBlur={event => setEmail(event.target.value)}
           />
         </div>
         <div className="mb-2">
@@ -24,6 +55,7 @@ const LoginForm = () => {
             type="password"
             className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 font-light text-clr-0f"
             placeholder="example@example.com"
+            onBlur={event => setPassword(event.target.value)}
           />
         </div>
         <div className="mb-6 flex items-center justify-between gap-4">
@@ -38,7 +70,15 @@ const LoginForm = () => {
             Forgot Password?
           </Link>
         </div>
-        <DashboardButton name="Sign In" type="submit" className="w-full" />
+        <button
+          className={
+            'flex items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2'
+          }
+          onClick={handleSubmit}
+        >
+          Sign In
+        </button>
+        {/* <DashboardButton name="Sign In" type="submit" className="w-full" /> */}
       </form>
     </>
   )

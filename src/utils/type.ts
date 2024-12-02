@@ -90,6 +90,7 @@ export type ISpecialPackages = {
   name: string
   desc: string
   url: string
+  slug: string
 }
 
 export type IDiscoverItems = {
