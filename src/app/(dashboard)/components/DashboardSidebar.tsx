@@ -43,6 +43,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
               {vendorNavigation.map((item, index) => (
                 <li key={index}>
                   <Link
+                    onClick={() => setSidebarOpen(false)}
                     href={item.href}
                     className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${
                       currentpath === item.href ? 'bg-clr-ff text-clr-fb' : ''
@@ -84,6 +85,7 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
               {adminNavigation.map((item, index) => (
                 <li key={index}>
                   <Link
+                    onClick={() => setSidebarOpen(false)}
                     href={item.href}
                     className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${
                       currentpath === item.href ? 'bg-clr-ff text-clr-fb' : ''

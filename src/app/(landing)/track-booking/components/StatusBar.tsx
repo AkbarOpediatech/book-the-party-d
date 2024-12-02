@@ -1,6 +1,9 @@
 'use client'
+import { setStep } from '@/redux/features/popupSlice'
+import type { RootState } from '@/redux/store'
 import { cn } from '@/utils'
-import { CheckIcon } from '@heroicons/react/16/solid'
+import { CheckIcon, XMarkIcon } from '@heroicons/react/16/solid'
+import { useDispatch, useSelector } from 'react-redux'
 
 type Step = {
   id: number
@@ -10,12 +13,11 @@ type Step = {
   activeIconColor: string
 }
 
-type StatusBarProps = {
-  currentStep: number
-  setCurrentStep: (step: number) => void
-}
+const StatusBar: React.FC = () => {
+  const dispatch = useDispatch()
+  const currentStep = useSelector((state: any) => state.popup.currentStep)
 
-const StatusBar: React.FC<StatusBarProps> = ({ currentStep, setCurrentStep }) => {
+  const { canceled } = useSelector((state: RootState) => state.popup)
   const steps: Step[] = [
     { id: 0, label: 'Pending', icon: CheckIcon, activeBgColor: 'bg-[#FFEDED]', activeIconColor: '#FF6B6B' },
     {
@@ -25,12 +27,18 @@ const StatusBar: React.FC<StatusBarProps> = ({ currentStep, setCurrentStep }) =>
       activeBgColor: 'bg-[#FEF8E1]',
       activeIconColor: '#FBC402'
     },
-    { id: 2, label: 'Complete', icon: CheckIcon, activeBgColor: 'bg-[#E4F9E0]', activeIconColor: '#1DCE00' }
+    {
+      id: 2,
+      label: 'Complete',
+      icon: canceled ? XMarkIcon : CheckIcon, // Show XMarkIcon if canceled
+      activeBgColor: canceled ? 'bg-[#FFEDED]' : 'bg-[#E4F9E0]',
+      activeIconColor: canceled ? '#FF6B6B' : '#1DCE00'
+    }
   ]
   const activeLabel = steps.find(step => step.id === currentStep)?.label
   const isActive = (stepId: number) => currentStep >= stepId
   const handleStepChange = (step: number) => {
-    setCurrentStep(step)
+    dispatch(setStep(step))
   }
 
   return (
@@ -77,7 +85,11 @@ const StatusBar: React.FC<StatusBarProps> = ({ currentStep, setCurrentStep }) =>
               <span
                 className={cn('mb-3 inline-block rounded p-3', isActive(2) ? 'bg-[#E4F9E0]' : 'bg-gray-50')}
               >
-                <CheckIcon className="h-6 w-6" style={{ fill: isActive(2) ? '#1DCE00' : 'gray' }} />
+                {canceled ? (
+                  <XMarkIcon className="h-6 w-6" style={{ fill: '#FF6B6B' }} />
+                ) : (
+                  <CheckIcon className="h-6 w-6" style={{ fill: isActive(2) ? '#1DCE00' : 'gray' }} />
+                )}
               </span>
               <p className="font-sora text-sm font-light text-clr-0f md:text-2xl">Complete</p>
             </button>
