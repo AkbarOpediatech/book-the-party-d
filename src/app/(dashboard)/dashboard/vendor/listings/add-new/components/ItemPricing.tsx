@@ -2,7 +2,7 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
-import { useAddServiceMutation, type ServiceItem } from '@/redux/features/services/apiSlice'
+import { useAddServiceMutation, type ServiceItemPost } from '@/redux/features/services/apiSlice'
 import { clearNewServiceDraft, setNewServiceDraft } from '@/redux/features/services/servicesSlice'
 import type { RootState } from '@/redux/store'
 import React, { useState } from 'react'
@@ -40,7 +40,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
       alert('Please fill in all fields with valid values.')
       return
     }
-    const demoService: Omit<ServiceItem, 'id'> = {
+    const demoService: Omit<ServiceItemPost, 'id'> = {
       user: '671e315ed10e02c3ec3dacc3',
       title: 'Luxury Car Rental',
       description: 'Rent a luxury car for your special occasions or business needs.',
