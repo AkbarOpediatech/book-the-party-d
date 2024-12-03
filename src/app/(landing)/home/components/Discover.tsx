@@ -19,7 +19,7 @@ const Discover = () => {
               <div className="absolute left-0 top-0 h-full w-full bg-black/20 p-8">
                 <div className="flex h-full items-end justify-between">
                   <h2 className="font-sora text-3xl font-bold text-white md:text-4xl">{items.name}</h2>
-                  <Link href={items.url} className="block bg-clr-fb px-6 py-4">
+                  <Link href={items.url} className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
                     <ArrowLongRightIcon className="size-6" fill="white" />
                   </Link>
                 </div>

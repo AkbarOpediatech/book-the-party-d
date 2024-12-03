@@ -806,7 +806,7 @@ export const footerNav = [
   {
     id: 5,
     name: 'Vendor',
-    url: '/dashboard/vendor/dashboard'
+    url: '/dashboard/vendor'
   }
 ]
 

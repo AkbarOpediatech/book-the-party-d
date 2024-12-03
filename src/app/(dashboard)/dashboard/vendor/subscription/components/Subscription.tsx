@@ -11,7 +11,7 @@ const Subscription = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {subscriptionDetails.map((data, index) => (
         <div
           key={index}
@@ -62,7 +62,7 @@ const Subscription = () => {
             ))}
           </div>
           <button
-            className={`${selectedSubscription === index ? 'border-[#A1A3D8]' : 'border-black'} w-full rounded border bg-white p-2 font-inter font-medium`}
+            className={`${selectedSubscription === index ? 'border-[#A1A3D8]' : 'border-black'} font-inter w-full rounded border bg-white p-2 font-medium`}
             onClick={() => handleSelect(index)}
           >
             {selectedSubscription === index ? 'Cancel Plan' : 'Select'}

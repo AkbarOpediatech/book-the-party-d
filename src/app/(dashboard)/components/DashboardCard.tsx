@@ -12,7 +12,7 @@ type IProps = {
 const DashboardCard: React.FC<IProps> = ({ title, total, percent, imgSrc1, imgSrc2, className }) => {
   return (
     <div className="bg-white p-6">
-      <div className="card-wrapper flex flex-wrap gap-4 md:justify-between">
+      <div className="card-wrapper flex flex-wrap justify-between gap-4">
         <div className="card-info">
           <h2 className="mb-2 text-sm font-semibold text-clr-48">{title}</h2>
           <p className="mb-2 text-2xl font-bold text-clr-48 md:text-[32px]">{total}</p>

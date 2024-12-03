@@ -33,8 +33,20 @@ const AboutUs = () => {
             </div>
 
             <div className="flex flex-wrap gap-5">
-              <CustomBtn href="/view-all-events" isLink={true} isLinkIcon={true} linkName="View all events" />
-              <CustomBtn href="/contact-now" isLink={true} isBorderedLink={true} linkName="Contact now" />
+              <CustomBtn
+                className={'px-6 py-3 text-sm md:px-8 md:py-4 md:text-base'}
+                href="/services"
+                isLink={true}
+                isLinkIcon={true}
+                linkName="View all events"
+              />
+              <CustomBtn
+                className={'px-6 py-3 text-sm md:px-8 md:py-4 md:text-base'}
+                href="/contact"
+                isLink={true}
+                isBorderedLink={true}
+                linkName="Contact now"
+              />
             </div>
           </div>
 

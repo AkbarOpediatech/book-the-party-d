@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type FormState = {
+interface FormState {
   formData: {
     name: string
     email: string
@@ -10,22 +10,24 @@ type FormState = {
     suburb: string
     state: string
     postCode: string
-  }
+  }[]
   categoryChecked: boolean
   saveAddress: boolean
 }
 
 const initialState: FormState = {
-  formData: {
-    name: '',
-    email: '',
-    mobileNumber: '',
-    houseNo: '',
-    streetName: '',
-    suburb: '',
-    state: '',
-    postCode: ''
-  },
+  formData: [
+    {
+      name: '',
+      email: '',
+      mobileNumber: '',
+      houseNo: '',
+      streetName: '',
+      suburb: '',
+      state: '',
+      postCode: ''
+    }
+  ],
   categoryChecked: false,
   saveAddress: false
 }
@@ -34,18 +36,35 @@ const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    updateField: (state, action: PayloadAction<{ field: keyof FormState['formData']; value: string }>) => {
-      state.formData[action.payload.field] = action.payload.value
+    updateField: (
+      state,
+      action: PayloadAction<{ index: number; field: keyof FormState['formData'][0]; value: string }>
+    ) => {
+      const { index, field, value } = action.payload
+      if (state.formData[index]) {
+        state.formData[index][field] = value
+      }
     },
     toggleCategoryChecked: state => {
       state.categoryChecked = !state.categoryChecked
     },
     toggleSaveAddress: state => {
       state.saveAddress = !state.saveAddress
+    },
+    addNewAddress: state => {
+      state.formData.push({
+        name: '',
+        email: '',
+        mobileNumber: '',
+        houseNo: '',
+        streetName: '',
+        suburb: '',
+        state: '',
+        postCode: ''
+      })
     }
   }
 })
 
-export const { updateField, toggleCategoryChecked, toggleSaveAddress } = formSlice.actions
-
+export const { updateField, toggleCategoryChecked, toggleSaveAddress, addNewAddress } = formSlice.actions
 export default formSlice.reducer

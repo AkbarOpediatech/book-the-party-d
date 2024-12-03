@@ -7,7 +7,7 @@ const TransactionHistory = dynamic(() => import('./components/TransactionHistory
 
 const VendorBanking = () => {
   return (
-    <div className="bg-white px-5 py-10 lg:px-7">
+    <div className="bg-white px-2 py-10 lg:px-7">
       <TitleAndBreadCrumbs title={'banking'} menuitem={'Dashboard'} breadcrumbs={'banking'} />
       <div className="mb-5 mt-10 grid grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-5">

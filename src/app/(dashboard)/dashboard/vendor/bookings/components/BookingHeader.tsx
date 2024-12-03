@@ -24,8 +24,8 @@ const BookingHeader = () => {
         endDate={endDate}
       /> */}
 
-      <input type="date" className="input text-clr-ab" placeholder="Start date" />
-      <input type="date" className="input text-clr-ab" placeholder="End date" />
+      <input type="date" className="input w-full text-clr-ab" placeholder="Start date" />
+      <input type="date" className="input w-full text-clr-ab" placeholder="End date" />
       <input
         type="search"
         className="input bg-left-[20px] col-span-2 w-full bg-icon-search bg-no-repeat pl-9"

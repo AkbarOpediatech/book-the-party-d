@@ -8,10 +8,10 @@ type IProps = {
 
 const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (
-    <div className="flex rounded-tl-lg rounded-tr-lg bg-clr-f8">
+    <div className="flex flex-wrap items-center justify-between gap-1 rounded-tl-lg rounded-tr-lg bg-clr-f8 px-2 sm:px-4 md:gap-4 lg:justify-start">
       <button
         className={cn(
-          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-6 md:py-3',
+          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-4 md:py-2 lg:px-6 lg:py-3',
           tab === 0 && 'text-clr-36'
         )}
         onClick={() => setTab(0)}
@@ -28,7 +28,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
 
       <button
         className={cn(
-          'relative flex items-center gap-2 px-6 py-3 text-sm font-semibold capitalize text-clr-81',
+          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-4 md:py-2 lg:px-6 lg:py-3',
           tab === 1 && 'text-clr-36'
         )}
         onClick={() => setTab(1)}
@@ -44,7 +44,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
       </button>
       <button
         className={cn(
-          'relative flex items-center gap-2 px-6 py-3 text-sm font-semibold capitalize text-clr-81',
+          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-4 md:py-2 lg:px-6 lg:py-3',
           tab === 2 && 'text-clr-36'
         )}
         onClick={() => setTab(2)}

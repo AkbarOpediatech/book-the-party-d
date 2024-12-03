@@ -35,7 +35,7 @@ const DashboardMasterCard = () => {
       >
         **** **** **** 6789
       </p>
-      <div className="flex flex-wrap items-center justify-between gap-2 lg:gap-0">
+      <div className="xs:flex-wrap flex flex-nowrap items-end justify-between gap-2 lg:gap-0">
         <div className="holder_name">
           <small className={cn('mb-2 text-xs text-clr-82', isBankingPath && 'mb-1 text-[10px]')}>
             Card Holder

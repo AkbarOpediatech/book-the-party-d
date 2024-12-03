@@ -114,7 +114,7 @@ const Hero = () => {
           </form>
         </div>
 
-        <ul className="flex flex-wrap justify-center gap-2 md:justify-between md:gap-0">
+        <ul className="md:justify-canter flex flex-wrap justify-center gap-2 md:gap-2">
           {eventFeatures.map((eventItems, index) => (
             <li key={index}>
               <Link
