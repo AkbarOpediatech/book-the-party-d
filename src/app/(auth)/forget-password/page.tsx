@@ -1,17 +1,18 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { useRouter } from 'next/navigation'
+import type React from 'react'
 
 const ForgetPassword = () => {
   const router = useRouter()
 
-  const handleForgetPassword = (e: any) => {
+  const handleForgetPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     router.push('/reset-password')
   }
 
   return (
-    <div>
+    <>
       <div className="mb-8">
         <p className="mb-2 text-xl font-medium">Password Recovery</p>
         <p className="text-sm text-[#A1A1A1]">
@@ -32,7 +33,7 @@ const ForgetPassword = () => {
 
         <DashboardButton name="Continue" type="submit" className="w-full" />
       </form>
-    </div>
+    </>
   )
 }
 

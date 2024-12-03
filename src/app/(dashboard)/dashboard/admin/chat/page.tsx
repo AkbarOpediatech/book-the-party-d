@@ -1,39 +1,13 @@
 'use client'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
-import type { IChatData, Message } from '@/utils'
+import type { IChatData } from '@/utils'
 import { useState } from 'react'
 import { chatData } from '../../../../../utils/data'
 import ChatSidebar from './components/ChatSidebar'
 import ChatWindow from './components/ChatWindow'
 
 const VendorChat: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([])
   const [selectedChat, setSelectedChat] = useState<IChatData>(chatData[0])
-
-  const onSendMessage = (messageContent: string) => {
-    const newMessage: Message = {
-      id: messages.length + 1,
-      sender: 'user',
-      content: messageContent,
-      timestamp: new Date().toLocaleTimeString(),
-      type: 'text'
-    }
-    setMessages(prevMessages => [...prevMessages, newMessage])
-  }
-
-  const onSendImage = (images: File[]) => {
-    const imageUrls = images.map(image => URL.createObjectURL(image))
-
-    const newMessage: Message = {
-      id: messages.length + 1,
-      sender: 'user',
-      content: imageUrls,
-      timestamp: new Date().toLocaleTimeString(),
-      type: 'image'
-    }
-
-    setMessages(prevMessages => [...prevMessages, newMessage])
-  }
 
   const handleChatSelect = (chat: IChatData) => {
     setSelectedChat(chat)

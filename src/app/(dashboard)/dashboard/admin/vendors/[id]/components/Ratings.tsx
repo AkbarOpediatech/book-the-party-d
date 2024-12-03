@@ -1,7 +1,7 @@
 import { StarIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 
-interface RatingsProps {
+type RatingsProps = {
   rating: number
   maxRating?: number
 }

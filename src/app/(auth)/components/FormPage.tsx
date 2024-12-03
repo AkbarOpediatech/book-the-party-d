@@ -7,11 +7,12 @@ import {
   xInputType,
   xRole,
   xShowAlert,
+  type ErrorResponse,
   type ISignUpFormData
 } from '@/utils'
 import { showAlert } from '@/utils/alertService'
 import { passwordRegex } from '@/utils/regex'
-import axios from 'axios'
+import axios, { type AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,6 +39,7 @@ const FormPage: React.FC = () => {
       dispatch(setLoading(false))
       return
     }
+
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_LIVE_API}/auth/registration`, formData, {
         headers: {
@@ -47,8 +49,9 @@ const FormPage: React.FC = () => {
       showAlert('Registration successful, Login please', '', xShowAlert.Success)
       setFormData(SignUpInitialState)
       router.push('/login')
-    } catch (error: any) {
-      dispatch(setError(error.response?.data?.message || 'Registration failed'))
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>
+      dispatch(setError(axiosError.response?.data?.message || 'Registration failed'))
     } finally {
       dispatch(setLoading(false))
     }
@@ -66,7 +69,7 @@ const FormPage: React.FC = () => {
 
   return (
     <>
-      <p className="mb-5 text-xl font-medium">Let’s create an account</p>
+      <p className="mb-5 text-xl font-medium">Let&apos;s create an account</p>
       <form onSubmit={handleSubmit} className="mb-5">
         <div className="mb-4">
           <InputField

@@ -1,4 +1,4 @@
-import { adminDetailsTab, detailsTab } from '@/utils'
+import { adminDetailsTab } from '@/utils'
 
 type IProps = {
   tab: number

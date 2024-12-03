@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import avatar from '/public/assets/avatar.jpeg'
 
-interface ConversationProps {
+type ConversationProps = {
   messages: Message[]
 }
 

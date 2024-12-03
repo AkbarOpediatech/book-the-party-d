@@ -52,7 +52,7 @@ const TransactionHistoryTable = () => {
     },
     {
       name: '',
-      cell: (row: ITransactionType) => (
+      cell: () => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />

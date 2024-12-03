@@ -2,7 +2,7 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { PaperClipIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import { useRef, useState } from 'react'
 
-interface InputGroupProps {
+type InputGroupProps = {
   onSendMessage: (messageContent: string) => void
   onSendImage: (images: File[]) => void
   onSendFile: (file: File) => void

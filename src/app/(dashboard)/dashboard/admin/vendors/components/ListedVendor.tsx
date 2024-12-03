@@ -51,7 +51,7 @@ const ListedVendor = () => {
 
     {
       name: '',
-      cell: (row: IVendorsData) => (
+      cell: () => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />

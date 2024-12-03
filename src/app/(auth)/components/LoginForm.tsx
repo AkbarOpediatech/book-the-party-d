@@ -1,4 +1,5 @@
 'use client'
+import { cn } from '@/utils'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -27,11 +28,6 @@ const LoginForm = () => {
     }
   }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value
-    setEmail(inputValue) // Capture the input value
-    console.log('Email on blur:', inputValue)
-  }
   return (
     <>
       <p className="mb-5 text-xl font-medium">Welcome back</p>
@@ -71,14 +67,15 @@ const LoginForm = () => {
           </Link>
         </div>
         <button
-          className={
-            'flex items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2'
-          }
+          className={cn(
+            'flex items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2',
+            error && 'mb-5'
+          )}
           onClick={handleSubmit}
         >
           Sign In
         </button>
-        {/* <DashboardButton name="Sign In" type="submit" className="w-full" /> */}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
     </>
   )

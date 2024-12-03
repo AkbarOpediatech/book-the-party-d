@@ -5,7 +5,7 @@ import { useState } from 'react'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const BookingCategories = () => {
-  const [chartData, setChartData] = useState<{
+  const [chartData] = useState<{
     series: number[]
     options: ApexOptions
   }>({
