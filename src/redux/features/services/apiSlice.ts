@@ -6,7 +6,7 @@ export type IAvailability = {
   days: string
   end_time: string
   start_time: string
-  _id: string
+  _id?: string
 }
 
 export type ICategory = {
@@ -51,31 +51,38 @@ export type ILocation = {
 export type IPrice = {
   text: string
   value: number
-  _id: string
+  _id?: string
 }
 
-export type ServiceItem = {
-  aproved_by: null | undefined
+export type GlobalServiceItem = {
+  aproved_by?: null | undefined
   availability: IAvailability[]
   cancellation_period_hours: number
-  category: ICategory[]
-  createdAt: string
+  createdAt?: string
   description: string
   featured_image: StaticImageData | null
   inclusions: object[]
   infos: object[]
   is_featured: boolean
   is_unavailable: boolean
-  location: ILocation[]
   price: IPrice[]
   price_type: string
   security_deposit: number
   slug: string
   status: string
   title: string
-  updatedAt: string
+  updatedAt?: string
   user: string
-  _id: string
+  _id?: string
+}
+
+export interface ServiceItem extends GlobalServiceItem {
+  category: ICategory[]
+  location: ILocation[]
+}
+export interface ServiceItemPost extends GlobalServiceItem {
+  category: string // Single category represented as a string
+  location: string // Single location represented as a string
 }
 
 export const servicesApi = createApi({
@@ -91,7 +98,7 @@ export const servicesApi = createApi({
       query: slug => `/services/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Services', slug }]
     }),
-    addService: builder.mutation<ServiceItem, Omit<ServiceItem, 'id'>>({
+    addService: builder.mutation<ServiceItemPost, Omit<ServiceItemPost, 'id'>>({
       query: newService => ({
         url: '/services',
         method: 'POST',
@@ -99,9 +106,9 @@ export const servicesApi = createApi({
       }),
       invalidatesTags: ['Services']
     }),
-    updateService: builder.mutation<ServiceItem, Partial<ServiceItem> & Pick<ServiceItem, 'id'>>({
-      query: ({ id, ...rest }) => ({
-        url: `/services/${id}`,
+    updateService: builder.mutation<ServiceItem, Partial<ServiceItem> & Pick<ServiceItem, 'slug'>>({
+      query: ({ slug, ...rest }) => ({
+        url: `/services/${slug}`,
         method: 'PUT',
         body: rest
       }),
