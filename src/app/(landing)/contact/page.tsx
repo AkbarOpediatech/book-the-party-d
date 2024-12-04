@@ -14,7 +14,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div className="space-y-16">
             <div>
-              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let's Talk</h1>
+              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let&apos;s Talk</h1>
 
               <p className="mb-16 text-xl font-light md:text-2xl">
                 Need Assistance? Our Dedicated Support Team is here to Help! Whether you have questions about

@@ -38,11 +38,15 @@ const formSlice = createSlice({
   reducers: {
     updateField: (
       state,
-      action: PayloadAction<{ index: number; field: keyof FormState['formData'][0]; value: string }>
+      action: PayloadAction<{
+        index: number
+        field: keyof FormState['formData'][0]
+        value: string | number | boolean
+      }>
     ) => {
       const { index, field, value } = action.payload
       if (state.formData[index]) {
-        state.formData[index][field] = value
+        state.formData[index][field] = String(value)
       }
     },
     toggleCategoryChecked: state => {

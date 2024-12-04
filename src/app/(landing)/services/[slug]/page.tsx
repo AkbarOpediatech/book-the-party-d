@@ -29,7 +29,7 @@ const ServiceSingle = () => {
   return (
     <section id="service_single" className="py-20">
       <div className="container max-w-[1440px]">
-        <ProductFeature singleService={singleService} />
+        {singleService && <ProductFeature singleService={singleService} />}
         {/* description */}
         <div className="mb-6 flex items-center gap-4">
           <button

@@ -23,7 +23,7 @@ const servicesSlice = createSlice({
     setFilter(state, action: PayloadAction<string>) {
       state.filter = action.payload
     },
-    setNewServiceDraft(state, action: PayloadAction<{ field: string; value: any }>) {
+    setNewServiceDraft(state, action: PayloadAction<{ field: string; value: ServiceItem }>) {
       const { field, value } = action.payload
       state.newServiceDraft = {
         ...state.newServiceDraft,

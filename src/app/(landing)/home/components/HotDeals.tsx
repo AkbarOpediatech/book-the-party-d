@@ -50,7 +50,7 @@ const HotDeals = () => {
             }}
           >
             {specialPackages.map((items, index) => (
-              <div className="col-span-1">
+              <div className="col-span-1" key={index}>
                 <SwiperSlide key={index}>
                   <ServiceCard imgSrc={items.img} title={'Book chair arrangements'} review={10} price={100} />
                 </SwiperSlide>

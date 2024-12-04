@@ -9,7 +9,7 @@ const AboutUs = () => {
         <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-2">
           <div>
             <div className="mb-8">
-              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let's Talk</h1>
+              <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let&apos;s Talk</h1>
             </div>
 
             <div className="mb-10 space-y-5">

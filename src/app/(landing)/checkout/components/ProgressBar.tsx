@@ -1,10 +1,13 @@
 'use client'
 import { cn } from '@/utils'
 import { CreditCardIcon, DocumentTextIcon, HomeIcon } from '@heroicons/react/16/solid'
+import { useState } from 'react'
 
-const ProgressBar = ({ currentStep, setCurrentStep }: any) => {
-  const handleStepChange = (step: any) => {
-    if (currentStep !== null && currentStep !== undefined) {
+const ProgressBar = () => {
+  const [currentStep, setCurrentStep] = useState(2)
+
+  const handleStepChange = (step: number) => {
+    if (currentStep != null) {
       if ((currentStep > 0 || currentStep === 1) && step === 0) {
         setCurrentStep(0)
       } else if ((currentStep > 1 || currentStep === 2) && step === 1) {

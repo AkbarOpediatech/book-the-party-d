@@ -45,7 +45,7 @@ const ListingTable = () => {
 
     {
       name: '',
-      cell: (row: IListingsData) => (
+      cell: () => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />

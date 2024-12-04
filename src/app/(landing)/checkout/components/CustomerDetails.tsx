@@ -1,5 +1,4 @@
 'use client'
-
 import { updateField } from '@/redux/features/formSlice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { useState } from 'react'
@@ -10,6 +9,13 @@ import DeliveryAddress from './DeliveryAddress'
 type IProps = {
   onNext: (step?: number) => void
 }
+
+type HandleInputChange = (
+  field: 'name' | 'email' | 'mobileNumber' | 'houseNo' | 'streetName' | 'suburb' | 'state' | 'postCode',
+  value: string | boolean | number
+) => void
+
+type ToggleFunction = () => void
 
 const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
   const dispatch: AppDispatch = useDispatch()
@@ -24,23 +30,21 @@ const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form Data:', reduxFormData)
-    console.log('Category Checked:', categoryChecked)
-    console.log('Save Address:', saveAddress)
     setShowDeliveryAddress(true)
     setShowAddress(false)
   }
 
-  const handleInputChange = (field: keyof typeof reduxFormData, value: string) => {
-    dispatch(updateField({ field, value }))
+  const handleInputChange: HandleInputChange = (field, value) => {
+    const stringValue = String(value)
+    dispatch(updateField({ field, value: stringValue, index: 0 }))
   }
 
-  const toggleCategoryChecked = () => {
-    // Dispatch toggle action for categoryChecked (implement in Redux slice)
+  const toggleCategoryChecked: ToggleFunction = () => {
+    // TODO: add here functionality letter
   }
 
-  const toggleSaveAddress = () => {
-    // Dispatch toggle action for saveAddress (implement in Redux slice)
+  const toggleSaveAddress: ToggleFunction = () => {
+    // TODO: add here functionality letter
   }
 
   return (

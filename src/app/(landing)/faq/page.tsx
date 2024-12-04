@@ -17,7 +17,7 @@ const FAQ = () => {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
         <div>
           <div className="mb-8">
-            <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let's Talk</h1>
+            <h1 className="mb-6 font-sora text-5xl font-bold md:text-[84px]">Let&apos;s Talk</h1>
           </div>
           <FaqBtn selectedTab={selectedTab} onTabChange={handleTabChange} />
         </div>

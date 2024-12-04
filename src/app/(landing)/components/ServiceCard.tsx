@@ -18,6 +18,8 @@ type IProps = {
 const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price, Href, chooseLocation }) => {
   const [starRating, setStarRating] = useState(0)
 
+  console.log('chooseLocation', chooseLocation)
+
   return (
     <div className="h-[412px] rounded-3xl border">
       <div className="h-[165px] overflow-hidden rounded-t-3xl">

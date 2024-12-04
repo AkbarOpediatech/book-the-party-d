@@ -7,7 +7,7 @@ type IProps = {
   inputType: string
   inputPlaceholder: string
   inputClassName?: string
-  onChange?: any
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   labelClassName?: string
 }
 

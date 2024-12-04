@@ -15,7 +15,7 @@ type Step = {
 
 const StatusBar: React.FC = () => {
   const dispatch = useDispatch()
-  const currentStep = useSelector((state: any) => state.popup.currentStep)
+  const currentStep = useSelector((state: RootState) => state.popup.currentStep)
 
   const { canceled } = useSelector((state: RootState) => state.popup)
   const steps: Step[] = [

@@ -11,7 +11,7 @@ const Hero = () => {
   const [formData, setFormData] = useState({
     search: '',
     location: '',
-    category: '',
+    categories: '',
     date: ''
   })
 
@@ -80,7 +80,7 @@ const Hero = () => {
                 <select
                   id="category"
                   className="w-full text-clr-ab xl:w-[250px]"
-                  value={formData.category}
+                  value={formData.categories}
                   onChange={handleInputChange}
                 >
                   <option value="Wedding">Wedding</option>

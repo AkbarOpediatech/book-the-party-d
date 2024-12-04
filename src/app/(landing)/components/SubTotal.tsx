@@ -1,7 +1,6 @@
 'use client'
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SuccessModal from '../checkout/components/SuccessModal'
@@ -20,7 +19,6 @@ type IProps = {
 const SubTotal: React.FC<IProps> = ({ isCart }) => {
   const currentStep = useSelector((state: RootState) => state.stepper.currentStep)
   const dispatch = useDispatch()
-  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)

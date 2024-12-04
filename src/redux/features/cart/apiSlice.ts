@@ -13,18 +13,15 @@ export interface CartItem {
   }
 }
 
-// service: IID<IService>
-//   user: IID<IUser>
-//   notes: string
-//   quantity: number
-//   price_id: ObjectId
-
+interface CartItemResponse {
+  data: CartItem[]
+}
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery,
   tagTypes: ['Cart'],
   endpoints: builder => ({
-    fetchCart: builder.query<any, void>({
+    fetchCart: builder.query<CartItemResponse, void>({
       query: () => '/carts',
       providesTags: ['Cart']
     }),

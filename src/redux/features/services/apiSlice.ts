@@ -38,7 +38,7 @@ export type ILocation = {
       coordinates: object[]
       type: string
     }[]
-  }[]
+  }[] //TODO: type will be modified
   slug: string
   status: string
   title: string
@@ -77,12 +77,19 @@ export type GlobalServiceItem = {
 }
 
 export interface ServiceItem extends GlobalServiceItem {
-  category: ICategory[]
-  location: ILocation[]
+  category: ICategory
+  location: ILocation
 }
 export interface ServiceItemPost extends GlobalServiceItem {
-  category: string // Single category represented as a string
-  location: string // Single location represented as a string
+  category: string
+  location: string
+}
+
+interface ServiceResponse {
+  data: ServiceItem[]
+}
+interface SingleServiceResponse {
+  data: ServiceItem
 }
 
 export const servicesApi = createApi({
@@ -90,11 +97,11 @@ export const servicesApi = createApi({
   baseQuery,
   tagTypes: ['Services'],
   endpoints: builder => ({
-    fetchServices: builder.query<ServiceItem[], void>({
+    fetchServices: builder.query<ServiceResponse, void>({
       query: () => '/services',
       providesTags: ['Services']
     }),
-    fetchServiceById: builder.query<ServiceItem, string>({
+    fetchServiceById: builder.query<SingleServiceResponse, string>({
       query: slug => `/services/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Services', slug }]
     }),

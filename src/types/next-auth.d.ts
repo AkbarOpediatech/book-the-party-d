@@ -8,17 +8,17 @@ declare module 'next-auth' {
       id: string
       name: string
       email: string
-      user: any
+      user: User
     }
   }
 
-  interface User {
-    id: string
-    name: string
-    email: string
-    role: string
-    token: string
-    refreshToken: string
+  export interface User {
+    id?: string
+    name?: string
+    email?: string
+    role?: string
+    token?: string
+    refreshToken?: string
   }
 
   interface JWT {

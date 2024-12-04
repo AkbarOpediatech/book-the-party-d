@@ -224,3 +224,10 @@ export type IChatData = {
 export type ErrorResponse = {
   message?: string
 }
+export type ErrorResponseAuth = {
+  response?: {
+    data?: {
+      message: string
+    }
+  }
+}

@@ -1,33 +1,24 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "types": ["msw"],
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"], // Fine as-is, covers DOM and ESNext features
+    "allowJs": true, // Allow JavaScript files
+    "skipLibCheck": true, // Avoid type conflicts in node_modules
+    "strict": true, // Enable strict mode for TypeScript
+    "noEmit": true, // Prevent emitting compiled files
+    "esModuleInterop": true, // Ensure compatibility with CommonJS modules
+    "module": "esnext", // Use the latest module system
+    "moduleResolution": "node", // Use Node.js-style resolution for modules
+    "resolveJsonModule": true, // Allow importing JSON files as modules
+    "isolatedModules": true, // Required for Next.js to transpile each file independently
+    "jsx": "preserve", // Preserve JSX for further processing by Next.js
+    "incremental": true, // Enable incremental compilation for faster builds
+    "baseUrl": ".", // Set base directory for module resolution
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"] // Define alias for cleaner imports
+    },
+    "target": "ESNext", // Use ESNext to enable the latest JavaScript features
+    "forceConsistentCasingInFileNames": true // Enforce consistent casing in imports
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/(dashboard)/dashboard/vendor/listings/[id]"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "dist", ".turbo"]
 }

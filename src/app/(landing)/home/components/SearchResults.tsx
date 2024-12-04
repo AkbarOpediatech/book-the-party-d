@@ -10,7 +10,7 @@ const SearchResults = () => {
 
         <div className="grid grid-cols-4 gap-4">
           {specialPackages.map((items, index) => (
-            <div className="col-span-1">
+            <div className="col-span-1" key={index}>
               <ServiceCard imgSrc={items.img} title={'Book chair arrangements'} review={10} price={100} />
             </div>
           ))}

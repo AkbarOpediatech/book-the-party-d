@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface RadioBoxProps {
+type RadioBoxProps = {
   id: string
   name: string
   label: string

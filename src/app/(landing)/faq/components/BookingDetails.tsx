@@ -3,7 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { PlusIcon } from '@heroicons/react/16/solid'
 
 type IProps = {
-  selectedTab: any
+  selectedTab: number
 }
 
 const BookingDetails: React.FC<IProps> = ({ selectedTab }) => {

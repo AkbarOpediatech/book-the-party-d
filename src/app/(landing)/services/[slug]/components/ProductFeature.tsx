@@ -8,7 +8,7 @@ import { useState } from 'react'
 import serviceImage from '/public/assets/discover-img.png'
 
 type IProps = {
-  singleService: ServiceItem[]
+  singleService: ServiceItem
 }
 
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {

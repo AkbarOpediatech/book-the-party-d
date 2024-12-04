@@ -29,7 +29,7 @@ const VendorRequest = () => {
     },
     {
       name: 'Action',
-      cell: (row: IVendorsData) => (
+      cell: () => (
         <div className="flex gap-2">
           <button className="rounded-md bg-clr-1c/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-1c">
             Accept
@@ -44,7 +44,7 @@ const VendorRequest = () => {
 
     {
       name: '',
-      cell: (row: IVendorsData) => (
+      cell: () => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />

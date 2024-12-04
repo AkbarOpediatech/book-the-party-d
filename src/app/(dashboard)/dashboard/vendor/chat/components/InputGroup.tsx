@@ -1,5 +1,6 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { PaperClipIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/16/solid'
+import Image from 'next/image'
 import { useRef, useState } from 'react'
 
 type InputGroupProps = {
@@ -76,7 +77,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
         <div className="flex flex-wrap gap-2 overflow-x-auto p-4">
           {selectedImages.map((image, index) => (
             <div key={index} className="relative">
-              <img
+              <Image
                 src={URL.createObjectURL(image)}
                 alt={`Selected ${index}`}
                 className="size-20 rounded-lg object-cover"

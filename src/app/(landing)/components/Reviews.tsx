@@ -49,8 +49,8 @@ const Reviews = () => {
               <SwiperSlide key={index}>
                 <div className="rounded-lg bg-clr-87 px-8 py-12">
                   <p className="mb-5 text-sm font-medium leading-[150%] text-white">
-                    "This is a very complex and beautiful set of elements. Under the hood it comes with the
-                    best things from 2 different worlds: Figma and Tailwind.”
+                    &quot;This is a very complex and beautiful set of elements. Under the hood it comes with
+                    the best things from 2 different worlds: Figma and Tailwind.&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <Image width={32} height={32} className="rounded-full" src={avatar} alt="avatar" />

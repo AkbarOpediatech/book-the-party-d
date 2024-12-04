@@ -8,6 +8,7 @@ import Avatar from '/public/assets/avatar.jpeg'
 
 const CartItems = () => {
   const { response: cartItems, loading, error } = useFetchServiceService()
+  console.log(cartItems, 'cartItems')
   const { data, isLoading, isError } = useFetchCartQuery()
 
   if (loading) return <div>Loading cart...</div>
@@ -23,12 +24,11 @@ const CartItems = () => {
       cancelButtonText: 'Cancel'
     })
   }
-  console.log('cartItems', cartItems?.data)
 
   return (
     <div>
       <div className="bg-white">
-        <p>Carts items {cartItems && cartItems?.length}</p>
+        <p>Carts items {cartItems && cartItems?.data.length}</p>
         <div className="cart-scroll overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
@@ -43,7 +43,7 @@ const CartItems = () => {
               </tr>
             </thead>
             <tbody>
-              {cartItems?.data?.map((data: any, index: any) => (
+              {cartItems?.data?.map((data, index) => (
                 <tr key={index} className="mb-4 border-b last:mb-0">
                   <td className="px-4 py-4">
                     <div className="flex flex-wrap items-center md:flex-nowrap">

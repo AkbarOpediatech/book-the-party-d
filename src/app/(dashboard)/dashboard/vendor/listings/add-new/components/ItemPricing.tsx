@@ -3,10 +3,9 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import { useAddServiceMutation, type ServiceItemPost } from '@/redux/features/services/apiSlice'
-import { clearNewServiceDraft, setNewServiceDraft } from '@/redux/features/services/servicesSlice'
-import type { RootState } from '@/redux/store'
+import { clearNewServiceDraft } from '@/redux/features/services/servicesSlice'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import MultiplePrice from './MultiplePrice'
@@ -16,6 +15,7 @@ type IProps = {
 }
 
 const ItemPricing: React.FC<IProps> = ({ setStep }) => {
+  const dispatch = useDispatch()
   const [pricingType, setPricingType] = useState<string>('fixed')
 
   /**TODO:
@@ -25,14 +25,16 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
    * clean store data
    *
    */
-  const [addService, { isLoading, isError, isSuccess, error }] = useAddServiceMutation()
+
+  const [addService] = useAddServiceMutation()
 
   /**TODO:
    * Need to work on these: isLoading, isError, isSuccess, error
    *
    */
 
-  const newServiceDraft = useSelector((state: RootState) => state.services.newServiceDraft)
+  // const newServiceDraft = useSelector((state: RootState) => state.services.newServiceDraft)
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -73,13 +75,12 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
     }
   }
 
-  const dispatch = useDispatch()
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target
-    dispatch(setNewServiceDraft({ field: 'price_type', value }))
-  }
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target
+  //   dispatch(setNewServiceDraft({ field: 'price_type', value: ServiceItem }))
+  // }
 
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
@@ -90,7 +91,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
           label="Price"
           type="select"
           options={['fixed', 'hourly', 'multiple_fixed']}
-          onChange={e => handleInputChange(e)}
+          // onChange={e => handleInputChange(e)}
           customClass="mb-4"
         />
         {pricingType === 'fixed' && <FixedPrice />}

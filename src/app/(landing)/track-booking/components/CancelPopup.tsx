@@ -69,6 +69,7 @@ const CancelPopup: React.FC<PopupProps> = ({
           </button>
           <button
             className="rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-600"
+            // eslint-disable-next-line no-undefined
             onClick={() => onConfirm(reason, penalty ? Number(penalty) : undefined)}
             disabled={showReasonInput && !isPenaltyValid}
           >

@@ -25,13 +25,15 @@ const Results = () => {
   return (
     <>
       <ResultBtnAction handleGridClick={handleGridClick} handleListClick={handleListClick} />
-      <div className="mb-10">
-        {viewMode === 'grid' ? (
-          <GridItems serviceData={serviceData} />
-        ) : (
-          <ListItems serviceData={serviceData} />
-        )}
-      </div>
+      {serviceData && (
+        <div className="mb-10">
+          {viewMode === 'grid' ? (
+            <GridItems serviceData={serviceData} />
+          ) : (
+            <ListItems serviceData={serviceData} />
+          )}
+        </div>
+      )}
       <Pagination />
     </>
   )

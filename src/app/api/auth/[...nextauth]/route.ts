@@ -1,9 +1,25 @@
 import { server } from '@/utils/config'
 import axios from 'axios'
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth, { AuthOptions, type User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-async function refreshAccessToken(token: any) {
+type IToken = {
+  accessToken?: string | undefined
+  refreshToken?: string | undefined
+  accessTokenExpires?: number | undefined
+  user?: User | undefined
+  id?: string | undefined
+  role?: string | undefined
+  error?: string | undefined
+}
+
+type IJWT = {
+  accessToken?: string | undefined
+  refreshToken?: string | undefined
+  accessTokenExpires?: number | undefined
+}
+
+async function refreshAccessToken(token: IToken) {
   try {
     const res = await axios.post(`${server}/auth/refresh`, {
       refreshToken: token.refreshToken
@@ -25,7 +41,7 @@ async function refreshAccessToken(token: any) {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Custom API',
@@ -55,14 +71,15 @@ export const authOptions: NextAuthOptions = {
             }
           }
           return null
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          throw new Error(error.response?.data?.message || 'Authentication failed')
+          throw new Error(error?.response?.data?.message || 'Authentication failed')
         }
       }
     })
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }): Promise<IToken | IJWT> {
       if (user) {
         token.accessToken = user.token
         token.refreshToken = user.refreshToken
@@ -73,10 +90,15 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (token.accessTokenExpires && Date.now() > (token.accessTokenExpires as number)) {
-        return await refreshAccessToken(token)
+        const refreshedToken = await refreshAccessToken(token as IJWT)
+        if (!refreshedToken) {
+          throw new Error('Failed to refresh access token') // Ensure you throw an error if no token is returned
+        }
+
+        return refreshedToken as IToken
       }
 
-      return token
+      return token as IToken
     },
     async session({ session, token }) {
       // console.log('user - session', token)
@@ -85,7 +107,7 @@ export const authOptions: NextAuthOptions = {
         id: token.id as string, // Cast to string
         name: session.user?.name || '',
         email: session.user?.email || '',
-        user: session.user || ''
+        user: session.user || {}
       }
       session.accessToken = token.accessToken as string // Cast to string
       // console.log('token', session.accessToken)

@@ -6,15 +6,16 @@ import InputForm from './InputForm'
 type IProps = {
   onNext: (step?: number) => void
 }
+type OptionType = string
 
 const PaymentOption: React.FC<IProps> = ({ onNext }) => {
-  const [selectedOption, setSelectedOption] = useState(null)
+  const [selectedOption, setSelectedOption] = useState<OptionType | null>(null)
 
-  const handleChange = (option: any) => {
+  const handleChange = (option: OptionType) => {
     setSelectedOption(option)
   }
 
-  const handleNext = (e: any) => {
+  const handleNext = () => {
     onNext()
   }
 
