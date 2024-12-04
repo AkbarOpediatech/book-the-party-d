@@ -1,121 +1,217 @@
+// import { server } from '@/utils/config'
+// import axios from 'axios'
+// import NextAuth, { AuthOptions, type User } from 'next-auth'
+// import CredentialsProvider from 'next-auth/providers/credentials'
+
+// type IToken = {
+//   accessToken?: string | undefined
+//   refreshToken?: string | undefined
+//   accessTokenExpires?: number | undefined
+//   user?: User | undefined
+//   id?: string | undefined
+//   role?: string | undefined
+//   error?: string | undefined
+// }
+
+// type IJWT = {
+//   accessToken?: string | undefined
+//   refreshToken?: string | undefined
+//   accessTokenExpires?: number | undefined
+// }
+
+// async function refreshAccessToken(token: IToken) {
+//   try {
+//     const res = await axios.post(`${server}/auth/refresh`, {
+//       refreshToken: token.refreshToken
+//     })
+
+//     if (res.data) {
+//       return {
+//         accessToken: res.data.accessToken,
+//         refreshToken: res.data.refreshToken ?? token.refreshToken,
+//         accessTokenExpires: Date.now() + 60 * 60 * 1000 // 1 hour
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Refresh token error:', error)
+//     return {
+//       ...token,
+//       error: 'RefreshTokenError'
+//     }
+//   }
+// }
+
+// export const authOptions: AuthOptions = {
+//   providers: [
+//     CredentialsProvider({
+//       name: 'Custom API',
+//       credentials: {
+//         email: { label: 'Email', type: 'email' },
+//         password: { label: 'Password', type: 'password' }
+//       },
+//       async authorize(credentials) {
+//         if (!credentials) {
+//           throw new Error('Missing credentials')
+//         }
+
+//         try {
+//           const response = await axios.post(`${server}/auth/login`, {
+//             email: credentials.email,
+//             password: credentials.password
+//           })
+
+//           if (response.data) {
+//             return {
+//               id: response.data.data._id,
+//               name: response.data.data.name,
+//               email: response.data.data.email,
+//               role: response.data.data.role,
+//               token: response.data.data.access_token,
+//               refreshToken: response.data.data.refresh_token
+//             }
+//           }
+//           return null
+//           // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//         } catch (error: any) {
+//           throw new Error(error?.response?.data?.message || 'Authentication failed')
+//         }
+//       }
+//     })
+//   ],
+//   callbacks: {
+//     async jwt({ token, user }): Promise<IToken | IJWT> {
+//       if (user) {
+//         token.accessToken = user.token
+//         token.refreshToken = user.refreshToken
+//         token.accessTokenExpires = Date.now() + 60 * 60 * 1000
+//         token.user = user
+//         token.id = user.id
+//         token.role = user.role
+//       }
+
+//       if (token.accessTokenExpires && Date.now() > (token.accessTokenExpires as number)) {
+//         const refreshedToken = await refreshAccessToken(token as IJWT)
+//         if (!refreshedToken) {
+//           throw new Error('Failed to refresh access token') // Ensure you throw an error if no token is returned
+//         }
+
+//         return refreshedToken as IToken
+//       }
+
+//       return token as IToken
+//     },
+//     async session({ session, token }) {
+//       // console.log('user - session', token)
+//       session.user = {
+//         role: token.role as string,
+//         id: token.id as string, // Cast to string
+//         name: session.user?.name || '',
+//         email: session.user?.email || '',
+//         user: session.user || {}
+//       }
+//       session.accessToken = token.accessToken as string // Cast to string
+//       // console.log('token', session.accessToken)
+//       return session
+//     }
+//   },
+//   secret: process.env.NEXTAUTH_SECRET
+// }
+
+// const handler = NextAuth(authOptions)
+// export { handler as GET, handler as POST }
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { server } from '@/utils/config'
-import axios from 'axios'
-import NextAuth, { AuthOptions, type User } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import NextAuth, { AuthOptions, User } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
+import Credentials from 'next-auth/providers/credentials'
 
-type IToken = {
-  accessToken?: string | undefined
-  refreshToken?: string | undefined
-  accessTokenExpires?: number | undefined
-  user?: User | undefined
-  id?: string | undefined
-  role?: string | undefined
-  error?: string | undefined
-}
-
-type IJWT = {
-  accessToken?: string | undefined
-  refreshToken?: string | undefined
-  accessTokenExpires?: number | undefined
-}
-
-async function refreshAccessToken(token: IToken) {
-  try {
-    const res = await axios.post(`${server}/auth/refresh`, {
-      refreshToken: token.refreshToken
-    })
-
-    if (res.data) {
-      return {
-        accessToken: res.data.accessToken,
-        refreshToken: res.data.refreshToken ?? token.refreshToken,
-        accessTokenExpires: Date.now() + 60 * 60 * 1000 // 1 hour
-      }
-    }
-  } catch (error) {
-    console.error('Refresh token error:', error)
-    return {
-      ...token,
-      error: 'RefreshTokenError'
-    }
+type LoginResponse = {
+  success: boolean
+  error?: string
+  data?: {
+    id: string
+    email: string
+    name: string
   }
 }
 
-export const authOptions: AuthOptions = {
+type CredentialsType = {
+  email: string
+  password: string
+}
+
+const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
-    CredentialsProvider({
-      name: 'Custom API',
+    Credentials({
+      name: 'Libertea App',
       credentials: {
-        email: { label: 'Email', type: 'email' },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials) {
-        if (!credentials) {
-          throw new Error('Missing credentials')
+      async authorize(credentials: CredentialsType | undefined) {
+        if (!credentials) throw new Error('No credentials provided')
+
+        const { email, password } = credentials
+
+        const response = await fetch(`${server}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        })
+
+        const result: LoginResponse = await response.json()
+
+        if (!result.success) {
+          throw new Error(result.error || 'Login failed')
         }
 
-        try {
-          const response = await axios.post(`${server}/auth/login`, {
-            email: credentials.email,
-            password: credentials.password
-          })
-
-          if (response.data) {
-            return {
-              id: response.data.data._id,
-              name: response.data.data.name,
-              email: response.data.data.email,
-              role: response.data.data.role,
-              token: response.data.data.access_token,
-              refreshToken: response.data.data.refresh_token
-            }
-          }
-          return null
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          throw new Error(error?.response?.data?.message || 'Authentication failed')
+        if (result.data) {
+          return result.data
         }
+
+        return null
       }
     })
   ],
+  session: {
+    strategy: 'jwt',
+    maxAge: 60 * 60 * 24 * 7
+  },
+  jwt: {
+    maxAge: 60 * 60 * 24 * 7
+  },
   callbacks: {
-    async jwt({ token, user }): Promise<IToken | IJWT> {
-      if (user) {
-        token.accessToken = user.token
-        token.refreshToken = user.refreshToken
-        token.accessTokenExpires = Date.now() + 60 * 60 * 1000
-        token.user = user
-        token.id = user.id
-        token.role = user.role
+    jwt: async ({
+      token,
+      user,
+      session,
+      trigger
+    }: {
+      token: JWT
+      user?: User
+      session?: any
+      trigger?: string
+    }) => {
+      let updatedData = {}
+
+      if (trigger === 'update' && session) {
+        updatedData = { ...session }
       }
 
-      if (token.accessTokenExpires && Date.now() > (token.accessTokenExpires as number)) {
-        const refreshedToken = await refreshAccessToken(token as IJWT)
-        if (!refreshedToken) {
-          throw new Error('Failed to refresh access token') // Ensure you throw an error if no token is returned
-        }
-
-        return refreshedToken as IToken
-      }
-
-      return token as IToken
+      return { ...token, ...user, ...updatedData }
     },
-    async session({ session, token }) {
-      // console.log('user - session', token)
-      session.user = {
-        role: token.role as string,
-        id: token.id as string, // Cast to string
-        name: session.user?.name || '',
-        email: session.user?.email || '',
-        user: session.user || {}
-      }
-      session.accessToken = token.accessToken as string // Cast to string
-      // console.log('token', session.accessToken)
+    session: async ({ session, token }: { session: any; token: JWT }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { sub, iat, exp, jti, ...rest } = token
+      session.user = rest
       return session
     }
   },
-  secret: process.env.NEXTAUTH_SECRET
-}
+  pages: {
+    signIn: '/'
+  }
+} as AuthOptions)
 
-const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
