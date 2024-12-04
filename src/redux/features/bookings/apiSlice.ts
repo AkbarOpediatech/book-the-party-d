@@ -14,8 +14,8 @@ export interface IOrder {
     featured_image: string | null
     category: string
     location: string
-    inclusions: any[]
-    infos: any[]
+    inclusions: string[]
+    infos: string[]
     price_type: 'fixed' | 'variable'
     price: {
       text: string
@@ -47,7 +47,7 @@ export interface IOrder {
     shipping_fee: number
     total: number
   }
-  coupons: any[]
+  coupons: string[]
   security_deposit_payout_percentage: number
   status: 'draft' | 'pending' | 'processing' | 'completed_request_vendor' | 'completed'
   history: {
