@@ -1,6 +1,6 @@
 'use client'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
-import { cn } from '@/utils'
+import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
@@ -10,6 +10,7 @@ import CustomBtn from '../../components/CustomBtn'
 import Description from './components/Description'
 import ProductFeature from './components/ProductFeature'
 import ProductReviews from './components/ProductReviews'
+import RelatedServices from './components/RelatedServices'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -51,6 +52,7 @@ const ServiceSingle = () => {
             Reviews
           </button>
         </div>
+
         <div className="mb-32 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="col-span-2">{tab === 0 && <Description />}</div>
 
@@ -70,8 +72,8 @@ const ServiceSingle = () => {
           </div>
         </div>
         <ProductReviews />
-        {/* product slider */}
-        {/* <RelatedServices specialPackages={specialPackages} /> */}
+
+        {specialPackages && <RelatedServices />}
       </div>
     </section>
   )
