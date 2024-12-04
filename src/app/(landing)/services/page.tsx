@@ -15,12 +15,12 @@ const ServicesContent = () => {
     <section>
       <div className="section-padding">
         <div className="custom-container">
-          <div className="grid grid-cols-12 gap-12">
-            <div className="col-span-12 md:col-span-4">
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-12">
+            <div className="col-span-1 sm:col-span-2 md:col-span-4">
               <Filter />
               {/* <FilterSidebar /> */}
             </div>
-            <div className="col-span-12 md:col-span-8">
+            <div className="col-span-1 sm:col-span-2 md:col-span-8">
               <Results />
             </div>
           </div>

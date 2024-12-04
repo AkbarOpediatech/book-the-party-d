@@ -22,16 +22,33 @@ const BookingCategories = () => {
       fill: {
         opacity: 0.8
       },
+      legend: {
+        position: 'right', // Default position for larger screens
+        fontSize: '14px'
+      },
 
       responsive: [
         {
+          breakpoint: 768, // Adjust for tablets and smaller devices
+          options: {
+            legend: {
+              position: 'bottom', // Move legend below the chart
+              fontSize: '12px' // Smaller font size
+            },
+            chart: {
+              height: 300 // Adjust chart height for smaller screens
+            }
+          }
+        },
+        {
           breakpoint: 480,
           options: {
-            chart: {
-              width: 200
-            },
             legend: {
-              position: 'bottom'
+              position: 'bottom',
+              fontSize: '10px'
+            },
+            chart: {
+              height: 300
             }
           }
         }

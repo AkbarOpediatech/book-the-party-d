@@ -9,7 +9,7 @@ type IProps = {
 
 const VendorChatProfile: React.FC<IProps> = ({ selectedChat }) => {
   return (
-    <div className="w-full max-w-[350px] border-l p-5">
+    <div className="absolute w-2/3 border-l bg-white p-5 shadow lg:static lg:max-w-[350px] lg:shadow-none">
       <div className="flex justify-center">
         <div className="mb-3 h-[90px] w-[90px] overflow-hidden rounded-full">
           <Image width={90} height={90} src={selectedChat.avatar} alt="avatar" />

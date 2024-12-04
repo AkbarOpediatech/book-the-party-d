@@ -31,7 +31,7 @@ const ListItems: React.FC<IProps> = ({ serviceData }) => {
           <div className="flex flex-col justify-between px-5">
             <div className="space-y-2">
               <Link
-                href={`/services/${items.slug}`}
+                href={`/services/${items._id}`}
                 className="mb-2 font-sora text-lg font-semibold text-neutral-900"
               >
                 {items.title}

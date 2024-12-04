@@ -42,7 +42,7 @@
     "recharts": "^2.13.0-alpha.5",
     "redux": "^5.0.1",
     "sharp": "^0.33.5",
-    "sweetalert2": "^11.14.5",
+    "sweetalert2": "^11.6.13",
     "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.4",
     "typescript-eslint": "^8.7.0",

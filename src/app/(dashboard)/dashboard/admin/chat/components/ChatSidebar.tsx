@@ -1,4 +1,5 @@
 import { type IChatData } from '@/utils'
+import { XMarkIcon } from '@heroicons/react/16/solid'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import Image from 'next/image'
 import React from 'react'
@@ -6,11 +7,20 @@ import React from 'react'
 type IProps = {
   chatData: IChatData[]
   onChatSelect: (chat: IChatData) => void
+  closeSidebar: () => void
 }
 
-const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect }) => {
+const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect, closeSidebar }) => {
+  const handleChatClick = (chat: IChatData) => {
+    onChatSelect(chat)
+    closeSidebar()
+  }
+
   return (
     <div className="p-5">
+      <button className="text-clr-80 p-2 lg:hidden" onClick={closeSidebar}>
+        <XMarkIcon className="h-6 w-6" />
+      </button>
       <input
         className="mb-3 h-10 w-full rounded-lg border border-clr-ab/30 bg-icon-search bg-no-repeat px-3 py-2 pl-10"
         placeholder="Search Contact…"
@@ -31,7 +41,7 @@ const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect }) => {
             <li
               key={index}
               className="flex cursor-pointer items-center gap-4 py-3"
-              onClick={() => onChatSelect(chat)}
+              onClick={() => handleChatClick(chat)}
             >
               <div className="relative">
                 <div className="h-11 w-11 overflow-hidden rounded-full">

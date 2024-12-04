@@ -13,7 +13,7 @@ const GridItems: React.FC<IProps> = ({ serviceData }) => {
       {serviceData?.map((items, index) => (
         <div className="flex justify-center" key={index}>
           <ServiceCard
-            Href={`/services/${items.slug}`}
+            Href={`/services/${items._id}`}
             imgSrc={items.featured_image ? items.featured_image : ServiceImage}
             title={items.title}
             review={10}

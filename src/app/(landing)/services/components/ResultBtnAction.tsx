@@ -22,10 +22,11 @@ type IProps = {
 
 const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick }) => {
   const [selectedPerson, setSelectedPerson] = useState(people[0])
+
   return (
-    <div className="mb-6 flex items-center justify-between">
+    <div className="mb-6 flex flex-col items-center justify-between sm:flex-row sm:gap-5">
       <div className="flex items-center gap-5">
-        <div className="flex gap-5">
+        <div className="flex gap-3 sm:gap-5">
           <button onClick={() => handleGridClick()}>
             <Image src={ICGrid} alt="Grid icon" />
           </button>
@@ -33,20 +34,20 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
             <Image src={ICList} alt="List icon" />
           </button>
         </div>
-        <p className="font-nunito text-xl font-light text-black">Showing 1–12 of 60 results</p>
+        <p className="font-nunito text-lg font-light text-black sm:text-xl">Showing 1–12 of 60 results</p>
       </div>
       <Listbox value={selectedPerson} onChange={setSelectedPerson}>
-        <ListboxButton className={'flex gap-2 rounded-lg border border-black px-5 py-[10px]'}>
+        <ListboxButton className="flex items-center gap-2 rounded-lg border border-black px-5 py-[10px] text-sm sm:text-base">
           {selectedPerson.name}
           <ChevronDownIcon className="size-6 font-extralight" />
         </ListboxButton>
 
-        <ListboxOptions anchor="bottom" className={'mt-2 space-y-2 rounded-lg border bg-white py-2'}>
+        <ListboxOptions className="mt-2 space-y-2 rounded-lg border bg-white py-2">
           {people.map(person => (
             <ListboxOption
               key={person.id}
               value={person}
-              className="cursor-pointer px-8 text-start data-[focus]:bg-blue-100"
+              className="cursor-pointer px-8 text-start hover:bg-blue-100"
             >
               {person.name}
             </ListboxOption>
