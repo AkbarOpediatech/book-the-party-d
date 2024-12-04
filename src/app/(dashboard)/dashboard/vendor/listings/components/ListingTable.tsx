@@ -66,7 +66,7 @@ const ListingTable = () => {
             </MenuItem>
             <MenuItem>
               <Link
-                href={'/dashboard/vendor/listings/add-new'}
+                href={'/dashboard/vendor/listings/edit-listing'}
                 className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
               >
                 Edit

@@ -12,9 +12,10 @@ import MultiplePrice from './MultiplePrice'
 
 type IProps = {
   setStep: (stepIndex: number) => void
+  isEditListing: boolean
 }
 
-const ItemPricing: React.FC<IProps> = ({ setStep }) => {
+const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing }) => {
   const dispatch = useDispatch()
   const [pricingType, setPricingType] = useState<string>('fixed')
 
@@ -84,7 +85,9 @@ const ItemPricing: React.FC<IProps> = ({ setStep }) => {
 
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Item Pricing</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
+        {isEditListing === true ? 'Edit Item Pricing' : 'Item Pricing'}
+      </p>
       <form onSubmit={handleSubmit}>
         <FormInput
           name="price"
