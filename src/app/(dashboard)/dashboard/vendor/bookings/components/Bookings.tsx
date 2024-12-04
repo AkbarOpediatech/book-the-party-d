@@ -2,6 +2,7 @@
 const BookingAllTable = dynamic(() => import('./BookingAllTable'), {
   ssr: false
 })
+import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import BookingHeader from './BookingHeader'
@@ -9,6 +10,10 @@ import BookingTab from './BookingTab'
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
+  const { data: products, isLoading, isError } = useFetchBookingsQuery({ role: 'admin' })
+  const fullResponse = products
+  const serviceData = fullResponse?.data //FIXME:
+  console.log('serviceData', serviceData)
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">

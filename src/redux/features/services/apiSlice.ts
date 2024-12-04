@@ -97,10 +97,20 @@ export const servicesApi = createApi({
   baseQuery,
   tagTypes: ['Services'],
   endpoints: builder => ({
-    fetchServices: builder.query<ServiceResponse, void>({
-      query: () => '/services',
+    fetchServices: builder.query<ServiceResponse, { role?: string }>({
+      query: ({ role } = {}) => {
+        const params = role ? { role } : {} // Conditionally include `role` if it exists
+        return {
+          url: '/services',
+          params // Add query parameters dynamically
+        }
+      },
       providesTags: ['Services']
     }),
+    // fetchServices: builder.query<ServiceResponse, void>({
+    //   query: () => '/services',
+    //   providesTags: ['Services']
+    // }),
     fetchServiceById: builder.query<SingleServiceResponse, string>({
       query: slug => `/services/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Services', slug }]

@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { bookingsApi } from './features/bookings/apiSlice'
 import { cartApi } from './features/cart/apiSlice'
 import formReducer from './features/formSlice'
 import loadingErrorSlice from './features/loadingErrorSlice'
@@ -14,11 +15,15 @@ export const store = configureStore({
     services: servicesSlice,
     [cartApi.reducerPath]: cartApi.reducer,
     [servicesApi.reducerPath]: servicesApi.reducer,
+    [bookingsApi.reducerPath]: bookingsApi.reducer,
     form: formReducer,
     popup: popupSlice
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(cartApi.middleware).concat(servicesApi.middleware)
+    getDefaultMiddleware()
+      .concat(cartApi.middleware)
+      .concat(servicesApi.middleware)
+      .concat(bookingsApi.middleware)
   // .concat(userApi.middleware),
 })
 

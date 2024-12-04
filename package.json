@@ -1,8 +1,8 @@
 {
   "name": "nextjs-starter",
   "version": "0.1.0",
-  "author": "Ashiqur Rahman - iamashiqur",
-  "description": "iamashiqur.vercel.app",
+  "author": "Opedia",
+  "description": "opedia.vercel.app",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -5,6 +5,7 @@ import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
+import { isError } from 'util'
 
 const Results = () => {
   const [viewMode, setViewMode] = useState('grid')
@@ -16,7 +17,7 @@ const Results = () => {
     setViewMode('list')
   }
 
-  const { data: products, isLoading, isError } = useFetchServicesQuery()
+  const { data: products, isLoading, isError } = useFetchServicesQuery({})
   const fullResponse = products
   const serviceData = fullResponse?.data //FIXME:
 

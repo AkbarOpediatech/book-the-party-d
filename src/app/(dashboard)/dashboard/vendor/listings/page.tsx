@@ -1,6 +1,7 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { PlusIcon } from '@heroicons/react/16/solid'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -10,6 +11,11 @@ import Listings from './components/Listings'
 const VendorListing = () => {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(true)
+
+  const { data: products, isLoading, isError } = useFetchServicesQuery({ role: 'vendor' })
+  const fullResponse = products
+  const serviceData = fullResponse?.data //FIXME:
+  console.log('serviceData', serviceData)
 
   //TODO: remove route for modal
   useEffect(() => {
