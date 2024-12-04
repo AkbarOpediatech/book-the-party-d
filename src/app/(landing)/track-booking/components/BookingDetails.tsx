@@ -68,8 +68,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
       <div className="grid grid-cols-1 gap-6 sm:gap-10 md:grid-cols-2 lg:grid-cols-3">
         {bookingData.map((item, index) => (
           <div key={index} className="">
-            <p className="text-sm font-medium text-clr-48 sm:text-base">{item.label}:</p>
-            <p className="my-2 text-base font-semibold text-clr-1d sm:my-2 sm:text-xl">{item.value}</p>
+            <p className="text-xs font-medium text-clr-48 sm:text-sm md:text-base">{item.label}:</p>
+            <p className="my-2 text-sm font-semibold text-clr-1d sm:text-base md:text-lg">{item.value}</p>
           </div>
         ))}
       </div>

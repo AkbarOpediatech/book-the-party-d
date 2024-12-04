@@ -9,7 +9,6 @@ const ServicesContent = () => {
   const searchParams = useSearchParams()
   const category = searchParams.get('categories')
   const location = searchParams.get('Location')
-  const isApproved = searchParams.get('is_approved')
   console.log(category, location)
   return (
     <section>
