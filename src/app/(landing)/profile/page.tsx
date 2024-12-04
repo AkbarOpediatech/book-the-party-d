@@ -12,18 +12,26 @@ const Profile = () => {
 
   return (
     <section id="profile">
-      <div className="mx-auto max-w-[1440px]">
-        <div className="section-padding">
-          <h1 className="mb-3 font-sora text-2xl font-semibold text-neutral-900 md:text-6xl">Profile</h1>
-          <div className="grid grid-cols-1 md:gap-[104px] lg:grid-cols-3">
+      <div className="mx-auto max-w-[1460px] px-20">
+        <div className="section-padding py-[80px]">
+          <h1 className="mb-3 font-sora text-2xl font-semibold text-neutral-900 md:mb-12 md:text-6xl">
+            Profile
+          </h1>
+          <div className="grid grid-cols-1 md:gap-[40px] lg:grid-cols-3">
             <div className="col-span-1 border-r">
-              <ul className="gap-2 space-y-5 p-4 md:block lg:w-full">
+              <ul className="gap-2 space-y-5 md:block lg:w-full">
                 {profileMenuItems.map(item => (
-                  <li key={item.label}>
+                  <li
+                    key={item.label}
+                    className={cn(
+                      'max-w-[350px] border-l-4 border-l-clr-fb border-l-transparent px-5 py-5',
+                      profileMenu === item.label && 'border-l-4 border-l-clr-fb bg-clr-fb/10'
+                    )}
+                  >
                     <button
                       onClick={() => setProfileMenu(item.label)}
                       className={cn(
-                        'flex items-center gap-3 py-2 text-base font-bold text-clr-96 md:text-nowrap md:text-xl lg:text-2xl xl:text-2xl',
+                        'flex items-center gap-3 text-base font-bold text-clr-96 md:text-nowrap md:text-xl lg:text-2xl xl:text-2xl',
                         profileMenu === item.label && 'text-clr-fb'
                       )}
                     >
