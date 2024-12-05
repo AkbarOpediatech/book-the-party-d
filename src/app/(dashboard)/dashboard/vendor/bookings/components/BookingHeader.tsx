@@ -8,12 +8,12 @@ const BookingHeader = () => {
   // const [endDate, setEndDate] = useState(new Date('End Date'))
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 rounded px-4 pb-3 pt-5 lg:flex-nowrap">
-      <div className="relative w-full lg:w-auto">
+      {/* <div className="relative w-full lg:w-auto">
         <span className="absolute -top-2.5 left-2 block bg-white text-xs text-clr-ab">Categories</span>
         <select name="status" className="input w-full flex-shrink-0 text-sm md:text-base lg:w-[160px]">
           <option value="Wedding">Wedding</option>
         </select>
-      </div>
+      </div> */}
 
       {/* TODO: use it letter */}
       {/* <DatePicker

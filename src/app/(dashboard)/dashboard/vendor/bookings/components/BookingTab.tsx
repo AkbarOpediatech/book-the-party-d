@@ -17,7 +17,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
         onClick={() => setTab(0)}
       >
         all
-        <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">24</span>
+        <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">{tab}</span>
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
@@ -42,6 +42,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
           )}
         ></span>
       </button>
+
       <button
         className={cn(
           'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-4 md:py-2 lg:px-6 lg:py-3',
@@ -55,6 +56,23 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab }) => {
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
             tab === 2 && 'bg-clr-16'
+          )}
+        ></span>
+      </button>
+
+      <button
+        className={cn(
+          'relative flex items-center gap-2 p-2 text-sm font-semibold capitalize text-clr-81 md:px-4 md:py-2 lg:px-6 lg:py-3',
+          tab === 3 && 'text-clr-36'
+        )}
+        onClick={() => setTab(3)}
+      >
+        processing
+        <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">24</span>
+        <span
+          className={cn(
+            'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
+            tab === 3 && 'bg-clr-16'
           )}
         ></span>
       </button>
