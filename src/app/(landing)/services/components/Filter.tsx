@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable no-empty-pattern */
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/16/solid'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -17,22 +18,13 @@ const Filter = ({}: FilterProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(queryCategories)
   const [selectedLocations, setSelectedLocations] = useState<string[]>(queryLocations)
 
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
+  const [isLocationsOpen, setIsLocationsOpen] = useState(false)
+
   useEffect(() => {
     setSelectedCategories(queryCategories)
     setSelectedLocations(queryLocations)
   }, [])
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategories(prev =>
-      prev.includes(category) ? prev.filter(item => item !== category) : [...prev, category]
-    )
-  }
-
-  const handleLocationChange = (location: string) => {
-    setSelectedLocations(prev =>
-      prev.includes(location) ? prev.filter(item => item !== location) : [...prev, location]
-    )
-  }
 
   const generateApiUrl = () => {
     const baseUrl = 'http://localhost:3000/services'
@@ -52,15 +44,48 @@ const Filter = ({}: FilterProps) => {
 
     console.log('Generated API URL:', apiUrl)
     router.push(apiUrl)
-    // return apiUrl
+  }
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategories(prev =>
+      prev.includes(category) ? prev.filter(item => item !== category) : [...prev, category]
+    )
   }
 
+  const handleLocationChange = (location: string) => {
+    setSelectedLocations(prev =>
+      prev.includes(location) ? prev.filter(item => item !== location) : [...prev, location]
+    )
+  }
   return (
     <div className="rounded-[32px] border px-8 py-5">
       <div className="mb-6 border-b pb-6">
-        <h3 className="mb-6 font-sora font-bold text-black">Categories</h3>
+        <h3
+          className="mb-6 flex cursor-pointer font-sora font-bold text-black"
+          onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+        >
+          Categories
+          {isCategoriesOpen ? (
+            <ChevronUpIcon className="ml-2 block h-5 w-5 md:hidden" />
+          ) : (
+            <ChevronDownIcon className="ml-2 block h-5 w-5 md:hidden" />
+          )}
+        </h3>
+        {isCategoriesOpen &&
+          fetchedCategories.map(cat => (
+            <div key={cat} className="mb-3 flex items-center justify-between md:hidden">
+              <label className="flex cursor-pointer items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(cat)}
+                  onChange={() => handleCategoryChange(cat)}
+                  className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
+                />
+                <span className="text-xl">{cat}</span>
+              </label>
+            </div>
+          ))}
         {fetchedCategories.map(cat => (
-          <div key={cat} className="mb-3 flex items-center justify-between">
+          <div key={cat} className="mb-3 hidden items-center justify-between md:flex">
             <label className="flex cursor-pointer items-center space-x-3">
               <input
                 type="checkbox"
@@ -75,9 +100,33 @@ const Filter = ({}: FilterProps) => {
       </div>
 
       <div className="mb-6 border-b pb-6">
-        <h3 className="mb-6 font-sora font-bold text-black">Locations</h3>
+        <h3
+          className="mb-6 flex cursor-pointer font-sora font-bold text-black"
+          onClick={() => setIsLocationsOpen(!isLocationsOpen)}
+        >
+          Locations
+          {isLocationsOpen ? (
+            <ChevronUpIcon className="ml-2 block h-5 w-5 md:hidden" />
+          ) : (
+            <ChevronDownIcon className="ml-2 block h-5 w-5 md:hidden" />
+          )}
+        </h3>
+        {isLocationsOpen &&
+          fetchedLocations.map(loc => (
+            <div key={loc} className="mb-3 flex items-center justify-between md:hidden">
+              <label className="flex cursor-pointer items-center space-x-3">
+                <input
+                  type="checkbox"
+                  checked={selectedLocations.includes(loc)}
+                  onChange={() => handleLocationChange(loc)}
+                  className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
+                />
+                <span className="text-xl">{loc}</span>
+              </label>
+            </div>
+          ))}
         {fetchedLocations.map(loc => (
-          <div key={loc} className="mb-3 flex items-center justify-between">
+          <div key={loc} className="mb-3 hidden items-center justify-between md:flex">
             <label className="flex cursor-pointer items-center space-x-3">
               <input
                 type="checkbox"
@@ -91,7 +140,10 @@ const Filter = ({}: FilterProps) => {
         ))}
       </div>
 
-      <button onClick={generateApiUrl} className="mt-4 w-full rounded-md bg-blue-500 p-2 text-white">
+      <button
+        onClick={generateApiUrl}
+        className="mt-4 w-full rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
+      >
         Filter
       </button>
     </div>

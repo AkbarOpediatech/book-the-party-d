@@ -5,15 +5,19 @@ import React from 'react'
 
 type IProps = {
   setStep: (stepIndex: number) => void
+  isEditListing: boolean
 }
-const SetAvailability: React.FC<IProps> = ({ setStep }) => {
+const SetAvailability: React.FC<IProps> = ({ setStep, isEditListing }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStep(3)
   }
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Set availability</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
+        {' '}
+        {isEditListing === true ? 'Edit Set availability' : 'Set availability'}
+      </p>
       <form onSubmit={handleSubmit}>
         <p className="mb-2 text-sm font-medium text-gray-900">Scheduling window</p>
 

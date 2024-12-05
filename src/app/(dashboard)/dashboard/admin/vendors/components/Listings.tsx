@@ -10,7 +10,7 @@ const Listings = () => {
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
       <ListingTab tab={tab} setTab={setTab} />
-      <div className="px-6 py-5">
+      <div className="p-4 md:px-6 md:py-5">
         <input
           type="search"
           className="input bg-left-[20px] col-span-2 w-full bg-icon-search bg-no-repeat pl-9"

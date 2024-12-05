@@ -45,7 +45,7 @@ const ListingTable = () => {
 
     {
       name: '',
-      cell: () => (
+      cell: (row: IListingsData) => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />
@@ -57,14 +57,20 @@ const ListingTable = () => {
             className="w-36 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
           >
             <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+              <Link
+                href={`/dashboard/vendor/listings/${row.id}`}
+                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+              >
                 View Listing
-              </button>
+              </Link>
             </MenuItem>
             <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+              <Link
+                href={'/dashboard/vendor/listings/edit-listing'}
+                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+              >
                 Edit
-              </button>
+              </Link>
             </MenuItem>
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">

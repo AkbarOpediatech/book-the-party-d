@@ -28,14 +28,14 @@ const ListingDetails = () => {
         <li className="text-xm text-clr-ab">Vendor Details</li>
       </ul>
 
-      <div className="mb-5 grid grid-cols-2 gap-16">
+      <div className="mb-5 grid grid-cols-1 lg:grid-cols-2 lg:gap-16">
         <div className="col-span-1">
-          <div className="h-[478px] w-full overflow-hidden rounded-xl">
+          <div className="w-full overflow-hidden rounded-xl lg:h-[478px]">
             <Image className="w-full object-cover" src={details} alt="pic" />
           </div>
         </div>
 
-        <div className="p-10">
+        <div className="p-5 md:p-8">
           <span className="mb-4 inline-block rounded-md bg-clr-16/20 px-2 py-[1px] text-xs font-bold text-clr-16">
             Available
           </span>
@@ -79,7 +79,7 @@ const ListingDetails = () => {
         </div>
       </div>
 
-      <div className="mb-10 grid grid-cols-3 gap-5">
+      <div className="mb-10 grid grid-cols-1 gap-5 md:grid-cols-3">
         <div className="col-span-1 w-full rounded-2xl bg-white shadow-one">
           <h2 className="py-5 text-center text-sm font-bold text-clr-36 md:text-base">Booking history</h2>
           <BookingHistoryChart />

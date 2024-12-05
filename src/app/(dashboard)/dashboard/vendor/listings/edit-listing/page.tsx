@@ -1,15 +1,14 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import AddNew from './components/AddNew'
-import ItemList from './components/ItemList'
-import ItemPricing from './components/ItemPricing'
-import SetAvailability from './components/SetAvailability'
+import AddNew from '../add-new/components/AddNew'
+import ItemList from '../add-new/components/ItemList'
+import ItemPricing from '../add-new/components/ItemPricing'
+import SetAvailability from '../add-new/components/SetAvailability'
 
-const AddNewListing = () => {
+const EditListing = () => {
   const [step, setStep] = useState<number>(0)
   const router = usePathname()
-
   const isEditListing = router === '/dashboard/vendor/listings/edit-listing'
 
   return (
@@ -22,4 +21,4 @@ const AddNewListing = () => {
   )
 }
 
-export default AddNewListing
+export default EditListing

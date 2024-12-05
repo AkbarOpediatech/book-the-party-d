@@ -19,7 +19,7 @@ const ServiceCard: React.FC<IProps> = ({ imgSrc, title, review, price, Href, cho
   const [starRating, setStarRating] = useState(0)
 
   return (
-    <div className="h-[412px] rounded-3xl border">
+    <div className="h-[412px] w-full rounded-3xl border">
       <div className="h-[165px] overflow-hidden rounded-t-3xl">
         <Image width={278} height={165} src={imgSrc || ''} className="w-full" alt="image" />
       </div>

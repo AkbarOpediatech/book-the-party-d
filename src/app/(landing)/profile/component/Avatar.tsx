@@ -30,7 +30,7 @@ const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
   }, [])
 
   return (
-    <div className="mb-5 flex flex-wrap items-center gap-5 md:mb-12 md:gap-6">
+    <div className="mb-5 flex flex-col flex-wrap items-center gap-5 md:mb-12 md:gap-6 lg:flex-row">
       <div className="relative">
         <div className="h-[100px] w-[100px] overflow-hidden rounded-full md:mb-0 md:h-[200px] md:w-[200px]">
           {isEditing ? (
@@ -59,7 +59,7 @@ const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
         )}
       </div>
 
-      <div className="identity">
+      <div className="identity text-center lg:text-left">
         {!isEditing && (
           <>
             <h4 className="text-3xl font-bold text-clr-27 md:mb-4 md:text-[42px]">{personalData[0].value}</h4>

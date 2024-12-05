@@ -4,11 +4,14 @@ import { categories, subCategories } from '@/utils'
 
 type IProps = {
   setStep: (stepIndex: number) => void
+  isEditListing?: boolean
 }
-const AddNew: React.FC<IProps> = ({ setStep }) => {
+const AddNew: React.FC<IProps> = ({ setStep, isEditListing }) => {
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">Add New</p>
+      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
+        {isEditListing === true ? 'Edit' : 'Add New'}
+      </p>
       <form>
         <FormInput
           name="categories"

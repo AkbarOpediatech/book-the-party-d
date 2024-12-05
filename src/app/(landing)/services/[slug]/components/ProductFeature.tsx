@@ -15,7 +15,7 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
   const [starRating, setStarRating] = useState(0)
 
   return (
-    <div className="mb-9 grid grid-cols-2 gap-14">
+    <div className="mb-9 grid grid-cols-1 gap-14 lg:grid-cols-2">
       <div className="col-span-1">
         <div className="overflow-hidden rounded-2xl">
           <Image src={serviceImage} width={738} className="object-right-top" alt="service-image" />
