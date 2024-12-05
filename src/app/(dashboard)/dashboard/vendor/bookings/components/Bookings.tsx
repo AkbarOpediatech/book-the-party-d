@@ -10,7 +10,7 @@ import BookingTab from './BookingTab'
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
-  const { data: products, isLoading, isError } = useFetchBookingsQuery({ role: 'admin' })
+  const { data: products, isLoading, isError } = useFetchBookingsQuery({ role: 'vendor' })
   const fullResponse = products
   const serviceData = fullResponse?.data //FIXME:
   console.log('Booking', serviceData)
