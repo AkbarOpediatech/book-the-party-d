@@ -6,13 +6,14 @@ import Image from 'next/image'
 import AccountSettings from './component/AccountSettings'
 import GeneralSettings from './component/GeneralSettings'
 import OrderTracking from './component/OrderTracking'
+import PaymentDetails from './component/PaymentDetails'
 
 const Profile = () => {
   const [profileMenu, setProfileMenu] = useState('Account Settings')
 
   return (
     <section id="profile">
-      <div className="mx-auto max-w-[1460px] px-20">
+      <div className="mx-auto max-w-[1460px]">
         <div className="section-padding py-[80px]">
           <h1 className="mb-3 font-sora text-2xl font-semibold text-neutral-900 md:mb-12 md:text-6xl">
             Profile
@@ -52,6 +53,7 @@ const Profile = () => {
               {profileMenu === 'Account Settings' && <AccountSettings />}
               {profileMenu === 'General Settings' && <GeneralSettings />}
               {profileMenu === 'Order Tracking' && <OrderTracking />}
+              {profileMenu === 'Payment Details' && <PaymentDetails />}
             </div>
           </div>
         </div>

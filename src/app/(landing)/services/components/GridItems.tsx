@@ -18,7 +18,7 @@ const GridItems: React.FC<IProps> = ({ serviceData }) => {
             title={items.title}
             review={10}
             price={items.price?.[0]?.value || 0}
-            chooseLocation={items.location.title} //TODO FIXME:
+            chooseLocation={items.location.title}
           />
         </div>
       ))}

@@ -936,7 +936,8 @@ import ICOrderTrack from '/public/assets/ic_tracker.png'
 export const profileMenuItems: IProfileMenuItems[] = [
   { id: 0, icon: ICProfile, activeIcon: ICProfileActive, label: 'Account Settings' },
   { id: 1, icon: ICSetting, activeIcon: ICSettingActive, label: 'General Settings' },
-  { id: 2, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Order Tracking' }
+  { id: 2, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Order Tracking' },
+  { id: 3, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Payment Details' }
 ]
 
 export const personalInfo: IPersonalInfo[] = [

@@ -1,5 +1,5 @@
 'use client'
-import { specialPackages } from '@/utils'
+import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -7,12 +7,20 @@ import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from '../../components/SectionHeading'
 import ServiceCard from '../../components/ServiceCard'
+import ServiceImage from '/public/assets/package1.png'
 
 const Featured = () => {
+  const { data: products, isLoading, isError } = useFetchServicesQuery()
+  const fullResponse = products
+  const serviceData = fullResponse?.data //FIXME:
+
+  if (isLoading) return <div>Loading products...</div>
+  if (isError) return <div>Error loading products.</div>
+
   return (
     <section className="featured pb-20 lg:pb-[130px]">
       <div className="container">
-        <SectionHeading title="Featured selection" linkName="View all Packages" linkURL={'#'} />
+        <SectionHeading title="Featured selection" linkName="View all Packages" linkURL={'/services'} />
       </div>
       <Swiper
         slidesPerView={5}
@@ -45,11 +53,19 @@ const Featured = () => {
           }
         }}
       >
-        {specialPackages.map((items, index) => (
-          <SwiperSlide className="bg-white" key={index}>
-            <ServiceCard imgSrc={items.img} title={'Book chair arrangements'} review={10} price={100} />
-          </SwiperSlide>
-        ))}
+        {serviceData &&
+          serviceData.map((items, index) => (
+            <SwiperSlide className="bg-white" key={index}>
+              <ServiceCard
+                Href={`/services/${items._id}`} //TODO: added slug
+                imgSrc={items.featured_image ? items.featured_image : ServiceImage}
+                title={items.title}
+                review={10}
+                price={items.price?.[0]?.value || 0}
+                chooseLocation={items.location.title}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </section>
   )

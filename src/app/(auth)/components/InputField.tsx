@@ -9,7 +9,7 @@ type SelectOption = {
 type IProps = {
   LabelHtmlFor?: string
   LabelName?: string
-  InputType?: xInputType
+  InputType?: xInputType | string
   InputId?: string
   InputName?: string
   InputValue?: string
