@@ -13,7 +13,7 @@ const Bookings = () => {
   const { data: products, isLoading, isError } = useFetchBookingsQuery({ role: 'admin' })
   const fullResponse = products
   const serviceData = fullResponse?.data //FIXME:
-  console.log('serviceData', serviceData)
+  console.log('Booking', serviceData)
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
