@@ -19,7 +19,7 @@ const DashboardCard: React.FC<IProps> = ({ title, total, percent, imgSrc1, imgSr
           <p className="flex items-center gap-1 text-sm text-clr-48">
             <Image src={imgSrc1} alt="icon" />
             <span className="font-semibold">{percent}</span>
-            <span>than last month</span>
+            <span>than last month - demo</span>
           </p>
         </div>
 
