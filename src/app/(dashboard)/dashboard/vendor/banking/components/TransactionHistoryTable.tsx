@@ -1,21 +1,28 @@
-import { transactions, type ITransactionType } from '@/utils'
+import type { IOrder } from '@/redux/features/bookings/apiSlice'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import DataTable, { TableColumn } from 'react-data-table-component'
 
-const TransactionHistoryTable = () => {
-  const columns: TableColumn<ITransactionType>[] = [
+type IProps = {
+  data: IOrder[] | undefined
+}
+
+const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
+  const columns: TableColumn<IOrder>[] = [
     {
       name: 'Transaction',
-      cell: (row: ITransactionType) => (
+      cell: (row: IOrder) => (
         <div className="flex items-center gap-4">
           <div className="size-[60px]flex-shrink-0 overflow-hidden rounded-lg">
-            <Image src={row.image} alt="Product Image" />
+            <Image
+              src={row?.service_embedded?.featured_image ? row?.service_embedded?.featured_image : ''}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.title}</p>
-            <p className="text-sm text-clr-81">{row.description}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.service_embedded.title}</p>
+            <p className="text-sm text-clr-81">{row.service_embedded.title}</p>
           </div>
         </div>
       ),
@@ -24,25 +31,26 @@ const TransactionHistoryTable = () => {
     },
     {
       name: 'Amount',
-      selector: (row: ITransactionType) => row.amount,
+      selector: (row: IOrder) => row.price.value,
       sortable: true
     },
     {
       name: 'Date',
-      selector: (row: ITransactionType) => row.date,
+      selector: (row: IOrder) =>
+        row.selected_date.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
       sortable: true
     },
     {
       name: 'ID',
-      selector: (row: ITransactionType) => row.id,
+      selector: (row: IOrder) => row._id,
       sortable: true,
       width: '100px'
     },
     {
       name: 'Status',
-      cell: (row: ITransactionType) => (
+      cell: (row: IOrder) => (
         <span
-          className={`whitespace-nowrap rounded px-2 py-1 font-bold ${row.status === 'Security deposit held' ? 'bg-yellow-100 text-yellow-500' : row.status === 'Payout amount' ? 'bg-green-100 text-green-500' : row.status === 'Amount withdrawn' ? 'bg-red-100 text-red-500' : ''}`}
+          className={`whitespace-nowrap rounded px-2 py-1 font-bold ${row.status && 'Security deposit held' ? 'bg-yellow-100 text-yellow-500' : row.status && 'Payout amount' ? 'bg-green-100 text-green-500' : row.status && 'Amount withdrawn' ? 'bg-red-100 text-red-500' : ''}`}
         >
           {row.status}
         </span>
@@ -112,16 +120,18 @@ const TransactionHistoryTable = () => {
   }
 
   return (
-    <DataTable
-      columns={columns}
-      data={transactions}
-      pagination
-      customStyles={customStyles}
-      selectableRows
-      responsive
-      highlightOnHover
-      striped
-    />
+    data && (
+      <DataTable
+        columns={columns}
+        data={data}
+        pagination
+        customStyles={customStyles}
+        selectableRows
+        responsive
+        highlightOnHover
+        striped
+      />
+    )
   )
 }
 
