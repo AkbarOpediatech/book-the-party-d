@@ -91,6 +91,7 @@ const TransactionHistoryTable = () => {
         color: '#637381'
       }
     },
+
     rows: {
       style: {
         backgroundColor: 'inherit !important',
@@ -100,6 +101,7 @@ const TransactionHistoryTable = () => {
         border: 'none'
       }
     },
+
     cells: {
       style: {
         padding: '16px',
@@ -108,6 +110,7 @@ const TransactionHistoryTable = () => {
       }
     }
   }
+
   return (
     <DataTable
       columns={columns}

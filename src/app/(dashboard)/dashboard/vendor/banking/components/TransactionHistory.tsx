@@ -9,7 +9,6 @@ const TransactionHistory = () => {
   return (
     <React.Fragment>
       <TransactionHeader />
-
       <div className="grid grid-cols-1 gap-3.5 lg:grid-cols-3">
         <TotalSell />
         <SellingFees />

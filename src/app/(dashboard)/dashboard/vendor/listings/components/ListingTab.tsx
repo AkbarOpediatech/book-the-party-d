@@ -32,7 +32,7 @@ const ListingTab: React.FC<IProps> = ({ tab, setTab }) => {
         )}
         onClick={() => setTab(2)}
       >
-        Under Review
+        Pending
         <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">2</span>
         <span
           className={cn(

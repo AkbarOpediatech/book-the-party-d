@@ -8,7 +8,7 @@ import DataTable, { type TableColumn } from 'react-data-table-component'
 import productImage from '/public/assets/package1.png'
 
 type IProps = {
-  data: IOrder[]
+  data: IOrder[] | undefined
 }
 
 const BookingAllTable: React.FC<IProps> = ({ data }) => {
@@ -139,17 +139,19 @@ const BookingAllTable: React.FC<IProps> = ({ data }) => {
 
   return (
     <div className="p-2">
-      <DataTable
-        columns={columns}
-        data={data}
-        pagination
-        customStyles={customStyles}
-        selectableRows
-        responsive
-        highlightOnHover
-        striped
-        className="text-sm"
-      />
+      {data && (
+        <DataTable
+          columns={columns}
+          data={data}
+          pagination
+          customStyles={customStyles}
+          selectableRows
+          responsive
+          highlightOnHover
+          striped
+          className="text-sm"
+        />
+      )}
     </div>
   )
 }

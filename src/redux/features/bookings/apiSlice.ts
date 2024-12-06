@@ -2,6 +2,13 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 // Define the TypeScript types for your data
+export type IPagination = {
+  current: number
+  total: number
+  next: number | null
+  prev: number | null
+  records: number
+}
 export interface IOrder {
   _id: string
   order: string
@@ -75,6 +82,7 @@ export interface IOrderPost {
 
 interface OrderResponse {
   data: IOrder[]
+  pagination: IPagination
 }
 
 // Redux Toolkit Query API
@@ -83,11 +91,11 @@ export const bookingsApi = createApi({
   baseQuery,
   tagTypes: ['Bookings'],
   endpoints: builder => ({
-    fetchBookings: builder.query<OrderResponse, { role?: string }>({
-      query: ({ role } = {}) => {
+    fetchBookings: builder.query<OrderResponse, { role?: string; limit?: number; page?: number }>({
+      query: ({ role, limit, page } = {}) => {
         const params = role ? { role } : {} // Conditionally include `vendor` if it exists
         return {
-          url: '/order-items',
+          url: `/order-items?limit=${limit}&page=${page}`,
           params // Add query parameters dynamically
         }
       },
