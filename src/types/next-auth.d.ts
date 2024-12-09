@@ -9,6 +9,7 @@ declare module 'next-auth' {
       name: string
       email: string
       user: User
+      accessToken?: string
     }
   }
 

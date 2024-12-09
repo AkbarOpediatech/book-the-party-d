@@ -1,8 +1,7 @@
 import type { IOrder } from '@/redux/features/bookings/apiSlice'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import DataTable, { TableColumn } from 'react-data-table-component'
+import TransactionImg from '/public/assets/package1.png'
 
 type IProps = {
   data: IOrder[] | undefined
@@ -14,9 +13,14 @@ const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
       name: 'Transaction',
       cell: (row: IOrder) => (
         <div className="flex items-center gap-4">
-          <div className="size-[60px]flex-shrink-0 overflow-hidden rounded-lg">
+          <div className="size-10 flex-shrink-0 overflow-hidden rounded-lg">
             <Image
-              src={row?.service_embedded?.featured_image ? row?.service_embedded?.featured_image : ''}
+              width={40}
+              height={40}
+              className="overflow-hidden"
+              src={
+                row?.service_embedded?.featured_image ? row?.service_embedded?.featured_image : TransactionImg
+              }
               alt="Product Image"
             />
           </div>
@@ -57,36 +61,6 @@ const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
       ),
       sortable: true,
       width: '200px'
-    },
-    {
-      name: '',
-      cell: () => (
-        <Menu>
-          <MenuButton>
-            <EllipsisVerticalIcon className="size-4 fill-black/30" />
-          </MenuButton>
-
-          <MenuItems
-            transition
-            anchor="bottom end"
-            className="w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-          >
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <PencilIcon className="size-4 fill-black/30" />
-                Edit
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <Square2StackIcon className="size-4 fill-black/30" />
-                Duplicate
-              </button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
-      ),
-      width: '100px'
     }
   ]
 

@@ -12,8 +12,6 @@ const Cart = () => {
     if (!session) {
       return
     }
-    const token = session.accessToken
-    console.log('token', token)
   }, [session])
   return (
     <section className="cart pb-[100px] pt-[74px]">

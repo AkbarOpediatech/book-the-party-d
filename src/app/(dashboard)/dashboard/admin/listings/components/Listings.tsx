@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import ListingTab from './ListingTab'
-import ListingTable from './ListingTable'
+const ListingTable = dynamic(() => import('./ListingTable'), {
+  ssr: false
+})
 
 const Listings = () => {
   const [tab, setTab] = useState<number>(0)

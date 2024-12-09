@@ -66,7 +66,6 @@ const Bookings = () => {
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
       {bookingData && <BookingTab tab={tab} setTab={setTab} bookingData={bookingData} />}
-
       <BookingHeader
         startDate={startDate}
         setStartDate={setStartDate}

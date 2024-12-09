@@ -22,24 +22,18 @@ const Transaction = () => {
   })
 
   const bookingData = bookingResponse?.data
-  console.log(bookingData, 'bookingData112')
 
-  // const filteredBookings = useMemo(() => {
-  //   return (
-  //     bookingData &&
-  //     bookingData.filter(booking => {
-  //       const bookingStartDate = new Date(booking.selected_date[0].start_date).getTime()
-  //       const bookingEndDate = new Date(booking.selected_date[0].end_date).getTime()
-  //       const inputStartDate = startDate ? new Date(startDate).getTime() : null
-  //       const inputEndDate = endDate ? new Date(endDate).getTime() : null
-  //       const matchesDate =
-  //         (!inputStartDate || bookingStartDate >= inputStartDate) &&
-  //         (!inputEndDate || bookingEndDate <= inputEndDate)
-  //       const matchesSearch = booking.service_embedded.title.toLowerCase().includes(searchTerm.toLowerCase())
-  //       return matchesDate && matchesSearch
-  //     })
-  //   )
-  // }, [bookingData, startDate, endDate, searchTerm])
+  const filterData = () => {
+    if (!searchTerm) return bookingData
+    return bookingData?.filter(
+      item =>
+        item.service_embedded.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.price.value.toString().includes(searchTerm)
+    )
+  }
+
+  const filteredData = filterData()
 
   if (isLoading) {
     return <div>Loading bookings...</div>
@@ -60,7 +54,7 @@ const Transaction = () => {
           setEndDate={setEndDate}
           setSearchTerm={setSearchTerm}
         />
-        <TransactionHistoryTable data={bookingData} />
+        <TransactionHistoryTable data={filteredData} />
       </div>
     </div>
   )
