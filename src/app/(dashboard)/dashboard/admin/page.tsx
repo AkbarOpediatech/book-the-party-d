@@ -16,6 +16,7 @@ export default function VendorDashboard() {
   const handleSelectChange = (value: string) => {
     setSelectType(value)
   }
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 xl:col-span-7">

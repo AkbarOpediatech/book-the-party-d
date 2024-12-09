@@ -12,7 +12,7 @@ const Cart = () => {
     if (!session) {
       return
     }
-    const token = session.user ? session.user.accessToken : ''
+    const token = session.user ? session.user : ''
     console.log('token', token)
   }, [session])
   return (

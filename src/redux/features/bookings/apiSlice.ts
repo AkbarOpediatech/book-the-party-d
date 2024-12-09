@@ -2,6 +2,13 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 // Define the TypeScript types for your data
+export type IPagination = {
+  current: number
+  total: number
+  next: number | null
+  prev: number | null
+  records: number
+}
 export interface IOrder {
   _id: string
   order: string
@@ -75,6 +82,7 @@ export interface IOrderPost {
 
 interface OrderResponse {
   data: IOrder[]
+  pagination: IPagination
 }
 
 // Redux Toolkit Query API

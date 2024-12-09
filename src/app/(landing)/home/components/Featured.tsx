@@ -10,9 +10,9 @@ import ServiceCard from '../../components/ServiceCard'
 import ServiceImage from '/public/assets/package1.png'
 
 const Featured = () => {
-  const { data: products, isLoading, isError } = useFetchServicesQuery()
+  const { data: products, isLoading, isError } = useFetchServicesQuery({})
   const fullResponse = products
-  const serviceData = fullResponse?.data //FIXME:
+  const serviceData = fullResponse?.data
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>

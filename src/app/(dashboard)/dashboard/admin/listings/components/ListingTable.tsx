@@ -61,16 +61,6 @@ const ListingTable = () => {
                 View Listing
               </button>
             </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Edit
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Delete
-              </button>
-            </MenuItem>
           </MenuItems>
         </Menu>
       ),

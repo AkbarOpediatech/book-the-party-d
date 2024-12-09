@@ -1,22 +1,31 @@
 'use client'
-import { bookingData, cn, type IBookingData } from '@/utils'
+import type { IOrder } from '@/redux/features/bookings/apiSlice'
+import { cn } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import productImage from '/public/assets/package1.png'
 
-const BookingAllTable = () => {
-  const columns: TableColumn<IBookingData>[] = [
+type IProps = {
+  data: IOrder[] | undefined
+}
+
+const BookingAllTable: React.FC<IProps> = ({ data }) => {
+  const columns: TableColumn<IOrder>[] = [
     {
       name: 'Event',
-      cell: (row: IBookingData) => (
+      cell: (row: IOrder) => (
         <div className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row.image} alt="Product Image" />
+            <Image
+              src={row.service_embedded.featured_image ? row.service_embedded.featured_image : productImage}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.eventTitle}</p>
-            <p className="text-sm text-clr-81">{row.eventId}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.service_embedded.title}</p>
+            <p className="w-28 truncate text-sm text-clr-81">{row.order}</p>
           </div>
         </div>
       ),
@@ -25,41 +34,41 @@ const BookingAllTable = () => {
     },
     {
       name: 'Start Date',
-      selector: (row: IBookingData) => row.startDate,
+      selector: (row: IOrder) =>
+        row.selected_date.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
       sortable: true
     },
     {
       name: 'End Date',
-      selector: (row: IBookingData) => row.endDate,
+      selector: (row: IOrder) =>
+        row.selected_date.map(i => new Date(i.end_date).toLocaleDateString('en-GB')).join(', '),
       sortable: true
     },
     {
-      name: 'Amount',
-      cell: (row: IBookingData) => <div>${row.totalPayout}</div>,
+      name: 'Sale Total',
+      cell: (row: IOrder) => <div>${row.amount.total}</div>,
       sortable: true
     },
     {
-      name: 'Security Deposit',
-      cell: (row: IBookingData) => (
-        <div className="text-center">
-          <p className="mb-2 text-sm">${row.totalPayout}</p>
-          <p className="text-sm text-clr-d48/90">Return Deposit</p>
-        </div>
-      ),
-      sortable: true
-    },
+      name: 'Fee(10%)',
+      cell: (row: IOrder) => <div>${row.amount.order_fee}</div>,
 
+      sortable: true
+    },
     {
-      name: 'Vendor Confirmation',
-      cell: (row: IBookingData) => (
+      name: 'Total payout(incl GST)',
+      cell: (row: IOrder) => <div>${row.amount.discounted_service_total}</div>,
+      sortable: true
+    },
+    {
+      name: 'Status',
+      cell: (row: IOrder) => (
         <span
           className={cn(
-            'whitespace-nowrap rounded px-2 py-1 font-bold',
-            row.status === 'Request payout' && 'bg-yellow-100 text-yellow-500',
-            row.status === 'Payout amount' && 'bg-green-100 text-green-500',
-            row.status === 'Amount withdrawn' && 'bg-red-100 text-red-500',
-            row.status === 'Confirmed' && 'bg-clr-16/15 text-clr-16',
-            row.status === 'Objection' && 'bg-clr-d48/15 text-clr-d48'
+            'whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-bold capitalize text-gray-500',
+            row.status === 'completed' && 'bg-green-100 text-green-500',
+            row.status === 'pending' && 'bg-red-100 text-red-500',
+            row.status === 'processing' && 'bg-yellow-100 text-yellow-500'
           )}
         >
           {row.status}
@@ -108,6 +117,7 @@ const BookingAllTable = () => {
         color: '#637381'
       }
     },
+
     rows: {
       style: {
         backgroundColor: 'inherit !important',
@@ -117,6 +127,7 @@ const BookingAllTable = () => {
         border: 'none'
       }
     },
+
     cells: {
       style: {
         padding: '16px',
@@ -125,19 +136,22 @@ const BookingAllTable = () => {
       }
     }
   }
+
   return (
     <div className="p-2">
-      <DataTable
-        columns={columns}
-        data={bookingData}
-        pagination
-        customStyles={customStyles}
-        selectableRows
-        responsive
-        highlightOnHover
-        striped
-        className="text-sm"
-      />
+      {data && (
+        <DataTable
+          columns={columns}
+          data={data}
+          pagination
+          customStyles={customStyles}
+          selectableRows
+          responsive
+          highlightOnHover
+          striped
+          className="text-sm"
+        />
+      )}
     </div>
   )
 }
