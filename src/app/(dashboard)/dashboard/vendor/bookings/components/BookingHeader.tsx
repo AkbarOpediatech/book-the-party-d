@@ -22,7 +22,7 @@ const BookingHeader = () => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
-      /> */}
+      /> */} 
 
       <input type="date" className="input w-full text-clr-ab" placeholder="Start date" />
       <input type="date" className="input w-full text-clr-ab" placeholder="End date" />
