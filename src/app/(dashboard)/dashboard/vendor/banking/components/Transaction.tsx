@@ -1,36 +1,34 @@
 'use client'
-import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
+
+import type { IBanking } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import TransactionHistoryHeader from './TransactionHistoryHeader'
-
 const TransactionHistoryTable = dynamic(() => import('./TransactionHistoryTable'), {
   ssr: false
 })
 
-const Transaction = () => {
+type IProps = {
+  data: IBanking[] | undefined
+  isError: boolean
+  isLoading: boolean
+}
+
+const Transaction: React.FC<IProps> = ({ data, isError, isLoading }) => {
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState<string>('')
 
-  const {
-    data: bookingResponse,
-    isLoading,
-    isError
-  } = useFetchBookingsQuery({
-    role: 'admin'
-  })
-
-  const bookingData = bookingResponse?.data
-
   const filterData = () => {
-    if (!searchTerm) return bookingData
-    return bookingData?.filter(
-      item =>
-        item.service_embedded.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    if (!searchTerm) return data
+    return data?.filter(item => {
+      const priceValue = item.price?.value?.toString()
+      return (
+        item.service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.price.value.toString().includes(searchTerm)
-    )
+        (priceValue && priceValue.includes(searchTerm))
+      )
+    })
   }
 
   const filteredData = filterData()

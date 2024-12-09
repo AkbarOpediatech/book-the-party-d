@@ -8,10 +8,14 @@ import Transaction from './components/Transaction'
 const TransactionHistory = dynamic(() => import('./components/TransactionHistory'), { ssr: false })
 
 const VendorBanking = () => {
-  const { data: products, isLoading, isError } = useFetchBankingsQuery({ role: 'vendor', limit: 10, page: 1 })
-  const fullResponse = products
-  const serviceData = fullResponse?.data //FIXME:
-  console.log('Banking', serviceData)
+  const {
+    data: bakingResponse,
+    isLoading,
+    isError
+  } = useFetchBankingsQuery({ role: 'vendor', limit: 10, page: 1 })
+  const response = bakingResponse
+  const bankingData = response?.data
+
   return (
     <div className="bg-white px-2 py-10 lg:px-7">
       <TitleAndBreadCrumbs title={'banking'} menuitem={'Dashboard'} breadcrumbs={'banking'} />
@@ -23,7 +27,7 @@ const VendorBanking = () => {
           <TransactionHistory />
         </div>
       </div>
-      <Transaction />
+      <Transaction data={bankingData} isLoading={isLoading} isError={isError} />
     </div>
   )
 }
