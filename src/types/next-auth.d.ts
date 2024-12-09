@@ -2,14 +2,12 @@ import 'next-auth'
 
 declare module 'next-auth' {
   interface Session {
-    accessToken?: string
     user?: {
-      role: string
-      id: string
-      name: string
-      email: string
-      user: User
-      accessToken?: string
+      accessToken?: string | null
+      role?: string | undefined
+      id?: string
+      name?: string
+      email?: string
     }
   }
 
@@ -19,14 +17,15 @@ declare module 'next-auth' {
     email?: string
     role?: string
     token?: string
-    refreshToken?: string
+    refreshToken?: string | null
+    accessToken?: string | null
   }
 
   interface JWT {
-    accessToken?: string
+    accessToken?: string // Unified field for token naming consistency
     id?: string
-    refreshToken: string
-    role: string
-    accessTokenExpires: number
+    refreshToken?: string | null
+    role?: string
+    accessTokenExpires?: number // Optional for token expiry handling
   }
 }

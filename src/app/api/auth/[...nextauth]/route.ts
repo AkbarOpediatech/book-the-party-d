@@ -119,11 +119,8 @@
 
 // const handler = NextAuth(authOptions)
 // export { handler as GET, handler as POST }
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { server } from '@/utils/config'
-import NextAuth, { AuthOptions, User } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import NextAuth, { AuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
 type LoginResponse = {
@@ -133,6 +130,8 @@ type LoginResponse = {
     id: string
     email: string
     name: string
+    role: string
+    accessToken: string
   }
 }
 
@@ -168,7 +167,10 @@ const handler = NextAuth({
         }
 
         if (result.data) {
-          return result.data
+          return {
+            ...result.data,
+            accessToken: result.data.accessToken
+          }
         }
 
         return null
@@ -177,35 +179,30 @@ const handler = NextAuth({
   ],
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 7
+    maxAge: 60 * 60 * 24 * 7 // 7 days
   },
   jwt: {
-    maxAge: 60 * 60 * 24 * 7
+    maxAge: 60 * 60 * 24 * 7 // 7 days
   },
   callbacks: {
-    jwt: async ({
-      token,
-      user,
-      session,
-      trigger
-    }: {
-      token: JWT
-      user?: User
-      session?: any
-      trigger?: string
-    }) => {
-      let updatedData = {}
-
-      if (trigger === 'update' && session) {
-        updatedData = { ...session }
+    jwt: async ({ token, user, trigger, session }) => {
+      if (user) {
+        token.accessToken = user.accessToken // Set accessToken from user object
+        token.role = user.role // Add additional fields as needed
       }
-
-      return { ...token, ...user, ...updatedData }
+      if (trigger === 'update' && session) {
+        return { ...token, ...session }
+      }
+      return token
     },
-    session: async ({ session, token }: { session: any; token: JWT }) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { sub, iat, exp, jti, ...rest } = token
-      session.user = rest
+    session: async ({ session, token }) => {
+      session.user = {
+        id: token.id as string, // Explicitly cast to string if needed
+        email: token.email as string,
+        name: token.name as string,
+        role: token?.role as string,
+        accessToken: token.accessToken as string
+      }
       return session
     }
   },
