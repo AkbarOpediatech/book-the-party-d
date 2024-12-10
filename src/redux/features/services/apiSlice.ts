@@ -2,6 +2,14 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import type { StaticImageData } from 'next/image'
 
+export type IPagination = {
+  current: number
+  total: number
+  next: number | null
+  prev: number | null
+  records: number
+}
+
 export type IAvailability = {
   days: string
   end_time: string
@@ -87,6 +95,7 @@ export interface ServiceItemPost extends GlobalServiceItem {
 
 interface ServiceResponse {
   data: ServiceItem[]
+  pagination: IPagination
 }
 interface SingleServiceResponse {
   data: ServiceItem
