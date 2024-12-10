@@ -9,7 +9,6 @@ import Avatar from '/public/assets/avatar.jpeg'
 const CartItems = () => {
   const { response: cartItems, loading, error } = useFetchServiceService()
   console.log(cartItems, 'cartItems')
-  const { data, isLoading, isError } = useFetchCartQuery()
 
   if (loading) return <div>Loading cart...</div>
   if (error) return <div>Error loading cart.</div>

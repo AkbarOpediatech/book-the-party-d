@@ -1,7 +1,6 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
-import Reviews from '../components/Reviews'
 import Filter from './components/Filter'
 import Results from './components/Results'
 
@@ -25,7 +24,7 @@ const ServicesContent = () => {
           </div>
         </div>
       </div>
-      <Reviews />
+      {/* <Reviews /> */}
     </section>
   )
 }
