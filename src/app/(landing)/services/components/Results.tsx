@@ -7,6 +7,7 @@ import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
 const Results = () => {
   const [viewMode, setViewMode] = useState('grid')
+
   const handleGridClick = () => {
     setViewMode('grid')
   }
@@ -15,8 +16,9 @@ const Results = () => {
     setViewMode('list')
   }
 
-  const { data: products, isLoading, isError } = useFetchServicesQuery({})
-  const serviceData = products?.data //FIXME:
+  const { data: products, isLoading, isError } = useFetchServicesQuery({ page: 2 })
+  const fullResponse = products
+  const serviceData = fullResponse?.data //FIXME:
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
