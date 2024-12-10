@@ -27,7 +27,6 @@ const Bookings = () => {
   })
 
   const bookingData = bookingResponse?.data || []
-  console.log(bookingData, 'bookingData')
   const totalRecords = bookingResponse?.pagination?.records || 0
 
   const { searchTerm, setSearchTerm, startDate, setStartDate, endDate, setEndDate, filteredData } = useSearch(

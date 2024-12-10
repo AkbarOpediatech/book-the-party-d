@@ -69,8 +69,8 @@ export type GlobalServiceItem = {
   createdAt?: string
   description: string
   featured_image: StaticImageData | null
-  inclusions: object[]
-  infos: object[]
+  inclusions: string[]
+  infos: string[]
   is_featured: boolean
   is_unavailable: boolean
   price: IPrice[]

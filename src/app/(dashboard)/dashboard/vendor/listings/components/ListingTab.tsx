@@ -1,15 +1,11 @@
-import type { IOrder } from '@/redux/features/bookings/apiSlice'
 import { cn } from '@/utils'
 
 type IProps = {
   tab: number
   setTab: (tabIndex: number) => void
-  bookingData: IOrder[]
 }
 
-const ListingTab: React.FC<IProps> = ({ tab, setTab, bookingData }) => {
-  const allCount = bookingData.length
-  const pendingCount = bookingData.filter(i => i.status === 'pending').length
+const ListingTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (
     <div className="flex rounded-tl-lg rounded-tr-lg bg-clr-f8">
       <button
@@ -20,7 +16,7 @@ const ListingTab: React.FC<IProps> = ({ tab, setTab, bookingData }) => {
         onClick={() => setTab(0)}
       >
         all
-        <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">{allCount}</span>
+        <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">10</span>
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
@@ -37,7 +33,7 @@ const ListingTab: React.FC<IProps> = ({ tab, setTab, bookingData }) => {
         onClick={() => setTab(2)}
       >
         Pending
-        <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">{pendingCount}</span>
+        <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">5</span>
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',

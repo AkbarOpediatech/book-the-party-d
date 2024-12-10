@@ -1,15 +1,20 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
+import type { ServiceItemPost } from '@/redux/features/services/apiSlice'
+import type { Dispatch, SetStateAction } from 'react'
 import FileUpload from './FileUpload'
 import ImportantInfo from './ImportantInfo'
 import Inclusions from './Inclusions'
 
 type IProps = {
-  setStep: (stepIndex: number) => void
-  isEditListing: boolean
+  setStep: Dispatch<SetStateAction<number>>
+  isEditListing?: boolean
+  formData: ServiceItemPost
+  setFormData: Dispatch<SetStateAction<ServiceItemPost>>
+  handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
-const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
+const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStep(2)
@@ -22,7 +27,15 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
         {isEditListing === true ? 'Edit Item List' : 'Item List'}
       </p>
       <form onSubmit={handleSubmit}>
-        <FormInput name="tittle" label="Tittle" type="text" customClass="mb-4" placeholder="Write a tittle" />
+        <FormInput
+          name="title"
+          label="Title"
+          type="text"
+          customClass="mb-4"
+          placeholder="Write a tittle"
+          onChange={e => handleChange('title', e.target.value)}
+        />
+
         <FormInput name="description" label="Description" type="textarea" customClass="mb-4" />
         <FormInput
           name="location"
@@ -30,9 +43,10 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
           type="select"
           options={['Sydney', 'Sydney', 'Sydney']}
           customClass="mb-4"
+          onChange={e => handleChange('location', e.target.value)}
         />
-        <Inclusions />
-        <ImportantInfo />
+        <Inclusions onChange={e => handleChange('inclusions', [e.target.value])} />
+        <ImportantInfo onChange={e => handleChange('infos', [e.target.value])} />
         <FileUpload />
         <div className="mt-6 border-b border-gray-200" />
         <div className="mt-5 flex items-center gap-4">

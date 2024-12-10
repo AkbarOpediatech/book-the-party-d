@@ -1,6 +1,8 @@
 'use client'
+
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { PlusIcon } from '@heroicons/react/16/solid'
 import { useRouter } from 'next/navigation'
@@ -11,11 +13,15 @@ import Listings from './components/Listings'
 const VendorListing = () => {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(true)
+  const { currentPage, pageLimit, handlePageChange, handlePageLimitChange } = usePagination()
 
-  const { data: products, isLoading, isError } = useFetchServicesQuery({ role: 'vendor' })
-  const fullResponse = products
-  const serviceData = fullResponse?.data //FIXME:
-  console.log('serviceData', serviceData)
+  const {
+    data: response,
+    isLoading,
+    isError
+  } = useFetchServicesQuery({ role: 'admin', limit: pageLimit, page: currentPage })
+  const serviceData = response?.data
+  const totalRecords = response?.pagination?.records || 0
 
   //TODO: remove route for modal
   useEffect(() => {
@@ -39,8 +45,16 @@ const VendorListing = () => {
     router.push('/dashboard/vendor/listings')
   }
 
+  if (isLoading) {
+    return <div>Loading bookings...</div>
+  }
+
+  if (isError) {
+    return <div>Error loading bookings. Please try again later.</div>
+  }
+
   return (
-    <div className="h-full bg-white px-2 py-10 lg:px-7">
+    <div className="bg-white px-2 py-10 lg:px-7">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-5">
         <TitleAndBreadCrumbs title={'My Listings'} menuitem={'Dashboard'} breadcrumbs={'Items'} />
         <DashboardButton
@@ -51,7 +65,16 @@ const VendorListing = () => {
         />
       </div>
 
-      <Listings />
+      {serviceData && (
+        <Listings
+          data={serviceData}
+          currentPage={currentPage}
+          pageLimit={pageLimit}
+          totalRecords={totalRecords}
+          handlePageChange={handlePageChange}
+          handlePageLimitChange={handlePageLimitChange}
+        />
+      )}
       {isModalOpen && <AddedModal onClose={handleCloseModal} />}
     </div>
   )

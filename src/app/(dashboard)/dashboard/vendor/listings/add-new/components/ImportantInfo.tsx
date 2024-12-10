@@ -1,9 +1,14 @@
-import { handleInputChange } from '@/utils/inputHandlers'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 
-const ImportantInfo = () => {
+type IProps = {
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void | undefined
+}
+
+const ImportantInfo: React.FC<IProps> = ({ onChange }) => {
   const [importantInfo, setImportantInfo] = useState<string[]>([])
   const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
@@ -54,7 +59,7 @@ const ImportantInfo = () => {
             type="text"
             placeholder="Write here"
             value={inputValue}
-            onChange={e => handleInputChange(e, setInputValue)}
+            onChange={onChange}
             onKeyPress={handleKeyPress}
             className="w-full rounded-md border border-gray-300 px-4 py-2"
           />

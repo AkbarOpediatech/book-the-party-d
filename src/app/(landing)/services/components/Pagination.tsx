@@ -42,7 +42,7 @@ const Pagination = ({ totalRecords, currentPage, pageLimit, handlePageChange }: 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Smooth scroll
+      behavior: 'smooth'
     })
   }
 
