@@ -54,7 +54,10 @@ const ServiceSingle = () => {
         </div>
 
         <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
-          <div className="col-span-2">{tab === 0 && <Description />}</div>
+          <div className="col-span-2">
+            {tab === 0 && <Description />}
+            {tab === 1 && <ProductReviews />}
+          </div>
 
           <div className="col-span-1">
             <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>

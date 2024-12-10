@@ -1,15 +1,22 @@
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
 import ServiceCard from '@/app/(landing)/components/ServiceCard'
-import { cn, specialPackages, type ISpecialPackages } from '@/utils'
+import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
+import { cn } from '@/utils'
 import Link from 'next/link'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import Pagination from '../../components/Pagination'
+import ServiceImage from '/public/assets/package1.png'
 
 const RelatedServices = () => {
+  const { data: products, isLoading, isError } = useFetchServicesQuery({})
+
+  const serviceData = products?.data || []
+
+  console.log(serviceData, 'serviceData')
+
   return (
     <div>
       <div className="mb-5 flex items-center justify-between lg:mb-10">
@@ -42,12 +49,18 @@ const RelatedServices = () => {
             spaceBetween: 30
           }
         }}
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Autoplay]}
         className="special-packages-slider"
       >
-        {specialPackages.slice(0, 5).map((items: ISpecialPackages, index: number) => (
+        {serviceData.map((items, index) => (
           <SwiperSlide key={index}>
-            <ServiceCard imgSrc={items.img} title={'Book chair arrangements'} review={10} price={100} />
+            <ServiceCard
+              imgSrc={items.featured_image ? items.featured_image : ServiceImage}
+              title={items.title}
+              review={10}
+              price={items.price?.[0]?.value || 0}
+              chooseLocation={items.location.title}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

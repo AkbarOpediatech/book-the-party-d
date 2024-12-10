@@ -10,6 +10,7 @@ const ServicesContent = () => {
   const category = searchParams.get('categories')
   const location = searchParams.get('Location')
   console.log(category, location)
+
   return (
     <section>
       <div className="md:py-10 lg:py-16">
