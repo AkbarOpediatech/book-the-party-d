@@ -15,7 +15,7 @@ const Results = () => {
     setViewMode('list')
   }
 
-  const { data: products, isLoading, isError } = useFetchServicesQuery({})
+  const { data: products, isLoading, isError } = useFetchServicesQuery({ page: 2 })
   const fullResponse = products
   const serviceData = fullResponse?.data //FIXME:
 
