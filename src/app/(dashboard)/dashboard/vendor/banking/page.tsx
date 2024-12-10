@@ -1,6 +1,7 @@
 'use client'
 import DashboardMasterCard from '@/app/(dashboard)/components/DashboardMasterCard'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import usePagination from '@/hooks/usePagination'
 import { useFetchBankingsQuery } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import Transaction from './components/Transaction'
@@ -8,14 +9,6 @@ import Transaction from './components/Transaction'
 const TransactionHistory = dynamic(() => import('./components/TransactionHistory'), { ssr: false })
 
 const VendorBanking = () => {
-  const {
-    data: bakingResponse,
-    isLoading,
-    isError
-  } = useFetchBankingsQuery({ role: 'vendor', limit: 10, page: 1 })
-  const response = bakingResponse
-  const bankingData = response?.data
-
   return (
     <div className="bg-white px-2 py-10 lg:px-7">
       <TitleAndBreadCrumbs title={'banking'} menuitem={'Dashboard'} breadcrumbs={'banking'} />
@@ -27,7 +20,7 @@ const VendorBanking = () => {
           <TransactionHistory />
         </div>
       </div>
-      <Transaction data={bankingData} isLoading={isLoading} isError={isError} />
+      <Transaction />
     </div>
   )
 }

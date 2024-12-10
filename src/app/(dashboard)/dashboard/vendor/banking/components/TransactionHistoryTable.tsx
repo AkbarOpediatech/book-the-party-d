@@ -6,9 +6,20 @@ import TransactionImg from '/public/assets/package1.png'
 
 type IProps = {
   data: IBanking[] | undefined
+  currentPage: number
+  pageLimit: number
+  onPageChange: (page: number) => void
+  onPageLimitChange: (limit: number) => void
+  totalRecords: number
 }
 
-const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
+const TransactionHistoryTable: React.FC<IProps> = ({
+  data,
+  pageLimit,
+  onPageChange,
+  onPageLimitChange,
+  totalRecords
+}) => {
   const columns: TableColumn<IBanking>[] = [
     {
       name: 'Transaction',
@@ -101,9 +112,20 @@ const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
         columns={columns}
         data={data}
         pagination
+        paginationServer
+        paginationTotalRows={totalRecords}
+        onChangePage={onPageChange}
+        paginationPerPage={pageLimit}
         customStyles={customStyles}
-        selectableRows
-        responsive
+        paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+        onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
+        paginationComponentOptions={{
+          rowsPerPageText: 'Rows per page:',
+          rangeSeparatorText: 'of',
+          noRowsPerPage: false,
+          selectAllRowsItem: false,
+          selectAllRowsItemText: 'All'
+        }}
         highlightOnHover
         striped
       />
