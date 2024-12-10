@@ -49,7 +49,7 @@ const Favorite = () => {
             <table className="min-w-full table-auto">
               <thead>
                 <tr className="border-b text-left">
-                  {['Items for hire', 'Price', 'Quantity', 'Subtotal', 'Actions'].map(header => (
+                  {['Items for hire', 'Price', 'Subtotal', 'Actions'].map(header => (
                     <th
                       key={header}
                       className="text-nowrap px-4 py-3 font-sora text-sm font-semibold md:text-lg"
@@ -80,7 +80,7 @@ const Favorite = () => {
                       </div>
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">${item.price}</td>
-                    <td className="px-4 py-4">
+                    {/* <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => handleQuantityChange(index, false)}
@@ -98,7 +98,7 @@ const Favorite = () => {
                           <PlusIcon className="h-4 w-4" />
                         </button>
                       </div>
-                    </td>
+                    </td> */}
                     <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">${item.subtotal}</td>
                     <td className="px-4 py-4">
                       <button

@@ -1,4 +1,5 @@
 'use client'
+import useSearchQuery from '@/hooks/useSearchQuery'
 import { specialPackages } from '@/utils'
 import { ArrowRightCircleIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -9,6 +10,8 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 const SpecialPackages = () => {
+  const { formData } = useSearchQuery()
+
   return (
     <section className="section-padding">
       <Swiper
@@ -43,7 +46,18 @@ const SpecialPackages = () => {
       >
         {specialPackages.map((items, index) => (
           <SwiperSlide className="min-h-[250px] overflow-hidden rounded-[32px]" key={index}>
-            <div className="relative">
+            <Link
+              className="relative block"
+              href={{
+                pathname: '/services',
+                query: {
+                  search: items.name,
+                  location: formData.location,
+                  categories: items.name,
+                  date: formData.date
+                }
+              }}
+            >
               <Image src={items.img} className="w-full overflow-hidden" alt="image" />
               <div className="border-white-50/50 absolute left-0 top-0 h-full w-full rounded-[32px] border-4 bg-black/20 p-8">
                 <div className="flex h-full flex-col justify-between">
@@ -53,12 +67,12 @@ const SpecialPackages = () => {
                       {items.desc}
                     </p>
                   </div>
-                  <Link href={items.url} className="block">
+                  <button className="block">
                     <ArrowRightCircleIcon className="size-6" fill="white" />
-                  </Link>
+                  </button>
                 </div>
               </div>
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

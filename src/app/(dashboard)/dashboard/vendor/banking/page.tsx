@@ -1,8 +1,5 @@
-'use client'
 import DashboardMasterCard from '@/app/(dashboard)/components/DashboardMasterCard'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
-import usePagination from '@/hooks/usePagination'
-import { useFetchBankingsQuery } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import Transaction from './components/Transaction'
 

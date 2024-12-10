@@ -16,8 +16,7 @@ const Results = () => {
   }
 
   const { data: products, isLoading, isError } = useFetchServicesQuery({})
-  const fullResponse = products
-  const serviceData = fullResponse?.data //FIXME:
+  const serviceData = products?.data //FIXME:
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
