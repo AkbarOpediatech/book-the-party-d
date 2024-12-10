@@ -10,7 +10,7 @@
   }
 
   .section-padding {
-    @apply py-20 md:py-[130px];
+    @apply p-5 md:py-10 lg:py-16;
   }
 
   .container {
@@ -74,6 +74,10 @@
     color: #9042fb;
     font-weight: 700;
   }
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #9042fb !important;
 }
 
 /* extra classes */

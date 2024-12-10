@@ -23,14 +23,14 @@ const SectionHeading: React.FC<IProps> = ({
     <>
       <div
         className={cn(
-          'section-heading mb-5 flex flex-wrap items-center justify-between gap-4 md:mb-9',
+          'section-heading mb-0 flex flex-wrap items-center justify-between gap-4 md:mb-9',
           headingRootClass
         )}
       >
         <>
           <h1
             className={cn(
-              'mb-4 font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]',
+              'font-sora text-2xl font-semibold text-neutral-900 md:text-[32px]',
               sectionHeadingClass
             )}
           >

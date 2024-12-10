@@ -3,17 +3,22 @@ import { discoverItems } from '@/utils'
 import { ArrowLongRightIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from '../../components/SectionHeading'
 
 const Discover = () => {
   return (
-    <section className="section-padding pt-0">
+    <section className="section-padding sm:pt-3">
       <div className="container">
         <SectionHeading title="Discover events in your area" />
       </div>
-      <div className="flex flex-wrap md:flex-nowrap">
+      <div className="hidden flex-wrap md:flex md:flex-nowrap">
         {discoverItems.map((items, index) => (
-          <div className="w-full overflow-hidden xl:min-h-[534px]" key={index}>
+          <div className="w-full overflow-hidden" key={index}>
             <div className="relative">
               <Image src={items.img} className="w-full" alt="image" />
               <div className="absolute left-0 top-0 h-full w-full bg-black/20 p-8">
@@ -27,6 +32,52 @@ const Discover = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="block md:hidden">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false
+          }}
+          pagination={{
+            clickable: true,
+            el: '.custom-pagination', // Attach bullets to a custom container
+            renderBullet: (index, className) =>
+              `<span class="${className} bg-clr-fb mx-2 w-3 h-3 rounded-full"></span>` // Custom bullet style
+          }}
+          breakpoints={{
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 20
+            },
+            480: {
+              slidesPerView: 1,
+              spaceBetween: 10
+            }
+          }}
+          modules={[Autoplay, Navigation, Pagination]}
+          className="my-4 md:hidden"
+        >
+          {discoverItems.map((items, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative">
+                <Image src={items.img} className="w-full" alt="image" />
+                <div className="absolute left-0 top-0 h-full w-full bg-black/20 p-8">
+                  <div className="flex h-full items-end justify-between">
+                    <h2 className="font-sora text-3xl font-bold text-white md:text-4xl">{items.name}</h2>
+                    <Link href={items.url} className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
+                      <ArrowLongRightIcon className="size-6" fill="white" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/* Custom Pagination */}
+        <div className="custom-pagination mt-6 flex justify-center"></div>
       </div>
     </section>
   )

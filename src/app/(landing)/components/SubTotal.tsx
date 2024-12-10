@@ -1,6 +1,7 @@
 'use client'
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SuccessModal from '../checkout/components/SuccessModal'
@@ -22,6 +23,7 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const pathname = usePathname()
 
   const handleProceedToPay = async () => {
     if (loading) return
@@ -41,6 +43,7 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
       }
     }
   }
+  const isCheckoutStepValid = pathname === '/checkout' && currentStep === 2
 
   return (
     <>
@@ -118,19 +121,34 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
             </Link>
           </>
         )}
-        {/*
-        : (
-          <button
-            onClick={handleProceedToPay}
-            disabled={!agreedToTerms || loading}
-            className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
-              agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
-            }`}
-          >
-            {loading ? 'Processing...' : 'Proceed to Pay'}
-          </button>
-        )
-        */}
+        {isCheckoutStepValid && (
+          <>
+            <div className="mb-4 flex items-start">
+              <input
+                type="checkbox"
+                id="terms"
+                className="mr-2 mt-1"
+                checked={agreedToTerms}
+                onChange={e => setAgreedToTerms(e.target.checked)}
+              />
+              <label htmlFor="terms" className="cursor-pointer text-sm text-clr-0f">
+                I understand and accept the{' '}
+                <Link href="#" className="text-blue-500 underline">
+                  terms and conditions, privacy policy, cancellation policy, and refund policy.
+                </Link>
+              </label>
+            </div>
+            <button
+              onClick={handleProceedToPay}
+              disabled={!agreedToTerms || loading}
+              className={`inline-block w-full rounded-xl py-3 text-center text-lg font-semibold text-white ${
+                agreedToTerms ? 'bg-purple-500' : 'bg-gray-300'
+              }`}
+            >
+              {loading ? 'Processing...' : 'Proceed to Pay'}
+            </button>
+          </>
+        )}
       </div>
       <SuccessModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

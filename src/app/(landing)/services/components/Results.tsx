@@ -5,8 +5,6 @@ import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
-import { isError } from 'util'
-
 const Results = () => {
   const [viewMode, setViewMode] = useState('grid')
   const handleGridClick = () => {

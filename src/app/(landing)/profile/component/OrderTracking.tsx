@@ -6,7 +6,7 @@ const OrderTracking = () => {
   return (
     <table className="w-full table-auto">
       <tbody>
-        <tr className="mb-5 flex flex-wrap border md:table-row">
+        <tr className="flex flex-wrap rounded border p-3 md:table-row">
           <td className="w-full px-2 py-2 md:w-auto">
             <div className="flex items-center">
               <div className="h-20 w-20 flex-shrink-0">

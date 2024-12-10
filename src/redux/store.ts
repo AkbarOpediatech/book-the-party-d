@@ -5,6 +5,7 @@ import { cartApi } from './features/cart/apiSlice'
 import formReducer from './features/formSlice'
 import loadingErrorSlice from './features/loadingErrorSlice'
 import popupSlice from './features/popupSlice'
+import profileReducer from './features/profileSlice'
 import { servicesApi } from './features/services/apiSlice'
 import servicesSlice from './features/services/servicesSlice'
 import stepperSlice from './features/stepperSlice'
@@ -21,7 +22,8 @@ export const store = configureStore({
     [bookingsApi.reducerPath]: bookingsApi.reducer,
     [bankingsApi.reducerPath]: bankingsApi.reducer,
     form: formReducer,
-    popup: popupSlice
+    popup: popupSlice,
+    profile: profileReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
