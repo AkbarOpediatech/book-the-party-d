@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { Autoplay, Navigation } from 'swiper/modules'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 const SpecialPackages = () => {
@@ -13,14 +13,13 @@ const SpecialPackages = () => {
     <section className="section-padding">
       <Swiper
         slidesPerView={5}
-        navigation={true}
         spaceBetween={20}
-        // loop={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false
-        // }}
-        modules={[Autoplay, Navigation]}
+        loop={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false
+        }}
+        modules={[Autoplay, Navigation, Pagination]}
         grabCursor={true}
         className="SpecialPackagesSwiper"
         breakpoints={{

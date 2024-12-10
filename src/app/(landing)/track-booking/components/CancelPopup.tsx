@@ -1,3 +1,4 @@
+import { Description, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import React, { useState } from 'react'
 
 type PopupProps = {
@@ -32,52 +33,56 @@ const CancelPopup: React.FC<PopupProps> = ({
 
   if (!isVisible) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-11/12 max-w-md rounded-lg bg-white p-5 shadow-lg">
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <p className="mt-3 text-sm text-gray-600">{message}</p>
-        {penaltyNotice && (
-          <div className="mt-4">
-            <p className="mt-2 text-sm text-red-500">
-              {penalty}% penalty will be applied based on your cancellation.
-            </p>
-            <input
-              type="number"
-              className="mt-2 w-full rounded border p-2 text-sm"
-              placeholder="Penalty percentage (e.g., 10)"
-              value={penalty}
-              min={0}
-              max={100}
-              onChange={handlePenaltyChange}
+    <Dialog open={isVisible} onClose={onCancel} className="relative z-50 overflow-scroll">
+      <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md">
+        <DialogPanel className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
+          <DialogTitle className="text-2xl font-semibold text-gray-900">{title}</DialogTitle>
+          <Description className="mt-3 text-lg text-gray-600">{message}</Description>
+
+          {penaltyNotice && (
+            <div className="mt-5">
+              <p className="mb-2 text-sm text-red-500">
+                Penalty percentage will be applied based on your cancellation.
+              </p>
+              <input
+                type="number"
+                className="w-full rounded-xl border-2 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Enter penalty percentage (e.g., 10)"
+                value={penalty}
+                min={0}
+                max={100}
+                onChange={handlePenaltyChange}
+              />
+            </div>
+          )}
+
+          {showReasonInput && (
+            <textarea
+              className="mt-5 w-full rounded-xl border-2 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Please explain your reason for cancellation"
+              value={reason}
+              onChange={e => setReason(e.target.value)}
             />
+          )}
+
+          <div className="mt-6 flex justify-end gap-4">
+            <button
+              className="rounded-full bg-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition duration-200 hover:bg-gray-300"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+            <button
+              className="rounded-full bg-red-500 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-red-600"
+              onClick={() => onConfirm(reason, penalty ? Number(penalty) : undefined)}
+              disabled={showReasonInput && !isPenaltyValid}
+            >
+              Confirm
+            </button>
           </div>
-        )}
-        {showReasonInput && (
-          <textarea
-            className="mt-4 w-full rounded border p-2 text-sm"
-            placeholder="Please explain your reason for cancellation"
-            value={reason}
-            onChange={e => setReason(e.target.value)}
-          />
-        )}
-        <div className="mt-5 flex justify-end gap-3">
-          <button
-            className="rounded-lg bg-gray-200 px-4 py-2 text-sm font-bold text-gray-600 hover:bg-gray-300"
-            onClick={onCancel}
-          >
-            Cancel
-          </button>
-          <button
-            className="rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-600"
-            // eslint-disable-next-line no-undefined
-            onClick={() => onConfirm(reason, penalty ? Number(penalty) : undefined)}
-            disabled={showReasonInput && !isPenaltyValid}
-          >
-            Confirm
-          </button>
-        </div>
+        </DialogPanel>
       </div>
-    </div>
+    </Dialog>
   )
 }
 

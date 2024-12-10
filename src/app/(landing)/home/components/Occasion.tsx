@@ -6,7 +6,7 @@ import SectionHeading from '../../components/SectionHeading'
 
 const Occasion = () => {
   return (
-    <section className="section-padding pt-0">
+    <section className="section-padding px-0">
       <div className="container">
         <SectionHeading title="Browse by Occasion" />
       </div>

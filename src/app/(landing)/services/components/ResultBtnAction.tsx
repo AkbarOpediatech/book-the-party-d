@@ -6,6 +6,7 @@ import ICList from '/public/assets/ic-list.svg'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
+import FilterGroup from './FilterGroup'
 
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -24,19 +25,24 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
   const [selectedPerson, setSelectedPerson] = useState(people[0])
 
   return (
-    <div className="mb-6 flex flex-col items-center justify-between sm:flex-row sm:gap-5">
-      <div className="flex items-center gap-5">
-        <div className="flex gap-3 sm:gap-5">
-          <button onClick={() => handleGridClick()}>
-            <Image src={ICGrid} alt="Grid icon" />
-          </button>
-          <button onClick={() => handleListClick()}>
-            <Image src={ICList} alt="List icon" />
-          </button>
-        </div>
-        <p className="font-nunito text-lg font-light text-black sm:text-xl">Showing 1–12 of 60 results</p>
+    <div className="mb-6 flex flex-col items-start justify-between gap-5 sm:flex-row md:flex-row md:items-center">
+      <div className="md:hidden">
+        <FilterGroup />
       </div>
-      <div className="mt-5 w-full md:w-auto lg:mt-auto">
+      <div className="md:p-auto border px-4 py-3 md:border-none">
+        <div className="flex items-center justify-between gap-5">
+          <div className="flex gap-3 sm:gap-5">
+            <button onClick={() => handleGridClick()}>
+              <Image src={ICGrid} alt="Grid icon" />
+            </button>
+            <button onClick={() => handleListClick()}>
+              <Image src={ICList} alt="List icon" />
+            </button>
+          </div>
+          <p className="font-nunito text-lg font-light text-black sm:text-xl">Showing 1–12 of 60 results</p>
+        </div>
+      </div>
+      <div className="mt-5 hidden w-full md:block md:w-auto lg:mt-auto">
         <Listbox value={selectedPerson} onChange={setSelectedPerson}>
           <ListboxButton className="flex w-full items-center justify-between gap-2 rounded-lg border border-black px-5 py-[10px] text-sm sm:text-base lg:w-auto">
             {selectedPerson.name}

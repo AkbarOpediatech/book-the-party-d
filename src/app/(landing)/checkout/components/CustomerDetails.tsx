@@ -1,62 +1,52 @@
 'use client'
-import { updateField } from '@/redux/features/formSlice'
+import { addNewAddress, deleteAddress, setDefaultAddress } from '@/redux/features/formSlice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomerForm from './CustomerForm'
 import DeliveryAddress from './DeliveryAddress'
 
-type IProps = {
-  onNext: (step?: number) => void
+type Address = {
+  name: string
+  email: string
+  mobileNumber: string
+  houseNo: string
+  streetName: string
+  suburb: string
+  state: string
+  postCode: string
+  isDefault: boolean
 }
-
-type HandleInputChange = (
-  field: 'name' | 'email' | 'mobileNumber' | 'houseNo' | 'streetName' | 'suburb' | 'state' | 'postCode',
-  value: string | boolean | number
-) => void
-
-type ToggleFunction = () => void
-
-const CustomerDetails: React.FC<IProps> = ({ onNext }) => {
+type AddressFormData = Omit<Address, 'isDefault'>
+const CustomerDetails: React.FC = () => {
   const dispatch: AppDispatch = useDispatch()
-  const {
-    formData: reduxFormData,
-    categoryChecked,
-    saveAddress
-  } = useSelector((state: RootState) => state.form)
+  const { addresses } = useSelector((state: RootState) => state.form)
 
-  const [showAddress, setShowAddress] = useState<boolean>(false)
-  const [showDeliveryAddress, setShowDeliveryAddress] = useState<boolean>(false)
+  const [showForm, setShowForm] = useState(true)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setShowDeliveryAddress(true)
-    setShowAddress(false)
+  const handleAddAddress = (newAddress: AddressFormData) => {
+    dispatch(addNewAddress({ ...newAddress, isDefault: addresses.length === 0 }))
+    setShowForm(false)
   }
 
-  const handleInputChange: HandleInputChange = (field, value) => {
-    const stringValue = String(value)
-    dispatch(updateField({ field, value: stringValue, index: 0 }))
+  const handleSetDefault = (index: number) => {
+    dispatch(setDefaultAddress(index))
   }
 
-  const toggleCategoryChecked: ToggleFunction = () => {
-    // TODO: add here functionality letter
-  }
-
-  const toggleSaveAddress: ToggleFunction = () => {
-    // TODO: add here functionality letter
+  const handleDeleteAddress = (index: number) => {
+    dispatch(deleteAddress(index))
   }
 
   return (
     <>
-      {showDeliveryAddress ? (
-        <DeliveryAddress setShowAddress={setShowAddress} />
+      {showForm ? (
+        <CustomerForm onSave={handleAddAddress} />
       ) : (
-        <CustomerForm
-          toggleCategoryChecked={toggleCategoryChecked}
-          toggleSaveAddress={toggleSaveAddress}
-          handleSubmit={handleSubmit}
-          handleInputChange={handleInputChange}
+        <DeliveryAddress
+          addresses={addresses}
+          onAddNew={() => setShowForm(true)}
+          onSetDefault={handleSetDefault}
+          onDeleteAddress={handleDeleteAddress}
         />
       )}
     </>
