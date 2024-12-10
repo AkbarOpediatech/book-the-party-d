@@ -1,4 +1,4 @@
-'use client'
+import useSearchQuery from '@/hooks/useSearchQuery'
 import { discoverItems } from '@/utils'
 import { ArrowLongRightIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -11,28 +11,43 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from '../../components/SectionHeading'
 
 const Discover = () => {
+  const { formData } = useSearchQuery()
+
   return (
     <section className="section-padding sm:pt-3">
       <div className="container">
         <SectionHeading title="Discover events in your area" />
       </div>
+
       <div className="hidden flex-wrap md:flex md:flex-nowrap">
         {discoverItems.map((items, index) => (
           <div className="w-full overflow-hidden" key={index}>
-            <div className="relative">
+            <Link
+              className="relative block"
+              href={{
+                pathname: '/services',
+                query: {
+                  search: items.name,
+                  location: formData.location,
+                  categories: items.name,
+                  date: formData.date
+                }
+              }}
+            >
               <Image src={items.img} className="w-full" alt="image" />
               <div className="absolute left-0 top-0 h-full w-full bg-black/20 p-8">
                 <div className="flex h-full items-end justify-between">
                   <h2 className="font-sora text-3xl font-bold text-white md:text-4xl">{items.name}</h2>
-                  <Link href={items.url} className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
+                  <button className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
                     <ArrowLongRightIcon className="size-6" fill="white" />
-                  </Link>
+                  </button>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
+
       <div className="block md:hidden">
         <Swiper
           slidesPerView={1}
@@ -43,7 +58,7 @@ const Discover = () => {
           }}
           pagination={{
             clickable: true,
-            el: '.custom-pagination', // Attach bullets to a custom container
+            el: '.custom-pagination',
             renderBullet: (index, className) =>
               `<span class="${className} bg-clr-fb mx-2 w-3 h-3 rounded-full"></span>` // Custom bullet style
           }}
@@ -62,17 +77,30 @@ const Discover = () => {
         >
           {discoverItems.map((items, index) => (
             <SwiperSlide key={index}>
-              <div className="relative">
+              <Link
+                className="relative block"
+                href={{
+                  pathname: '/services',
+                  query: {
+                    search: items.name,
+                    location: formData.location,
+                    categories: items.name,
+                    date: formData.date
+                  }
+                }}
+              >
+                {/* <div className="relative"> */}
                 <Image src={items.img} className="w-full" alt="image" />
                 <div className="absolute left-0 top-0 h-full w-full bg-black/20 p-8">
                   <div className="flex h-full items-end justify-between">
                     <h2 className="font-sora text-3xl font-bold text-white md:text-4xl">{items.name}</h2>
-                    <Link href={items.url} className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
+                    <button className="block bg-clr-fb px-6 py-4 sm:px-3 sm:py-2 md:ml-1">
                       <ArrowLongRightIcon className="size-6" fill="white" />
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </div>
+                {/* </div> */}
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

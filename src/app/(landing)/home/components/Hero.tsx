@@ -1,30 +1,12 @@
 'use client'
+import useSearchQuery from '@/hooks/useSearchQuery'
 import { eventFeatures } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import heroBg from '/public/assets/banner-img.png'
 
 const Hero = () => {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    search: '',
-    location: '',
-    categories: '',
-    date: ''
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { id, value } = e.target
-    setFormData(prev => ({ ...prev, [id]: value }))
-  }
-
-  const handleSearchClick = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const query = new URLSearchParams(formData).toString()
-    router.push(`/services?${query}`)
-  }
+  const { formData, handleInputChange, handleSearchClick } = useSearchQuery()
 
   return (
     <section
@@ -118,7 +100,15 @@ const Hero = () => {
           {eventFeatures.map((eventItems, index) => (
             <li key={index}>
               <Link
-                href={'/services'}
+                href={{
+                  pathname: '/services',
+                  query: {
+                    search: eventItems.name,
+                    location: formData.location,
+                    categories: eventItems.name,
+                    date: formData.date
+                  }
+                }}
                 className="inline-flex h-full w-[150px] flex-col flex-wrap rounded-2xl border border-white bg-clr-fb px-3 py-5 md:py-10"
               >
                 <div className="mb-3 flex justify-center">
