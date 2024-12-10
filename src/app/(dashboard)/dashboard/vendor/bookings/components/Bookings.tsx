@@ -1,6 +1,7 @@
 'use client'
 
 import usePagination from '@/hooks/usePagination'
+import useSearch from '@/hooks/useSearch'
 import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -13,9 +14,6 @@ const BookingAllTable = dynamic(() => import('./BookingAllTable'), {
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
-  const [startDate, setStartDate] = useState<string>('')
-  const [endDate, setEndDate] = useState<string>('')
-  const [searchTerm, setSearchTerm] = useState<string>('')
   const { currentPage, pageLimit, handlePageChange, handlePageLimitChange } = usePagination()
 
   const {
@@ -29,36 +27,16 @@ const Bookings = () => {
   })
 
   const bookingData = bookingResponse?.data || []
+  console.log(bookingData, 'bookingData')
   const totalRecords = bookingResponse?.pagination?.records || 0
 
-  const getFilteredData = () => {
-    if (!bookingData) return []
-    switch (tab) {
-      case 0:
-        return bookingData
-      case 1:
-        return bookingData.filter(booking => booking.status === 'completed')
-      case 2:
-        return bookingData.filter(booking => booking.status === 'pending')
-      case 3:
-        return bookingData.filter(booking => booking.status === 'processing')
-      default:
-        return bookingData
+  const { searchTerm, setSearchTerm, startDate, setStartDate, endDate, setEndDate, filteredData } = useSearch(
+    bookingData,
+    {
+      searchKeys: ['service_embedded.title', '_id', 'price.value'],
+      dateKey: 'createdAt'
     }
-  }
-
-  const filteredData = getFilteredData().filter(booking => {
-    const bookingStartDate = new Date(booking.selected_date[0].start_date).getTime()
-    const bookingEndDate = new Date(booking.selected_date[0].end_date).getTime()
-    const inputStartDate = startDate ? new Date(startDate).getTime() : null
-    const inputEndDate = endDate ? new Date(endDate).getTime() : null
-    const matchesDate =
-      (!inputStartDate || bookingStartDate >= inputStartDate) &&
-      (!inputEndDate || bookingEndDate <= inputEndDate)
-    const matchesSearch = booking.service_embedded.title.toLowerCase().includes(searchTerm.toLowerCase())
-
-    return matchesDate && matchesSearch
-  })
+  )
 
   if (isLoading) {
     return <div>Loading bookings...</div>
