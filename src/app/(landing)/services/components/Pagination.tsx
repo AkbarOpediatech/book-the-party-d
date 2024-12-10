@@ -16,23 +16,34 @@ const Pagination = ({ totalRecords, currentPage, pageLimit, handlePageChange }: 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       handlePageChange(currentPage + 1)
+      scrollToTop()
     }
   }
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
       handlePageChange(currentPage - 1)
+      scrollToTop()
     }
   }
 
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       handlePageChange(page)
+      scrollToTop()
     }
   }
 
   const handleShowMorePages = () => {
     setPageOffset(pageOffset + pageRange)
+    scrollToTop()
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Smooth scroll
+    })
   }
 
   const startPage = Math.max(1, pageOffset + 1)
