@@ -1,5 +1,6 @@
 'use client'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import withRole from '@/app/lib/withRole'
 import { useFetchUserQuery } from '@/redux/features/user/apiSlice'
 import Listings from './components/Listings'
 
@@ -13,10 +14,9 @@ const Vendors = () => {
       <div className="mb-10 flex flex-wrap items-center justify-between gap-5">
         <TitleAndBreadCrumbs title={'Vendor List'} menuitem={'Dashboard'} breadcrumbs={'Vendors'} />
       </div>
-
       <Listings />
     </div>
   )
 }
 
-export default Vendors
+export default withRole(Vendors, ['admin'])
