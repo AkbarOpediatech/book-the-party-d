@@ -1,32 +1,42 @@
-import type { IOrder } from '@/redux/features/bookings/apiSlice'
+import type { IBanking } from '@/redux/features/bankings/apiSlice'
+import { cn } from '@/utils'
 import Image from 'next/image'
 import DataTable, { TableColumn } from 'react-data-table-component'
 import TransactionImg from '/public/assets/package1.png'
 
 type IProps = {
-  data: IOrder[] | undefined
+  data: IBanking[] | undefined
+  currentPage: number
+  pageLimit: number
+  onPageChange: (page: number) => void
+  onPageLimitChange: (limit: number) => void
+  totalRecords: number
 }
 
-const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
-  const columns: TableColumn<IOrder>[] = [
+const TransactionHistoryTable: React.FC<IProps> = ({
+  data,
+  pageLimit,
+  onPageChange,
+  onPageLimitChange,
+  totalRecords
+}) => {
+  const columns: TableColumn<IBanking>[] = [
     {
       name: 'Transaction',
-      cell: (row: IOrder) => (
+      cell: (row: IBanking) => (
         <div className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-lg">
             <Image
               width={40}
               height={40}
               className="overflow-hidden"
-              src={
-                row?.service_embedded?.featured_image ? row?.service_embedded?.featured_image : TransactionImg
-              }
+              src={row.service?.featured_image ? row.service?.featured_image : TransactionImg}
               alt="Product Image"
             />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.service_embedded.title}</p>
-            <p className="text-sm text-clr-81">{row.service_embedded.title}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.service.title}</p>
+            <p className="text-sm text-clr-81">{row.service.description}</p>
           </div>
         </div>
       ),
@@ -35,26 +45,29 @@ const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
     },
     {
       name: 'Amount',
-      selector: (row: IOrder) => row.price.value,
+      selector: (row: IBanking) => row.amount,
       sortable: true
     },
     {
       name: 'Date',
-      selector: (row: IOrder) =>
-        row.selected_date.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
+      selector: (row: IBanking) => row.updatedAt,
       sortable: true
     },
     {
       name: 'ID',
-      selector: (row: IOrder) => row._id,
+      selector: (row: IBanking) => row.order,
       sortable: true,
       width: '100px'
     },
     {
       name: 'Status',
-      cell: (row: IOrder) => (
+      cell: (row: IBanking) => (
         <span
-          className={`whitespace-nowrap rounded px-2 py-1 font-bold ${row.status && 'Security deposit held' ? 'bg-yellow-100 text-yellow-500' : row.status && 'Payout amount' ? 'bg-green-100 text-green-500' : row.status && 'Amount withdrawn' ? 'bg-red-100 text-red-500' : ''}`}
+          className={cn(
+            'whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-bold capitalize text-gray-500',
+            row.status === 'succeeded' && 'bg-green-100 text-green-500',
+            row.status === 'canceled' && 'bg-red-100 text-red-500'
+          )}
         >
           {row.status}
         </span>
@@ -99,9 +112,20 @@ const TransactionHistoryTable: React.FC<IProps> = ({ data }) => {
         columns={columns}
         data={data}
         pagination
+        paginationServer
+        paginationTotalRows={totalRecords}
+        onChangePage={onPageChange}
+        paginationPerPage={pageLimit}
         customStyles={customStyles}
-        selectableRows
-        responsive
+        paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+        onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
+        paginationComponentOptions={{
+          rowsPerPageText: 'Rows per page:',
+          rangeSeparatorText: 'of',
+          noRowsPerPage: false,
+          selectAllRowsItem: false,
+          selectAllRowsItemText: 'All'
+        }}
         highlightOnHover
         striped
       />

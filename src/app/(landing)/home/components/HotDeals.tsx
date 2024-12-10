@@ -10,7 +10,7 @@ import ServiceCard from '../../components/ServiceCard'
 
 const HotDeals = () => {
   return (
-    <section className="reviews section-padding pt-0">
+    <section className="reviews section-padding">
       <div className="container">
         <SectionHeading title="Hot Deals" />
 

@@ -28,7 +28,7 @@ const UserReview = () => {
         <p className="text-sm text-[#818B9C]">July 2, 2020 03:29 PM</p>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Image width={40} height={40} className="rounded-full" src={avatar} alt="image" />
           <p className="text-clr-[#0B0F0E] mb-1.5 text-base font-medium">Darrell Steward</p>

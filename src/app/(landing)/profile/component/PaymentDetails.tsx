@@ -3,7 +3,7 @@ import CustomBtn from '../../components/CustomBtn'
 
 const PaymentDetails = () => {
   return (
-    <ul className="space-y-7">
+    <ul className="space-y-7 px-4 md:px-8">
       <li>
         <InputField
           LabelName="Card Holder name"
@@ -22,16 +22,22 @@ const PaymentDetails = () => {
           InputPlaceHolder="5782  2657  2598  564"
         />
       </li>
-      <li className="flex gap-5">
+      <li className="flex flex-col gap-5 md:flex-row">
         <div className="w-full">
           <InputField LabelName="Expire" LabelHtmlFor="Expire" InputId="Expire" InputType="date" />
         </div>
         <div className="w-full">
-          <InputField LabelName="CVC" LabelHtmlFor="CVC" InputId="CVC" InputType="date" />
+          <InputField
+            LabelName="CVC"
+            LabelHtmlFor="CVC"
+            InputId="CVC"
+            InputType="text"
+            InputPlaceHolder="123"
+          />
         </div>
       </li>
       <li>
-        <CustomBtn btnName="Update Details" btnType="submit" className="w-full md:text-sm" />
+        <CustomBtn btnName="Update Details" btnType="submit" className="mx-auto w-full md:w-1/2 md:text-sm" />
       </li>
     </ul>
   )

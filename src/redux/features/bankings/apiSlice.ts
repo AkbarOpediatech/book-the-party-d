@@ -1,30 +1,25 @@
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
+import type { ServiceItemPost } from '../services/apiSlice'
 
 // Define the TypeScript types for your data
-export interface IOrder {
+
+export type IPagination = {
+  current: number
+  total: number
+  next: number | null
+  prev: number | null
+  records: number
+}
+
+export interface IBanking {
   _id: string
   order: string
   user: string
   vendor: string
-  service: string
-  service_embedded: {
-    title: string
-    description: string
-    featured_image: string | null
-    category: string
-    location: string
-    inclusions: string[]
-    infos: string[]
-    price_type: 'fixed' | 'variable'
-    price: {
-      text: string
-      value: number
-      _id: string
-    }[]
-    security_deposit: number
-    cancellation_period_hours: number
-  }
+  order_item: string
+  service: ServiceItemPost
+  service_embedded?: string
   notes: string
   quantity: number
   price_id: string
@@ -33,48 +28,29 @@ export interface IOrder {
     value: number
   }
   selected_date: {
-    start_date: string
-    end_date: string
+    start_date: Date
+    end_date: Date
   }[]
-  amount: {
-    service_total: number
-    discounted_service_total: number
-    discount: number
-    security_deposit: number
-    subtotal: number
-    order_fee: number
-    tax: number
-    shipping_fee: number
-    total: number
-  }
-  coupons: string[]
+  amount: number
+  coupons: {
+    code: string
+    reference: string
+    reference_embedded: string
+    discounted_amount: number
+  }[]
   security_deposit_payout_percentage: number
-  status: 'draft' | 'pending' | 'processing' | 'completed_request_vendor' | 'completed'
+  status: string
   history: {
     message: string
     user: string | null
-    date: string
+    date: Date
   }[]
-  createdAt: string
   updatedAt: string
 }
 
-export interface IOrderPost {
-  order: string
-  user: string
-  vendor: string
-  service: string
-  notes: string
-  quantity: number
-  price_id: string
-  selected_date: {
-    start_date: string
-    end_date: string
-  }[]
-}
-
-interface OrderResponse {
-  data: IOrder[]
+interface BankingsResponse {
+  pagination: IPagination
+  data: IBanking[]
 }
 
 // Redux Toolkit Query API
@@ -83,7 +59,7 @@ export const bankingsApi = createApi({
   baseQuery,
   tagTypes: ['Bankings'],
   endpoints: builder => ({
-    fetchBankings: builder.query<OrderResponse, { role?: string; limit?: number; page?: number }>({
+    fetchBankings: builder.query<BankingsResponse, { role?: string; limit?: number; page?: number }>({
       query: ({ role, limit, page } = {}) => {
         const params = role ? { role } : {} // Conditionally include `vendor` if it exists
         return {
@@ -94,12 +70,12 @@ export const bankingsApi = createApi({
       providesTags: ['Bankings']
     }),
 
-    fetchBankingById: builder.query<IOrder, string>({
+    fetchBankingById: builder.query<IBanking, string>({
       query: slug => `/order-transfers/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Bankings', id: slug }]
     }),
 
-    updateBanking: builder.mutation<IOrder, Partial<IOrder> & Pick<IOrder, '_id'>>({
+    updateBanking: builder.mutation<IBanking, Partial<IBanking> & Pick<IBanking, '_id'>>({
       query: ({ _id, ...rest }) => ({
         url: `/order-transfers/${_id}`,
         method: 'PUT',

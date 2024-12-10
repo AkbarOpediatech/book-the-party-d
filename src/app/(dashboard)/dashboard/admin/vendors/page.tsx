@@ -10,7 +10,7 @@ const Vendors = () => {
   const serviceData = fullResponse?.data //FIXME:
   console.log(' Vendor User', serviceData)
   return (
-    <div className="bg-white px-5 py-10 lg:px-7">
+    <div className="bg-white px-2 py-10 lg:px-7">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-5">
         <TitleAndBreadCrumbs title={'Vendor List'} menuitem={'Dashboard'} breadcrumbs={'Vendors'} />
       </div>

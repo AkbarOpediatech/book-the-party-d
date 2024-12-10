@@ -28,7 +28,7 @@ const ServiceSingle = () => {
   if (isError) return <div>Error loading products.</div>
 
   return (
-    <section id="service_single" className="py-20">
+    <section id="service_single" className="py-10 lg:py-20">
       <div className="container max-w-[1440px]">
         {singleService && <ProductFeature singleService={singleService} />}
         {/* description */}
@@ -53,7 +53,7 @@ const ServiceSingle = () => {
           </button>
         </div>
 
-        <div className="mb-32 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
           <div className="col-span-2">{tab === 0 && <Description />}</div>
 
           <div className="col-span-1">

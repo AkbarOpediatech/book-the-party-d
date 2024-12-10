@@ -1,101 +1,118 @@
-import { formData } from '@/utils'
 import { CheckIcon } from '@heroicons/react/16/solid'
-import React from 'react'
+import { useState } from 'react'
 import CustomBtn from '../../components/CustomBtn'
 import InputForm from './InputForm'
 
-type ICustomerFormProps = {
-  toggleCategoryChecked: () => void
-  toggleSaveAddress: () => void
-  handleSubmit: (e: React.FormEvent) => void
-  handleInputChange: (
-    field: 'name' | 'email' | 'mobileNumber' | 'houseNo' | 'streetName' | 'suburb' | 'state' | 'postCode',
-    value: string
-  ) => void
+// Define a type for the form data structure
+type AddressFormData = {
+  name: string
+  email: string
+  mobileNumber: string
+  houseNo: string
+  streetName: string
+  suburb: string
+  state: string
+  postCode: string
 }
 
-const CustomerForm: React.FC<ICustomerFormProps> = ({
-  toggleCategoryChecked,
-  toggleSaveAddress,
-  handleSubmit,
-  handleInputChange
-}) => {
+// Define the props for the component
+interface CustomerFormProps {
+  onSave: (data: AddressFormData) => void
+}
+const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    mobileNumber: '',
+    houseNo: '',
+    streetName: '',
+    suburb: '',
+    state: '',
+    postCode: ''
+  })
+
+  const [categoryChecked, setCategoryChecked] = useState(false)
+  const [saveAddress, setSaveAddress] = useState(false)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target
+    setFormValues(prev => ({ ...prev, [id]: value }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    onSave(formValues)
+  }
+
+  const fields: { label: string; name: keyof AddressFormData; type: string; placeholder: string }[] = [
+    { label: 'Name', name: 'name', type: 'text', placeholder: 'Enter your name' },
+    { label: 'Email', name: 'email', type: 'email', placeholder: 'Enter your email' },
+    { label: 'Mobile Number', name: 'mobileNumber', type: 'tel', placeholder: 'Enter your mobile number' },
+    { label: 'House No', name: 'houseNo', type: 'text', placeholder: 'Enter house number' },
+    { label: 'Street Name', name: 'streetName', type: 'text', placeholder: 'Enter street name' },
+    { label: 'Suburb', name: 'suburb', type: 'text', placeholder: 'Enter suburb' },
+    { label: 'State', name: 'state', type: 'text', placeholder: 'Enter state' },
+    { label: 'Post Code', name: 'postCode', type: 'text', placeholder: 'Enter post code' }
+  ]
+
   return (
-    <div className={`bg-gray-50 p-5 md:p-9`}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <h2 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Customer Details</h2>
-      <form onSubmit={handleSubmit}>
-        {formData.map((i, index) => (
-          <div className="mb-6 last:mb-0" key={index}>
-            <InputForm
-              labelTitle={i.labelTitle}
-              htmlFor={i.htmlFor}
-              inputId={i.inputId}
-              inputPlaceholder={i.inputPlaceholder}
-              inputType={i.inputType}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange(
-                  i.inputId as
-                    | 'name'
-                    | 'email'
-                    | 'mobileNumber'
-                    | 'houseNo'
-                    | 'streetName'
-                    | 'suburb'
-                    | 'state'
-                    | 'postCode',
-                  e.target.value
-                )
-              }
+      {fields.map(field => (
+        <InputForm
+          key={field.name}
+          labelTitle={field.label}
+          htmlFor={field.name}
+          inputId={field.name}
+          inputType={field.type}
+          inputPlaceholder={field.placeholder}
+          inputClassName="text-xl"
+          value={formValues[field.name]}
+          onChange={handleChange}
+        />
+      ))}
+      <div className="mb-5 flex flex-wrap items-center gap-5">
+        <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
+          <div
+            className={`relative h-4 w-4 rounded-md border border-gray-500 ${categoryChecked && 'border-purple-700 bg-purple-700'}`}
+          >
+            <input
+              type="checkbox"
+              checked={categoryChecked}
+              onChange={() => setCategoryChecked(!categoryChecked)}
+              className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
             />
-          </div>
-        ))}
-
-        <div className="mb-5 flex flex-wrap items-center gap-5">
-          <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
-            <div
-              className={`relative h-4 w-4 rounded-md border border-gray-500 ${
-                !true && 'border-purple-700 bg-purple-700'
-              }`}
-            >
-              <input
-                type="checkbox"
-                onChange={toggleCategoryChecked}
-                className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
-              />
-              {!true && (
-                <CheckIcon
-                  className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
-                  fill="white"
-                />
-              )}
-            </div>
-            <p className="text-sm font-light text-black md:text-base">Use as my default address</p>
-          </label>
-
-          <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
-            <div
-              className={`relative h-4 w-4 rounded-md border border-gray-500 ${
-                !true && 'border-purple-700 bg-purple-700'
-              }`}
-            >
-              <input
-                type="checkbox"
-                onChange={toggleSaveAddress}
-                className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
-              />
-
+            {categoryChecked && (
               <CheckIcon
                 className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
                 fill="white"
               />
-            </div>
-            <p className="text-sm font-light text-black md:text-base">Save address</p>
-          </label>
-        </div>
+            )}
+          </div>
+          <p className="text-sm font-light text-black md:text-base">Use as my default address</p>
+        </label>
 
-        <CustomBtn btnName="Save" btnType="submit" />
-      </form>
-    </div>
+        <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
+          <div
+            className={`relative h-4 w-4 rounded-md border border-gray-500 ${saveAddress && 'border-purple-700 bg-purple-700'}`}
+          >
+            <input
+              type="checkbox"
+              checked={saveAddress}
+              onChange={() => setSaveAddress(!saveAddress)}
+              className="hidden h-4 w-4 cursor-pointer appearance-none rounded-md border border-gray-500 checked:bg-purple-700 focus:ring-purple-700"
+            />
+            {saveAddress && (
+              <CheckIcon
+                className="absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2"
+                fill="white"
+              />
+            )}
+          </div>
+          <p className="text-sm font-light text-black md:text-base">Save address</p>
+        </label>
+      </div>
+      <CustomBtn btnName="Save" btnType="submit" />
+    </form>
   )
 }
 

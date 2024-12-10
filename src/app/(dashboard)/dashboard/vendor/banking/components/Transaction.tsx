@@ -1,9 +1,10 @@
 'use client'
-import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
+
+import usePagination from '@/hooks/usePagination'
+import { useFetchBankingsQuery } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import TransactionHistoryHeader from './TransactionHistoryHeader'
-
 const TransactionHistoryTable = dynamic(() => import('./TransactionHistoryTable'), {
   ssr: false
 })
@@ -12,25 +13,26 @@ const Transaction = () => {
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState<string>('')
-
+  const { currentPage, pageLimit, handlePageChange, handlePageLimitChange } = usePagination()
   const {
-    data: bookingResponse,
+    data: bakingResponse,
     isLoading,
     isError
-  } = useFetchBookingsQuery({
-    role: 'admin'
-  })
+  } = useFetchBankingsQuery({ role: 'vendor', limit: pageLimit, page: currentPage })
 
-  const bookingData = bookingResponse?.data
+  const bankingData = bakingResponse?.data || []
+  const totalRecords = bakingResponse?.pagination?.records || 0
 
   const filterData = () => {
-    if (!searchTerm) return bookingData
-    return bookingData?.filter(
-      item =>
-        item.service_embedded.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    if (!searchTerm) return bankingData
+    return bankingData?.filter(item => {
+      const priceValue = item.price?.value?.toString()
+      return (
+        item.service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.price.value.toString().includes(searchTerm)
-    )
+        (priceValue && priceValue.includes(searchTerm))
+      )
+    })
   }
 
   const filteredData = filterData()
@@ -54,7 +56,14 @@ const Transaction = () => {
           setEndDate={setEndDate}
           setSearchTerm={setSearchTerm}
         />
-        <TransactionHistoryTable data={filteredData} />
+        <TransactionHistoryTable
+          data={filteredData}
+          currentPage={currentPage}
+          totalRecords={totalRecords}
+          pageLimit={pageLimit}
+          onPageChange={handlePageChange}
+          onPageLimitChange={handlePageLimitChange}
+        />
       </div>
     </div>
   )

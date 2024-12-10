@@ -18,8 +18,8 @@ const Filter = ({}: FilterProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(queryCategories)
   const [selectedLocations, setSelectedLocations] = useState<string[]>(queryLocations)
 
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
-  const [isLocationsOpen, setIsLocationsOpen] = useState(false)
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(true)
+  const [isLocationsOpen, setIsLocationsOpen] = useState(true)
 
   useEffect(() => {
     setSelectedCategories(queryCategories)
@@ -57,7 +57,7 @@ const Filter = ({}: FilterProps) => {
     )
   }
   return (
-    <div className="rounded-[32px] border px-8 py-5">
+    <div className="hidden rounded-[32px] border px-8 py-5 md:block">
       <div className="mb-6 border-b pb-6">
         <h3
           className="mb-6 flex cursor-pointer font-sora font-bold text-black"

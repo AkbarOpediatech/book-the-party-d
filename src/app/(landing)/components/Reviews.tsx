@@ -10,8 +10,8 @@ import avatar from '/public/assets/avatar.jpeg'
 
 const Reviews = () => {
   return (
-    <section className="reviews section-padding pt-0">
-      <div className="container">
+    <section className="reviews section-padding">
+      <div className="container px-0">
         <SectionHeading title="Reviews" desc="What our clients love about us." />
 
         <div className="relative">
@@ -27,6 +27,7 @@ const Reviews = () => {
               nextEl: '#swiper-next2',
               prevEl: '#swiper-prev2'
             }}
+            pagination={{ clickable: true }}
             modules={[Autoplay, Navigation]}
             grabCursor={true}
             className="relative max-w-[1312px]"

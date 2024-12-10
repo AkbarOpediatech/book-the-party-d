@@ -12,7 +12,7 @@ const ServicesContent = () => {
   console.log(category, location)
   return (
     <section>
-      <div className="section-padding">
+      <div className="md:py-10 lg:py-16">
         <div className="custom-container">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-12">
             <div className="col-span-1 sm:col-span-2 md:col-span-4">

@@ -9,9 +9,20 @@ import productImage from '/public/assets/package1.png'
 
 type IProps = {
   data: IOrder[] | undefined
+  currentPage: number
+  pageLimit: number
+  onPageChange: (page: number) => void
+  onPageLimitChange: (limit: number) => void
+  totalRecords: number
 }
 
-const BookingAllTable: React.FC<IProps> = ({ data }) => {
+const BookingAllTable: React.FC<IProps> = ({
+  data,
+  pageLimit,
+  onPageChange,
+  onPageLimitChange,
+  totalRecords
+}) => {
   const columns: TableColumn<IOrder>[] = [
     {
       name: 'Event',
@@ -140,17 +151,29 @@ const BookingAllTable: React.FC<IProps> = ({ data }) => {
   return (
     <div className="p-2">
       {data && (
-        <DataTable
-          columns={columns}
-          data={data}
-          pagination
-          customStyles={customStyles}
-          selectableRows
-          responsive
-          highlightOnHover
-          striped
-          className="text-sm"
-        />
+        <>
+          <DataTable
+            columns={columns}
+            data={data}
+            pagination
+            paginationServer
+            paginationTotalRows={totalRecords}
+            onChangePage={onPageChange}
+            paginationPerPage={pageLimit}
+            customStyles={customStyles}
+            paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+            onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
+            paginationComponentOptions={{
+              rowsPerPageText: 'Rows per page:',
+              rangeSeparatorText: 'of',
+              noRowsPerPage: false,
+              selectAllRowsItem: false,
+              selectAllRowsItemText: 'All'
+            }}
+            highlightOnHover
+            striped
+          />
+        </>
       )}
     </div>
   )

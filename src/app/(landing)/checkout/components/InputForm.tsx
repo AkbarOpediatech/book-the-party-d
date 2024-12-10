@@ -7,6 +7,7 @@ type IProps = {
   inputType: string
   inputPlaceholder: string
   inputClassName?: string
+  value?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   labelClassName?: string
 }
@@ -18,6 +19,8 @@ const InputForm: React.FC<IProps> = ({
   inputType,
   inputPlaceholder,
   inputClassName,
+  value,
+  onChange,
   labelClassName
 }) => {
   return (
@@ -35,6 +38,8 @@ const InputForm: React.FC<IProps> = ({
           inputClassName
         )}
         type={inputType}
+        value={value}
+        onChange={onChange}
         placeholder={inputPlaceholder}
       />
     </div>
