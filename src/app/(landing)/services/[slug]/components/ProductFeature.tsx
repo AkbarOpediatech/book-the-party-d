@@ -14,6 +14,10 @@ type IProps = {
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {
   const [starRating, setStarRating] = useState(0)
 
+  const handleWishlist = () => {
+    console.log('handleFavorite Clickted')
+  }
+
   return (
     <div className="mb-9 grid grid-cols-1 gap-14 lg:grid-cols-2">
       <div className="col-span-1">
@@ -25,15 +29,16 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
       <div className="flex flex-col justify-between">
         <div>
           <SectionHeading
-            title={singleService.title || ''}
+            title={singleService.title || 'Service Title'}
             sectionHeadingClass="md:text-[56px] md:leading-[66px]"
             headingRootClass="md:mb-5"
           />
 
           <p className="mb-4 text-lg text-[#444444]">
-            Lorem ipsum dolor sit amet consectetur. Faucibus arcu vitae commodo dignissim rhoncus venenatis
+            {singleService.description ||
+              `Lorem ipsum dolor sit amet consectetur. Faucibus arcu vitae commodo dignissim rhoncus venenatis
             volutpat tempor blandit. Non morbi posuere tellus ut neque mattis felis sem. Suspendisse et
-            ultrices sit sit sodales quam proin. Id lectus nunc dolor suspendisse et consectetur eu.
+            ultrices sit sit sodales quam proin. Id lectus nunc dolor suspendisse et consectetur eu.`}
           </p>
 
           <div className="mb-3 flex items-center gap-3">
@@ -50,12 +55,19 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
         <div className="space-y-5">
           <p className="text-base text-[#191919]">AUD(incl. of all taxes)</p>
           <p className="text-base text-[#191919]">
-            <span className="text-[32px] font-bold text-clr-fb">$600.72</span> (Fixed)
+            <span className="text-[32px] font-bold text-clr-fb">
+              ${singleService.price.map(i => i.value) || '100'}
+            </span>
+            ({singleService.price_type || 'Hourly'})
           </p>
           <p className="mb-2 text-base text-[#191919]">
-            <span className="text-[32px] font-bold">Availability:</span> (Fixed)
+            <span className="text-[32px] font-bold">Availability:</span> (
+            {singleService.price_type || 'Hourly'})
           </p>
-          <button className="flex items-center gap-1 rounded-[6px] border px-3 py-2">
+          <button
+            onClick={() => handleWishlist()}
+            className="flex items-center gap-1 rounded-[6px] border px-3 py-2"
+          >
             <HeartIcon className="size-5 stroke-clr-fb" /> Add to wishlist
           </button>
         </div>

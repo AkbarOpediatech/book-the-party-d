@@ -20,9 +20,15 @@ const ServiceSingle = () => {
   const [value, onChange] = useState<Value>(new Date())
   const params = useParams()
   const { slug } = params
-  const { data: service, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
-  const fullResponse = service
-  const singleService = fullResponse?.data
+
+  console.log(slug, 'slug')
+
+  const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
+
+  // const fullResponse = service
+  const singleService = response?.data
+
+  console.log(singleService, 'singleService')
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
@@ -31,6 +37,7 @@ const ServiceSingle = () => {
     <section id="service_single" className="py-10 lg:py-20">
       <div className="container max-w-[1440px]">
         {singleService && <ProductFeature singleService={singleService} />}
+
         {/* description */}
         <div className="mb-6 flex items-center gap-4">
           <button
