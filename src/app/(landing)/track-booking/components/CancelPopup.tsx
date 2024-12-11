@@ -74,7 +74,7 @@ const CancelPopup: React.FC<PopupProps> = ({
             </button>
             <button
               className="rounded-full bg-red-500 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-red-600"
-              onClick={() => onConfirm(reason, penalty ? Number(penalty) : undefined)}
+              onClick={() => onConfirm(reason, penalty ? Number(penalty) : 0)}
               disabled={showReasonInput && !isPenaltyValid}
             >
               Confirm

@@ -18,7 +18,7 @@ const Notifications = () => {
   }
 
   const { response: notificationItems, error } = useFetchServiceService()
-  console.log(notificationItems, 'cartItems')
+  console.log(notificationItems, 'NotificationItems')
 
   if (loading) return <div>Loading cart...</div>
   if (error) return <div>Error loading cart.</div>

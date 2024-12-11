@@ -2,14 +2,7 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { PaperClipIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-
-type InputGroupProps = {
-  onSendMessage: (messageContent: string) => void
-  onSendImage: (images: File[]) => void
-  onSendFile: (file: File) => void
-}
-
-const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onSendFile }) => {
+const InputGroup = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
   const [text, setText] = useState('')
@@ -23,22 +16,7 @@ const InputGroup: React.FC<InputGroupProps> = ({ onSendMessage, onSendImage, onS
     }
   }
 
-  const sendMessage = () => {
-    if (text.trim()) {
-      onSendMessage(text.trim())
-      setText('')
-    }
-
-    if (selectedImages.length > 0) {
-      onSendImage(selectedImages)
-      setSelectedImages([])
-    }
-
-    if (selectedFile) {
-      onSendFile(selectedFile)
-      setSelectedFile(null)
-    }
-  }
+  const sendMessage = () => {}
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

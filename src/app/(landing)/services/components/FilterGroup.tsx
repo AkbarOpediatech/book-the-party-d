@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable no-empty-pattern */
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
-import { AdjustmentsHorizontalIcon, ChevronDownIcon, XMarkIcon } from '@heroicons/react/16/solid'
+import { AdjustmentsHorizontalIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 const FilterGroup = () => {
@@ -132,7 +131,7 @@ const FilterGroup = () => {
                 </div>
               ))}
           </div>
-          <div className="my-5 block w-full md:hidden md:w-auto lg:mt-auto">
+          {/* <div className="my-5 block w-full md:hidden md:w-auto lg:mt-auto">
             <Listbox value={selectedPerson} onChange={setSelectedPerson}>
               <ListboxButton className="flex w-full items-center justify-between gap-2 rounded-lg border border-black px-5 py-[10px] text-sm sm:text-base lg:w-auto">
                 {selectedPerson.name}
@@ -151,7 +150,7 @@ const FilterGroup = () => {
                 ))}
               </ListboxOptions>
             </Listbox>
-          </div>
+          </div> */}
 
           <button
             onClick={() => {

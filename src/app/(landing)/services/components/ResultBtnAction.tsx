@@ -3,8 +3,6 @@ import Image from 'next/image'
 import ICGrid from '/public/assets/ic-grid.svg'
 import ICList from '/public/assets/ic-list.svg'
 
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import FilterGroup from './FilterGroup'
 
@@ -42,7 +40,7 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
           <p className="font-nunito text-lg font-light text-black sm:text-xl">Showing 1–12 of 60 results</p>
         </div>
       </div>
-      <div className="mt-5 hidden w-full md:block md:w-auto lg:mt-auto">
+      {/* <div className="mt-5 hidden w-full md:block md:w-auto lg:mt-auto">
         <Listbox value={selectedPerson} onChange={setSelectedPerson}>
           <ListboxButton className="flex w-full items-center justify-between gap-2 rounded-lg border border-black px-5 py-[10px] text-sm sm:text-base lg:w-auto">
             {selectedPerson.name}
@@ -61,7 +59,7 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
             ))}
           </ListboxOptions>
         </Listbox>
-      </div>
+      </div> */}
     </div>
   )
 }

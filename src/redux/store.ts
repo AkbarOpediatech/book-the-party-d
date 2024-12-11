@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { bankingsApi } from './features/bankings/apiSlice'
 import { bookingsApi } from './features/bookings/apiSlice'
 import { cartApi } from './features/cart/apiSlice'
+import { chatApi } from './features/chat/apiSlice'
 import formReducer from './features/formSlice'
 import loadingErrorSlice from './features/loadingErrorSlice'
 import { notificationApi } from './features/notification/apiSlice'
@@ -23,6 +24,8 @@ export const store = configureStore({
     [bookingsApi.reducerPath]: bookingsApi.reducer,
     [bankingsApi.reducerPath]: bankingsApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
+    [chatApi.reducerPath]: chatApi.reducer,
+
     form: formReducer,
     popup: popupSlice,
     profile: profileReducer
@@ -35,6 +38,7 @@ export const store = configureStore({
       .concat(bankingsApi.middleware)
       .concat(notificationApi.middleware)
       .concat(usersApi.middleware)
+      .concat(chatApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>

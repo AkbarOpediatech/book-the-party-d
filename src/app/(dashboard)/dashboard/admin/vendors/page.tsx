@@ -1,6 +1,5 @@
 'use client'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
-import withRole from '@/app/lib/withRole'
 import { useFetchUserQuery } from '@/redux/features/user/apiSlice'
 import Listings from './components/Listings'
 
@@ -19,4 +18,4 @@ const Vendors = () => {
   )
 }
 
-export default withRole(Vendors, ['admin'])
+export default Vendors

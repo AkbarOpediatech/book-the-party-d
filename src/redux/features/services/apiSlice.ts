@@ -89,8 +89,8 @@ export interface ServiceItem extends GlobalServiceItem {
   location: ILocation
 }
 export interface ServiceItemPost extends GlobalServiceItem {
-  category: string
-  location: string
+  category?: string
+  location?: string
 }
 
 interface ServiceResponse {

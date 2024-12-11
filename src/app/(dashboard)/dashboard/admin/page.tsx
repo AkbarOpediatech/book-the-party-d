@@ -1,4 +1,5 @@
 'use client'
+import withRole from '@/app/lib/withRole'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
@@ -11,7 +12,7 @@ import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
 
-export default function VendorDashboard() {
+function VendorDashboard() {
   const [selectType, setSelectType] = useState('Status')
   const handleSelectChange = (value: string) => {
     setSelectType(value)
@@ -103,3 +104,5 @@ export default function VendorDashboard() {
     </div>
   )
 }
+
+export default withRole(VendorDashboard, ['vendor'])

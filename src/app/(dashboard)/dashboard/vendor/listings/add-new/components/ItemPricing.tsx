@@ -63,7 +63,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing }) => {
         { days: 'sat', start_time: '10:00', end_time: '16:00' }
       ],
       is_unavailable: false,
-      status: 'publish'
+      status: 'pending'
     }
 
     try {

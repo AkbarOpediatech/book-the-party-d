@@ -9,7 +9,7 @@ type IProps = {
 type OptionType = string
 
 const PaymentOption: React.FC<IProps> = ({ onNext }) => {
-  const [selectedOption, setSelectedOption] = useState<OptionType | null>(null)
+  const [selectedOption, setSelectedOption] = useState<OptionType | null>('creditcard')
 
   const handleChange = (option: OptionType) => {
     setSelectedOption(option)
@@ -87,7 +87,7 @@ const PaymentOption: React.FC<IProps> = ({ onNext }) => {
         )}
 
         {/* Option 2 */}
-        <label className="block cursor-pointer items-center space-x-2">
+        {/* <label className="block cursor-pointer items-center space-x-2">
           <input
             type="radio"
             name="payment"
@@ -100,7 +100,7 @@ const PaymentOption: React.FC<IProps> = ({ onNext }) => {
 
         {selectedOption === 'paypal' && <p className="text-gray-600">You selected PayPal.</p>}
 
-        {/* Option 2 */}
+
         <label className="block cursor-pointer items-center space-x-2">
           <input
             type="radio"
@@ -112,7 +112,7 @@ const PaymentOption: React.FC<IProps> = ({ onNext }) => {
           <span className="font-sora text-lg font-bold capitalize text-clr-0f">Bank Transfer</span>
         </label>
 
-        {selectedOption === 'bank' && <p className="text-gray-600">You selected Bank Transfer.</p>}
+        {selectedOption === 'bank' && <p className="text-gray-600">You selected Bank Transfer.</p>} */}
       </div>
       <CustomBtn onClickFunc={handleNext} btnName="Review" btnType="button" className="mt-5" />
     </div>

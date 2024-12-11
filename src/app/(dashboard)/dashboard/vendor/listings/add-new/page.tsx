@@ -1,6 +1,5 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import AddNew from './components/AddNew'
 import ItemList from './components/ItemList'
