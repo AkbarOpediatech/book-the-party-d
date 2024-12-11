@@ -1,21 +1,25 @@
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
-import RatingBarChart from './RatingBarChart'
-import RatingPieChart from './RatingPieChart'
+import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import UserReview from './UserReview'
 
-const ProductReviews = () => {
+type IProps = {
+  singleService: ServiceItem | undefined
+}
+
+const ProductReviews: React.FC<IProps> = ({ singleService }) => {
   return (
-    <div>
+    <div id="product-reviews">
       <SectionHeading
         title="Product Reviews"
         sectionHeadingClass="md:text-[36px]"
         headingRootClass="lg:mb-5"
       />
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-5 border-b border-b-[#afafafb9] pb-8">
+      {/* TODO: WORK WITH IT LETTER */}
+      {/* <div className="mb-8 flex flex-wrap items-center justify-between gap-5 border-b border-b-[#afafafb9] pb-8">
         <RatingPieChart />
         <RatingBarChart />
-      </div>
-      <UserReview />
+      </div> */}
+      <UserReview data={singleService} />
     </div>
   )
 }

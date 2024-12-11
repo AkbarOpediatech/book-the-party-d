@@ -2,9 +2,8 @@
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
 import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import { HeartIcon } from '@heroicons/react/16/solid'
-import { Rating } from '@smastrom/react-rating'
 import Image from 'next/image'
-import { useState } from 'react'
+import Link from 'next/link'
 import serviceImage from '/public/assets/discover-img.png'
 
 type IProps = {
@@ -12,8 +11,6 @@ type IProps = {
 }
 
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {
-  const [starRating, setStarRating] = useState(0)
-
   const handleWishlist = () => {
     console.log('handleFavorite Clickted')
   }
@@ -22,7 +19,15 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
     <div className="mb-9 grid grid-cols-1 gap-14 lg:grid-cols-2">
       <div className="col-span-1">
         <div className="overflow-hidden rounded-2xl">
-          <Image src={serviceImage} width={738} className="object-right-top" alt="service-image" />
+          <div className="object- h-[500px] max-w-[738px] overflow-hidden">
+            <Image
+              src={singleService?.featured_image || serviceImage}
+              width={738}
+              height={500}
+              className="object-right-top"
+              alt="service-image"
+            />
+          </div>
         </div>
       </div>
 
@@ -34,22 +39,34 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
             headingRootClass="md:mb-5"
           />
 
-          <p className="mb-4 text-lg text-[#444444]">
-            {singleService.description ||
-              `Lorem ipsum dolor sit amet consectetur. Faucibus arcu vitae commodo dignissim rhoncus venenatis
-            volutpat tempor blandit. Non morbi posuere tellus ut neque mattis felis sem. Suspendisse et
-            ultrices sit sit sodales quam proin. Id lectus nunc dolor suspendisse et consectetur eu.`}
-          </p>
+          {singleService.is_featured === true && (
+            <p className="bold mb-4 inline-block bg-clr-fb/30 px-3 py-2 text-lg uppercase"> Featured </p>
+          )}
 
-          <div className="mb-3 flex items-center gap-3">
-            <Rating style={{ maxWidth: 120 }} value={starRating} onChange={setStarRating} readOnly={true} />
-            <p className="text-xl font-medium text-clr-36">
-              4.8 · <span className="pb-5 underline">1,928 Reviews</span>
-            </p>
-          </div>
-          <p>
+          <p className="mb-4">
             By <span className="text-lg font-medium">Partyscout</span>
           </p>
+
+          {/* <p className="mb-4 text-lg text-[#444444]">{singleService.description || `Product Description`}</p> */}
+          <p className="text-lg capitalize text-[#444444]">
+            Cancellation Period Hours: {singleService.cancellation_period_hours || `Product Description`}
+          </p>
+
+          <p className="text-lg capitalize text-[#444444]">
+            inclusions:
+            {singleService.inclusions.map(i => i) || `Product Description`}
+          </p>
+
+          <p className="text-lg capitalize text-[#444444]">
+            infos:
+            {singleService.infos.map(i => i) || `Product Description`}
+          </p>
+
+          <div className="flex items-center gap-3">
+            <Link href={'#product-reviews'} className="text-xl font-medium text-clr-36">
+              <span className="pb-5 underline">Reviews</span>
+            </Link>
+          </div>
         </div>
 
         <div className="space-y-5">

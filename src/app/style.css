@@ -157,3 +157,33 @@ input[type='date']::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
 }
+
+/* single service page  */
+
+.prose strong {
+  @apply mb-5 text-2xl font-semibold text-black;
+}
+
+.prose i {
+  @apply text-lg italic text-[#444444];
+}
+
+.prose a {
+  @apply text-lg text-[#2f78e6];
+}
+
+.prose blockquote {
+  @apply border-l-4 border-l-gray-300 bg-gray-200 p-5 text-2xl text-clr-36;
+}
+
+.prose ul {
+  @apply list-disc space-y-4 p-2 lg:p-5;
+}
+
+.prose ol {
+  @apply list-decimal space-y-4 p-2 lg:p-5;
+}
+
+.prose li {
+  @apply text-lg text-[#444444];
+}

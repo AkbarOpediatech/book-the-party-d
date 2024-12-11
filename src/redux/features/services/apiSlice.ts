@@ -62,13 +62,40 @@ export type IPrice = {
   _id?: string
 }
 
+export type IUser = {
+  name: string
+  email: string
+  phone: string
+  password: string
+  avatar: string
+  role: string
+  languages: string[]
+  specialized: string[]
+  stripe_acct: {
+    id: string
+    capabilities: {
+      card_payments: string
+      transfers: string
+    }
+    charges_enabled: boolean
+    payouts_enabled: boolean
+    details_submitted: boolean
+    requirements: {
+      disabled_reason: string | null
+    }
+  } | null
+  about: string
+  email_verified_at: Date | null
+  phone_verified_at: Date | null
+  status: string
+}
+
 export type GlobalServiceItem = {
   aproved_by?: null | undefined
   availability: IAvailability[]
   cancellation_period_hours: number
   createdAt?: string
   description: string
-  featured_image: File | null
   inclusions: string[]
   infos: string[]
   is_featured: boolean
@@ -80,17 +107,20 @@ export type GlobalServiceItem = {
   status: string
   title: string
   updatedAt?: string
-  user: string
   _id?: string
 }
 
 export interface ServiceItem extends GlobalServiceItem {
+  user: IUser
   category: ICategory
   location: ILocation
+  featured_image: string
 }
 export interface ServiceItemPost extends GlobalServiceItem {
+  user: string
   category?: string
   location?: string
+  featured_image: File | null
 }
 
 interface ServiceResponse {
