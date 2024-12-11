@@ -19,8 +19,11 @@ const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, 
         <select
           onChange={onChange}
           name={name}
-          className="w-full rounded-md border border-gray-300 p-3 font-inter text-gray-500"
+          className="font-inter w-full rounded-md border border-gray-300 p-3 text-gray-500"
         >
+          <option disabled selected>
+            Select option
+          </option>
           {options?.map((option, index) => (
             <option key={index} value={option}>
               {option}
@@ -31,7 +34,7 @@ const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, 
         <textarea
           name={name}
           onChange={onChange}
-          className="min-h-[164px] w-full rounded-md border border-gray-300 p-3 font-inter text-gray-500"
+          className="font-inter min-h-[164px] w-full rounded-md border border-gray-300 p-3 text-gray-500"
         ></textarea>
       ) : (
         <input
@@ -39,7 +42,7 @@ const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, 
           name={name}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full rounded-md border border-gray-300 p-3 font-inter text-gray-500"
+          className="font-inter w-full rounded-md border border-gray-300 p-3 text-gray-500"
         />
       )}
     </div>

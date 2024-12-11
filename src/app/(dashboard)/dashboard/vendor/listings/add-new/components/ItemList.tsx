@@ -14,6 +14,7 @@ type IProps = {
   setFormData: Dispatch<SetStateAction<ServiceItemPost>>
   handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
+
 const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,10 +24,10 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) =>
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
-        {' '}
         {isEditListing === true ? 'Edit Item List' : 'Item List'}
       </p>
       <form onSubmit={handleSubmit}>
+        {/* title */}
         <FormInput
           name="title"
           label="Title"
@@ -35,19 +36,34 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) =>
           placeholder="Write a tittle"
           onChange={e => handleChange('title', e.target.value)}
         />
+        {/* Description */}
+        <FormInput
+          name="description"
+          label="Description"
+          type="textarea"
+          customClass="mb-4"
+          onChange={e => handleChange('description', e.target.value)}
+        />
 
-        <FormInput name="description" label="Description" type="textarea" customClass="mb-4" />
+        {/* Location */}
         <FormInput
           name="location"
           label="Location"
           type="select"
-          options={['Sydney', 'Sydney', 'Sydney']}
+          options={['Sydney', 'Brisbane', 'Melbourne']}
           customClass="mb-4"
           onChange={e => handleChange('location', e.target.value)}
         />
+
+        {/* inclusions */}
         <Inclusions onChange={e => handleChange('inclusions', [e.target.value])} />
+
+        {/* infos */}
         <ImportantInfo onChange={e => handleChange('infos', [e.target.value])} />
-        <FileUpload />
+
+        {/*FileUpload  */}
+        <FileUpload onChange={e => handleChange('featured_image', e.target.files?.[0])} />
+
         <div className="mt-6 border-b border-gray-200" />
         <div className="mt-5 flex items-center gap-4">
           <GrayBtn name="Back" onClick={() => setStep(0)} />

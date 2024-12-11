@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import MultiplePrice from './MultiplePrice'
+import SecurityDeposit from './SecurityDeposit'
 
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
@@ -53,9 +54,31 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
           onChange={e => handleChange('price_type', e.target.value)}
           customClass="mb-4"
         />
-        {pricingType === 'fixed' && <FixedPrice />}
-        {pricingType === 'hourly' && <Hourly />}
-        {pricingType === 'Multiple pricing range' && <MultiplePrice />}
+
+        {pricingType === 'fixed' && (
+          <>
+            <FixedPrice
+              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+            />
+            <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
+          </>
+        )}
+        {pricingType === 'hourly' && (
+          <>
+            <Hourly
+              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+            />
+            <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
+          </>
+        )}
+        {pricingType === 'Multiple pricing range' && (
+          <>
+            <MultiplePrice
+              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+            />
+            <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
+          </>
+        )}
         <div className="mt-6 border-b border-gray-200" />
         <div className="mt-5 flex items-center gap-4">
           <GrayBtn name="Back" onClick={() => setStep(2)} />

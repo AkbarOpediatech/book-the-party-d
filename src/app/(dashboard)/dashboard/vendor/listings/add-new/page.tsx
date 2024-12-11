@@ -38,6 +38,7 @@ const AddNewListing = () => {
     }))
   }
 
+  // Changeable state
   console.log(formData, 'formData')
 
   const router = usePathname()
@@ -74,6 +75,7 @@ const AddNewListing = () => {
           setFormData={setFormData}
         />
       )}
+
       {step === 3 && (
         <ItemPricing
           setStep={setStep}

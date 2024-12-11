@@ -10,21 +10,21 @@ type IProps = {
 
 const ImportantInfo: React.FC<IProps> = ({ onChange }) => {
   const [importantInfo, setImportantInfo] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState<string>('')
+  // const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      e.preventDefault()
-      setImportantInfo([inputValue.trim(), ...importantInfo])
-      setInputValue('')
-      setIsAdding(false)
-    }
-  }
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === 'Enter' && inputValue.trim()) {
+  //     e.preventDefault()
+  //     setImportantInfo([inputValue.trim(), ...importantInfo])
+  //     setInputValue('')
+  //     setIsAdding(false)
+  //   }
+  // }
 
   const handleAddNew = () => {
     setIsAdding(true)
-    setInputValue('')
+    // setInputValue('')
   }
 
   const handleRemoveInclusion = (index: number) => {
@@ -58,9 +58,9 @@ const ImportantInfo: React.FC<IProps> = ({ onChange }) => {
           <input
             type="text"
             placeholder="Write here"
-            value={inputValue}
+            // value={inputValue}
             onChange={onChange}
-            onKeyPress={handleKeyPress}
+            // onKeyPress={handleKeyPress}
             className="w-full rounded-md border border-gray-300 px-4 py-2"
           />
         </div>
