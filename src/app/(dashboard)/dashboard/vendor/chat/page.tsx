@@ -13,8 +13,8 @@ const VendorChat: React.FC = () => {
     if (input.trim() !== '' || file) {
       const formData = new FormData()
       formData.append('message', input)
-      formData.append('user', '671e315ed10e02c3ec3dacc3') // Replace with actual user data
-      formData.append('receiver', '671e1293a93691a0b492bc9b') // Replace with actual receiver data
+      formData.append('user', '671e1293a93691a0b492bc9b') // Replace with actual user data
+      formData.append('receiver', '671e315ed10e02c3ec3dacc3') // Replace with actual receiver data
       if (file) {
         formData.append('file', file)
       }
@@ -43,11 +43,13 @@ const VendorChat: React.FC = () => {
         {messages?.data?.map((message: any) => (
           <div
             key={message.id}
-            className={`flex ${message.sender === '671e315ed10e02c3ec3dacc3' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.user === '671e315ed10e02c3ec3dacc3' ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`max-w-xs rounded-lg px-4 py-2 ${
-                message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
+                message.user === '671e315ed10e02c3ec3dacc3'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-black'
               }`}
             >
               {message.message}
