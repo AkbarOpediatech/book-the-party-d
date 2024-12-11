@@ -12,10 +12,7 @@ import ServiceImage from '/public/assets/package1.png'
 
 const RelatedServices = () => {
   const { data: products, isLoading, isError } = useFetchServicesQuery({})
-
   const serviceData = products?.data || []
-
-  console.log(serviceData, 'serviceData')
 
   return (
     <div>

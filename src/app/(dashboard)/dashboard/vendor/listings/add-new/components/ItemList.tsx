@@ -1,15 +1,21 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
+import type { ServiceItemPost } from '@/redux/features/services/apiSlice'
+import type { Dispatch, SetStateAction } from 'react'
 import FileUpload from './FileUpload'
 import ImportantInfo from './ImportantInfo'
 import Inclusions from './Inclusions'
 
 type IProps = {
-  setStep: (stepIndex: number) => void
-  isEditListing: boolean
+  setStep: Dispatch<SetStateAction<number>>
+  isEditListing?: boolean
+  formData: ServiceItemPost
+  setFormData: Dispatch<SetStateAction<ServiceItemPost>>
+  handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
-const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
+
+const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStep(2)
@@ -18,22 +24,48 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
-        {' '}
         {isEditListing === true ? 'Edit Item List' : 'Item List'}
       </p>
       <form onSubmit={handleSubmit}>
-        <FormInput name="tittle" label="Tittle" type="text" customClass="mb-4" placeholder="Write a tittle" />
-        <FormInput name="description" label="Description" type="textarea" customClass="mb-4" />
+        {/* title */}
+        <FormInput
+          name="title"
+          label="Title"
+          type="text"
+          customClass="mb-4"
+          placeholder="Write a tittle"
+          onChange={e => handleChange('title', e.target.value)}
+        />
+        {/* Description */}
+        <FormInput
+          name="description"
+          label="Description"
+          type="textarea"
+          customClass="mb-4"
+          onChange={e => handleChange('description', e.target.value)}
+        />
+
+        {/* Location */}
         <FormInput
           name="location"
           label="Location"
           type="select"
-          options={['Sydney', 'Sydney', 'Sydney']}
+          options={['Sydney', 'Brisbane', 'Melbourne']}
           customClass="mb-4"
+          onChange={e => handleChange('location', e.target.value)}
         />
-        <Inclusions />
-        <ImportantInfo />
-        <FileUpload />
+
+        {/* inclusions */}
+        <Inclusions onChange={e => handleChange('inclusions', [e.target.value])} />
+
+        {/* infos */}
+        <ImportantInfo onChange={e => handleChange('infos', [e.target.value])} />
+
+        {/*FileUpload  */}
+        <FileUpload
+          onChange={e => handleChange('featured_image', e.target.files?.[0] ? e.target.files?.[0] : null)}
+        />
+
         <div className="mt-6 border-b border-gray-200" />
         <div className="mt-5 flex items-center gap-4">
           <GrayBtn name="Back" onClick={() => setStep(0)} />

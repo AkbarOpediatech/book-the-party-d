@@ -3,7 +3,6 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import type { ServiceItemPost } from '../services/apiSlice'
 
 // Define the TypeScript types for your data
-
 export type IPagination = {
   current: number
   total: number

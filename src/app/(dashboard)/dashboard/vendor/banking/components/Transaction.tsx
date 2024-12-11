@@ -5,6 +5,7 @@ import useSearch from '@/hooks/useSearch'
 import { useFetchBankingsQuery } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import TransactionHistoryHeader from './TransactionHistoryHeader'
+
 const TransactionHistoryTable = dynamic(() => import('./TransactionHistoryTable'), {
   ssr: false
 })
@@ -33,6 +34,8 @@ const Transaction = () => {
   if (isError) {
     return <div>Error loading bookings. Please try again later.</div>
   }
+
+  console.log(bankingData, 'bankingData')
 
   return (
     <div className="rounded-lg bg-white shadow">

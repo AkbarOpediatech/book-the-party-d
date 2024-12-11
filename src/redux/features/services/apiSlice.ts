@@ -58,7 +58,7 @@ export type ILocation = {
 
 export type IPrice = {
   text: string
-  value: number
+  value?: number
   _id?: string
 }
 
@@ -68,9 +68,9 @@ export type GlobalServiceItem = {
   cancellation_period_hours: number
   createdAt?: string
   description: string
-  featured_image: StaticImageData | null
-  inclusions: object[]
-  infos: object[]
+  featured_image: File | null
+  inclusions: string[]
+  infos: string[]
   is_featured: boolean
   is_unavailable: boolean
   price: IPrice[]

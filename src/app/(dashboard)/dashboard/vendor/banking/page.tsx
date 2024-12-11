@@ -1,3 +1,4 @@
+'use client'
 import DashboardMasterCard from '@/app/(dashboard)/components/DashboardMasterCard'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
 import dynamic from 'next/dynamic'

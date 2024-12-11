@@ -8,7 +8,7 @@ import DataTable, { type TableColumn } from 'react-data-table-component'
 import productImage from '/public/assets/package1.png'
 
 type IProps = {
-  data: IOrder[] | undefined
+  data: IOrder[]
   currentPage: number
   pageLimit: number
   onPageChange: (page: number) => void
