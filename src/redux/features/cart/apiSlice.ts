@@ -2,15 +2,16 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export interface CartItem {
-  service: number
-  user: string
-  notes: string
-  price: string
-  quantity: number
-  selected_date: {
-    start_date: Date
-    end_date: Date
-  }
+  id?: string
+  service?: string
+  user?: string
+  notes?: string
+  price_id?: string
+  quantity?: number
+  selected_date?: {
+    start_date: string
+    end_date: string
+  }[]
 }
 
 interface CartItemResponse {
@@ -25,7 +26,7 @@ export const cartApi = createApi({
       query: () => '/carts',
       providesTags: ['Cart']
     }),
-    addToCart: builder.mutation<CartItem, CartItem>({
+    addToCart: builder.mutation<CartItem, Omit<CartItem, 'id'>>({
       query: item => ({
         url: '/carts',
         method: 'POST',

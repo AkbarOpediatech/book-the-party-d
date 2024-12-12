@@ -1,13 +1,12 @@
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
-import type { ServiceItem } from '@/redux/features/services/apiSlice'
+import type { ServiceItem } from '@/redux/features/reviews/apiSlice'
 import UserReview from './UserReview'
 
 type IProps = {
-  singleService: ServiceItem | undefined
   reviewsData: ServiceItem[] | undefined
 }
 
-const ProductReviews: React.FC<IProps> = ({ singleService, reviewsData }) => {
+const ProductReviews: React.FC<IProps> = ({ reviewsData }) => {
   return (
     <div id="product-reviews">
       <SectionHeading

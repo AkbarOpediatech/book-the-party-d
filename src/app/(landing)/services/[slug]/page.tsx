@@ -1,4 +1,5 @@
 'use client'
+import { useAddToCartMutation } from '@/redux/features/cart/apiSlice'
 import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
@@ -28,7 +29,6 @@ const ServiceSingle = () => {
 
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
 
-  // const fullResponse = service
   const singleService = response?.data
 
   console.log(singleService, 'singleService')
@@ -39,6 +39,45 @@ const ServiceSingle = () => {
   })
   const reviewsData = reviewResponse?.data
   console.log(reviewsData, 'reviewsData')
+  const [addToCart] = useAddToCartMutation()
+
+  const onClickFunc = () => {
+    console.log('Adding cart', singleService)
+    const cartItem = {
+      service: '674044d385afe1aa59fd4599',
+      user: '671e14e2767fd06e13e1949a',
+      price_id: '674044d385afe1aa59fd459a',
+      quantity: 1,
+      selected_date: [
+        {
+          start_date: '2024-11-06T04:51:05.386Z',
+          end_date: '2024-11-06T04:51:05.386Z'
+        }
+      ]
+    }
+
+    addToCart(cartItem)
+      .unwrap()
+      .then(response => {
+        console.log('Successfully added to cart:', response)
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error)
+      })
+
+    // {
+    //   service: '674044d385afe1aa59fd4599',
+    //   user: '671e14e2767fd06e13e1949a',
+    //   price_id: '674044d385afe1aa59fd459a',
+    //   quantity: 1,
+    //   selected_date: [
+    //     {
+    //       start_date: '2024-11-06T04:51:05.386Z',
+    //       end_date: '2024-11-06T04:51:05.386Z'
+    //     }
+    //   ]
+    // }
+  }
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
@@ -75,7 +114,7 @@ const ServiceSingle = () => {
           <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
             <div className="col-span-2">
               {tab === 0 && <Description singleService={singleService} />}
-              {tab === 1 && <ProductReviews reviewsData={reviewsData} singleService={singleService} />}
+              {tab === 1 && <ProductReviews reviewsData={reviewsData} />}
             </div>
 
             <div className="col-span-1">
@@ -118,7 +157,7 @@ const ServiceSingle = () => {
           </div>
 
           <div className={cn(tab === 1 ? 'hidden' : 'block')}>
-            <ProductReviews reviewsData={reviewsData} singleService={singleService} />
+            <ProductReviews reviewsData={reviewsData} />
           </div>
 
           {specialPackages && <RelatedServices />}

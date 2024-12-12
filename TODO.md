@@ -88,6 +88,6 @@ _API integration - final_
 
 ##### next days Goal
 
-- Need to make service for handling api's
-- deploy and create swagger
-- Need to finished review, addredd, location, profile, coupon
+- Review api integration
+- Cart api integration
+- Wishlist api integration
