@@ -3,16 +3,24 @@ import { setActiveTab } from '@/redux/features/profileSlice'
 import { cn, profileMenuItems } from '@/utils'
 import { roleWiseRoute } from '@/utils/constand'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ArrowRightEndOnRectangleIcon, Bars3Icon, UserIcon, XMarkIcon } from '@heroicons/react/16/solid'
+import {
+  ArrowRightEndOnRectangleIcon,
+  Bars3Icon,
+  UserIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon
+} from '@heroicons/react/16/solid'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import CustomBtn from './CustomBtn'
 import ICCartGray from '/public/assets/ic-cart-gray.svg'
 import ICCart from '/public/assets/ic-cart.svg'
 import ICFavGray from '/public/assets/ic-fav-gray.svg'
+import ICFav from '/public/assets/ic-fav.svg'
 import ICNotify from '/public/assets/ic-notify.svg'
 import ICUser from '/public/assets/ic-user.svg'
 import NavBrand from '/public/assets/nav-brand.svg'
@@ -73,14 +81,14 @@ const Header = () => {
 
           <ul className="hidden items-center gap-5 md:flex">
             <NavIcon icon={ICCart} count={8} href="/cart" alt="cart-icon" />
-            <NavIcon icon={ICCart} count={8} href="/cart" alt="cart-icon" />
+            <NavIcon icon={ICFav} count={8} href="/favorite" alt="fav-icon" />
 
             <li>
               <Menu>
                 <MenuButton>
                   <div className={iconContainerClasses}>
                     <div className="relative">
-                      <Image width={20} height={20} src={ICNotify} alt="user-icon" />
+                      <Image width={20} height={20} src={ICNotify} alt="notification-icon" />
                       <span className={badgeClasses}>8</span>
                     </div>
                   </div>
@@ -90,33 +98,32 @@ const Header = () => {
                   anchor="bottom end"
                   className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                 >
-                  {session && session?.user ? (
-                    <>
-                      <MenuItem>
-                        <Link className={menuItemClasses} href={`${route}`}>
-                          <UserIcon className="size-4 fill-black/30" />
-                          Profile
-                        </Link>
-                      </MenuItem>
+                  <MenuItem>
+                    <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+                      <WrenchScrewdriverIcon className="size-4 fill-black/30" />
+                      notification 1
+                    </div>
+                  </MenuItem>
 
-                      <MenuItem>
-                        <button className={menuItemClasses} onClick={LogoutHandler}>
-                          <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                          Logout
-                        </button>
-                      </MenuItem>
-                    </>
-                  ) : (
-                    <MenuItem>
-                      <Link className={menuItemClasses} href="/login">
-                        <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                        Login
-                      </Link>
-                    </MenuItem>
-                  )}
+                  <MenuItem>
+                    <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+                      <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                      notification 2
+                    </div>
+                  </MenuItem>
+
+                  <MenuItem>
+                    <CustomBtn
+                      isLink={true}
+                      linkName="See All"
+                      href="/notifications"
+                      className="mt-2 justify-center py-2 text-center md:text-base"
+                    />
+                  </MenuItem>
                 </MenuItems>
               </Menu>
             </li>
+
             <li>
               <Menu>
                 <MenuButton>
@@ -207,12 +214,9 @@ const Header = () => {
 
         {/* Sidebar */}
         {isMenuOpen && (
-          <div className="absolute left-0 mt-4 w-full bg-clr-eff p-5 md:hidden">
-            <ul className="mb-5 gap-2 space-y-5 md:block lg:w-full">
-              <li
-                className={cn('max-w-[350px] border-l-4 border-l-clr-fb border-l-transparent px-5')}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
+          <div className="absolute left-0 w-full bg-clr-eff py-5 md:hidden">
+            <ul>
+              <li className={cn('px-5 py-3 hover:bg-clr-fb/10')} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Link
                   href={'/cart'}
                   className={cn(
@@ -223,10 +227,8 @@ const Header = () => {
                   <p>Cart</p>
                 </Link>
               </li>
-              <li
-                className={cn('max-w-[350px] border-l-4 border-l-clr-fb border-l-transparent px-5')}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
+
+              <li className={cn('px-5 py-3 hover:bg-clr-fb/10')} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Link
                   href={'/favorite'}
                   className={cn(
@@ -239,12 +241,11 @@ const Header = () => {
               </li>
             </ul>
 
-            {/* <div className="col-span-1"> */}
-            <ul className="mb-5 gap-2 space-y-5 md:block lg:w-full">
+            <ul className="mb-5">
               {profileMenuItems.map(item => (
                 <li
                   key={item.label}
-                  className={cn('max-w-[350px] border-l-4 border-l-clr-fb border-l-transparent px-5')}
+                  className={cn('block px-5 py-3 hover:bg-clr-fb/10')}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                   <button
@@ -259,7 +260,6 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-            {/* </div> */}
 
             <button
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-clr-87 px-5 py-3 font-sora text-sm text-white"

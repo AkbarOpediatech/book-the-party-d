@@ -1,26 +1,24 @@
-'use client'
 import Image from 'next/image'
+import FilterGroup from './FilterGroup'
 import ICGrid from '/public/assets/ic-grid.svg'
 import ICList from '/public/assets/ic-list.svg'
-
-import { useState } from 'react'
-import FilterGroup from './FilterGroup'
-
-const people = [
-  { id: 1, name: 'Durward Reynolds' },
-  { id: 2, name: 'Kenton Towne' },
-  { id: 3, name: 'Therese Wunsch' },
-  { id: 4, name: 'Benedict Kessler' },
-  { id: 5, name: 'Katelyn Rohan' }
-]
 
 type IProps = {
   handleGridClick: () => void
   handleListClick: () => void
+  totalRecords: number
+  currentPage: number
+  pageLimit: number
 }
 
-const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick }) => {
-  const [selectedPerson, setSelectedPerson] = useState(people[0])
+const ResultBtnAction: React.FC<IProps> = ({
+  handleGridClick,
+  handleListClick,
+  totalRecords,
+  currentPage,
+  pageLimit
+}) => {
+  const totalPages = Math.ceil(totalRecords / pageLimit)
 
   return (
     <div className="mb-6 flex flex-col items-start justify-between gap-5 sm:flex-row md:flex-row md:items-center">
@@ -37,7 +35,9 @@ const ResultBtnAction: React.FC<IProps> = ({ handleGridClick, handleListClick })
               <Image src={ICList} alt="List icon" />
             </button>
           </div>
-          <p className="font-nunito text-lg font-light text-black sm:text-xl">Showing 1–12 of 60 results</p>
+          <p className="font-nunito text-lg font-light text-black sm:text-xl">
+            Showing {currentPage} – {totalPages} of {totalRecords} results
+          </p>
         </div>
       </div>
       {/* <div className="mt-5 hidden w-full md:block md:w-auto lg:mt-auto">

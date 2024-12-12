@@ -33,8 +33,8 @@ const CustomBtn: React.FC<IProps> = ({
           href={href ?? '/'}
           className={cn(
             'flex items-center gap-5 rounded-full bg-clr-fb px-[50px] py-5 text-xl font-bold text-white md:text-2xl',
-            isBorderedLink && 'border border-clr-fb bg-white text-clr-fb',
-            className
+            className,
+            isBorderedLink && 'border border-clr-fb bg-white text-clr-fb'
           )}
         >
           {linkName}

@@ -36,85 +36,87 @@ const ServiceSingle = () => {
   if (isError) return <div>Error loading products.</div>
 
   return (
-    <section id="service_single" className="py-10 lg:py-20">
-      <div className="container max-w-[1440px]">
-        {singleService && <ProductFeature singleService={singleService} />}
+    <>
+      <section id="service_single" className="py-10 lg:py-20">
+        <div className="container max-w-[1440px]">
+          {singleService && <ProductFeature singleService={singleService} />}
 
-        {/* description */}
-        <div className="mb-6 flex items-center gap-4">
-          <button
-            className={cn(
-              'rounded border px-3 py-[6px] text-lg font-medium',
-              tab === 0 && 'border-transparent bg-clr-fb/10 text-clr-fb'
-            )}
-            onClick={() => setTab(0)}
-          >
-            Description
-          </button>
+          {/* description */}
+          <div className="mb-6 flex items-center gap-4">
+            <button
+              className={cn(
+                'rounded border px-3 py-[6px] text-lg font-medium',
+                tab === 0 && 'border-transparent bg-clr-fb/10 text-clr-fb'
+              )}
+              onClick={() => setTab(0)}
+            >
+              Description
+            </button>
 
-          <button
-            className={cn(
-              'rounded border px-3 py-[6px] text-lg font-medium',
-              tab === 1 && 'border-transparent bg-clr-fb/10 text-clr-fb'
-            )}
-            onClick={() => setTab(1)}
-          >
-            Reviews
-          </button>
-        </div>
-
-        <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
-          <div className="col-span-2">
-            {tab === 0 && <Description singleService={singleService} />}
-            {tab === 1 && <ProductReviews singleService={singleService} />}
+            <button
+              className={cn(
+                'rounded border px-3 py-[6px] text-lg font-medium',
+                tab === 1 && 'border-transparent bg-clr-fb/10 text-clr-fb'
+              )}
+              onClick={() => setTab(1)}
+            >
+              Reviews
+            </button>
           </div>
 
-          <div className="col-span-1">
-            <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
-            {singleService?.is_unavailable === true ? (
-              <div>
-                <div className="relative">
-                  <Image src={Unableable} alt="unableable" />
-                  <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
-                    <p className="flex h-full items-center justify-center text-center text-2xl font-bold">
-                      Service Unavailable
-                    </p>
+          <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
+            <div className="col-span-2">
+              {tab === 0 && <Description singleService={singleService} />}
+              {tab === 1 && <ProductReviews singleService={singleService} />}
+            </div>
+
+            <div className="col-span-1">
+              <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
+              {singleService?.is_unavailable === true ? (
+                <div>
+                  <div className="relative">
+                    <Image src={Unableable} alt="unableable" />
+                    <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
+                      <p className="flex h-full items-center justify-center text-center text-2xl font-bold">
+                        Service Unavailable
+                      </p>
+                    </div>
                   </div>
+
+                  <CustomBtn
+                    btnName={singleService?.is_unavailable === true ? 'Service Unavailable' : 'Book Now'}
+                    className={cn(
+                      singleService?.is_unavailable === true && 'cursor-not-allowed bg-gray-400',
+                      'w-full'
+                    )}
+                  />
                 </div>
-
-                <CustomBtn
-                  btnName={singleService?.is_unavailable === true ? 'Service Unavailable' : 'Book Now'}
-                  className={cn(
-                    singleService?.is_unavailable === true && 'cursor-not-allowed bg-gray-400',
-                    'w-full'
-                  )}
-                />
-              </div>
-            ) : (
-              <>
-                <Calendar
-                  onChange={onChange}
-                  value={value}
-                  className="custom-calendar mb-5 w-full rounded-lg shadow-lg"
-                  navigationLabel={({ date }) => (
-                    <span className="text-lg font-semibold text-clr-fb">
-                      {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
-                    </span>
-                  )}
-                />
-                <CustomBtn btnName="Book Now" className="w-full" />
-              </>
-            )}
+              ) : (
+                <>
+                  <Calendar
+                    onChange={onChange}
+                    value={value}
+                    className="custom-calendar mb-5 w-full rounded-lg shadow-lg"
+                    navigationLabel={({ date }) => (
+                      <span className="text-lg font-semibold text-clr-fb">
+                        {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                      </span>
+                    )}
+                  />
+                  <CustomBtn btnName="Book Now" className="w-full" />
+                </>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className={cn(tab === 1 ? 'hidden' : 'block')}>
-          <ProductReviews singleService={singleService} />
-        </div>
+          <div className={cn(tab === 1 ? 'hidden' : 'block')}>
+            <ProductReviews singleService={singleService} />
+          </div>
 
-        {specialPackages && <RelatedServices />}
-      </div>
-    </section>
+          {specialPackages && <RelatedServices />}
+        </div>
+      </section>
+    </>
   )
 }
 

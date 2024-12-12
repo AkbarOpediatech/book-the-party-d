@@ -1,4 +1,3 @@
-// hooks/useSearchQuery.ts
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -11,6 +10,7 @@ export interface SearchFormData {
 
 const useSearchQuery = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState<SearchFormData>({
     search: '',
     location: '',
@@ -23,21 +23,26 @@ const useSearchQuery = () => {
     setFormData(prev => ({ ...prev, [id]: value }))
   }
 
-  const handleSearchClick = (e: React.SyntheticEvent) => {
+  const handleSearchClick = async (e: React.SyntheticEvent) => {
     e.preventDefault()
+    setIsLoading(true)
 
-    // Ensure all values are strings
     const query = new URLSearchParams(
       Object.fromEntries(Object.entries(formData).map(([key, value]) => [key, value.toString()]))
     ).toString()
 
+    // Simulate API call or navigation delay
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulated delay
+
     router.push(`/services?${query}`)
+    setIsLoading(false) // Reset loading state
   }
 
   return {
     formData,
     handleInputChange,
-    handleSearchClick
+    handleSearchClick,
+    isLoading
   }
 }
 

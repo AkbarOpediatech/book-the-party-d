@@ -34,7 +34,13 @@ const Results = () => {
 
   return (
     <>
-      <ResultBtnAction handleGridClick={handleGridClick} handleListClick={handleListClick} />
+      <ResultBtnAction
+        totalRecords={totalRecords}
+        currentPage={currentPage}
+        pageLimit={pageLimit}
+        handleGridClick={handleGridClick}
+        handleListClick={handleListClick}
+      />
       {serviceData && (
         <div className="mb-10">
           {viewMode === 'grid' ? (
