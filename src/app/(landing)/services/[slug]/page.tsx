@@ -1,4 +1,5 @@
 'use client'
+import { useAddToCartMutation } from '@/redux/features/cart/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
@@ -27,10 +28,47 @@ const ServiceSingle = () => {
 
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
 
-  // const fullResponse = service
   const singleService = response?.data
 
-  console.log(singleService, 'singleService')
+  const [addToCart] = useAddToCartMutation()
+
+  const onClickFunc = () => {
+    console.log('Adding cart', singleService)
+    const cartItem = {
+      service: '674044d385afe1aa59fd4599',
+      user: '671e14e2767fd06e13e1949a',
+      price_id: '674044d385afe1aa59fd459a',
+      quantity: 1,
+      selected_date: [
+        {
+          start_date: '2024-11-06T04:51:05.386Z',
+          end_date: '2024-11-06T04:51:05.386Z'
+        }
+      ]
+    }
+
+    addToCart(cartItem)
+      .unwrap()
+      .then(response => {
+        console.log('Successfully added to cart:', response)
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error)
+      })
+
+    // {
+    //   service: '674044d385afe1aa59fd4599',
+    //   user: '671e14e2767fd06e13e1949a',
+    //   price_id: '674044d385afe1aa59fd459a',
+    //   quantity: 1,
+    //   selected_date: [
+    //     {
+    //       start_date: '2024-11-06T04:51:05.386Z',
+    //       end_date: '2024-11-06T04:51:05.386Z'
+    //     }
+    //   ]
+    // }
+  }
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
@@ -102,7 +140,7 @@ const ServiceSingle = () => {
                     </span>
                   )}
                 />
-                <CustomBtn btnName="Book Now" className="w-full" />
+                <CustomBtn btnName="Book Now" onClickFunc={onClickFunc} className="w-full" />
               </>
             )}
           </div>

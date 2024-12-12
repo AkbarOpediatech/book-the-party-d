@@ -7,7 +7,7 @@ export const baseQuery = fetchBaseQuery({
   //FIXME:  need to call session to change token
   prepareHeaders: headers => {
     const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFlMTI5M2E5MzY5MWEwYjQ5MmJjOWIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM3Mzc3NDUsImV4cCI6MTczNjMyOTc0NX0.FqOyJCSwywvfw7obCc0rDVKmt6swkoWQ6j3qCqoqbjs'
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFlMTRlMjc2N2ZkMDZlMTNlMTk0OWEiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3MzM5OTY5MzUsImV4cCI6MTczNjU4ODkzNX0.-YcrWdHdInpJvW2U_DxzFy9aCduEMCZW5jNGAjDokQY'
 
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
