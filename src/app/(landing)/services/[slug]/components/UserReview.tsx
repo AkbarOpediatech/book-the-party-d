@@ -1,7 +1,6 @@
 'use client'
 import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import Image from 'next/image'
-import { useState } from 'react'
 import avatar from '/public/assets/avatar.jpeg'
 
 type IProps = {
@@ -9,7 +8,8 @@ type IProps = {
 }
 
 const UserReview: React.FC<IProps> = ({ data }) => {
-  const [starRating, setStarRating] = useState(0)
+  // const [starRating, setStarRating] = useState(0)
+  console.log(data, 'rfeview datga')
 
   return (
     <div className="mb-14">
@@ -23,10 +23,9 @@ const UserReview: React.FC<IProps> = ({ data }) => {
           className="mb-4"
         /> */}
         <p className="text-clr-[#0B0F0E] mb-1.5 text-base font-medium">
-          &quot;I recently booked Party Scout for my son&apos;s superhero-themed birthday party, and they
-          absolutely nailed it! The decorations were vibrant, the activities kept the kids engaged, and the
-          cake table setup was picture-perfect. I loved how they paid attention to every little detail. Highly
-          recommend!&quot;
+          &quot;
+          {data.description}
+          &quot;
         </p>
         <p className="text-sm text-[#818B9C]">July 2, 2020 03:29 PM</p>
       </div>

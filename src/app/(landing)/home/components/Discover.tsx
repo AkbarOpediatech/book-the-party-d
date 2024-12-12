@@ -14,7 +14,7 @@ const Discover = () => {
   const { formData } = useSearchQuery()
 
   return (
-    <section className="section-padding sm:pt-3">
+    <section className="sm:pt-3 lg:pb-20">
       <div className="container">
         <SectionHeading title="Discover events in your area" />
       </div>

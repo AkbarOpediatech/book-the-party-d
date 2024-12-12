@@ -8,6 +8,7 @@ import loadingErrorSlice from './features/loadingErrorSlice'
 import { notificationApi } from './features/notification/apiSlice'
 import popupSlice from './features/popupSlice'
 import profileReducer from './features/profileSlice'
+import { reviewsApi } from './features/reviews/apiSlice'
 import { servicesApi } from './features/services/apiSlice'
 import servicesSlice from './features/services/servicesSlice'
 import stepperSlice from './features/stepperSlice'
@@ -22,6 +23,7 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     [servicesApi.reducerPath]: servicesApi.reducer,
     [bookingsApi.reducerPath]: bookingsApi.reducer,
+    [reviewsApi.reducerPath]: reviewsApi.reducer,
     [bankingsApi.reducerPath]: bankingsApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     [chatApi.reducerPath]: chatApi.reducer,
@@ -35,6 +37,7 @@ export const store = configureStore({
       .concat(cartApi.middleware)
       .concat(servicesApi.middleware)
       .concat(bookingsApi.middleware)
+      .concat(reviewsApi.middleware)
       .concat(bankingsApi.middleware)
       .concat(notificationApi.middleware)
       .concat(usersApi.middleware)

@@ -4,9 +4,10 @@ import UserReview from './UserReview'
 
 type IProps = {
   singleService: ServiceItem | undefined
+  reviewsData: ServiceItem[] | undefined
 }
 
-const ProductReviews: React.FC<IProps> = ({ singleService }) => {
+const ProductReviews: React.FC<IProps> = ({ singleService, reviewsData }) => {
   return (
     <div id="product-reviews">
       <SectionHeading
@@ -19,7 +20,7 @@ const ProductReviews: React.FC<IProps> = ({ singleService }) => {
         <RatingPieChart />
         <RatingBarChart />
       </div> */}
-      <UserReview data={singleService} />
+      {reviewsData && reviewsData.length > 0 ? <UserReview data={reviewsData} /> : 'No Reviews'}
     </div>
   )
 }

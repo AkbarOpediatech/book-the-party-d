@@ -1,4 +1,5 @@
 'use client'
+import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
@@ -31,6 +32,13 @@ const ServiceSingle = () => {
   const singleService = response?.data
 
   console.log(singleService, 'singleService')
+  const { data: reviewResponse } = useFetchReviewsQuery({
+    service: response && response.data._id,
+    limit: 10,
+    page: 1
+  })
+  const reviewsData = reviewResponse?.data
+  console.log(reviewsData, 'reviewsData')
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
@@ -67,7 +75,7 @@ const ServiceSingle = () => {
           <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
             <div className="col-span-2">
               {tab === 0 && <Description singleService={singleService} />}
-              {tab === 1 && <ProductReviews singleService={singleService} />}
+              {tab === 1 && <ProductReviews reviewsData={reviewsData} singleService={singleService} />}
             </div>
 
             <div className="col-span-1">
@@ -110,7 +118,7 @@ const ServiceSingle = () => {
           </div>
 
           <div className={cn(tab === 1 ? 'hidden' : 'block')}>
-            <ProductReviews singleService={singleService} />
+            <ProductReviews reviewsData={reviewsData} singleService={singleService} />
           </div>
 
           {specialPackages && <RelatedServices />}
