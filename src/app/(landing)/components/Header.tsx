@@ -97,7 +97,10 @@ const Header = () => {
                     </div>
                   </div>
                 </MenuButton>
-                <MenuItems className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm">
+                <MenuItems
+                  anchor="bottom"
+                  className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm"
+                >
                   <MenuItem>
                     <div className={menuItemClasses}>
                       <WrenchScrewdriverIcon className="size-4 fill-black/30" />
@@ -130,7 +133,10 @@ const Header = () => {
                     <Image width={20} height={20} src={ICUser} alt="user-icon" />
                   </div>
                 </MenuButton>
-                <MenuItems className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm">
+                <MenuItems
+                  anchor="bottom"
+                  className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm"
+                >
                   {session?.user ? (
                     <>
                       <MenuItem>

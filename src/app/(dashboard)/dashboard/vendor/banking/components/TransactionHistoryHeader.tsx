@@ -19,8 +19,8 @@ const TransactionHistoryHeader: React.FC<IProps> = ({
 }) => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 rounded pb-5 pt-3 md:px-4 lg:flex-nowrap">
-      <h2 className="whitespace-nowrap text-sm text-clr-36 md:mb-0 md:text-base">Transaction History</h2>
-      <input
+      {/* <h2 className="whitespace-nowrap text-sm text-clr-36 md:mb-0 md:text-base">Transaction History</h2> */}
+      {/* <input
         type="date"
         value={startDate}
         onChange={e => setStartDate(e.target.value)}
@@ -33,7 +33,7 @@ const TransactionHistoryHeader: React.FC<IProps> = ({
         onChange={e => setEndDate(e.target.value)}
         className="input w-full text-clr-ab"
         placeholder="End date"
-      />
+      /> */}
       <input
         type="search"
         value={searchTerm}
