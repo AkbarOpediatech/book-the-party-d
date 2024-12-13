@@ -55,8 +55,8 @@ const ServiceSingle = () => {
     const endDate = Array.isArray(value) && value[1] ? value[1].toISOString() : currentDate
 
     const cartItem = {
-      service_id: singleService._id,
-      user: singleService._id, // Assuming user ID is available in singleService
+      service: singleService._id,
+      user: singleService._id,
       price_id: singleService._id,
       quantity: 1,
       selected_date: [
@@ -66,8 +66,6 @@ const ServiceSingle = () => {
         }
       ]
     }
-
-    //singleService use this to track service is added on cart or not
 
     addToCart(cartItem)
       .unwrap()
@@ -81,9 +79,8 @@ const ServiceSingle = () => {
             timer: 2000,
             toast: true
           })
-          // alert('Successfully added to cart')
         } else {
-          router.push('/cart') // Redirect to cart page on success
+          router.push('/cart')
         }
       })
       .catch(error => {

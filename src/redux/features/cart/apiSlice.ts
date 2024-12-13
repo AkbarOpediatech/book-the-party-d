@@ -2,15 +2,15 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export type IPagination = {
-  current: number
-  total: number
-  next: number | null
-  prev: number | null
-  records: number
+  current?: number
+  total?: number
+  next?: number | null
+  prev?: number | null
+  records?: number
 }
 
 export type IPrice = {
-  text: string
+  text?: string
   value?: number
   _id?: string
 }
@@ -20,24 +20,23 @@ export type GlobalServiceItem = {
   aproved_by?: null | undefined
   cancellation_period_hours: number
   createdAt?: string
-  description: string
-  inclusions: string[]
-  infos: string[]
-  is_featured: boolean
-  is_unavailable: boolean
-  price: IPrice[]
-  price_type: string
-  security_deposit: number
-  slug: string
-  status: string
-  title: string
+  description?: string
+  inclusions?: string[]
+  infos?: string[]
+  is_featured?: boolean
+  is_unavailable?: boolean
+  price?: IPrice[]
+  price_type?: string
+  security_deposit?: number
+  slug?: string
+  status?: string
+  title?: string
   updatedAt?: string
 }
 
 export interface CartItem {
   _id?: string | number
-  id?: string
-  service?: GlobalServiceItem
+  service?: string
   user?: string
   notes?: string
   price_id?: string
