@@ -27,7 +27,6 @@ const Results = () => {
   } = useFetchServicesQuery({ limit: pageLimit, page: currentPage })
 
   const serviceData = products?.data
-  console.log(serviceData, 'serviceData')
 
   const totalRecords = products?.pagination?.records || 0
 

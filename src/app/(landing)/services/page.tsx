@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Filter from './components/Filter'
 import Results from './components/Results'
+import Reviews from '../components/Reviews'
 
 const ServicesContent = () => {
   const searchParams = useSearchParams()
@@ -24,7 +25,7 @@ const ServicesContent = () => {
           </div>
         </div>
       </div>
-      {/* <Reviews /> */}
+      <Reviews />
     </section>
   )
 }

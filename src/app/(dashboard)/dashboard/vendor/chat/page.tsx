@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useAddToChatMutation, useFetchChatQuery } from '@/redux/features/chat/apiSlice'

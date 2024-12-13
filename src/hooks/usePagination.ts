@@ -1,6 +1,11 @@
 import { useState } from 'react'
 
-const usePagination = (initialPage: number = 1, initialLimit: number = 10) => {
+interface PaginationConfig {
+  initialPage?: number
+  initialLimit?: number
+}
+
+const usePagination = ({ initialPage = 1, initialLimit = 10 }: PaginationConfig = {}) => {
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [pageLimit, setPageLimit] = useState<number>(initialLimit)
 

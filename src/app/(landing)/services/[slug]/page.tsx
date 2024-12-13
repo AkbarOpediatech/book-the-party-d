@@ -1,11 +1,13 @@
 'use client'
+
+import usePagination from '@/hooks/usePagination'
 import { useAddToCartMutation } from '@/redux/features/cart/apiSlice'
 import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
@@ -20,63 +22,65 @@ type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const ServiceSingle = () => {
+  const router = useRouter()
   const [tab, setTab] = useState(0)
   const [value, onChange] = useState<Value>(new Date())
+  const { currentPage, pageLimit, handlePageChange } = usePagination({
+    initialLimit: 3
+  })
   const params = useParams()
   const { slug } = params
-
-  console.log(slug, 'slug')
-
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
-
   const singleService = response?.data
-
-  console.log(singleService, 'singleService')
   const { data: reviewResponse } = useFetchReviewsQuery({
-    service: response && response.data._id,
-    limit: 10,
-    page: 1
+    reviews: response && response.data._id,
+    limit: pageLimit,
+    page: currentPage
   })
   const reviewsData = reviewResponse?.data
-  console.log(reviewsData, 'reviewsData')
+  const ReviewRecords = reviewResponse?.pagination?.records || 0
   const [addToCart] = useAddToCartMutation()
 
   const onClickFunc = () => {
-    console.log('Adding cart', singleService)
+    // Ensure singleService and user data are available
+    if (!singleService) {
+      console.error('Service data is not available.')
+      alert('Service data is missing. Please try again later.')
+      return
+    }
+
+    const currentDate = new Date().toISOString()
+    const startDate = Array.isArray(value) && value[0] ? value[0].toISOString() : currentDate
+    const endDate = Array.isArray(value) && value[1] ? value[1].toISOString() : currentDate
+
     const cartItem = {
-      service: '674044d385afe1aa59fd4599',
-      user: '671e14e2767fd06e13e1949a',
-      price_id: '674044d385afe1aa59fd459a',
+      service: singleService._id,
+      user: singleService._id, // Assuming user ID is available in singleService
+      price_id: singleService._id,
       quantity: 1,
       selected_date: [
         {
-          start_date: '2024-11-06T04:51:05.386Z',
-          end_date: '2024-11-06T04:51:05.386Z'
+          start_date: startDate,
+          end_date: endDate
         }
       ]
     }
 
+    //singleService use this to track service is added on cart or not
+
     addToCart(cartItem)
       .unwrap()
       .then(response => {
-        console.log('Successfully added to cart:', response)
+        if (response) {
+          alert('Successfully added to cart')
+        } else {
+          router.push('/cart') // Redirect to cart page on success
+        }
       })
       .catch(error => {
         console.error('Error adding to cart:', error)
+        alert('Failed to book the service. Please try again.')
       })
-
-    // {
-    //   service: '674044d385afe1aa59fd4599',
-    //   user: '671e14e2767fd06e13e1949a',
-    //   price_id: '674044d385afe1aa59fd459a',
-    //   quantity: 1,
-    //   selected_date: [
-    //     {
-    //       start_date: '2024-11-06T04:51:05.386Z',
-    //       end_date: '2024-11-06T04:51:05.386Z'
-    //     }
-    //   ]
-    // }
   }
 
   if (isLoading) return <div>Loading products...</div>
@@ -87,8 +91,6 @@ const ServiceSingle = () => {
       <section id="service_single" className="py-10 lg:py-20">
         <div className="container max-w-[1440px]">
           {singleService && <ProductFeature singleService={singleService} />}
-
-          {/* description */}
           <div className="mb-6 flex items-center gap-4">
             <button
               className={cn(
@@ -114,7 +116,15 @@ const ServiceSingle = () => {
           <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
             <div className="col-span-2">
               {tab === 0 && <Description singleService={singleService} />}
-              {tab === 1 && <ProductReviews reviewsData={reviewsData} />}
+              {tab === 1 && (
+                <ProductReviews
+                  reviewsData={reviewsData}
+                  totalRecords={ReviewRecords}
+                  currentPage={currentPage}
+                  pageLimit={pageLimit}
+                  handlePageChange={handlePageChange}
+                />
+              )}
             </div>
 
             <div className="col-span-1">
@@ -150,14 +160,20 @@ const ServiceSingle = () => {
                       </span>
                     )}
                   />
-                  <CustomBtn btnName="Book Now" className="w-full" />
+                  <CustomBtn onClickFunc={onClickFunc} btnName="Book Now" className="w-full" />
                 </>
               )}
             </div>
           </div>
 
           <div className={cn(tab === 1 ? 'hidden' : 'block')}>
-            <ProductReviews reviewsData={reviewsData} />
+            <ProductReviews
+              reviewsData={reviewsData}
+              totalRecords={ReviewRecords}
+              currentPage={currentPage}
+              pageLimit={pageLimit}
+              handlePageChange={handlePageChange}
+            />
           </div>
 
           {specialPackages && <RelatedServices />}

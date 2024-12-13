@@ -63,6 +63,7 @@ export type IPrice = {
 }
 
 export type IUser = {
+  _id?: string
   name: string
   email: string
   phone: string
