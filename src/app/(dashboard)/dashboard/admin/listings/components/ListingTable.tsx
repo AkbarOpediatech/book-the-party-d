@@ -1,22 +1,48 @@
-import { listingsData, type IListingsData } from '@/utils'
+import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import productImage from '/public/assets/package1.png'
 
-const ListingTable = () => {
-  const columns: TableColumn<IListingsData>[] = [
+type IProps = {
+  data: ServiceItem[]
+  currentPage: number
+  pageLimit: number
+  onPageChange: (page: number) => void
+  onPageLimitChange: (limit: number) => void
+  totalRecords: number
+}
+
+const ListingTable: React.FC<IProps> = ({
+  data,
+  pageLimit,
+  onPageChange,
+  onPageLimitChange,
+  totalRecords
+}) => {
+  const columns: TableColumn<ServiceItem>[] = [
     {
       name: 'Item Name',
-      cell: (row: IListingsData) => (
-        <Link href={`/dashboard/admin/listings/${row.id}`} className="flex items-center gap-4">
+      cell: (row: ServiceItem) => (
+        <Link href={`/dashboard/vendor/listings/${row.slug}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row.image} alt="Product Image" />
+            <Image
+              width={40}
+              height={40}
+              src={row.featured_image ? row.featured_image : productImage}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.itemName}</p>
-            <p className="text-sm text-clr-81">{row.itemDescription}</p>
+            <p className="text-sm font-semibold text-clr-36">{row.title}</p>
+            {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}>{row.description}</div> */}
+
+            <p
+              className="h-4 w-64 truncate text-sm text-clr-81"
+              dangerouslySetInnerHTML={{ __html: `<p>${row.infos}</p>` }}
+            ></p>
           </div>
         </Link>
       ),
@@ -25,27 +51,27 @@ const ListingTable = () => {
     },
     {
       name: 'Category',
-      selector: (row: IListingsData) => row.category,
+      selector: (row: ServiceItem) => row.category.title,
       sortable: true
     },
     {
       name: 'Price',
-      cell: (row: IListingsData) => (
+      cell: (row: ServiceItem) => (
         <div className="rounded-md bg-clr-81/20 px-2 py-[1px] text-sm font-bold text-clr-81">
-          ${row.price}
+          ${row.price.map(i => i.value)}
         </div>
       ),
       sortable: true
     },
     {
       name: 'Total Bookings',
-      selector: (row: IListingsData) => row.totalBookings,
+      selector: () => 5, //TODO: make it dynamic
       sortable: true
     },
 
     {
       name: '',
-      cell: () => (
+      cell: (row: ServiceItem) => (
         <Menu>
           <MenuButton>
             <EllipsisVerticalIcon className="size-4 fill-black/30" />
@@ -57,8 +83,24 @@ const ListingTable = () => {
             className="w-36 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
           >
             <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+              <Link
+                href={`/dashboard/vendor/listings/${row.slug}`}
+                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+              >
                 View Listing
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link
+                href={'/dashboard/vendor/listings/edit-listing'}
+                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+              >
+                Edit
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+                Delete
               </button>
             </MenuItem>
           </MenuItems>
@@ -94,17 +136,31 @@ const ListingTable = () => {
       }
     }
   }
+
   return (
     <div className="p-2">
       <DataTable
         columns={columns}
-        data={listingsData}
+        data={data}
         pagination
+        paginationServer
+        paginationTotalRows={totalRecords}
+        onChangePage={onPageChange}
+        paginationPerPage={pageLimit}
         customStyles={customStyles}
-        selectableRows
-        responsive
+        paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+        onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
+        paginationComponentOptions={{
+          rowsPerPageText: 'Rows per page:',
+          rangeSeparatorText: 'of',
+          noRowsPerPage: false,
+          selectAllRowsItem: false,
+          selectAllRowsItemText: 'All'
+        }}
         highlightOnHover
         striped
+        responsive
+        selectableRows
         className="text-sm"
       />
     </div>

@@ -37,7 +37,12 @@ const ListingTable: React.FC<IProps> = ({
           </div>
           <div className="whitespace-nowrap">
             <p className="text-sm font-semibold text-clr-36">{row.title}</p>
-            <p className="text-sm text-clr-81">{row.description}</p>
+            {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}>{row.description}</div> */}
+
+            <p
+              className="h-4 w-64 truncate text-sm text-clr-81"
+              dangerouslySetInnerHTML={{ __html: `<p>${row.infos}</p>` }}
+            ></p>
           </div>
         </Link>
       ),

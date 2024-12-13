@@ -1,25 +1,30 @@
-import { handleInputChange } from '@/utils/inputHandlers'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 
-const ImportantInfo = () => {
+type IProps = {
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void | undefined
+}
+
+const ImportantInfo: React.FC<IProps> = ({ onChange }) => {
   const [importantInfo, setImportantInfo] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState<string>('')
+  // const [inputValue, setInputValue] = useState<string>('')
   const [isAdding, setIsAdding] = useState<boolean>(true)
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      e.preventDefault()
-      setImportantInfo([inputValue.trim(), ...importantInfo])
-      setInputValue('')
-      setIsAdding(false)
-    }
-  }
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === 'Enter' && inputValue.trim()) {
+  //     e.preventDefault()
+  //     setImportantInfo([inputValue.trim(), ...importantInfo])
+  //     setInputValue('')
+  //     setIsAdding(false)
+  //   }
+  // }
 
   const handleAddNew = () => {
     setIsAdding(true)
-    setInputValue('')
+    // setInputValue('')
   }
 
   const handleRemoveInclusion = (index: number) => {
@@ -53,9 +58,9 @@ const ImportantInfo = () => {
           <input
             type="text"
             placeholder="Write here"
-            value={inputValue}
-            onChange={e => handleInputChange(e, setInputValue)}
-            onKeyPress={handleKeyPress}
+            // value={inputValue}
+            onChange={onChange}
+            // onKeyPress={handleKeyPress}
             className="w-full rounded-md border border-gray-300 px-4 py-2"
           />
         </div>
