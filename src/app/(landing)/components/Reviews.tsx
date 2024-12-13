@@ -1,4 +1,5 @@
 'use client'
+import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import 'swiper/css'
@@ -9,6 +10,26 @@ import SectionHeading from './SectionHeading'
 import avatar from '/public/assets/avatar.jpeg'
 
 const Reviews = () => {
+  const {
+    data: response,
+    isLoading,
+    isError
+  } = useFetchReviewsQuery({
+    role: 'admin'
+  })
+
+  const reviewsData = response?.data || []
+
+  if (isLoading) {
+    return <div>Loading reviews...</div>
+  }
+
+  if (isError) {
+    return <div>Error loading reviews. Please try again later.</div>
+  }
+
+  console.log(reviewsData, 'reviewsData')
+
   return (
     <section className="reviews section-padding">
       <div className="container px-0">
@@ -46,20 +67,25 @@ const Reviews = () => {
               }
             }}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((items, index) => (
+            {reviewsData.map((items, index) => (
               <SwiperSlide key={index}>
                 <div className="rounded-lg bg-clr-87 px-8 py-12">
                   <p className="mb-5 text-sm font-medium leading-[150%] text-white">
-                    &quot;This is a very complex and beautiful set of elements. Under the hood it comes with
-                    the best things from 2 different worlds: Figma and Tailwind.&quot;
+                    &quot;{items.description}&quot;
                   </p>
                   <div className="flex items-center gap-3">
-                    <Image width={32} height={32} className="rounded-full" src={avatar} alt="avatar" />
+                    <Image
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                      src={items.user.avatar || avatar}
+                      alt="avatar"
+                    />
                     <div>
                       <h6 className="mb-1 font-sora text-sm font-semibold text-white md:text-base">
-                        Bonnie Green
+                        {items.user.name}
                       </h6>
-                      <p className="text-sm text-white">Web developer @themesberg</p>
+                      <p className="text-sm text-white">{items.user.role}</p>
                     </div>
                   </div>
                 </div>

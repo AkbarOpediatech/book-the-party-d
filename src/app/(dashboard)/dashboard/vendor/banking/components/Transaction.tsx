@@ -35,8 +35,6 @@ const Transaction = () => {
     return <div>Error loading bookings. Please try again later.</div>
   }
 
-  console.log(bankingData, 'bankingData')
-
   return (
     <div className="rounded-lg bg-white shadow">
       <div className="p-2">

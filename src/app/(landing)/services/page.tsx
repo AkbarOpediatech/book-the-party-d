@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import Filter from './components/Filter'
 import Results from './components/Results'
+import Reviews from '../components/Reviews'
 
 const ServicesContent = () => {
   const searchParams = useSearchParams()
@@ -17,7 +18,6 @@ const ServicesContent = () => {
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-12">
             <div className="col-span-1 sm:col-span-2 md:col-span-4">
               <Filter />
-              {/* <FilterSidebar /> */}
             </div>
             <div className="col-span-1 sm:col-span-2 md:col-span-8">
               <Results />
@@ -25,7 +25,7 @@ const ServicesContent = () => {
           </div>
         </div>
       </div>
-      {/* <Reviews /> */}
+      <Reviews />
     </section>
   )
 }

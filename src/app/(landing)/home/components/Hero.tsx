@@ -6,7 +6,7 @@ import Link from 'next/link'
 import heroBg from '/public/assets/banner-img.png'
 
 const Hero = () => {
-  const { formData, handleInputChange, handleSearchClick } = useSearchQuery()
+  const { formData, handleInputChange, handleSearchClick, isLoading } = useSearchQuery()
 
   return (
     <section
@@ -28,6 +28,7 @@ const Hero = () => {
                 <label htmlFor="search" className="mb-1 block font-sora text-sm font-semibold">
                   Search
                 </label>
+
                 <input
                   className="w-full xl:w-64"
                   id="search"
@@ -49,6 +50,9 @@ const Hero = () => {
                   value={formData.location}
                   onChange={handleInputChange}
                 >
+                  <option value={''} disabled>
+                    Select Location
+                  </option>
                   <option value="Sydney">Sydney</option>
                   <option value="Melbourne">Melbourne</option>
                   <option value="Brisbane">Brisbane</option>
@@ -59,12 +63,16 @@ const Hero = () => {
                 <label htmlFor="category" className="mb-1 block font-sora text-sm font-semibold">
                   Categories
                 </label>
+
                 <select
-                  id="category"
+                  id="categories"
                   className="w-full text-clr-ab xl:w-[250px]"
                   value={formData.categories}
                   onChange={handleInputChange}
                 >
+                  <option value="" disabled>
+                    Select Category
+                  </option>
                   <option value="Wedding">Wedding</option>
                   <option value="Birthday">Birthday</option>
                   <option value="Corporate">Corporate</option>
@@ -88,8 +96,9 @@ const Hero = () => {
                 <button
                   type="submit"
                   className="block w-[148px] rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
+                  disabled={isLoading}
                 >
-                  Search
+                  {isLoading ? 'Loading' : 'Search'}
                 </button>
               </li>
             </ul>

@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable no-empty-pattern */
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/16/solid'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { CheckIcon } from '@heroicons/react/16/solid'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 type FilterProps = {}
 
+/* eslint-disable no-empty-pattern */
 const Filter = ({}: FilterProps) => {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -17,9 +18,6 @@ const Filter = ({}: FilterProps) => {
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>(queryCategories)
   const [selectedLocations, setSelectedLocations] = useState<string[]>(queryLocations)
-
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(true)
-  const [isLocationsOpen, setIsLocationsOpen] = useState(true)
 
   useEffect(() => {
     setSelectedCategories(queryCategories)
@@ -45,6 +43,7 @@ const Filter = ({}: FilterProps) => {
     console.log('Generated API URL:', apiUrl)
     router.push(apiUrl)
   }
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategories(prev =>
       prev.includes(category) ? prev.filter(item => item !== category) : [...prev, category]
@@ -56,93 +55,61 @@ const Filter = ({}: FilterProps) => {
       prev.includes(location) ? prev.filter(item => item !== location) : [...prev, location]
     )
   }
+
   return (
     <div className="hidden rounded-[32px] border px-8 py-5 md:block">
       <div className="mb-6 border-b pb-6">
-        <h3
-          className="mb-6 flex cursor-pointer font-sora font-bold text-black"
-          onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-        >
-          Categories
-          {isCategoriesOpen ? (
-            <ChevronUpIcon className="ml-2 block h-5 w-5 md:hidden" />
-          ) : (
-            <ChevronDownIcon className="ml-2 block h-5 w-5 md:hidden" />
-          )}
-        </h3>
-        {isCategoriesOpen &&
-          fetchedCategories.map(cat => (
-            <div key={cat} className="mb-3 flex items-center justify-between md:hidden">
-              <label className="flex cursor-pointer items-center space-x-3">
+        <Disclosure defaultOpen>
+          <DisclosureButton className="mb-6 cursor-pointer font-sora font-bold text-black">
+            Categories
+          </DisclosureButton>
+
+          <DisclosurePanel className="text-gray-500">
+            {fetchedCategories.map((cat, index) => (
+              <label className="relative mb-4 flex cursor-pointer items-center gap-2" key={index}>
                 <input
                   type="checkbox"
                   checked={selectedCategories.includes(cat)}
                   onChange={() => handleCategoryChange(cat)}
-                  className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
+                  className="peer hidden"
                 />
-                <span className="text-xl">{cat}</span>
+                <div className="flex h-4 w-4 cursor-pointer items-center justify-center rounded border border-gray-500 bg-white peer-checked:border-purple-600 peer-checked:bg-purple-600">
+                  <CheckIcon className="h-4 w-4 text-white peer-checked:block" />
+                </div>
+                <span className="text-base text-black">{cat}</span>
               </label>
-            </div>
-          ))}
-        {fetchedCategories.map(cat => (
-          <div key={cat} className="mb-3 hidden items-center justify-between md:flex">
-            <label className="flex cursor-pointer items-center space-x-3">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(cat)}
-                onChange={() => handleCategoryChange(cat)}
-                className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
-              />
-              <span className="text-xl">{cat}</span>
-            </label>
-          </div>
-        ))}
+            ))}
+          </DisclosurePanel>
+        </Disclosure>
       </div>
 
       <div className="mb-6 border-b pb-6">
-        <h3
-          className="mb-6 flex cursor-pointer font-sora font-bold text-black"
-          onClick={() => setIsLocationsOpen(!isLocationsOpen)}
-        >
-          Locations
-          {isLocationsOpen ? (
-            <ChevronUpIcon className="ml-2 block h-5 w-5 md:hidden" />
-          ) : (
-            <ChevronDownIcon className="ml-2 block h-5 w-5 md:hidden" />
-          )}
-        </h3>
-        {isLocationsOpen &&
-          fetchedLocations.map(loc => (
-            <div key={loc} className="mb-3 flex items-center justify-between md:hidden">
-              <label className="flex cursor-pointer items-center space-x-3">
+        <Disclosure defaultOpen>
+          <DisclosureButton className="mb-6 cursor-pointer font-sora font-bold text-black">
+            Locations
+          </DisclosureButton>
+          <DisclosurePanel className="text-gray-500">
+            {fetchedLocations.map((loc, index) => (
+              <label className="relative mb-4 flex cursor-pointer items-center gap-2" key={index}>
                 <input
                   type="checkbox"
                   checked={selectedLocations.includes(loc)}
                   onChange={() => handleLocationChange(loc)}
-                  className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
+                  className="peer hidden"
                 />
-                <span className="text-xl">{loc}</span>
+                <div className="flex h-4 w-4 cursor-pointer items-center justify-center rounded border border-gray-500 bg-white peer-checked:border-purple-600 peer-checked:bg-purple-600">
+                  <CheckIcon className="h-4 w-4 text-white peer-checked:block" />
+                </div>
+                <span className="text-base text-black">{loc}</span>
               </label>
-            </div>
-          ))}
-        {fetchedLocations.map(loc => (
-          <div key={loc} className="mb-3 hidden items-center justify-between md:flex">
-            <label className="flex cursor-pointer items-center space-x-3">
-              <input
-                type="checkbox"
-                checked={selectedLocations.includes(loc)}
-                onChange={() => handleLocationChange(loc)}
-                className="h-4 w-4 cursor-pointer rounded-md border border-gray-500"
-              />
-              <span className="text-xl">{loc}</span>
-            </label>
-          </div>
-        ))}
+            ))}
+          </DisclosurePanel>
+        </Disclosure>
       </div>
 
       <button
         onClick={generateApiUrl}
-        className="mt-4 w-full rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
+        className="w-full rounded-2xl bg-clr-87 py-3 font-sora text-sm text-white"
       >
         Filter
       </button>

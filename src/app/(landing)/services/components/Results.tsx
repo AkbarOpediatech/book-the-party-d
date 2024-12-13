@@ -27,6 +27,7 @@ const Results = () => {
   } = useFetchServicesQuery({ limit: pageLimit, page: currentPage })
 
   const serviceData = products?.data
+
   const totalRecords = products?.pagination?.records || 0
 
   if (isLoading) return <div>Loading products...</div>
@@ -34,7 +35,13 @@ const Results = () => {
 
   return (
     <>
-      <ResultBtnAction handleGridClick={handleGridClick} handleListClick={handleListClick} />
+      <ResultBtnAction
+        totalRecords={totalRecords}
+        currentPage={currentPage}
+        pageLimit={pageLimit}
+        handleGridClick={handleGridClick}
+        handleListClick={handleListClick}
+      />
       {serviceData && (
         <div className="mb-10">
           {viewMode === 'grid' ? (
