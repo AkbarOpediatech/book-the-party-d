@@ -10,13 +10,7 @@ import SectionHeading from './SectionHeading'
 import avatar from '/public/assets/avatar.jpeg'
 
 const Reviews = () => {
-  const {
-    data: response,
-    isLoading,
-    isError
-  } = useFetchReviewsQuery({
-    role: 'admin'
-  })
+  const { data: response, isLoading, isError } = useFetchReviewsQuery({})
 
   const reviewsData = response?.data || []
 

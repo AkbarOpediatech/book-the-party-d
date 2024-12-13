@@ -3,6 +3,7 @@ import usePagination from '@/hooks/usePagination'
 import { useRemoveFromCartMutation } from '@/redux/features/cart/apiSlice'
 import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
+import Swal from 'sweetalert2'
 import Pagination from '../../services/components/Pagination'
 import { useFetchCartService } from './CartService'
 import Avatar from '/public/assets/avatar.jpeg'
@@ -17,10 +18,24 @@ const CartItems = () => {
   const handleDelete = async (itemId: number) => {
     try {
       await removeFromCart(itemId).unwrap()
-      alert('Item removed successfully!')
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Item removed successfully!',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true
+      })
     } catch (error) {
       console.error('Failed to delete the item:', error)
-      alert('Failed to delete the item. Please try again.')
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Failed to delete the item. Please try again.',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true
+      })
     }
   }
 
@@ -63,7 +78,7 @@ const CartItems = () => {
                     </div>
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
-                    ${data.service?.price.map(i => i.value)}
+                    ${data.service?.price?.map(i => i.value)}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">{data.quantity}</td>
                   <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
