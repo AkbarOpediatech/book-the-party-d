@@ -1,4 +1,5 @@
 'use client'
+
 import { setActiveTab } from '@/redux/features/profileSlice'
 import { cn, profileMenuItems } from '@/utils'
 import { roleWiseRoute } from '@/utils/constand'
@@ -16,6 +17,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useFetchCartService } from '../cart/components/CartService'
 import CustomBtn from './CustomBtn'
 import ICCartGray from '/public/assets/ic-cart-gray.svg'
 import ICCart from '/public/assets/ic-cart.svg'
@@ -26,6 +28,13 @@ import ICUser from '/public/assets/ic-user.svg'
 import NavBrand from '/public/assets/nav-brand.svg'
 
 const Header = () => {
+  const router = useRouter()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const dispatch = useDispatch()
+
+  const { response: cartItems } = useFetchCartService()
+  const { data: session } = useSession()
+
   const iconContainerClasses =
     'flex h-[40px] lg:h-[70px] w-[40px] lg:w-[70px] items-center justify-center rounded-full bg-[#CBA6FF]/60'
   const badgeClasses =
@@ -33,39 +42,12 @@ const Header = () => {
   const menuItemClasses =
     'group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10'
 
-  type NavIconProps = {
-    icon: string
-    count: number
-    href: string
-    alt: string
+  const route = session?.user?.role ? roleWiseRoute[session.user.role as keyof typeof roleWiseRoute] : ''
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/login' })
   }
 
-  const { data: session } = useSession()
-  let route = ''
-  if (session?.user?.role) {
-    route = roleWiseRoute[session?.user?.role as keyof typeof roleWiseRoute]
-  }
-
-  const LogoutHandler = () => {
-    signOut({
-      callbackUrl: '/login'
-    })
-  }
-
-  const NavIcon = ({ icon, count, href, alt }: NavIconProps) => (
-    <li>
-      <Link href={href} className={iconContainerClasses}>
-        <div className="relative">
-          <Image width={20} height={20} src={icon} alt={alt} />
-          {count > 0 && <span className={badgeClasses}>{count}</span>}
-        </div>
-      </Link>
-    </li>
-  )
-  const router = useRouter()
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const dispatch = useDispatch()
   const handleMenuClick = (tabName: string) => {
     dispatch(setActiveTab(tabName))
     router.push('/profile')
@@ -75,14 +57,36 @@ const Header = () => {
     <header className="bg-clr-eff py-5">
       <div className="custom-container">
         <div className="flex flex-wrap items-center justify-between gap-5 md:flex-none md:gap-0">
+          {/* Logo */}
           <Link href="/">
             <Image width={203} height={108} className="h-auto w-28" src={NavBrand} alt="nav-brand" />
           </Link>
 
+          {/* Desktop Navigation */}
           <ul className="hidden items-center gap-5 md:flex">
-            <NavIcon icon={ICCart} count={8} href="/cart" alt="cart-icon" />
-            <NavIcon icon={ICFav} count={8} href="/favorite" alt="fav-icon" />
+            {/* Cart */}
+            <li>
+              <Link href="/cart" className={iconContainerClasses}>
+                <div className="relative">
+                  <Image width={20} height={20} src={ICCart} alt="cart" />
+                  {cartItems?.data && cartItems?.data.length > 0 && (
+                    <span className={badgeClasses}>{cartItems?.data.length}</span>
+                  )}
+                </div>
+              </Link>
+            </li>
 
+            {/* Favorite */}
+            <li>
+              <Link href="/favorite" className={iconContainerClasses}>
+                <div className="relative">
+                  <Image width={20} height={20} src={ICFav} alt="fav" />
+                  <span className={badgeClasses}>10</span>
+                </div>
+              </Link>
+            </li>
+
+            {/* Notifications */}
             <li>
               <Menu>
                 <MenuButton>
@@ -93,25 +97,19 @@ const Header = () => {
                     </div>
                   </div>
                 </MenuButton>
-
-                <MenuItems
-                  anchor="bottom end"
-                  className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-                >
+                <MenuItems className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm">
                   <MenuItem>
-                    <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+                    <div className={menuItemClasses}>
                       <WrenchScrewdriverIcon className="size-4 fill-black/30" />
-                      notification 1
+                      Notification 1
                     </div>
                   </MenuItem>
-
                   <MenuItem>
-                    <div className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+                    <div className={menuItemClasses}>
                       <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                      notification 2
+                      Notification 2
                     </div>
                   </MenuItem>
-
                   <MenuItem>
                     <CustomBtn
                       isLink={true}
@@ -124,6 +122,7 @@ const Header = () => {
               </Menu>
             </li>
 
+            {/* User Menu */}
             <li>
               <Menu>
                 <MenuButton>
@@ -131,22 +130,17 @@ const Header = () => {
                     <Image width={20} height={20} src={ICUser} alt="user-icon" />
                   </div>
                 </MenuButton>
-
-                <MenuItems
-                  anchor="bottom end"
-                  className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-                >
-                  {session && session?.user ? (
+                <MenuItems className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm">
+                  {session?.user ? (
                     <>
                       <MenuItem>
-                        <Link className={menuItemClasses} href={`${route}`}>
+                        <Link className={menuItemClasses} href={route}>
                           <UserIcon className="size-4 fill-black/30" />
                           Profile
                         </Link>
                       </MenuItem>
-
                       <MenuItem>
-                        <button className={menuItemClasses} onClick={LogoutHandler}>
+                        <button className={menuItemClasses} onClick={handleLogout}>
                           <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
                           Logout
                         </button>
@@ -165,64 +159,20 @@ const Header = () => {
             </li>
           </ul>
 
+          {/* Mobile Menu Toggle */}
           <div className="flex items-center gap-5 md:hidden">
-            <Menu>
-              <MenuButton>
-                <div className={iconContainerClasses}>
-                  <div className="relative">
-                    <Image width={20} height={20} src={ICNotify} alt="user-icon" />
-                    <span className={badgeClasses}>8</span>
-                  </div>
-                </div>
-              </MenuButton>
-
-              <MenuItems
-                anchor="bottom end"
-                className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-              >
-                {session && session?.user ? (
-                  <>
-                    <MenuItem>
-                      <Link className={menuItemClasses} href={`${route}`}>
-                        <UserIcon className="size-4 fill-black/30" />
-                        Profile
-                      </Link>
-                    </MenuItem>
-
-                    <MenuItem>
-                      <button className={menuItemClasses} onClick={LogoutHandler}>
-                        <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                        Logout
-                      </button>
-                    </MenuItem>
-                  </>
-                ) : (
-                  <MenuItem>
-                    <Link className={menuItemClasses} href="/login">
-                      <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-                      Login
-                    </Link>
-                  </MenuItem>
-                )}
-              </MenuItems>
-            </Menu>
             <button className="text-clr-80 p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Sidebar */}
+        {/* Mobile Sidebar */}
         {isMenuOpen && (
           <div className="absolute left-0 w-full bg-clr-eff py-5 md:hidden">
             <ul>
               <li className={cn('px-5 py-3 hover:bg-clr-fb/10')} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <Link
-                  href={'/cart'}
-                  className={cn(
-                    'flex items-center gap-3 text-base font-bold text-clr-96 md:text-nowrap md:text-xl lg:text-2xl xl:text-2xl'
-                  )}
-                >
+                <Link href="/cart" className={cn('flex items-center gap-3 text-base font-bold text-clr-96')}>
                   <Image src={ICCartGray} alt="cart-icon" width={25} height={25} />
                   <p>Cart</p>
                 </Link>
@@ -230,10 +180,8 @@ const Header = () => {
 
               <li className={cn('px-5 py-3 hover:bg-clr-fb/10')} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Link
-                  href={'/favorite'}
-                  className={cn(
-                    'flex items-center gap-3 text-base font-bold text-clr-96 md:text-nowrap md:text-xl lg:text-2xl xl:text-2xl'
-                  )}
+                  href="/favorite"
+                  className={cn('flex items-center gap-3 text-base font-bold text-clr-96')}
                 >
                   <Image src={ICFavGray} alt="fav-icon" width={25} height={25} />
                   <p>Favorite</p>
@@ -250,20 +198,17 @@ const Header = () => {
                 >
                   <button
                     onClick={() => handleMenuClick(item.label)}
-                    className={cn(
-                      'flex items-center gap-3 text-base font-bold text-clr-96 md:text-nowrap md:text-xl lg:text-2xl xl:text-2xl'
-                    )}
+                    className={cn('flex items-center gap-3 text-base font-bold text-clr-96')}
                   >
-                    <Image width={26} height={26} className="stroke-black" src={item.icon} alt="icon" />
+                    <Image width={26} height={26} src={item.icon} alt="icon" />
                     {item.label}
                   </button>
                 </li>
               ))}
             </ul>
-
             <button
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-clr-87 px-5 py-3 font-sora text-sm text-white"
-              onClick={LogoutHandler}
+              onClick={handleLogout}
             >
               <ArrowRightEndOnRectangleIcon className="size-5 text-white" />
               Logout

@@ -15,6 +15,7 @@ const Cart = () => {
     const token = session.user ? session.user : ''
     console.log('token', token)
   }, [session])
+
   return (
     <section className="cart pb-[100px] pt-[74px]">
       <div className="container">

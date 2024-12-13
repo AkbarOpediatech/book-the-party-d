@@ -11,6 +11,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
+import Swal from 'sweetalert2'
 import CustomBtn from '../../components/CustomBtn'
 import Description from './components/Description'
 import ProductFeature from './components/ProductFeature'
@@ -55,7 +56,7 @@ const ServiceSingle = () => {
 
     const cartItem = {
       service: singleService._id,
-      user: singleService._id, // Assuming user ID is available in singleService
+      user: singleService._id,
       price_id: singleService._id,
       quantity: 1,
       selected_date: [
@@ -66,15 +67,20 @@ const ServiceSingle = () => {
       ]
     }
 
-    //singleService use this to track service is added on cart or not
-
     addToCart(cartItem)
       .unwrap()
       .then(response => {
         if (response) {
-          alert('Successfully added to cart')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully added to cart',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true
+          })
         } else {
-          router.push('/cart') // Redirect to cart page on success
+          router.push('/cart')
         }
       })
       .catch(error => {
@@ -130,7 +136,7 @@ const ServiceSingle = () => {
             <div className="col-span-1">
               <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
               {singleService?.is_unavailable === true ? (
-                <div>
+                <>
                   <div className="relative">
                     <Image src={Unableable} alt="unableable" />
                     <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
@@ -147,7 +153,7 @@ const ServiceSingle = () => {
                       'w-full'
                     )}
                   />
-                </div>
+                </>
               ) : (
                 <>
                   <Calendar
