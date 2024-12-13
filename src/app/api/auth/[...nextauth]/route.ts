@@ -144,7 +144,7 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     Credentials({
-      name: 'Libertea App',
+      name: 'BookTheParty App',
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' }
