@@ -36,19 +36,27 @@ export type GlobalServiceItem = {
 
 export interface CartItem {
   _id?: string | number
-  service?: string
+  service?: GlobalServiceItem | string
   user?: string
   notes?: string
-  price_id?: string
+  price_id?: IPrice[] | string
   quantity?: number
   selected_date?: {
     start_date: string
     end_date: string
   }[]
 }
+export interface PostCartItem extends CartItem {
+  service?: string
+  price_id?: string
+}
+export interface getCartItem extends CartItem {
+  service?: GlobalServiceItem
+  price_id?: IPrice[]
+}
 
 interface CartItemResponse {
-  data: CartItem[]
+  data: getCartItem[]
   pagination: IPagination
 }
 
@@ -61,7 +69,7 @@ export const cartApi = createApi({
       query: ({ limit, page } = {}) => `/carts?limit=${limit}&page=${page}`,
       providesTags: ['Cart']
     }),
-    addToCart: builder.mutation<CartItem, Omit<CartItem, 'id'>>({
+    addToCart: builder.mutation<PostCartItem, Omit<PostCartItem, 'id'>>({
       query: item => ({
         url: '/carts',
         method: 'POST',

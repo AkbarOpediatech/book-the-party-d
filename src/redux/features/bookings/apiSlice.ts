@@ -9,6 +9,7 @@ export type IPagination = {
   prev: number | null
   records: number
 }
+
 export interface IOrder {
   _id: string
   order: string

@@ -117,11 +117,12 @@ export interface ServiceItem extends GlobalServiceItem {
   location: ILocation
   featured_image: string
 }
+
 export interface ServiceItemPost extends GlobalServiceItem {
   user: string
   category?: string
   location?: string
-  featured_image: File | null
+  featured_image: File | null | string
 }
 
 interface ServiceResponse {

@@ -30,7 +30,7 @@ const TransactionHistoryTable: React.FC<IProps> = ({
               width={40}
               height={40}
               className="overflow-hidden"
-              src={row.service?.featured_image ? row.service?.featured_image : TransactionImg}
+              src={(row.service?.featured_image as string) || TransactionImg}
               alt="Product Image"
             />
           </div>
