@@ -1,5 +1,6 @@
 'use client'
 import type { ReviewsItem } from '@/redux/features/reviews/apiSlice'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import Pagination from '../../components/Pagination'
 import avatar from '/public/assets/avatar.jpeg'
@@ -13,24 +14,29 @@ type IProps = {
 }
 
 const UserReview: React.FC<IProps> = ({ data, totalRecords, currentPage, pageLimit, handlePageChange }) => {
-  // const [starRating, setStarRating] = useState(0)
+  // Function to format date
+  const formatDate = (date: string | Date) => {
+    return format(new Date(date), 'MMMM d, yyyy hh:mm a')
+  }
 
   return (
     <>
       {data?.map((i, index) => (
         <div className="mb-10" key={index}>
           <div className="mb-6">
-            {/* TODO: WORK WITH IT LETTER */}
+            {/* TODO: WORK WITH IT LATER */}
             {/* <Rating
-          style={{ maxWidth: 120 }}
-          value={starRating}
-          onChange={setStarRating}
-          readOnly={true}
-          className="mb-4"
-        /> */}
+              style={{ maxWidth: 120 }}
+              value={starRating}
+              onChange={setStarRating}
+              readOnly={true}
+              className="mb-4"
+            /> */}
 
             <p className="text-clr-[#0B0F0E] mb-1.5 text-base font-medium">&quot;{i.description}&quot;</p>
-            <p className="text-sm text-[#818B9C]"></p>
+            <p className="text-sm text-[#818B9C]">
+              {i.user.updatedAt ? formatDate(i.user.updatedAt) : 'N/A'}
+            </p>
           </div>
 
           <div className="flex items-center justify-between gap-2">

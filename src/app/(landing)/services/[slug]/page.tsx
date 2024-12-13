@@ -11,6 +11,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
+import Swal from 'sweetalert2'
 import CustomBtn from '../../components/CustomBtn'
 import Description from './components/Description'
 import ProductFeature from './components/ProductFeature'
@@ -54,7 +55,7 @@ const ServiceSingle = () => {
     const endDate = Array.isArray(value) && value[1] ? value[1].toISOString() : currentDate
 
     const cartItem = {
-      service: singleService._id,
+      service_id: singleService._id,
       user: singleService._id, // Assuming user ID is available in singleService
       price_id: singleService._id,
       quantity: 1,
@@ -72,7 +73,15 @@ const ServiceSingle = () => {
       .unwrap()
       .then(response => {
         if (response) {
-          alert('Successfully added to cart')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully added to cart',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true
+          })
+          // alert('Successfully added to cart')
         } else {
           router.push('/cart') // Redirect to cart page on success
         }
@@ -130,7 +139,7 @@ const ServiceSingle = () => {
             <div className="col-span-1">
               <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
               {singleService?.is_unavailable === true ? (
-                <div>
+                <>
                   <div className="relative">
                     <Image src={Unableable} alt="unableable" />
                     <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
@@ -147,7 +156,7 @@ const ServiceSingle = () => {
                       'w-full'
                     )}
                   />
-                </div>
+                </>
               ) : (
                 <>
                   <Calendar

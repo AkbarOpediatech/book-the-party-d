@@ -1,7 +1,12 @@
 import { useFetchCartQuery } from '@/redux/features/cart/apiSlice'
 
-export const useFetchServiceService = () => {
-  const { data, isLoading, isError } = useFetchCartQuery()
+interface IProps {
+  limit?: number
+  page?: number
+}
+
+export const useFetchCartService = ({ limit = 0, page = 0 }: IProps = {}) => {
+  const { data, isLoading, isError } = useFetchCartQuery({ limit, page })
   const response = data
 
   if (isLoading) return { data: null, loading: true, error: false }
