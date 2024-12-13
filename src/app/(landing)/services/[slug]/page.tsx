@@ -33,7 +33,7 @@ const ServiceSingle = () => {
   const [addToCart] = useAddToCartMutation()
 
   const onClickFunc = () => {
-    console.log('Adding cart', singleService)
+    
     const cartItem = {
       service: '674044d385afe1aa59fd4599',
       user: '671e14e2767fd06e13e1949a',

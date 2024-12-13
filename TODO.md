@@ -88,6 +88,5 @@ _API integration - final_
 
 ##### next days Goal
 
-- Review api integration
-- Cart api integration
-- Wishlist api integration
+- Need to change token dynamically
+- 
