@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useMemo, useState } from 'react'
 
 /** Options for filtering */
 interface FilterOptions<T> {
   searchKeys: (keyof T | string)[]
   dateKey?: keyof T | string
+  statusKey?: keyof T | string
 }
 
 type UseSearchReturn<T> = {
@@ -15,20 +18,22 @@ type UseSearchReturn<T> = {
   endDate: string
   setEndDate: React.Dispatch<React.SetStateAction<string>>
   filteredData: T[]
+  setStatusFilter: React.Dispatch<React.SetStateAction<string>>
 }
 
 /**
- * Custom hook for search and date range filtering
+ * Custom hook for search, date range, and status filtering
  * @param data - The dataset to filter
- * @param options - Filter options including search keys and date key
+ * @param options - Filter options including search keys, date key, and status key
  * @returns Filtered data and state management utilities
  */
-const useSearch = <T,>(data: T[], options: FilterOptions<T>): UseSearchReturn<T> => {
-  const { searchKeys, dateKey } = options
+const useSearch = <T>(data: T[], options: FilterOptions<T>): UseSearchReturn<T> => {
+  const { searchKeys, dateKey, statusKey } = options
 
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
+  const [statusFilter, setStatusFilter] = useState<string>('')
 
   const filteredData = useMemo(() => {
     let result = data
@@ -62,8 +67,19 @@ const useSearch = <T,>(data: T[], options: FilterOptions<T>): UseSearchReturn<T>
       })
     }
 
+    // Filter by status
+    if (statusKey && statusFilter) {
+      result = result.filter(item => {
+        const statusValue = statusKey
+          .toString()
+          .split('.')
+          .reduce((acc, part) => acc?.[part], item as any)
+        return statusValue === statusFilter
+      })
+    }
+
     return result
-  }, [data, searchTerm, startDate, endDate, searchKeys, dateKey])
+  }, [data, searchTerm, startDate, endDate, statusKey, statusFilter, searchKeys, dateKey])
 
   return {
     searchTerm,
@@ -72,7 +88,8 @@ const useSearch = <T,>(data: T[], options: FilterOptions<T>): UseSearchReturn<T>
     setStartDate,
     endDate,
     setEndDate,
-    filteredData
+    filteredData,
+    setStatusFilter
   }
 }
 

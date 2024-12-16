@@ -3,14 +3,10 @@
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
 import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
-import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import BookingAllTable from './BookingAllTable'
 import BookingHeader from './BookingHeader'
 import BookingTab from './BookingTab'
-
-const BookingAllTable = dynamic(() => import('./BookingAllTable'), {
-  ssr: false
-})
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
@@ -29,13 +25,27 @@ const Bookings = () => {
   const bookingData = bookingResponse?.data || []
   const totalRecords = bookingResponse?.pagination?.records || 0
 
-  const { searchTerm, setSearchTerm, startDate, setStartDate, endDate, setEndDate, filteredData } = useSearch(
-    bookingData,
-    {
-      searchKeys: ['service_embedded.title', '_id', 'price.value'],
-      dateKey: 'createdAt'
-    }
-  )
+  const statusFilters = ['all', 'completed', 'pending', 'processing']
+  const currentStatus = statusFilters[tab]
+
+  const {
+    searchTerm,
+    setSearchTerm,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    filteredData,
+    setStatusFilter
+  } = useSearch(bookingData, {
+    searchKeys: ['service_embedded.title', '_id', 'price.value'],
+    dateKey: 'createdAt',
+    statusKey: 'status'
+  })
+
+  useEffect(() => {
+    setStatusFilter(currentStatus === 'all' ? '' : currentStatus)
+  }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
     return <div>Loading bookings...</div>
@@ -47,7 +57,9 @@ const Bookings = () => {
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
-      {bookingData && <BookingTab tab={tab} setTab={setTab} bookingData={bookingData} />}
+      {bookingData && (
+        <BookingTab tab={tab} setTab={setTab} totalRecords={totalRecords} bookingData={filteredData} />
+      )}
       <BookingHeader
         startDate={startDate}
         setStartDate={setStartDate}

@@ -20,7 +20,7 @@ const BookingHeader: React.FC<IProps> = ({
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4 rounded px-4 pb-3 pt-5 lg:flex-nowrap">
-        <input
+        {/* <input
           type="date"
           value={startDate}
           onChange={e => setStartDate(e.target.value)}
@@ -33,7 +33,7 @@ const BookingHeader: React.FC<IProps> = ({
           onChange={e => setEndDate(e.target.value)}
           className="input w-full text-clr-ab"
           placeholder="End date"
-        />
+        /> */}
         <input
           type="search"
           value={searchTerm}

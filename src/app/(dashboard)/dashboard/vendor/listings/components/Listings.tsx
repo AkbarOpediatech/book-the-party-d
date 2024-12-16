@@ -27,14 +27,26 @@ const Listings: React.FC<IProps> = ({
 }) => {
   const [tab, setTab] = useState<number>(0)
 
+  const statusFilters = ['all', 'completed', 'pending', 'processing']
+  const currentStatus = statusFilters[tab]
+
   const { searchTerm, setSearchTerm, filteredData } = useSearch(data, {
     searchKeys: ['title', '_id', 'price.value'],
-    dateKey: 'createdAt'
+    dateKey: 'createdAt',
+    statusKey: 'status'
+  })
+
+  const filteredByStatus = filteredData.filter(item => {
+    if (currentStatus === 'all') return true
+    return item.status === currentStatus
   })
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
-      <ListingTab tab={tab} setTab={setTab} />
+      {/* Tab navigation */}
+      <ListingTab tab={tab} setTab={setTab} totalRecords={totalRecords} data={filteredByStatus} />
+
+      {/* Search bar */}
       <div className="px-6 py-5">
         <input
           type="search"
@@ -45,9 +57,11 @@ const Listings: React.FC<IProps> = ({
           placeholder="Search by transaction id"
         />
       </div>
+
+      {/* Render data based on selected tab */}
       {tab === 0 && (
         <ListingTable
-          data={filteredData}
+          data={filteredByStatus}
           currentPage={currentPage}
           totalRecords={totalRecords}
           pageLimit={pageLimit}
@@ -57,7 +71,27 @@ const Listings: React.FC<IProps> = ({
       )}
       {tab === 1 && (
         <ListingTable
-          data={filteredData}
+          data={filteredByStatus}
+          currentPage={currentPage}
+          totalRecords={totalRecords}
+          pageLimit={pageLimit}
+          onPageChange={handlePageChange}
+          onPageLimitChange={handlePageLimitChange}
+        />
+      )}
+      {tab === 2 && (
+        <ListingTable
+          data={filteredByStatus}
+          currentPage={currentPage}
+          totalRecords={totalRecords}
+          pageLimit={pageLimit}
+          onPageChange={handlePageChange}
+          onPageLimitChange={handlePageLimitChange}
+        />
+      )}
+      {tab === 3 && (
+        <ListingTable
+          data={filteredByStatus}
           currentPage={currentPage}
           totalRecords={totalRecords}
           pageLimit={pageLimit}

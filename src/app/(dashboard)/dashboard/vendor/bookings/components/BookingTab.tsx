@@ -5,11 +5,13 @@ import { cn } from '@/utils'
 type IProps = {
   tab: number
   setTab: (tabIndex: number) => void
+  totalRecords: number
   bookingData: IOrder[]
 }
 
-const BookingTab: React.FC<IProps> = ({ tab, setTab, bookingData }) => {
-  const allCount = bookingData.length
+const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }) => {
+  console.log(totalRecords, 'bookingData')
+  const allCount = totalRecords
   const completeCount = bookingData.filter(i => i.status === 'completed').length
   const pendingCount = bookingData.filter(i => i.status === 'pending').length
   const processingCount = bookingData.filter(i => i.status === 'processing').length
