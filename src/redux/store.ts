@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { bankingsApi } from './features/bankings/apiSlice'
 import { bookingsApi } from './features/bookings/apiSlice'
 import { cartApi } from './features/cart/apiSlice'
+import cartSlice from './features/cart/cartSlice'
 import { chatApi } from './features/chat/apiSlice'
 import formReducer from './features/formSlice'
 import loadingErrorSlice from './features/loadingErrorSlice'
@@ -19,6 +20,7 @@ export const store = configureStore({
     stepper: stepperSlice,
     loadingerror: loadingErrorSlice,
     services: servicesSlice,
+    cart: cartSlice,
     [usersApi.reducerPath]: usersApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [servicesApi.reducerPath]: servicesApi.reducer,

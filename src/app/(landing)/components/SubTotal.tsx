@@ -1,12 +1,14 @@
 'use client'
+import type { getCartItem } from '@/redux/features/cart/apiSlice'
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../../redux/store'
 import SuccessModal from '../checkout/components/SuccessModal'
 
-interface RootState {
+interface RootState1 {
   stepper: {
     currentStep: number
   }
@@ -15,12 +17,15 @@ interface RootState {
 type IProps = {
   setCurrentStep?: Dispatch<SetStateAction<number>>
   isCart?: boolean
+  cartItems: getCartItem[] | undefined
 }
 
-const SubTotal: React.FC<IProps> = ({ isCart }) => {
-  const currentStep = useSelector((state: RootState) => state.stepper.currentStep)
+const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
+  const currentStep = useSelector((state: RootState1) => state.stepper.currentStep)
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
+  const [subtotal, setSubtotal] = useState(0)
+  const [grosstotal, setGrosstotal] = useState(100)
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const pathname = usePathname()
@@ -45,12 +50,42 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
   }
   const isCheckoutStepValid = pathname === '/checkout' && currentStep === 2
 
+  function calculateSubtotal(cartItems?: getCartItem[]) {
+    let subtotal = 0
+    // console.log('cartItems', cartItems)
+
+    cartItems &&
+      cartItems.forEach(item => {
+        const service = item.service
+        const quantity = item.quantity
+        const priceId = item.price_id
+
+        // Find the matching price from the service's price array
+        const matchedPrice = service?.price && service?.price.find(price => price._id === priceId)
+        // console.log('matchedPrice', matchedPrice)
+
+        if (matchedPrice && matchedPrice?.value && quantity) {
+          subtotal += matchedPrice?.value * quantity
+        }
+      })
+
+    return subtotal
+  }
+
+  useEffect(() => {
+    const subtotalCal = calculateSubtotal(cartItems)
+    setSubtotal(subtotalCal)
+    setGrosstotal(subtotal + 100 + 50 + 50)
+  }, [cartItems, subtotal])
+
+  const { items, subTotal: reduxSubTotal, error } = useSelector((state: RootState) => state.cart)
+  // console.log('items from redux', items)
   return (
     <>
       <div className="border bg-white p-6">
         <div className="mb-4 flex justify-between border-b pb-4">
-          <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal</span>
-          <span className="font-sora text-lg font-semibold text-clr-0f">$5350</span>
+          <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal ${reduxSubTotal}</span>
+          <span className="font-sora text-lg font-semibold text-clr-0f">${subtotal}</span>
         </div>
 
         <div className="mb-4">
@@ -85,13 +120,13 @@ const SubTotal: React.FC<IProps> = ({ isCart }) => {
             <span className="font-sora text-sm font-bold text-clr-0f md:text-base">
               Grand Total (incl of GST)
             </span>
-            <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$5400</span>
+            <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$100</span>
           </div>
         </div>
 
         <div className="mb-4 flex items-center justify-between">
           <span className="font-sora text-sm font-bold text-clr-0f md:text-base">Security Deposit</span>
-          <span className="font-sora text-sm font-bold text-clr-0f md:text-base">$1500</span>
+          <span className="font-sora text-sm font-bold text-clr-0f md:text-base">${grosstotal}</span>
         </div>
 
         {isCart && (

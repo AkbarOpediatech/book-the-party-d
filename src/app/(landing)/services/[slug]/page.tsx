@@ -58,7 +58,7 @@ const ServiceSingle = () => {
     const cartItem = {
       service: singleService._id,
       user: '671e315ed10e02c3ec3dacc3',
-      price_id: singleService._id,
+      price_id: singleService.price[0]._id,
       quantity: 1,
       selected_date: [
         {

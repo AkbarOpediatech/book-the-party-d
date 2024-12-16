@@ -55,8 +55,8 @@ export interface getCartItem extends CartItem {
   price_id?: IPrice[]
 }
 
-interface CartItemResponse {
-  data: getCartItem[]
+export interface CartItemResponse {
+  data: getCartItem[] | undefined
   pagination: IPagination
 }
 

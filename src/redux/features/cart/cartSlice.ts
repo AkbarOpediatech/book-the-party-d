@@ -1,50 +1,51 @@
-// // store/cartSlice.ts
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type error from 'next/error'
+import { cartApi, type CartItemResponse, type getCartItem } from './apiSlice'
 
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { addToCart, CartItem, fetchCart, removeFromCart } from './apiSlice' // Import thunks and CartItem type
+interface cartSlice {
+  subTotal: number
+  items: getCartItem[]
+  loading: boolean
+  error: error | string | null
+}
 
-// interface CartState {
-//   items: CartItem[]
-//   status: 'idle' | 'loading' | 'succeeded' | 'failed'
-//   error: string | null
-// }
+const initialState: cartSlice = {
+  subTotal: 0,
+  items: [],
+  loading: false,
+  error: null
+}
 
-// const initialState: CartState = {
-//   items: [],
-//   status: 'idle',
-//   error: null
-// }
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addMatcher(cartApi.endpoints.fetchCart.matchPending, state => {
+        state.loading = true
+      })
+      .addMatcher(
+        cartApi.endpoints.fetchCart.matchFulfilled,
+        (state, action: PayloadAction<CartItemResponse>) => {
+          state.loading = true
+          state.items = action.payload.data || []
+          state.subTotal = state.items.reduce((total, item) => {
+            const matchPrice =
+              item?.service?.price &&
+              item?.service?.price.find(singlePrice => {
+                return item?.price_id == singlePrice._id
+              })
 
-// const cartSlice = createSlice({
-//   name: 'cart',
-//   initialState,
-//   reducers: {
-//     clearCart(state) {
-//       state.items = []
-//     }
-//   },
-//   extraReducers: builder => {
-//     builder
-//       .addCase(fetchCart.pending, state => {
-//         state.status = 'loading'
-//       })
-//       .addCase(fetchCart.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
-//         state.status = 'succeeded'
-//         state.items = action.payload
-//       })
-//       .addCase(fetchCart.rejected, (state, action) => {
-//         state.status = 'failed'
-//         state.error = action.error.message ?? 'Failed to load cart'
-//       })
-//       .addCase(addToCart.fulfilled, (state, action: PayloadAction<CartItem>) => {
-//         state.items.push(action.payload)
-//       })
-//       .addCase(removeFromCart.fulfilled, (state, action: PayloadAction<number>) => {
-//         state.items = state.items.filter(item => item.id !== action.payload)
-//       })
-//   }
-// })
-
-// export const { clearCart } = cartSlice.actions
-
-// export default cartSlice.reducer
+            const price = (matchPrice ? matchPrice?.value : 0) as number
+            return total + price * (item.quantity || 1)
+          }, 0)
+        }
+      )
+      .addMatcher(cartApi.endpoints.fetchCart.matchRejected, (state, action) => {
+        state.loading = false
+        state.error = action.error?.message || 'Failed to fetch cart'
+      })
+  }
+})
+export default cartSlice.reducer
