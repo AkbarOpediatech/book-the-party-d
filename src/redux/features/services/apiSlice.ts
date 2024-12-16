@@ -138,20 +138,41 @@ export const servicesApi = createApi({
   baseQuery,
   tagTypes: ['Services'],
   endpoints: builder => ({
-    fetchServices: builder.query<ServiceResponse, { role?: string; limit?: number; page?: number }>({
-      query: ({ role, limit, page } = {}) => {
-        const params = role ? { role } : {} // Conditionally include `role` if it exists
+    fetchServices: builder.query<
+      ServiceResponse,
+      {
+        role?: string
+        limit?: number
+        page?: number
+        title?: string
+        category?: string[]
+        location?: string[]
+        description?: string
+      }
+    >({
+      query: ({ role, limit, page, title, description, category, location } = {}) => {
+        const params: Record<string, string | number | undefined | string[]> = {
+          ...(role && { role }),
+          ...(limit && { limit: limit ?? 5 }),
+          ...(page && { page: page ?? 1 }),
+          ...(title && { title }),
+          ...(description && { description }),
+          ...(category && { category }),
+          ...(location && { location })
+        }
+
+        const queryString = new URLSearchParams(
+          Object.entries(params)
+            .filter(([_, value]) => value !== undefined) // Filter out undefined values
+            .map(([key, value]) => [key, value!.toString()])
+        ).toString()
+
         return {
-          url: `/services?limit=${limit}&page=${page}`,
-          params // Add query parameters dynamically
+          url: `/services?${queryString}`
         }
       },
       providesTags: ['Services']
     }),
-    // fetchServices: builder.query<ServiceResponse, void>({
-    //   query: () => '/services',
-    //   providesTags: ['Services']
-    // }),
     fetchServiceById: builder.query<SingleServiceResponse, string>({
       query: slug => `/services/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Services', slug }]

@@ -2,13 +2,7 @@ import 'next-auth'
 
 declare module 'next-auth' {
   interface Session {
-    user?: {
-      accessToken?: string | null
-      role?: string | undefined
-      id?: string
-      name?: string
-      email?: string
-    }
+    user?: User
   }
 
   export interface User {
@@ -16,6 +10,7 @@ declare module 'next-auth' {
     name?: string
     email?: string
     role?: string
+    avatar?: string
     token?: string
     refreshToken?: string | null
     accessToken?: string | null

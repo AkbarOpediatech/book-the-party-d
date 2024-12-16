@@ -1,15 +1,12 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import Reviews from '../components/Reviews'
 import Filter from './components/Filter'
 import Results from './components/Results'
-import Reviews from '../components/Reviews'
 
 const ServicesContent = () => {
   const searchParams = useSearchParams()
-  const category = searchParams.get('categories')
-  const location = searchParams.get('Location')
-  console.log(category, location)
 
   return (
     <section>
@@ -20,7 +17,7 @@ const ServicesContent = () => {
               <Filter />
             </div>
             <div className="col-span-1 sm:col-span-2 md:col-span-8">
-              <Results />
+              <Results searchParams={searchParams} />
             </div>
           </div>
         </div>

@@ -15,6 +15,11 @@ const nextConfig = withBundleAnalyzer({
         protocol: 'https',
         hostname: 'smc-test-bucket123.s3.us-east-1.amazonaws.com',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'plus.unsplash.com',
+        port: ''
       }
     ]
   },

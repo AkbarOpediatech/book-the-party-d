@@ -32,6 +32,7 @@ const ServiceSingle = () => {
   const params = useParams()
   const { slug } = params
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
+
   const singleService = response?.data
   const { data: reviewResponse } = useFetchReviewsQuery({
     reviews: response && response.data._id,
@@ -56,7 +57,7 @@ const ServiceSingle = () => {
 
     const cartItem = {
       service: singleService._id,
-      user: singleService._id,
+      user: '671e315ed10e02c3ec3dacc3',
       price_id: singleService._id,
       quantity: 1,
       selected_date: [

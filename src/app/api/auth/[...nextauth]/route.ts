@@ -131,7 +131,7 @@ type LoginResponse = {
     email: string
     name: string
     role: string
-    accessToken: string
+    access_token: string
   }
 }
 
@@ -169,7 +169,7 @@ const handler = NextAuth({
         if (result.data) {
           return {
             ...result.data,
-            accessToken: result.data.accessToken
+            accessToken: result.data.access_token
           }
         }
 
@@ -189,6 +189,7 @@ const handler = NextAuth({
       if (user) {
         token.accessToken = user.accessToken // Set accessToken from user object
         token.role = user.role // Add additional fields as needed
+        token.avatar = user.avatar // Add additional fields as needed
       }
       if (trigger === 'update' && session) {
         return { ...token, ...session }
@@ -201,7 +202,8 @@ const handler = NextAuth({
         email: token.email as string,
         name: token.name as string,
         role: token?.role as string,
-        accessToken: token.accessToken as string
+        avatar: token?.avatar as string,
+        accessToken: token?.accessToken as string
       }
       return session
     }

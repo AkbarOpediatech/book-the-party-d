@@ -22,8 +22,6 @@ const Reviews = () => {
     return <div>Error loading reviews. Please try again later.</div>
   }
 
-  console.log(reviewsData, 'reviewsData')
-
   return (
     <section className="reviews section-padding">
       <div className="container px-0">

@@ -4,10 +4,10 @@ import Image from 'next/image'
 const BookingAnalytics = () => {
   return (
     <div className="my-10 rounded-2xl bg-white py-4 shadow-one">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {bookingAnalytics.map((data, index) => (
           <div key={index}>
-            <div className="flex justify-start border-r border-dotted ps-4 md:justify-center md:ps-0">
+            <div className="flex justify-start ps-4 md:justify-center md:ps-0 lg:border-r lg:border-dashed">
               <div className="flex items-center gap-4">
                 <div className="task-chart">
                   <Image src={data.pic} alt="icon" />

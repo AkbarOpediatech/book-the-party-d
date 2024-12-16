@@ -8,13 +8,10 @@ export const baseQuery = fetchBaseQuery({
   //FIXME:  need to call session to change token
   prepareHeaders: async headers => {
     const session = await getSession()
-    console.log('session', session)
-
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFlMTRlMjc2N2ZkMDZlMTNlMTk0OWEiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3MzM5OTY5MzUsImV4cCI6MTczNjU4ODkzNX0.-YcrWdHdInpJvW2U_DxzFy9aCduEMCZW5jNGAjDokQY'
+    const token = session?.user?.accessToken
 
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
+      headers.set('Authorization', `${token}`)
     }
     return headers
   }

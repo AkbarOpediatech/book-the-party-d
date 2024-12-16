@@ -1,30 +1,36 @@
-import { handleInputChange } from '@/utils/inputHandlers'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 
-const Inclusions = () => {
+type IProps = {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const Inclusions: React.FC<IProps> = ({ onChange }) => {
   const [inclusions, setInclusions] = useState<string[]>([])
   const [inputValue, setInputValue] = useState<string>('')
-  const [isAdding, setIsAdding] = useState<boolean>(true)
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputValue.trim()) {
       e.preventDefault()
       setInclusions([inputValue.trim(), ...inclusions])
       setInputValue('')
-      setIsAdding(false)
     }
   }
 
   const handleAddNew = () => {
-    setIsAdding(true)
     setInputValue('')
   }
 
   const handleRemoveInclusion = (index: number) => {
     const updatedInclusions = inclusions.filter((_, i) => i !== index)
     setInclusions(updatedInclusions)
+  }
+
+  // This is the onChange that the parent component will pass down
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+    onChange(e) // Ensure the onChange passed from parent is called
   }
 
   return (
@@ -48,18 +54,16 @@ const Inclusions = () => {
         </div>
       ))}
 
-      {isAdding && (
-        <div className="relative z-10 mb-4">
-          <input
-            type="text"
-            placeholder="Write here"
-            value={inputValue}
-            onChange={e => handleInputChange(e, setInputValue)}
-            onKeyPress={handleKeyPress}
-            className="w-full rounded-md border border-gray-300 px-4 py-2"
-          />
-        </div>
-      )}
+      <div className="relative z-10 mb-4">
+        <input
+          type="text"
+          placeholder="Write here"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+          className="w-full rounded-md border border-gray-300 px-4 py-2"
+        />
+      </div>
     </div>
   )
 }

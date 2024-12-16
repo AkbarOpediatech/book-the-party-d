@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('vendor@gmail.com')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('Opedia@123')
   const [error, setError] = useState('')
   const router = useRouter()

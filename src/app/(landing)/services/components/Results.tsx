@@ -2,15 +2,55 @@
 'use client'
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
 
-const Results = () => {
+const Results = ({ searchParams }: any) => {
   const [viewMode, setViewMode] = useState('grid')
   const { currentPage, pageLimit, handlePageChange } = usePagination()
+  const categoriesParam = searchParams.get('categories')
+  const locationParam = searchParams.get('location')
+
+  const categories = categoriesParam
+    ? decodeURIComponent(categoriesParam).split(',').filter(Boolean) // Decode, split by commas, and filter out any empty strings
+    : []
+
+  // Correctly decode and process the location
+  const location = locationParam
+    ? decodeURIComponent(locationParam).split(',').filter(Boolean) // Decode, split by commas, and filter out any empty strings
+    : []
+
+  // Log the cleaned-up categories and location
+  useEffect(() => {
+    console.log('Categories:', categories)
+    console.log('Location:', location)
+  }, [categories, location])
+
+  const [filters, setFilters] = useState({
+    title: '',
+    description: ''
+    // category: categories,
+    // location: location
+  })
+
+  const {
+    data: products,
+    isLoading,
+    isError
+  } = useFetchServicesQuery({
+    limit: pageLimit,
+    page: currentPage,
+    ...filters
+    // category: categories,
+    // location: location
+  })
+
+  const serviceData = products?.data
+
+  const totalRecords = products?.pagination?.records || 0
 
   const handleGridClick = () => {
     setViewMode('grid')
@@ -19,16 +59,6 @@ const Results = () => {
   const handleListClick = () => {
     setViewMode('list')
   }
-
-  const {
-    data: products,
-    isLoading,
-    isError
-  } = useFetchServicesQuery({ limit: pageLimit, page: currentPage })
-
-  const serviceData = products?.data
-
-  const totalRecords = products?.pagination?.records || 0
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>

@@ -89,4 +89,4 @@ _API integration - final_
 ##### next days Goal
 
 - Need to change token dynamically
-- 
+- search with readl query

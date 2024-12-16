@@ -126,8 +126,20 @@ const Header = () => {
             <li>
               <Menu>
                 <MenuButton>
-                  <div className={iconContainerClasses}>
+                  {/* <div className={iconContainerClasses}>
                     <Image width={20} height={20} src={ICUser} alt="user-icon" />
+                  </div> */}
+                  <div
+                    className={`overflow-hidden rounded-full border border-gray-300 ${iconContainerClasses}`}
+                    style={{ width: '80px', height: '80px' }}
+                  >
+                    <Image
+                      width={session?.user?.avatar ? 80 : 20}
+                      height={session?.user?.avatar ? 80 : 20}
+                      src={session?.user?.avatar ?? ICUser}
+                      alt="user-icon"
+                      className="object-cover"
+                    />
                   </div>
                 </MenuButton>
                 <MenuItems className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm">
