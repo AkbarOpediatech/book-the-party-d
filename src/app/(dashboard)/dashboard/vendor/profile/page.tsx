@@ -1,6 +1,7 @@
 'use client'
 
 import { useFetchUserByIdQuery } from '@/redux/features/user/apiSlice'
+import { useToken } from '@/redux/hooks/useToken'
 import { useState } from 'react'
 import BankInfoEdit from './components/BankInfoEdit'
 import BankingInfo from './components/BankingInfo'
@@ -11,8 +12,11 @@ import ProfileTab from './components/ProfileTab'
 import VendorInfo from './components/VendorInfo'
 
 const Profile = () => {
-  const { data: response, isLoading, isError } = useFetchUserByIdQuery({ id: '676102fe02420191894a4e29' })
-  console.log(response)
+  const { session } = useToken()
+  console.log('token', session)
+
+  const { data: response, isLoading, isError } = useFetchUserByIdQuery('676102fe02420191894a4e29')
+  console.log('response', response)
 
   const [tab, setTab] = useState<number>(0)
   const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)
