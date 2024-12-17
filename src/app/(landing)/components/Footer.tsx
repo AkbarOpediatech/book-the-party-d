@@ -8,6 +8,10 @@ const Footer = () => {
   const date = new Date()
   const year = date.getFullYear()
 
+  // const { data: session } = useSession()
+  // const role = session?.user?.role
+  // const navigation = role === 'admin' ? adminNavigation : role === 'vendor' ? vendorNavigation : []
+
   return (
     <footer>
       <div className="bg-clr-f2 py-[47px] pb-[66px]">
@@ -48,9 +52,12 @@ const Footer = () => {
           </p>
         </div>
 
-        <button className="fixed bottom-10 right-10 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-clr-fb">
+        <Link
+          href={'/'}
+          className="fixed bottom-10 right-10 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-clr-fb"
+        >
           <ChatBubbleLeftIcon className="size-5 text-white" />
-        </button>
+        </Link>
       </div>
       <p className="py-5 text-center text-xs font-light md:text-base lg:text-sm">
         Copyright © {year} Vacasky. All rights reserved.

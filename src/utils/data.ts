@@ -144,12 +144,12 @@ export const adminNavigation: IAdminNavigation[] = [
     href: '/dashboard/admin/listings',
     icon: ListingIcon
   },
-  {
-    type: 'button',
-    name: 'email management',
-    href: '/dashboard/admin/email-management',
-    icon: DashboardIcon
-  },
+  // {
+  //   type: 'button',
+  //   name: 'email management',
+  //   href: '/dashboard/admin/email-management',
+  //   icon: DashboardIcon
+  // },
   {
     type: 'button',
     name: 'live chat',
@@ -984,7 +984,8 @@ export const cartItems: ICartItems[] = [
 ]
 export enum xUserType {
   Vendor = 'vendor',
-  Customer = 'customer'
+  Customer = 'customer',
+  Admin = 'admin'
 }
 
 export enum xUserStatus {

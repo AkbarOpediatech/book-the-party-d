@@ -1,9 +1,10 @@
 'use client'
+import { roleWiseRoute } from '@/utils/constand'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ArrowRightEndOnRectangleIcon, Bars3Icon, UserIcon } from '@heroicons/react/16/solid'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import NotificationPopup from './NotificationPopup'
 import Avatar from '/public/assets/avatar.jpeg'
 
@@ -12,37 +13,36 @@ type IProps = {
 }
 
 const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
-  const currentpath = usePathname()
-  const isVendorDashboard = currentpath === '/dashboard/vendor'
-  const isAdminDashboard = currentpath === '/dashboard/admin'
+  const { data: session } = useSession()
 
-  const renderProfileMenu = (userType: 'vendor' | 'admin') => (
-    <Menu>
-      <MenuButton className="size-8 overflow-hidden rounded-full lg:size-10">
-        <Image src={Avatar} alt="avatar" />
-      </MenuButton>
+  const role = session?.user?.role as keyof typeof roleWiseRoute | undefined
+  const route = role ? roleWiseRoute[role] : '/'
 
-      <MenuItems
-        anchor="bottom end"
-        className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-      >
-        <MenuItem>
-          <Link
-            className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-            href={`/dashboard/${userType}/profile`}
-          >
-            <UserIcon className="size-4 fill-black/30" />
-            Profile
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-            <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
-            Logout
-          </button>
-        </MenuItem>
-      </MenuItems>
-    </Menu>
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/login' })
+  }
+
+  const renderMenuItems = () => (
+    <>
+      <MenuItem>
+        <Link
+          className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-black/10"
+          href={route}
+        >
+          <UserIcon className="size-4 fill-black/30" />
+          Profile
+        </Link>
+      </MenuItem>
+      <MenuItem>
+        <button
+          className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-black/10"
+          onClick={handleLogout}
+        >
+          <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+          Logout
+        </button>
+      </MenuItem>
+    </>
   )
 
   return (
@@ -61,18 +61,48 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
         </div>
 
         <div className="flex flex-shrink-0 items-center gap-6">
-          {isVendorDashboard && (
+          {role && (
             <>
               <NotificationPopup />
-              {renderProfileMenu('vendor')}
+              <Menu>
+                <MenuButton className="size-8 overflow-hidden rounded-full lg:size-10">
+                  <Image
+                    width={80}
+                    height={80}
+                    src={session?.user?.avatar || Avatar}
+                    alt="user-icon"
+                    className="center object-fill"
+                  />
+                </MenuButton>
+                <MenuItems
+                  anchor="bottom end"
+                  className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out focus:outline-none"
+                >
+                  {renderMenuItems()}
+                </MenuItems>
+              </Menu>
             </>
           )}
-
-          {isAdminDashboard && (
-            <>
-              <NotificationPopup />
-              {renderProfileMenu('admin')}
-            </>
+          {!role && (
+            <Menu>
+              <MenuButton className="size-8 overflow-hidden rounded-full lg:size-10">
+                <Image width={80} height={80} src={Avatar} alt="user-icon" className="center object-fill" />
+              </MenuButton>
+              <MenuItems
+                anchor="bottom end"
+                className="mt-2 w-52 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out focus:outline-none"
+              >
+                <MenuItem>
+                  <Link
+                    className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 hover:bg-black/10"
+                    href="/login"
+                  >
+                    <ArrowRightEndOnRectangleIcon className="size-4 fill-black/30" />
+                    Login
+                  </Link>
+                </MenuItem>
+              </MenuItems>
+            </Menu>
           )}
         </div>
       </div>

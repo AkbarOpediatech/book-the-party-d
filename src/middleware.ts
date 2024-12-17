@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
 
   const userRole = token.role
 
-  if (url.pathname.startsWith('/dashboard/admin') && userRole !== 'vendor') {
+  if (url.pathname.startsWith('/dashboard/admin') && userRole !== 'admin') {
     url.pathname = '/unauthorized'
     return NextResponse.redirect(url)
   }
@@ -29,5 +29,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/admin/:path*', '/dashboard/vendor/:path*']
+  matcher: ['/dashboard/admin/:path*', '/dashboard/vendor/:path*', '/dashboard/admin', '/dashboard/vendor']
 }

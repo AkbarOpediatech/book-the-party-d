@@ -1,5 +1,6 @@
 'use client'
 
+import withRole from '@/app/lib/withRole'
 import DashboardCard from '../../components/DashboardCard'
 import DashboardMasterCard from '../../components/DashboardMasterCard'
 import BookingHistory from './dashboard/components/BookingHistory'
@@ -10,7 +11,7 @@ import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
 
-export default function VendorDashboard() {
+function VendorDashboard() {
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 xl:col-span-7">
@@ -63,3 +64,5 @@ export default function VendorDashboard() {
     </div>
   )
 }
+
+export default withRole(VendorDashboard, ['vendor'])

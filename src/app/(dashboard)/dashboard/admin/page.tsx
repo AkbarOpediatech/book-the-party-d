@@ -12,7 +12,7 @@ import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
 
-function VendorDashboard() {
+function AdminDashboard() {
   const [selectType, setSelectType] = useState('Status')
   const handleSelectChange = (value: string) => {
     setSelectType(value)
@@ -105,4 +105,4 @@ function VendorDashboard() {
   )
 }
 
-export default withRole(VendorDashboard, ['vendor'])
+export default withRole(AdminDashboard, ['admin'])

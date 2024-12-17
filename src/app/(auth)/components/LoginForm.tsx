@@ -1,5 +1,7 @@
 'use client'
+import usePasswordToggle from '@/hooks/usePasswordToggle'
 import { cn } from '@/utils'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -7,14 +9,14 @@ import { useState } from 'react'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('Opedia@123')
+  const [password, setPassword] = useState('')
+  const { inputType, showPassword, togglePasswordVisibility } = usePasswordToggle()
   const [error, setError] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-
     const result = await signIn('credentials', {
       email,
       password,
@@ -44,15 +46,31 @@ const LoginForm = () => {
           />
         </div>
         <div className="mb-2">
-          <label htmlFor="email" className="mb-2 block font-sora font-light text-clr-0f">
+          <label htmlFor="password" className="mb-2 block font-sora font-light text-clr-0f">
             Password
           </label>
-          <input
-            type="password"
-            className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 font-light text-clr-0f"
-            placeholder="example@example.com"
-            onBlur={event => setPassword(event.target.value)}
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type={inputType}
+              className="w-full rounded-[10px] border border-[#0000001a] px-4 py-3 pr-10 font-light text-clr-0f"
+              placeholder="Enter your password"
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+            />
+            {/* Eye Icon */}
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-clr-0f"
+            >
+              {showPassword ? (
+                <EyeIcon className="h-4 w-4 fill-clr-96" />
+              ) : (
+                <EyeSlashIcon className="h-4 w-4 fill-clr-96" />
+              )}
+            </button>
+          </div>
         </div>
         <div className="mb-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">

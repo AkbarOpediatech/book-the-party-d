@@ -51,7 +51,7 @@ const ListingTable: React.FC<IProps> = ({
     },
     {
       name: 'Category',
-      selector: (row: ServiceItem) => row.category.title,
+      selector: (row: ServiceItem) => row?.category?.title,
       sortable: true
     },
     {
