@@ -190,7 +190,9 @@ const handler = NextAuth({
         token.accessToken = user.accessToken // Set accessToken from user object
         token.role = user.role // Add additional fields as needed
         token.avatar = user.avatar // Add additional fields as needed
+        token.id = user._id // Add additional fields as needed
       }
+
       if (trigger === 'update' && session) {
         return { ...token, ...session }
       }
@@ -205,6 +207,7 @@ const handler = NextAuth({
         avatar: token?.avatar as string,
         accessToken: token?.accessToken as string
       }
+      // console.log('result.data', session)
       return session
     }
   },
