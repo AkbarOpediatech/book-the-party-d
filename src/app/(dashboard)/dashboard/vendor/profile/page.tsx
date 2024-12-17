@@ -11,8 +11,8 @@ import ProfileTab from './components/ProfileTab'
 import VendorInfo from './components/VendorInfo'
 
 const Profile = () => {
-  const { data: response, isLoading, isError } = useFetchUserByIdQuery({ id: '676102fe02420191894a4e29' })
-  console.log(response)
+  // const { data: response, isLoading, isError } = useFetchUserByIdQuery({ id: '676102fe02420191894a4e29' })
+  // console.log(response)
 
   const [tab, setTab] = useState<number>(0)
   const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)

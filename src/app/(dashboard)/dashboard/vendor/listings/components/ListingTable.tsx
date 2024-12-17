@@ -1,4 +1,5 @@
 import type { ServiceItem } from '@/redux/features/services/apiSlice'
+import { cn } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -49,11 +50,7 @@ const ListingTable: React.FC<IProps> = ({
       sortable: true,
       width: '400px'
     },
-    {
-      name: 'Category',
-      selector: (row: ServiceItem) => row?.category?.title,
-      sortable: true
-    },
+
     {
       name: 'Price',
       cell: (row: ServiceItem) => (
@@ -63,9 +60,30 @@ const ListingTable: React.FC<IProps> = ({
       ),
       sortable: true
     },
+
     {
-      name: 'Total Bookings',
-      selector: () => 5, //TODO: make it dynamic
+      name: 'Security Deposit',
+      cell: (row: ServiceItem) => (
+        <div className="rounded-md bg-clr-81/20 px-2 py-[1px] text-sm font-bold text-clr-81">
+          ${row.security_deposit || 'N/A'}
+        </div>
+      ),
+      sortable: true
+    },
+
+    {
+      name: 'Status',
+      cell: (row: ServiceItem) => (
+        <span
+          className={cn(
+            'whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-bold capitalize text-gray-500',
+            row.status === 'publish' && 'bg-green-100 text-green-500',
+            row.status === 'pending' && 'bg-red-100 text-red-500'
+          )}
+        >
+          {row.status}
+        </span>
+      ),
       sortable: true
     },
 
@@ -136,6 +154,8 @@ const ListingTable: React.FC<IProps> = ({
       }
     }
   }
+
+  console.log(data)
 
   return (
     <div className="p-2">
