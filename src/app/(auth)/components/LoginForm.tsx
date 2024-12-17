@@ -2,14 +2,17 @@
 import { cn } from '@/utils'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('Opedia@123')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
+
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,7 +27,7 @@ const LoginForm = () => {
     if (!result?.ok) {
       setError('Invalid email or password.')
     } else {
-      router.push('/')
+      router.push(callbackUrl)
     }
   }
 

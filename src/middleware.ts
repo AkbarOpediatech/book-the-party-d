@@ -2,7 +2,6 @@
 import { getToken } from 'next-auth/jwt'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { client } from './utils/config'
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req })
@@ -10,7 +9,9 @@ export async function middleware(req: NextRequest) {
 
   if (!token) {
     url.pathname = '/api/auth/signin'
-    return NextResponse.redirect(`${client}/login`)
+    const callbackUrl = encodeURIComponent(req.nextUrl.pathname)
+    // return NextResponse.redirect(`${client}/login`)
+    return NextResponse.redirect(new URL(`/login?callbackUrl=${callbackUrl}`, req.url))
   }
 
   const userRole = token.role

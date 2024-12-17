@@ -10,7 +10,7 @@ interface PopupState {
 const initialState: PopupState = {
   isVisible: false,
   canceled: false,
-  currentStep: 0,
+  currentStep: 2,
   penalty: 0
 }
 
