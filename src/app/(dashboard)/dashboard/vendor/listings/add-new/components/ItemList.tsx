@@ -2,9 +2,11 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import type { ServiceItemPost } from '@/redux/features/services/apiSlice'
+import { updateListingField } from '@/redux/features/services/listingSlice'
+import type React from 'react'
 import type { Dispatch, SetStateAction } from 'react'
+import { useDispatch } from 'react-redux'
 import FileUpload from './FileUpload'
-import ImportantInfo from './ImportantInfo'
 import Inclusions from './Inclusions'
 
 type IProps = {
@@ -16,6 +18,8 @@ type IProps = {
 }
 
 const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) => {
+  const dispatch = useDispatch()
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStep(2)
@@ -34,7 +38,8 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) =>
           type="text"
           customClass="mb-4"
           placeholder="Write a tittle"
-          onChange={e => handleChange('title', e.target.value)}
+          onChange={(e: any) => void dispatch(updateListingField({ field: 'title', value: e.target.value }))}
+          // onChange={e => handleChange('title', e.target.value)}
         />
         {/* Description */}
         <FormInput
@@ -42,7 +47,9 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) =>
           label="Description"
           type="textarea"
           customClass="mb-4"
-          onChange={e => handleChange('description', e.target.value)}
+          onChange={(e: any) =>
+            void dispatch(updateListingField({ field: 'description', value: e.target.value }))
+          }
         />
 
         {/* Location */}
@@ -52,18 +59,35 @@ const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) =>
           type="select"
           options={['Sydney', 'Brisbane', 'Melbourne']}
           customClass="mb-4"
-          onChange={e => handleChange('location', e.target.value)}
+          onChange={(e: any) =>
+            void dispatch(updateListingField({ field: 'location', value: e.target.value }))
+          }
         />
 
         {/* inclusions */}
-        <Inclusions onChange={e => handleChange('inclusions', [e.target.value])} />
+        <Inclusions
+          onChange={(e: any) =>
+            void dispatch(updateListingField({ field: 'inclusions', value: e.target.value }))
+          }
+        />
 
         {/* infos */}
-        <ImportantInfo onChange={e => handleChange('infos', [e.target.value])} />
+        {/* <ImportantInfo
+          onChange={(e: any) =>
+            void dispatch(updateListingField({ field: 'location', value: e.target.value }))
+          }
+        /> */}
 
         {/*FileUpload  */}
         <FileUpload
-          onChange={e => handleChange('featured_image', e.target.files?.[0] ? e.target.files?.[0] : null)}
+          onChange={(e: any) =>
+            void dispatch(
+              updateListingField({
+                field: 'featured_image',
+                value: e.target.files?.[0] ? e.target.files?.[0] : null
+              })
+            )
+          }
         />
 
         <div className="mt-6 border-b border-gray-200" />

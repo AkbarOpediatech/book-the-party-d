@@ -24,6 +24,25 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
 
   const [addService] = useAddServiceMutation()
 
+  const demoListingData = {
+    user: '60d21b4667d0d8992e610c85', // Example ObjectId as string
+    title: 'Luxury Villa with Sea View dihan',
+    description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
+    slug: 'luxury-villa-sesa-view',
+    featured_image: 'https://example.com/images/villa-sea-view.jpg', // Example image URL
+    category: '60d21b4667d0d8992e610c84', // Example ObjectId as string (Category)
+    location: '60d21b4667d0d8992e610c83', // Example ObjectId as string (Location)
+    inclusions: ['Swimming Pool', 'Jacuzzi', 'Sauna', 'Free WiFi', 'Fully Equipped Kitchen'],
+    infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
+    is_featured: true,
+    price_type: 'hourly', // Assuming price type could be "hourly", "daily", or "weekly"
+    price: [{ text: 'Night', value: 300 }],
+    security_deposit: 500,
+    cancellation_period_hours: 48,
+    availability: [{ days: 'mon', start_time: '08:00', end_time: '18:00' }],
+    is_unavailable: false,
+    status: 'publish'
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!pricingType) {
@@ -31,7 +50,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
       return
     }
     try {
-      const response = await addService(formData).unwrap()
+      const response = await addService(demoListingData).unwrap()
       console.log('Service added response:', response)
       console.log('Service added successfully:', formData)
       alert('Service added successfully!')
