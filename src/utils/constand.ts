@@ -6,6 +6,6 @@ export const userRole = {
 
 export const roleWiseRoute = {
   customer: '/profile',
-  vendor: '/dashboard/vendor',
-  admin: '/dashboard/admin'
+  vendor: '/dashboard/vendor/profile',
+  admin: '/dashboard/admin/profile'
 }

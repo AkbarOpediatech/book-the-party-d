@@ -1,4 +1,5 @@
 'use client'
+import usePasswordToggle from '@/hooks/usePasswordToggle'
 import { setError, setLoading } from '@/redux/features/loadingErrorSlice'
 import type { AppDispatch, RootState } from '@/redux/store'
 import {
@@ -12,6 +13,7 @@ import {
 } from '@/utils'
 import { showAlert } from '@/utils/alertService'
 import { passwordRegex } from '@/utils/regex'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid'
 import axios, { type AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -22,6 +24,7 @@ const FormPage: React.FC = () => {
   const [formData, setFormData] = useState<ISignUpFormData>(SignUpInitialState)
   const dispatch = useDispatch<AppDispatch>()
   const { loading, error } = useSelector((state: RootState) => state.loadingerror)
+  const { inputType, showPassword, togglePasswordVisibility } = usePasswordToggle()
   const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -97,17 +100,25 @@ const FormPage: React.FC = () => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="relative mb-4">
           <InputField
             LabelHtmlFor="password"
             LabelName="Password"
             InputId="password"
-            InputType={xInputType.Password}
+            InputType={inputType} // Dynamically set InputType
             InputOnChange={handleChange}
             InputName="password"
             InputValue={formData.password}
             InputPlaceHolder="Password"
           />
+          {/* Eye Icon for toggling visibility */}
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute right-4 top-[70%] -translate-y-1/2 text-gray-500"
+          >
+            {showPassword ? <EyeIcon className="h-4 w-4" /> : <EyeSlashIcon className="h-4 w-4" />}
+          </button>
         </div>
 
         <ul className="mb-4">

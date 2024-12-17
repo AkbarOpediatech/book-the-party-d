@@ -2,6 +2,7 @@
 import { adminNavigation, vendorNavigation } from '@/utils'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -15,100 +16,57 @@ type IProps = {
 }
 
 const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => {
-  const currentpath = usePathname()
-  const isVendorDashboard = currentpath.includes('/dashboard/vendor')
-  const isAdminDashboard = currentpath.includes('/dashboard/admin')
+  const { data: session } = useSession()
+  const currentPath = usePathname()
 
-  const renderSidebarContent = () => {
-    if (isVendorDashboard) {
-      return (
-        <>
-          <div className="px-6">
-            <Link href="/dashboard/vendor" className="nav-brand mb-8 block text-black">
-              <Image width={90} height={40} src={DLogo} alt="logo" />
-            </Link>
-            <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
-              <div className="user-img h-10 w-10 overflow-hidden rounded-full">
-                <Image src={Avatar} alt="avatar" />
-              </div>
-              <div className="user-info">
-                <h3 className="text-sm font-semibold text-clr-48">Alex Buckmaster</h3>
-                <p className="text-sm text-clr-81">Vendor</p>
-              </div>
-            </div>
-          </div>
+  // Determine user role-based navigation
+  const role = session?.user?.role
+  const navigation = role === 'admin' ? adminNavigation : role === 'vendor' ? vendorNavigation : []
 
-          <div className="dashboard-navigation space-y-1 px-4 py-6">
-            <ul className="space-y-1">
-              {vendorNavigation.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    onClick={() => setSidebarOpen(false)}
-                    href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${
-                      currentpath === item.href ? 'bg-clr-ff text-clr-fb' : ''
-                    }`}
-                  >
-                    <span>
-                      <Image width={24} height={24} src={item.icon} alt="icon" />
-                    </span>
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )
-    }
+  // Function to render user information
+  const renderUserInfo = () => (
+    <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
+      <div className="user-img h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
+        <Image
+          src={session?.user?.avatar || Avatar}
+          alt="avatar"
+          width={40}
+          height={40}
+          className="flex-shrink-0"
+        />
+      </div>
+      <div className="user-info">
+        <h3 className="text-sm font-semibold capitalize text-clr-48">{session?.user?.name || 'Ashiqur'}</h3>
+        <p className="text-sm capitalize text-clr-81">{session?.user?.role || 'Vendor'}</p>
+      </div>
+    </div>
+  )
 
-    if (isAdminDashboard) {
-      return (
-        <>
-          <div className="px-6">
-            <Link href="/dashboard/admin" className="nav-brand mb-8 block text-black">
-              <Image width={90} height={40} src={DLogo} alt="logo" />
-            </Link>
-            <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
-              <div className="user-img h-10 w-10 overflow-hidden rounded-full">
-                <Image src={Avatar} alt="avatar" />
-              </div>
-              <div className="user-info">
-                <h3 className="text-sm font-semibold text-clr-48">Alex Ashiq</h3>
-                <p className="text-sm text-clr-81">Admin</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="dashboard-navigation space-y-1 px-4 py-6">
-            <ul className="space-y-1">
-              {adminNavigation.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    onClick={() => setSidebarOpen(false)}
-                    href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${
-                      currentpath === item.href ? 'bg-clr-ff text-clr-fb' : ''
-                    }`}
-                  >
-                    <span>
-                      <Image width={24} height={24} src={item.icon} alt="icon" />
-                    </span>
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )
-    }
-
-    return null
-  }
+  // Render sidebar navigation
+  const renderNavigation = () => (
+    <ul className="space-y-1">
+      {navigation.map((item, index) => (
+        <li key={index}>
+          <Link
+            onClick={() => setSidebarOpen(false)}
+            href={item.href}
+            className={`flex items-center gap-3 rounded-lg px-[14px] py-3 text-sm capitalize text-clr-81 transition-all duration-300 ease-in-out hover:bg-clr-ff hover:text-clr-fb ${
+              currentPath === item.href ? 'bg-clr-ff text-clr-fb' : ''
+            }`}
+          >
+            <span>
+              <Image width={24} height={24} src={item.icon} alt="icon" />
+            </span>
+            {item.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
 
   return (
     <>
+      {/* Mobile Sidebar */}
       <Transition show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>
           <TransitionChild
@@ -144,7 +102,18 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
                     <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                   </button>
                 </div>
-                <nav className="flex-1">{renderSidebarContent()}</nav>
+                <nav className="flex-1">
+                  <div className="px-6">
+                    <Link
+                      href={role === 'admin' ? '/dashboard/admin' : '/dashboard/vendor'}
+                      className="nav-brand mb-8 block text-black"
+                    >
+                      <Image width={90} height={40} src={DLogo} alt="logo" />
+                    </Link>
+                    {renderUserInfo()}
+                  </div>
+                  <div className="dashboard-navigation space-y-1 px-4 py-6">{renderNavigation()}</div>
+                </nav>
               </DialogPanel>
             </TransitionChild>
             <div className="w-14 flex-shrink-0" />
@@ -152,10 +121,22 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
         </Dialog>
       </Transition>
 
+      {/* Desktop Sidebar */}
       <div className="hidden h-screen lg:flex lg:flex-shrink-0">
         <div className="flex w-72 flex-col bg-white py-[26px]">
           <div className="h-0 flex-1 overflow-y-auto">
-            <nav className="flex-1">{renderSidebarContent()}</nav>
+            <nav className="flex-1">
+              <div className="px-6">
+                <Link
+                  href={role === 'admin' ? '/dashboard/admin' : '/dashboard/vendor'}
+                  className="nav-brand mb-8 block text-black"
+                >
+                  <Image width={90} height={40} src={DLogo} alt="logo" />
+                </Link>
+                {renderUserInfo()}
+              </div>
+              <div className="dashboard-navigation space-y-1 px-4 py-6">{renderNavigation()}</div>
+            </nav>
           </div>
         </div>
       </div>
