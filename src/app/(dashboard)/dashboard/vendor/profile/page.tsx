@@ -1,4 +1,6 @@
 'use client'
+
+import { useFetchUserByIdQuery } from '@/redux/features/user/apiSlice'
 import { useState } from 'react'
 import BankInfoEdit from './components/BankInfoEdit'
 import BankingInfo from './components/BankingInfo'
@@ -9,14 +11,19 @@ import ProfileTab from './components/ProfileTab'
 import VendorInfo from './components/VendorInfo'
 
 const Profile = () => {
+  const { data: response, isLoading, isError } = useFetchUserByIdQuery({ id: '676102fe02420191894a4e29' })
+  console.log(response)
+
   const [tab, setTab] = useState<number>(0)
   const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)
   const [showInfoEdit, setShowInfoEdit] = useState<boolean>(false)
   const [showBankInfoEdit, setShowBankInfoEdit] = useState<boolean>(false)
+
   return (
     <div>
       <ProfileTab tab={tab} setTab={setTab} />
       <ProfilePic setShowProfileEdit={setShowProfileEdit} />
+
       <div className="rounded-lg bg-white p-6">
         {tab === 0 && <VendorInfo setShowInfoEdit={setShowInfoEdit} />}
         {tab === 1 && <BankingInfo setShowBankInfoEdit={setShowBankInfoEdit} />}

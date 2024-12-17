@@ -1,16 +1,28 @@
+'use client'
+
 import { footerNav, footerSocialItems } from '@/utils'
 import { ChatBubbleLeftIcon } from '@heroicons/react/16/solid'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import ICHelp from '/public/assets/ic-help.svg'
 
+interface SessionUser {
+  role?: 'admin' | 'vendor' | string
+}
+
+const roleToNavigation: Record<string, string> = {
+  admin: '/dashboard/admin/chat',
+  vendor: '/dashboard/vendor/chat'
+}
+
 const Footer = () => {
   const date = new Date()
   const year = date.getFullYear()
-
-  // const { data: session } = useSession()
-  // const role = session?.user?.role
-  // const navigation = role === 'admin' ? adminNavigation : role === 'vendor' ? vendorNavigation : []
+  const { data: session } = useSession()
+  const user = session?.user as SessionUser | undefined
+  const role = user?.role
+  const navigation = roleToNavigation[role || ''] || '/contact'
 
   return (
     <footer>
@@ -53,14 +65,18 @@ const Footer = () => {
         </div>
 
         <Link
-          href={'/'}
+          href={navigation}
           className="fixed bottom-10 right-10 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-clr-fb"
         >
           <ChatBubbleLeftIcon className="size-5 text-white" />
         </Link>
       </div>
       <p className="py-5 text-center text-xs font-light md:text-base lg:text-sm">
-        Copyright © {year} Vacasky. All rights reserved.
+        Copyright © {year} Vacasky. All rights{' '}
+        <Link href={'https://iamashiqur.vercel.app/'} className="cursor-text" target="_blank">
+          reserved
+        </Link>
+        .
       </p>
     </footer>
   )

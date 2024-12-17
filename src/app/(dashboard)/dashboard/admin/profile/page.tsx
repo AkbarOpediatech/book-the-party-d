@@ -1,4 +1,5 @@
 'use client'
+import { useFetchUserQuery } from '@/redux/features/user/apiSlice'
 import { useState } from 'react'
 import BankInfoEdit from './components/BankInfoEdit'
 import BankingInfo from './components/BankingInfo'
@@ -13,6 +14,7 @@ const Profile = () => {
   const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)
   const [showInfoEdit, setShowInfoEdit] = useState<boolean>(false)
   const [showBankInfoEdit, setShowBankInfoEdit] = useState<boolean>(false)
+
   return (
     <>
       <ProfileTab tab={tab} setTab={setTab} />

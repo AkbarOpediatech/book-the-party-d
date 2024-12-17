@@ -67,8 +67,8 @@ export const usersApi = createApi({
     }),
 
     fetchUserById: builder.query<IUser, string>({
-      query: slug => `/order-transfers/${slug}`,
-      providesTags: (result, error, slug) => [{ type: 'User', id: slug }]
+      query: id => `/users/${id}`,
+      providesTags: (result, error, id) => [{ type: 'User', id: id }]
     }),
 
     updateUser: builder.mutation<IUser, Partial<IUser> & Pick<IUser, '_id'>>({
