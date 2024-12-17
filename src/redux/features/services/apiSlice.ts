@@ -185,6 +185,7 @@ export const servicesApi = createApi({
       }),
       invalidatesTags: ['Services']
     }),
+
     updateService: builder.mutation<ServiceItem, Partial<ServiceItem> & Pick<ServiceItem, 'slug'>>({
       query: ({ slug, ...rest }) => ({
         url: `/services/${slug}`,

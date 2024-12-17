@@ -11,6 +11,7 @@ import popupSlice from './features/popupSlice'
 import profileReducer from './features/profileSlice'
 import { reviewsApi } from './features/reviews/apiSlice'
 import { servicesApi } from './features/services/apiSlice'
+import listingSlice from './features/services/listingSlice'
 import servicesSlice from './features/services/servicesSlice'
 import stepperSlice from './features/stepperSlice'
 import { usersApi } from './features/user/apiSlice'
@@ -20,6 +21,7 @@ export const store = configureStore({
     stepper: stepperSlice,
     loadingerror: loadingErrorSlice,
     services: servicesSlice,
+    listing: listingSlice,
     cart: cartSlice,
     [usersApi.reducerPath]: usersApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
