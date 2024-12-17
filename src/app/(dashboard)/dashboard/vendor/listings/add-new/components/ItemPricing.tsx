@@ -21,17 +21,18 @@ type IProps = {
 const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handleChange }) => {
   const dispatch = useDispatch()
   const [pricingType, setPricingType] = useState<string>('fixed')
+  const [file, setFile] = useState<File | null>(null) // To store the selected file
 
   const [addService] = useAddServiceMutation()
 
   const demoListingData = {
-    user: '60d21b4667d0d8992e610c85', // Example ObjectId as string
-    title: 'Luxury Villa with Sea View dihan',
+    user: '60d21b4667d0d8992e610c85',
+    title: 'Luxury Villa with Sea View dihanAbir',
     description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
-    slug: 'luxury-villa-sesa-view',
-    featured_image: 'https://example.com/images/villa-sea-view.jpg', // Example image URL
-    category: '60d21b4667d0d8992e610c84', // Example ObjectId as string (Category)
-    location: '60d21b4667d0d8992e610c83', // Example ObjectId as string (Location)
+    slug: 'luxury-dihandsd-viefdsw',
+    featured_image: file, // Example image URL
+    category: '60d21b4667d0d8992e610c84',
+    location: '60d21b4667d0d8992e610c83',
     inclusions: ['Swimming Pool', 'Jacuzzi', 'Sauna', 'Free WiFi', 'Fully Equipped Kitchen'],
     infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
     is_featured: true,
@@ -49,14 +50,61 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
       alert('Please fill in all fields with valid values.')
       return
     }
+
+    // Create FormData object
+    const formData = new FormData()
+
+    // Append each field from demoListingData to FormData
+    formData.append('user', demoListingData.user)
+    formData.append('title', demoListingData.title)
+    formData.append('description', demoListingData.description || '')
+    formData.append('slug', demoListingData.slug || '')
+    formData.append('featured_image', demoListingData.featured_image || '')
+    formData.append('category', demoListingData.category)
+    formData.append('location', demoListingData.location)
+
+    // Handle inclusions and infos as arrays (if necessary, convert them to strings or JSON)
+    formData.append('inclusions', JSON.stringify(demoListingData.inclusions || []))
+    formData.append('infos', JSON.stringify(demoListingData.infos || []))
+
+    formData.append('is_featured', demoListingData.is_featured ? 'true' : 'false')
+    formData.append('price_type', demoListingData.price_type)
+
+    // For price, loop through the array and append each price entry
+    demoListingData.price.forEach((price, index) => {
+      formData.append(`price[${index}][text]`, price.text || '')
+      formData.append(`price[${index}][value]`, price.value.toString())
+    })
+
+    formData.append('security_deposit', demoListingData.security_deposit.toString())
+    formData.append('cancellation_period_hours', demoListingData.cancellation_period_hours.toString())
+
+    // Handle availability (as array of objects, so convert to JSON string)
+    // formData.append('availability', JSON.stringify(demoListingData.availability || []))
+    demoListingData.availability.forEach((availability, index) => {
+      formData.append(`availability[${index}][days]`, availability.days || '')
+      formData.append(`availability[${index}][start_time]`, availability.start_time.toString())
+      formData.append(`availability[${index}][end_time]`, availability.end_time.toString())
+    })
+
+    formData.append('is_unavailable', demoListingData.is_unavailable ? 'true' : 'false')
+    formData.append('status', demoListingData.status || 'active') // Ensure you add a valid status if it's required
+
     try {
-      const response = await addService(demoListingData).unwrap()
+      const response = await addService(formData).unwrap()
       console.log('Service added response:', response)
       console.log('Service added successfully:', formData)
       alert('Service added successfully!')
       // dispatch(clearNewServiceDraft())
     } catch (err) {
       console.error('Failed to add product:', err)
+    }
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files ? e.target.files[0] : null
+    if (selectedFile) {
+      setFile(selectedFile)
     }
   }
 
@@ -99,6 +147,19 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
         )}
+
+        <div className="mt-4">
+          <label className="mb-2 block text-sm font-medium text-gray-700" htmlFor="featured_image">
+            Featured Image
+          </label>
+          <input
+            type="file"
+            id="featured_image"
+            name="featured_image"
+            onChange={handleFileChange}
+            className="block w-full rounded-md border border-gray-300 text-sm text-gray-700"
+          />
+        </div>
         <div className="mt-6 border-b border-gray-200" />
         <div className="mt-5 flex items-center gap-4">
           <GrayBtn name="Back" onClick={() => setStep(2)} />

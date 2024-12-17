@@ -177,11 +177,11 @@ export const servicesApi = createApi({
       query: slug => `/services/${slug}`,
       providesTags: (result, error, slug) => [{ type: 'Services', slug }]
     }),
-    addService: builder.mutation<ServiceItemPost, Omit<ServiceItemPost, 'id'>>({
-      query: newService => ({
+    addService: builder.mutation<ServiceItemPost, FormData>({
+      query: formData => ({
         url: '/services',
         method: 'POST',
-        body: newService
+        body: formData
       }),
       invalidatesTags: ['Services']
     }),
