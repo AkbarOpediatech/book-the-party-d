@@ -13,9 +13,16 @@ import VendorInfo from './components/VendorInfo'
 
 const Profile = () => {
   const { session } = useToken()
-  console.log('token', session)
+  // console.log('token', session?.user.id)
 
-  const { data: response, isLoading, isError } = useFetchUserByIdQuery('676102fe02420191894a4e29')
+  const userId = session?.user?.id ?? ''
+  const {
+    data: response,
+    isLoading,
+    isError
+  } = useFetchUserByIdQuery(userId, {
+    skip: !userId // Skip query until userId is set
+  })
   console.log('response', response)
 
   const [tab, setTab] = useState<number>(0)
