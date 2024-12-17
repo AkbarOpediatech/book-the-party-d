@@ -13,7 +13,10 @@ import VendorInfo from './components/VendorInfo'
 
 const Profile = () => {
   const { session } = useToken()
-  // console.log('token', session?.user.id)
+  const [tab, setTab] = useState<number>(0)
+  const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)
+  const [showInfoEdit, setShowInfoEdit] = useState<boolean>(false)
+  const [showBankInfoEdit, setShowBankInfoEdit] = useState<boolean>(false)
 
   const userId = session?.user?.id ?? ''
   const {
@@ -21,27 +24,24 @@ const Profile = () => {
     isLoading,
     isError
   } = useFetchUserByIdQuery(userId, {
-    skip: !userId // Skip query until userId is set
+    skip: !userId
   })
-  console.log('response', response)
 
-  const [tab, setTab] = useState<number>(0)
-  const [showProfileEdit, setShowProfileEdit] = useState<boolean>(false)
-  const [showInfoEdit, setShowInfoEdit] = useState<boolean>(false)
-  const [showBankInfoEdit, setShowBankInfoEdit] = useState<boolean>(false)
+  const userInfo = response?.data
 
   return (
     <div>
       <ProfileTab tab={tab} setTab={setTab} />
-      <ProfilePic setShowProfileEdit={setShowProfileEdit} />
+
+      <ProfilePic setShowProfileEdit={setShowProfileEdit} data={userInfo} />
 
       <div className="rounded-lg bg-white p-6">
-        {tab === 0 && <VendorInfo setShowInfoEdit={setShowInfoEdit} />}
+        {tab === 0 && <VendorInfo setShowInfoEdit={setShowInfoEdit} data={userInfo} />}
         {tab === 1 && <BankingInfo setShowBankInfoEdit={setShowBankInfoEdit} />}
       </div>
 
       <ProfileEdit showProfileEdit={showProfileEdit} setShowProfileEdit={setShowProfileEdit} />
-      <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} />
+      <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} userInfo={userInfo} />
       <BankInfoEdit showBankInfoEdit={showBankInfoEdit} setShowBankInfoEdit={setShowBankInfoEdit} />
     </div>
   )
