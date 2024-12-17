@@ -6,6 +6,7 @@ interface cartSlice {
   subTotal: number
   items: getCartItem[]
   loading: boolean
+  isDiscountApplied: boolean
   error: error | string | null
 }
 
@@ -13,13 +14,19 @@ const initialState: cartSlice = {
   subTotal: 0,
   items: [],
   loading: false,
+  isDiscountApplied: false,
   error: null
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    updateSubtotal: (state, action: PayloadAction<number>) => {
+      state.subTotal = action.payload
+      state.isDiscountApplied = true
+    }
+  },
   extraReducers: builder => {
     builder
       .addMatcher(cartApi.endpoints.fetchCart.matchPending, state => {
@@ -48,4 +55,6 @@ const cartSlice = createSlice({
       })
   }
 })
+export const { updateSubtotal } = cartSlice.actions
+
 export default cartSlice.reducer

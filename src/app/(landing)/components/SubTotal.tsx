@@ -1,5 +1,6 @@
 'use client'
 import type { getCartItem } from '@/redux/features/cart/apiSlice'
+import { updateSubtotal } from '@/redux/features/cart/cartSlice'
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -7,7 +8,6 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import SuccessModal from '../checkout/components/SuccessModal'
-
 interface RootState1 {
   stepper: {
     currentStep: number
@@ -20,14 +20,38 @@ type IProps = {
   cartItems: getCartItem[] | undefined
 }
 
+function calculateSubtotal(cartItems?: getCartItem[]) {
+  let subtotal = 0
+  // console.log('cartItems', cartItems)
+
+  cartItems &&
+    cartItems.forEach(item => {
+      const service = item.service
+      const quantity = item.quantity
+      const priceId = item.price_id
+
+      // Find the matching price from the service's price array
+      const matchedPrice = service?.price && service?.price.find(price => price._id === priceId)
+      // console.log('matchedPrice', matchedPrice)
+
+      if (matchedPrice && matchedPrice?.value && quantity) {
+        subtotal += matchedPrice?.value * quantity
+      }
+    })
+
+  return subtotal
+}
+
 const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
   const currentStep = useSelector((state: RootState1) => state.stepper.currentStep)
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const [subtotal, setSubtotal] = useState(0)
+  const [subtotalold, setSubtotalOld] = useState(0)
   const [grosstotal, setGrosstotal] = useState(100)
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [discountCode, setDiscountCode] = useState('')
   const pathname = usePathname()
 
   const handleProceedToPay = async () => {
@@ -49,42 +73,38 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
     }
   }
   const isCheckoutStepValid = pathname === '/checkout' && currentStep === 2
+  const {
+    items,
+    isDiscountApplied,
+    subTotal: reduxSubTotal,
+    error
+  } = useSelector((state: RootState) => state.cart)
 
-  function calculateSubtotal(cartItems?: getCartItem[]) {
-    let subtotal = 0
-    // console.log('cartItems', cartItems)
-
-    cartItems &&
-      cartItems.forEach(item => {
-        const service = item.service
-        const quantity = item.quantity
-        const priceId = item.price_id
-
-        // Find the matching price from the service's price array
-        const matchedPrice = service?.price && service?.price.find(price => price._id === priceId)
-        // console.log('matchedPrice', matchedPrice)
-
-        if (matchedPrice && matchedPrice?.value && quantity) {
-          subtotal += matchedPrice?.value * quantity
-        }
-      })
-
-    return subtotal
+  const handleApplyDiscount = () => {
+    // Check if the entered discount code is valid (for example, "PARTY225")
+    if (discountCode === 'PARTY225') {
+      const discount = 0.2 // 20% discount
+      const discountAmount = subtotal * discount
+      const newSubtotal = subtotal - discountAmount
+      setSubtotalOld(subtotal)
+      // Dispatch an action to update the subtotal in Redux state
+      dispatch(updateSubtotal(newSubtotal))
+    } else {
+      alert('Invalid discount code!')
+    }
   }
 
   useEffect(() => {
     const subtotalCal = calculateSubtotal(cartItems)
     setSubtotal(subtotalCal)
-    setGrosstotal(subtotal + 100 + 50 + 50)
   }, [cartItems, subtotal])
 
-  const { items, subTotal: reduxSubTotal, error } = useSelector((state: RootState) => state.cart)
   // console.log('items from redux', items)
   return (
     <>
       <div className="border bg-white p-6">
         <div className="mb-4 flex justify-between border-b pb-4">
-          <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal ${reduxSubTotal}</span>
+          <span className="font-sora text-lg font-semibold text-clr-0f">Subtotal </span>
           <span className="font-sora text-lg font-semibold text-clr-0f">${subtotal}</span>
         </div>
 
@@ -96,10 +116,14 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
             <input
               type="text"
               id="discount-code"
+              value={discountCode}
+              onChange={e => setDiscountCode(e.target.value)}
               className="w-full border border-purple-500 p-2 font-semibold"
               placeholder="PARTY225"
             />
-            <button className="bg-purple-500 px-4 py-2 font-sora text-white">Apply</button>
+            <button onClick={handleApplyDiscount} className="bg-purple-500 px-4 py-2 font-sora text-white">
+              Apply
+            </button>
           </div>
         </div>
 
@@ -126,7 +150,16 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
 
         <div className="mb-4 flex items-center justify-between">
           <span className="font-sora text-sm font-bold text-clr-0f md:text-base">Security Deposit</span>
-          <span className="font-sora text-sm font-bold text-clr-0f md:text-base">${grosstotal}</span>
+          {/* <span className="font-sora text-sm font-bold text-clr-0f md:text-base">
+            ${grosstotal}
+          </span> */}
+
+          {isDiscountApplied && (
+            <span className={`font-sora text-sm font-bold text-clr-0f line-through md:text-base`}>
+              ${subtotalold}
+            </span>
+          )}
+          <span className={`font-sora text-sm font-bold text-clr-0f md:text-base`}>${reduxSubTotal}</span>
         </div>
 
         {isCart && (

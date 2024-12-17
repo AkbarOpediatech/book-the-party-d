@@ -5,7 +5,7 @@ import Image from 'next/image'
 import type { FC } from 'react'
 import Swal from 'sweetalert2'
 import Pagination from '../../services/components/Pagination'
-import Avatar from '/public/assets/avatar.jpeg'
+import Avatar from '/public/assets/package5.png'
 
 type IProps = {
   loading: boolean
@@ -74,7 +74,7 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
                         <Image
                           width={80}
                           height={80}
-                          src={Avatar}
+                          src={data?.service?.featured_image ?? Avatar}
                           alt="Party Item Image"
                           className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
                         />

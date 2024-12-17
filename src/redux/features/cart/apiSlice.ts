@@ -21,6 +21,7 @@ export type GlobalServiceItem = {
   cancellation_period_hours: number
   createdAt?: string
   description?: string
+  featured_image?: string
   inclusions?: string[]
   infos?: string[]
   is_featured?: boolean
