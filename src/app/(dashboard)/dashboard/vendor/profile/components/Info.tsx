@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 type IProps = {
   title: string
-  value: string
+  value: string | string[]
   icon?: ReactNode
 }
 const Info: React.FC<IProps> = ({ title, value, icon }) => {

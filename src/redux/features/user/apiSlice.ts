@@ -73,7 +73,7 @@ export const usersApi = createApi({
 
     updateUser: builder.mutation<IUser, Partial<IUser> & Pick<IUser, '_id'>>({
       query: ({ _id, ...rest }) => ({
-        url: `/order-transfers/${_id}`,
+        url: `/users/${_id}`,
         method: 'PUT',
         body: rest
       }),

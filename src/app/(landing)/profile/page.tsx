@@ -2,6 +2,8 @@
 import { cn, profileMenuItems } from '@/utils'
 
 import { setActiveTab } from '@/redux/features/profileSlice'
+import { useFetchUserByIdQuery } from '@/redux/features/user/apiSlice'
+import { useToken } from '@/redux/hooks/useToken'
 import type { RootState } from '@/redux/store'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +15,20 @@ import PaymentDetails from './component/PaymentDetails'
 const Profile = () => {
   const dispatch = useDispatch()
   const activeTab = useSelector((state: RootState) => state.profile.activeTab)
+  const { session } = useToken()
+  const userId = session?.user?.id ?? ''
+
+  const {
+    data: response,
+    isLoading,
+    isError
+  } = useFetchUserByIdQuery(userId, {
+    skip: !userId
+  })
+
+  const userInfo = response?.data
+
+  console.log(userInfo, 'userInfo')
 
   const handleTabChange = (tabName: string) => {
     dispatch(setActiveTab(tabName)) // Update the Redux state
@@ -57,7 +73,7 @@ const Profile = () => {
             </div>
 
             <div className="col-span-2 m-3">
-              {activeTab === 'Account Settings' && <AccountSettings />}
+              {activeTab === 'Account Settings' && <AccountSettings data={userInfo} />}
               {activeTab === 'General Settings' && <GeneralSettings />}
               {activeTab === 'Order Tracking' && <OrderTracking />}
               {activeTab === 'Payment Details' && <PaymentDetails />}

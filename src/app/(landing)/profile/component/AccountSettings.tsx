@@ -1,9 +1,14 @@
+import type { IUser } from '@/redux/features/user/apiSlice'
 import { billingAddress, cn, personalInfo } from '@/utils'
 import React, { useCallback, useState } from 'react'
 import CustomBtn from '../../components/CustomBtn'
 import Avatar from './Avatar'
 
-const AccountSettings = () => {
+type IProps = {
+  data: IUser
+}
+
+const AccountSettings: React.FC<IProps> = ({ data }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [personalData, setPersonalData] = useState(personalInfo)
   const [billingData, setBillingData] = useState(billingAddress)
@@ -110,7 +115,7 @@ const AccountSettings = () => {
   return (
     <>
       <form onSubmit={handleProfileInfoSubmit}>
-        <Avatar personalData={personalData} isEditing={isEditing} />
+        <Avatar onData={data} personalData={personalData} isEditing={isEditing} />
 
         <ul className={cn(isEditing && 'mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6')}>
           {isEditing &&
@@ -119,6 +124,7 @@ const AccountSettings = () => {
                 <label htmlFor={item.label}>
                   <p className="mb-1 text-base text-clr-81 md:mb-4 md:text-xl">{item.label}</p>
                   {renderInput(item, index, true)}
+
                   {fieldErrors[item.label] && (
                     <p className="mt-2 text-sm text-red-500">{fieldErrors[item.label]}</p>
                   )}
