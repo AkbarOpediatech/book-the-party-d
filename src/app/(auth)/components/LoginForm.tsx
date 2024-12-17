@@ -4,7 +4,7 @@ import { cn } from '@/utils'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 const LoginForm = () => {
@@ -13,6 +13,9 @@ const LoginForm = () => {
   const { inputType, showPassword, togglePasswordVisibility } = usePasswordToggle()
   const [error, setError] = useState('')
   const router = useRouter()
+
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +29,7 @@ const LoginForm = () => {
     if (!result?.ok) {
       setError('Invalid email or password.')
     } else {
-      router.push('/')
+      router.push(callbackUrl)
     }
   }
 
