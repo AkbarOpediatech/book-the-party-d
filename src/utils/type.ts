@@ -1,5 +1,6 @@
 import type { StaticImageData } from 'next/image'
 import type { xRole, xUserStatus, xUserType } from './data'
+import type { ReactNode } from 'react'
 
 export type INavigationItem = {
   type: 'button'
@@ -85,7 +86,7 @@ export type IEventFeatures = {
 }
 export type IEventFeaturesIcon = {
   id: number
-  icon: string | StaticImageData
+  icon: ReactNode
 }
 
 export type ISpecialPackages = {
