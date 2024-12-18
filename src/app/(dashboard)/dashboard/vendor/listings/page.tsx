@@ -2,6 +2,7 @@
 
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { PlusIcon } from '@heroicons/react/16/solid'
@@ -46,11 +47,11 @@ const VendorListing = () => {
   }
 
   if (isLoading) {
-    return <div>Loading bookings...</div>
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <div>Error loading bookings. Please try again later.</div>
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (

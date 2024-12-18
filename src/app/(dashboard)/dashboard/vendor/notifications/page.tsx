@@ -3,6 +3,7 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { useState } from 'react'
 import Notification from './components/Notification'
 import { useFetchServiceService } from './NotificationService'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const Notifications = () => {
   const allNotifications = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -20,8 +21,8 @@ const Notifications = () => {
   const { response: notificationItems, error } = useFetchServiceService()
   console.log(notificationItems, 'NotificationItems')
 
-  if (loading) return <div>Loading cart...</div>
-  if (error) return <div>Error loading cart.</div>
+  if (loading) return <Loader type="loading" message="Please sometimes wait." />;
+  if (error) return <Loader type="error" message="Please try again later." />;
 
   return (
     <div>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import BookingAllTable from './BookingAllTable'
 import BookingHeader from './BookingHeader'
 import BookingTab from './BookingTab'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
@@ -48,11 +49,11 @@ const Bookings = () => {
   }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
-    return <div>Loading bookings...</div>
+    return <Loader type="loading" message="Please wait sometimes" />;
   }
 
   if (isError) {
-    return <div>Error loading bookings. Please try again later.</div>
+    return <Loader type="error" message="Please try again later." />;
   }
 
   return (

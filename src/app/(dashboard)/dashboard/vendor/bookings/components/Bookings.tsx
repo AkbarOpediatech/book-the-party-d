@@ -1,5 +1,6 @@
 'use client'
 
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
 import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
@@ -48,11 +49,11 @@ const Bookings = () => {
   }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
-    return <div>Loading bookings...</div>
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <div>Error loading bookings. Please try again later.</div>
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (
