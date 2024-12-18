@@ -23,10 +23,7 @@ const Occasion = () => {
                 href={{
                   pathname: '/services',
                   query: {
-                    search: items.name,
-                    location: formData.location,
-                    categories: items.name,
-                    date: formData.date
+                    occasion: items.name
                   }
                 }}
               >

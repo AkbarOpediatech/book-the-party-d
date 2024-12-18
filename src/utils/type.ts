@@ -83,6 +83,10 @@ export type IEventFeatures = {
   icon: string | StaticImageData
   name: string
 }
+export type IEventFeaturesIcon = {
+  id: number
+  icon: string | StaticImageData
+}
 
 export type ISpecialPackages = {
   id: number

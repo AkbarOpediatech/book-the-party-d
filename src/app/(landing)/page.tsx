@@ -1,4 +1,5 @@
 'use client'
+import { useFetchCategoriesQuery } from '@/redux/features/categories/apiSlice'
 import Reviews from './components/Reviews'
 import Discover from './home/components/Discover'
 import Featured from './home/components/Featured'
@@ -7,10 +8,23 @@ import Occasion from './home/components/Occasion'
 import SpecialPackages from './home/components/SpecialPackages'
 
 export default function Home() {
+  const { data: categoriesResponse, isLoading, isError } = useFetchCategoriesQuery()
+
+  const categoriesData = categoriesResponse?.data || []
+  console.log(categoriesData, 'bookingData')
+
+  if (isLoading) {
+    return <div>Loading bookings...</div>
+  }
+
+  if (isError) {
+    return <div>Error loading bookings. Please try again later.</div>
+  }
+
   return (
     <>
-      <Hero />
-      <SpecialPackages />
+      <Hero data={categoriesData} />
+      <SpecialPackages data={categoriesData} />
       <Discover />
       <Occasion />
       <Featured />

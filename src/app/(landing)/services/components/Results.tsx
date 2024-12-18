@@ -1,5 +1,5 @@
-// Results.tsx
 'use client'
+
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { useEffect, useState } from 'react'
@@ -43,6 +43,7 @@ const Results = ({ searchParams }: any) => {
   } = useFetchServicesQuery({
     limit: pageLimit,
     page: currentPage,
+    populate: ['user', 'category', 'location'],
     ...filters
     // category: categories,
     // location: location

@@ -11,6 +11,7 @@ import type {
   IDashboardBookingHistory,
   IDiscoverItems,
   IEventFeatures,
+  IEventFeaturesIcon,
   IFooterSocialItems,
   IFormData,
   IListingsData,
@@ -543,6 +544,41 @@ export const eventFeatures: IEventFeatures[] = [
     id: 8,
     icon: ICKid,
     name: "Kid's party entertainment"
+  }
+]
+
+export const eventFeaturesIcon: IEventFeaturesIcon[] = [
+  {
+    id: 1,
+    icon: ICPackage
+  },
+  {
+    id: 2,
+    icon: ICDisplay
+  },
+  {
+    id: 3,
+    icon: ICTableSetting
+  },
+  {
+    id: 4,
+    icon: ICVehicle
+  },
+  {
+    id: 5,
+    icon: ICFood
+  },
+  {
+    id: 6,
+    icon: ICVisual
+  },
+  {
+    id: 7,
+    icon: ICOutdoor
+  },
+  {
+    id: 8,
+    icon: ICKid
   }
 ]
 
