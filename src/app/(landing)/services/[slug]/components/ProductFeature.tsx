@@ -1,9 +1,13 @@
 'use client'
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
 import type { ServiceItem } from '@/redux/features/services/apiSlice'
+import { useAddToWishlistMutation } from '@/redux/features/wishlist/apiSlice'
 import { HeartIcon } from '@heroicons/react/16/solid'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import Swal from 'sweetalert2'
 import serviceImage from '/public/assets/discover-img.png'
 
 type IProps = {
@@ -11,7 +15,49 @@ type IProps = {
 }
 
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {
+  const [addToWishlist] = useAddToWishlistMutation()
+  const { data: session } = useSession() // Fetch session data
+  const router = useRouter()
+
   const handleWishlist = () => {
+    if (!session) {
+      Swal.fire({
+        title: 'Login Required',
+        text: 'You need to log in to add items to the cart.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel'
+      }).then(result => {
+        if (result.isConfirmed) {
+          router.push('/login')
+        }
+      })
+      return
+    }
+
+    const cartItem = {
+      service: singleService._id,
+      user: session.user?.id //FIXME: change with user ID
+    }
+    addToWishlist(cartItem)
+      .unwrap()
+      .then(response => {
+        if (response) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Successfully added to cart',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true
+          })
+        }
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error)
+        alert('Failed to book the service. Please try again.')
+      })
     console.log('handleFavorite Clickted')
   }
 

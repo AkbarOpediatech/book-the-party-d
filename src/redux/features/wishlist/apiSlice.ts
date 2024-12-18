@@ -2,11 +2,11 @@ import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 export interface WishlistItem {
-  service: number
-  user: string
+  service: string | undefined
+  user: string | undefined
 }
 
-interface WishlistItemResponse {
+export interface WishlistItemResponse {
   data: WishlistItem[]
 }
 export const wishlistApi = createApi({
@@ -15,12 +15,12 @@ export const wishlistApi = createApi({
   tagTypes: ['Wishlist'],
   endpoints: builder => ({
     fetchWishlist: builder.query<WishlistItemResponse, void>({
-      query: () => '/wishlist',
+      query: () => '/wishlists',
       providesTags: ['Wishlist']
     }),
     addToWishlist: builder.mutation<WishlistItem, WishlistItem>({
       query: item => ({
-        url: '/wishlist',
+        url: '/wishlists',
         method: 'POST',
         body: item
       }),
@@ -28,7 +28,7 @@ export const wishlistApi = createApi({
     }),
     removeFromWishlist: builder.mutation<void, number>({
       query: itemId => ({
-        url: `/wishlist/${itemId}`,
+        url: `/wishlists/${itemId}`,
         method: 'DELETE'
       }),
       invalidatesTags: ['Wishlist']
