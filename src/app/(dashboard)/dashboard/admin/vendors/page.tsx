@@ -4,7 +4,7 @@ import { useFetchUserQuery } from '@/redux/features/user/apiSlice'
 import Listings from './components/Listings'
 
 const Vendors = () => {
-  const { data: products, isLoading, isError } = useFetchUserQuery({ role: 'vendor', limit: 10, page: 1 })
+  const { data: products } = useFetchUserQuery({ role: 'vendor', limit: 10, page: 1 })
   const fullResponse = products
   const serviceData = fullResponse?.data //FIXME:
   console.log(' Vendor User', serviceData)
