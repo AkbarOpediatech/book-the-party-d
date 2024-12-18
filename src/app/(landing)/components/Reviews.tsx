@@ -8,9 +8,8 @@ import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from './SectionHeading'
 import avatar from '/public/assets/avatar.jpeg'
-import { Player } from '@lottiefiles/react-lottie-player'
-import loadingAnimation from '../../../../public/assets/lottie-loading.json'
-import errorAnimation from "../../../../public/assets/lottie-error.json"
+import Loader from './Loader/Loader'
+
 
 const Reviews = () => {
   const { data: response, isLoading, isError } = useFetchReviewsQuery({})
@@ -18,31 +17,11 @@ const Reviews = () => {
   const reviewsData = response?.data || []
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-10">
-        <Player
-          autoplay
-          loop
-          src={loadingAnimation}
-          className="h-40 w-40"
-        />
-        <p className="mt-3 text-white text-lg">Please wait for sometimes</p>
-      </div>
-    )
+    return <Loader type="loading" message="Loading reviews..." />;
   }
 
   if (isError) {
-    return (
-      <div className="flex flex-col items-center justify-center py-10">
-        <Player
-          autoplay
-          loop
-          src={errorAnimation}
-          className="h-40 w-40"
-        />
-        <p className="mt-3 text-red-500 text-lg"> Please try again later.</p>
-      </div>
-    )
+    return <Loader type="error" message="Error loading reviews. Please try again later." />;
   }
 
   return (
