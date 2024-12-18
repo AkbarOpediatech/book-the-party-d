@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
@@ -17,7 +18,7 @@ type IProps = {
   handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
 
-const ItemList: React.FC<IProps> = ({ setStep, isEditListing, handleChange }) => {
+const ItemList: React.FC<IProps> = ({ setStep, isEditListing }) => {
   const dispatch = useDispatch()
 
   const handleSubmit = (e: React.FormEvent) => {

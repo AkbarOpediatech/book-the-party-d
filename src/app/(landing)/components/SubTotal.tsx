@@ -4,7 +4,7 @@ import { updateSubtotal } from '@/redux/features/cart/cartSlice'
 import { nextStep } from '@/redux/features/stepperSlice'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import SuccessModal from '../checkout/components/SuccessModal'
@@ -14,17 +14,11 @@ interface RootState1 {
   }
 }
 
-type IProps = {
-  setCurrentStep?: Dispatch<SetStateAction<number>>
-  isCart?: boolean
-  cartItems: getCartItem[] | undefined
-}
-
-function calculateSubtotal(cartItems?: getCartItem[]) {
+function calculateSubtotal(cartItems: getCartItem[]) {
   let subtotal = 0
   // console.log('cartItems', cartItems)
 
-  cartItems &&
+  if (cartItems) {
     cartItems.forEach(item => {
       const service = item.service
       const quantity = item.quantity
@@ -38,10 +32,15 @@ function calculateSubtotal(cartItems?: getCartItem[]) {
         subtotal += matchedPrice?.value * quantity
       }
     })
+  }
 
   return subtotal
 }
 
+type IProps = {
+  isCart?: boolean
+  cartItems: getCartItem[] | undefined
+}
 const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
   const currentStep = useSelector((state: RootState1) => state.stepper.currentStep)
   const dispatch = useDispatch()
@@ -95,7 +94,10 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
   }
 
   useEffect(() => {
-    const subtotalCal = calculateSubtotal(cartItems)
+    let subtotalCal = 0
+    if (cartItems) {
+      subtotalCal = calculateSubtotal(cartItems)
+    }
     setSubtotal(subtotalCal)
   }, [cartItems, subtotal])
 

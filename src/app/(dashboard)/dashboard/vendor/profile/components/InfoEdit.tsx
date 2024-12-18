@@ -2,28 +2,29 @@
 
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
+import { useUpdateUserMutation } from '@/redux/features/user/apiSlice'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { userInfo } from 'os'
 import { useState } from 'react'
 
 type IProps = {
   showInfoEdit: boolean
   setShowInfoEdit: (showIndex: boolean) => void
-  userInfo: Partial<IUser> // Pass userInfo as a prop
+  // userInfo: Partial<IUser> // Pass userInfo as a prop
 }
 
-const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo }) => {
+const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit }) => {
   const [updateUser, { isLoading, isError }] = useUpdateUserMutation()
 
   // State for form data
   const [formData, setFormData] = useState({
-    fullName: userInfo?.name || '',
-    description: userInfo?.about || '',
+    fullName: '',
+    description: '',
     // location: userInfo?.loc || '',
-    specialized: userInfo?.specialized || '',
-    email: userInfo?.email || '',
-    tel: userInfo?.phone || '',
-    language: userInfo?.languages || 'Bangla'
+    specialized: '',
+    email: '',
+    tel: '',
+    language: 'Bangla'
   })
 
   // Handle input change
@@ -36,7 +37,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await updateUser({ _id: userInfo._id, ...formData }).unwrap()
+      // await updateUser({ _id: ._id, ...formData }).unwrap()
       setShowInfoEdit(false) // Close the dialog box
     } catch (error) {
       console.error('Failed to update user:', error)
@@ -61,7 +62,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="text"
                 name="fullName"
                 placeholder="Enter Full Name"
-                value={formData.fullName}
+                // value={formData.fullName}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -69,7 +70,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="textarea"
                 name="description"
                 placeholder="Description"
-                value={formData.description}
+                // value={formData.description}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -77,7 +78,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="text"
                 name="location"
                 placeholder="Location"
-                value={formData.location}
+                // value={formData.location}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -85,7 +86,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="text"
                 name="specialized"
                 placeholder="Specialized in"
-                value={formData.specialized}
+                // value={formData.specialized}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -93,7 +94,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="email"
                 name="email"
                 placeholder="Email Address"
-                value={formData.email}
+                // value={formData.email}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -101,7 +102,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="tel"
                 name="tel"
                 placeholder="Phone Number"
-                value={formData.tel}
+                // value={formData.tel}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -109,7 +110,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="select"
                 name="language"
                 placeholder="Language"
-                value={formData.language}
+                // value={formData.language}
                 options={['Bangla', 'English', 'Spanish', 'French']}
                 onChange={handleChange}
                 customClass="mb-4"

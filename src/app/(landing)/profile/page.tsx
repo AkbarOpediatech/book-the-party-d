@@ -7,10 +7,10 @@ import { useToken } from '@/redux/hooks/useToken'
 import type { RootState } from '@/redux/store'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
-import AccountSettings from './component/AccountSettings'
 import GeneralSettings from './component/GeneralSettings'
 import OrderTracking from './component/OrderTracking'
 import PaymentDetails from './component/PaymentDetails'
+import AccountSettings from './component/AccountSettings'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -26,9 +26,9 @@ const Profile = () => {
     skip: !userId
   })
 
-  const userInfo = response?.data
+  // const userInfo = response?.data
 
-  console.log(userInfo, 'userInfo')
+  // console.log(userInfo, 'userInfo')
 
   const handleTabChange = (tabName: string) => {
     dispatch(setActiveTab(tabName)) // Update the Redux state
@@ -73,7 +73,7 @@ const Profile = () => {
             </div>
 
             <div className="col-span-2 m-3">
-              {activeTab === 'Account Settings' && <AccountSettings data={userInfo} />}
+              {activeTab === 'Account Settings' && <AccountSettings />}
               {activeTab === 'General Settings' && <GeneralSettings />}
               {activeTab === 'Order Tracking' && <OrderTracking />}
               {activeTab === 'Payment Details' && <PaymentDetails />}
