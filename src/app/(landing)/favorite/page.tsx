@@ -1,45 +1,13 @@
 'use client'
 import { cartItems as initialCartItems } from '@/utils'
-import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/16/solid'
+import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useState } from 'react'
-import Swal from 'sweetalert2'
 
 const Favorite = () => {
   const [favoriteItems, setFavoriteItems] = useState(initialCartItems)
 
-  const handleRemoveFromFavorites = async (index: number) => {
-    const { isConfirmed } = await Swal.fire({
-      title: 'Remove from Favorites?',
-      text: 'Are you sure you want to remove this item from your favorites?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, remove it',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: '#dc3545'
-    })
-
-    if (isConfirmed) {
-      setFavoriteItems(prev => prev.filter((_, itemIndex) => itemIndex !== index))
-      Swal.fire('Removed!', 'Item has been removed from your favorites.', 'success')
-    }
-  }
-
-  const handleQuantityChange = (index: number, increment: boolean) => {
-    setFavoriteItems(prev =>
-      prev.map((item, i) => {
-        if (i === index) {
-          const newQuantity = increment ? item.quantity + 1 : Math.max(1, item.quantity - 1)
-          return {
-            ...item,
-            quantity: newQuantity,
-            subtotal: item.price * newQuantity
-          }
-        }
-        return item
-      })
-    )
-  }
+  const handleRemoveFromFavorites = async (index: number) => {}
 
   return (
     <section className="py-10">
