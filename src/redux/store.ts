@@ -16,6 +16,7 @@ import listingSlice from './features/services/listingSlice'
 import servicesSlice from './features/services/servicesSlice'
 import stepperSlice from './features/stepperSlice'
 import { usersApi } from './features/user/apiSlice'
+import { wishlistApi } from './features/wishlist/apiSlice'
 
 export const store = configureStore({
   reducer: {
@@ -33,6 +34,7 @@ export const store = configureStore({
     [bankingsApi.reducerPath]: bankingsApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     [chatApi.reducerPath]: chatApi.reducer,
+    [wishlistApi.reducerPath]: wishlistApi.reducer,
 
     form: formReducer,
     popup: popupSlice,
@@ -48,6 +50,7 @@ export const store = configureStore({
       .concat(notificationApi.middleware)
       .concat(usersApi.middleware)
       .concat(usersApi.middleware)
+      .concat(wishlistApi.middleware)
       .concat(chatApi.middleware)
       .concat(categoriesApi.middleware)
 })

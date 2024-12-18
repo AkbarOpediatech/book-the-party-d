@@ -99,7 +99,14 @@ const ServiceSingle = () => {
             toast: true
           })
         } else {
-          router.push('/cart')
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'failed added to cart',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true
+          })
         }
       })
       .catch(error => {
