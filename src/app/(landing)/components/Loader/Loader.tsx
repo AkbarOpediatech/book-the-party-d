@@ -1,7 +1,7 @@
 'use client';
 
 import { Player } from '@lottiefiles/react-lottie-player';
-import loadingAnimation from '../../../../../public/assets/lottie-loading.json'
+import loadingAnimation from '../../../../../public/assets/loading.json'
 import errorAnimation from "../../../../../public/assets/lottie-error.json"
 
 interface LoaderProps {

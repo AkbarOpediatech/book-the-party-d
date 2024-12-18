@@ -6,6 +6,7 @@ import type { FC } from 'react'
 import Swal from 'sweetalert2'
 import Pagination from '../../services/components/Pagination'
 import Avatar from '/public/assets/package5.png'
+import Loader from '../../components/Loader/Loader'
 
 type IProps = {
   loading: boolean
@@ -44,8 +45,8 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
     }
   }
 
-  if (loading) return <div>Loading cart...</div>
-  if (error) return <div>Error loading cart.</div>
+  if (loading) return <Loader type="loading" message="Please wait sometimes" />;
+  if (error) return <Loader type="error" message="Please try again later." />;
 
   return (
     <div>
