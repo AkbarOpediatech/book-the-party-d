@@ -132,9 +132,12 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
 
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
+     <div className='flex justify-between items-center'>
+     <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
         {isEditListing === true ? 'Edit' : 'Add New'}
       </p>
+      <DashboardButton name="Add CFategory" type="button"   />
+     </div>
       <form>
         <FormInput
           name="categories"
