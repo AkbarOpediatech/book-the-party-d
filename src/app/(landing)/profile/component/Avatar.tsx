@@ -1,4 +1,5 @@
 'use client'
+import type { IUser } from '@/redux/features/user/apiSlice'
 import { CameraIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
@@ -12,9 +13,10 @@ type PersonalData = {
 type IProps = {
   isEditing: boolean
   personalData: PersonalData[]
+  onData: IUser | undefined
 }
 
-const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
+const Avatar: React.FC<IProps> = ({ isEditing, personalData, onData }) => {
   const [avatar, setAvatar] = useState<string>(AvatarImage.src)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -35,10 +37,10 @@ const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
         <div className="h-[100px] w-[100px] overflow-hidden rounded-full md:mb-0 md:h-[200px] md:w-[200px]">
           {isEditing ? (
             <div onClick={handleCameraClick} className="cursor-pointer">
-              <Image width={200} height={200} src={avatar} alt="avatar" priority />
+              <Image width={200} height={200} src={onData?.avatar || avatar} alt="avatar" priority />
             </div>
           ) : (
-            <Image width={200} height={200} src={avatar} alt="avatar" priority />
+            <Image width={200} height={200} src={onData?.avatar || avatar} alt="avatar" priority />
           )}
           <input
             ref={fileInputRef}
@@ -62,8 +64,10 @@ const Avatar: React.FC<IProps> = ({ isEditing, personalData }) => {
       <div className="identity text-center lg:text-left">
         {!isEditing && (
           <>
-            <h4 className="text-3xl font-bold text-clr-27 md:mb-4 md:text-[42px]">Justin Bulbul</h4>
-            <p className="text-lg text-clr-81 md:text-[32px]">justinbulbul@gmail.com</p>
+            <h4 className="text-3xl font-bold text-clr-27 md:mb-4 md:text-[42px]">
+              {onData?.name || 'Loading...'}
+            </h4>
+            <p className="text-lg text-clr-81 md:text-[32px]">{onData?.email || 'Loading...'}</p>
           </>
         )}
       </div>

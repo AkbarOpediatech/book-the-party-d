@@ -9,9 +9,7 @@ import SpecialPackages from './home/components/SpecialPackages'
 
 export default function Home() {
   const { data: categoriesResponse, isLoading, isError } = useFetchCategoriesQuery()
-
   const categoriesData = categoriesResponse?.data || []
-  console.log(categoriesData, 'bookingData')
 
   if (isLoading) {
     return <div>Loading bookings...</div>

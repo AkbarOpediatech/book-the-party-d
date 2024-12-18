@@ -6,11 +6,12 @@ import { useFetchUserByIdQuery } from '@/redux/features/user/apiSlice'
 import { useToken } from '@/redux/hooks/useToken'
 import type { RootState } from '@/redux/store'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import AccountSettings from './component/AccountSettings'
 import GeneralSettings from './component/GeneralSettings'
 import OrderTracking from './component/OrderTracking'
 import PaymentDetails from './component/PaymentDetails'
-import AccountSettings from './component/AccountSettings'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -18,17 +19,16 @@ const Profile = () => {
   const { session } = useToken()
   const userId = session?.user?.id ?? ''
 
-  const {
-    data: response,
-    isLoading,
-    isError
-  } = useFetchUserByIdQuery(userId, {
+  const { data: response } = useFetchUserByIdQuery(userId, {
     skip: !userId
   })
 
-  // const userInfo = response?.data
+  console.log('response', response)
+  const userInfo = response?.data
 
-  // console.log(userInfo, 'userInfo')
+  useEffect(() => {}, [])
+
+  console.log(userInfo, 'userInfo')
 
   const handleTabChange = (tabName: string) => {
     dispatch(setActiveTab(tabName)) // Update the Redux state
@@ -73,7 +73,7 @@ const Profile = () => {
             </div>
 
             <div className="col-span-2 m-3">
-              {activeTab === 'Account Settings' && <AccountSettings />}
+              {activeTab === 'Account Settings' && <AccountSettings data={userInfo} />}
               {activeTab === 'General Settings' && <GeneralSettings />}
               {activeTab === 'Order Tracking' && <OrderTracking />}
               {activeTab === 'Payment Details' && <PaymentDetails />}

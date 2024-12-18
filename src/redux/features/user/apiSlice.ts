@@ -46,7 +46,7 @@ export interface IUserPost {
 }
 
 interface UserResponse {
-  data: IUser[]
+  data: IUser
 }
 
 // Redux Toolkit Query API
@@ -66,7 +66,7 @@ export const usersApi = createApi({
       providesTags: ['User']
     }),
 
-    fetchUserById: builder.query<IUser, string>({
+    fetchUserById: builder.query<UserResponse, string>({
       query: id => `/users/${id}`,
       providesTags: (result, error, id) => [{ type: 'User', id: id }]
     }),
