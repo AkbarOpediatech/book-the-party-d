@@ -94,9 +94,9 @@ export const bookingsApi = createApi({
   endpoints: builder => ({
     fetchBookings: builder.query<OrderResponse, { role?: string; limit?: number; page?: number }>({
       query: ({ role, limit, page } = {}) => {
-        const params = role ? { role } : {} // Conditionally include `vendor` if it exists
+        const params = role ? {  role, limit, page } : {} // Conditionally include `vendor` if it exists
         return {
-          url: `/order-items?limit=${limit}&page=${page}`,
+          url: `/order-items`,
           params // Add query parameters dynamically
         }
       },
