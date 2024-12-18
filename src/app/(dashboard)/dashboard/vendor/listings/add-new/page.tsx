@@ -8,7 +8,7 @@ import ItemPricing from './components/ItemPricing'
 import SetAvailability from './components/SetAvailability'
 
 const AddNewListing = () => {
-  const [step, setStep] = useState<number>(3)
+  const [step, setStep] = useState<number>(0)
 
   const [formData, setFormData] = useState<ServiceItemPost>({
     aproved_by: null,
