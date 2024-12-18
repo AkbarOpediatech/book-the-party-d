@@ -6,7 +6,6 @@ export interface SearchFormData {
   location: string
   categories: string
   date: string
-  occasion: string
 }
 
 const useSearchQuery = () => {
@@ -16,8 +15,7 @@ const useSearchQuery = () => {
     search: '',
     location: '',
     categories: '',
-    date: '',
-    occasion: ''
+    date: ''
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

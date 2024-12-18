@@ -27,21 +27,21 @@ const Profile = () => {
     skip: !userId
   })
 
-  const userInfo = response?.data
+  // const userInfo = response?.data
 
   return (
     <div>
       <ProfileTab tab={tab} setTab={setTab} />
 
-      <ProfilePic setShowProfileEdit={setShowProfileEdit} data={userInfo} />
+      <ProfilePic setShowProfileEdit={setShowProfileEdit} />
 
       <div className="rounded-lg bg-white p-6">
-        {tab === 0 && <VendorInfo setShowInfoEdit={setShowInfoEdit} data={userInfo} />}
+        {tab === 0 && <VendorInfo setShowInfoEdit={setShowInfoEdit} />}
         {tab === 1 && <BankingInfo setShowBankInfoEdit={setShowBankInfoEdit} />}
       </div>
 
       <ProfileEdit showProfileEdit={showProfileEdit} setShowProfileEdit={setShowProfileEdit} />
-      <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} userInfo={userInfo} />
+      <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} />
       <BankInfoEdit showBankInfoEdit={showBankInfoEdit} setShowBankInfoEdit={setShowBankInfoEdit} />
     </div>
   )

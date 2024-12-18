@@ -1,5 +1,4 @@
 'use client'
-import useSearchQuery from '@/hooks/useSearchQuery'
 import type { ICategory } from '@/redux/features/categories/apiSlice'
 import { ArrowRightCircleIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
@@ -14,18 +13,16 @@ type IProps = {
 }
 
 const SpecialPackages: React.FC<IProps> = ({ data }) => {
-  const { formData } = useSearchQuery()
-
   return (
     <section className="section-padding">
       <Swiper
         slidesPerView={5}
         spaceBetween={20}
         loop={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false
-        // }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false
+        }}
         modules={[Autoplay, Navigation, Pagination]}
         grabCursor={true}
         className="SpecialPackagesSwiper"
@@ -49,7 +46,7 @@ const SpecialPackages: React.FC<IProps> = ({ data }) => {
         }}
       >
         {data.map((items, index) => (
-          <SwiperSlide className="min-h-[250px] overflow-hidden rounded-[32px]" key={index}>
+          <SwiperSlide className="h-full min-h-[250px] overflow-hidden rounded-[32px]" key={index}>
             <Link
               className="relative block"
               href={{
@@ -62,8 +59,8 @@ const SpecialPackages: React.FC<IProps> = ({ data }) => {
               <Image
                 width={250}
                 height={250}
-                src={items.featured_image}
-                className="h-full w-full overflow-hidden"
+                src={items.featured_image || 'Loading.....'}
+                className="h-[350px] w-full overflow-hidden object-fill"
                 alt="image"
               />
               <div className="border-white-50/50 absolute left-0 top-0 h-full w-full rounded-[32px] border-4 bg-black/20 p-8">

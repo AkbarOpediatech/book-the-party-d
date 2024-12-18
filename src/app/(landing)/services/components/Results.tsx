@@ -8,8 +8,18 @@ import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
 
-const Results = ({ searchParams }: any) => {
-  const [viewMode, setViewMode] = useState('grid')
+// Define types for props and state
+interface ResultsProps {
+  searchParams: URLSearchParams
+}
+
+interface FilterState {
+  title: string
+  description: string
+}
+
+const Results = ({ searchParams }: ResultsProps) => {
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const { currentPage, pageLimit, handlePageChange } = usePagination()
   const categoriesParam = searchParams.get('categories')
   const locationParam = searchParams.get('location')
@@ -29,11 +39,9 @@ const Results = ({ searchParams }: any) => {
     console.log('Location:', location)
   }, [categories, location])
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     title: '',
     description: ''
-    // category: categories,
-    // location: location
   })
 
   const {
@@ -45,12 +53,9 @@ const Results = ({ searchParams }: any) => {
     page: currentPage,
     populate: ['user', 'category', 'location'],
     ...filters
-    // category: categories,
-    // location: location
   })
 
   const serviceData = products?.data
-
   const totalRecords = products?.pagination?.records || 0
 
   const handleGridClick = () => {

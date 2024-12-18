@@ -7,8 +7,6 @@ import type { Dispatch, SetStateAction } from 'react'
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
   isEditListing?: boolean
-  formData: ServiceItemPost
-  setFormData: Dispatch<SetStateAction<ServiceItemPost>>
   handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
 
