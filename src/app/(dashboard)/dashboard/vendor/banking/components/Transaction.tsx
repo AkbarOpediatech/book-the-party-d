@@ -1,11 +1,11 @@
 'use client'
 
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
 import { useFetchBankingsQuery } from '@/redux/features/bankings/apiSlice'
 import dynamic from 'next/dynamic'
 import TransactionHistoryHeader from './TransactionHistoryHeader'
-import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const TransactionHistoryTable = dynamic(() => import('./TransactionHistoryTable'), {
   ssr: false
@@ -29,11 +29,11 @@ const Transaction = () => {
   )
 
   if (isLoading) {
-    return <Loader type="loading" message="Pleasw wait sometimes" />;
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <Loader type="error" message="Please try again later." />;
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (

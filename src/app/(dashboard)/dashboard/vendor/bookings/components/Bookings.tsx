@@ -1,5 +1,6 @@
 'use client'
 
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
 import { useFetchBookingsQuery } from '@/redux/features/bookings/apiSlice'
@@ -7,7 +8,6 @@ import { useEffect, useState } from 'react'
 import BookingAllTable from './BookingAllTable'
 import BookingHeader from './BookingHeader'
 import BookingTab from './BookingTab'
-import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const Bookings = () => {
   const [tab, setTab] = useState<number>(0)
@@ -49,11 +49,11 @@ const Bookings = () => {
   }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
-    return <Loader type="loading" message="Pleasw wait sometimes" />;
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <Loader type="error" message="Please try again later." />;
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (

@@ -2,6 +2,7 @@
 
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { PlusIcon } from '@heroicons/react/16/solid'
@@ -9,7 +10,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import AddedModal from './add-new/components/AddedModal'
 import Listings from './components/Listings'
-import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const VendorListing = () => {
   const router = useRouter()
@@ -47,11 +47,11 @@ const VendorListing = () => {
   }
 
   if (isLoading) {
-    return <Loader type="loading" message="Pleasw wait sometimes" />;
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <Loader type="error" message="Please try again later." />;
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (

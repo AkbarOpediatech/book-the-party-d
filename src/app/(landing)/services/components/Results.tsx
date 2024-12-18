@@ -7,6 +7,7 @@ import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
+import Loader from '../../components/Loader/Loader'
 
 const Results = ({ searchParams }: any) => {
   const [viewMode, setViewMode] = useState('grid')
@@ -60,7 +61,7 @@ const Results = ({ searchParams }: any) => {
     setViewMode('list')
   }
 
-  if (isLoading) return <div>Loading products...</div>
+  if (isLoading) return <Loader type="loading" message="Please sometimes wait." />;
   if (isError) return <Loader type="error" message="Please try again later." />;
 
   return (

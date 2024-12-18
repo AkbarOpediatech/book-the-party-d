@@ -31,7 +31,7 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
       return
     }
     try {
-      const response = await addService(formData).unwrap()
+      const response = await addService( formData).unwrap()
       console.log('Service added response:', response)
       console.log('Service added successfully:', formData)
       alert('Service added successfully!')

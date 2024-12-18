@@ -47,7 +47,7 @@ const VendorListing = () => {
   }
 
   if (isLoading) {
-    return <Loader type="loading" message="Pleasw wait sometimes" />
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {

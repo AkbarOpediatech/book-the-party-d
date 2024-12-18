@@ -91,8 +91,8 @@ const ServiceSingle = () => {
       })
   }
 
-  if (isLoading)return <Loader type="loading" message="Pleasw wait sometimes" />;
-  if (isError) return <Loader type="error" message="Please try again later." />;
+  if (isLoading)return <Loader type="loading" message="Please wait sometimes" />;
+  if (isError) return <Loader type="error" message="Plese try again later" />;
 
   return (
     <>

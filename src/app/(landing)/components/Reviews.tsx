@@ -6,10 +6,9 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import Loader from './Loader/Loader'
 import SectionHeading from './SectionHeading'
 import avatar from '/public/assets/avatar.jpeg'
-import Loader from './Loader/Loader'
-
 
 const Reviews = () => {
   const { data: response, isLoading, isError } = useFetchReviewsQuery({})
@@ -17,11 +16,11 @@ const Reviews = () => {
   const reviewsData = response?.data || []
 
   if (isLoading) {
-    return <Loader type="loading" message="Pleasw wait sometimes" />;
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <Loader type="error" message="Please try again later." />;
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (
