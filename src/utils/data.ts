@@ -157,7 +157,7 @@ export const adminNavigation: IAdminNavigation[] = [
     icon: LiveChatIcon
   }
 ]
-
+export const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 export const dashboardBookingHistory: IDashboardBookingHistory[] = [
   {
     id: 1,

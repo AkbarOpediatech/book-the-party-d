@@ -1,6 +1,7 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import type { ServiceItemPost } from '@/redux/features/services/apiSlice'
+import { daysOfWeek } from '@/utils'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import React, { type Dispatch, type SetStateAction } from 'react'
 
