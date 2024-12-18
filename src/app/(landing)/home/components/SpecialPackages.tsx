@@ -1,6 +1,6 @@
 'use client'
 import useSearchQuery from '@/hooks/useSearchQuery'
-import { specialPackages } from '@/utils'
+import type { ICategory } from '@/redux/features/categories/apiSlice'
 import { ArrowRightCircleIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +9,11 @@ import 'swiper/css/navigation'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-const SpecialPackages = () => {
+type IProps = {
+  data: ICategory[]
+}
+
+const SpecialPackages: React.FC<IProps> = ({ data }) => {
   const { formData } = useSearchQuery()
 
   return (
@@ -18,10 +22,10 @@ const SpecialPackages = () => {
         slidesPerView={5}
         spaceBetween={20}
         loop={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false
-        }}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false
+        // }}
         modules={[Autoplay, Navigation, Pagination]}
         grabCursor={true}
         className="SpecialPackagesSwiper"
@@ -44,27 +48,30 @@ const SpecialPackages = () => {
           }
         }}
       >
-        {specialPackages.map((items, index) => (
+        {data.map((items, index) => (
           <SwiperSlide className="min-h-[250px] overflow-hidden rounded-[32px]" key={index}>
             <Link
               className="relative block"
               href={{
                 pathname: '/services',
                 query: {
-                  search: items.name,
-                  location: formData.location,
-                  categories: items.name,
-                  date: formData.date
+                  categories: items.title
                 }
               }}
             >
-              <Image src={items.img} className="w-full overflow-hidden" alt="image" />
+              <Image
+                width={250}
+                height={250}
+                src={items.featured_image}
+                className="h-full w-full overflow-hidden"
+                alt="image"
+              />
               <div className="border-white-50/50 absolute left-0 top-0 h-full w-full rounded-[32px] border-4 bg-black/20 p-8">
                 <div className="flex h-full flex-col justify-between">
                   <div>
-                    <h4 className="mb-3 font-sora text-xl font-bold text-white md:text-2xl">{items.name}</h4>
+                    <h4 className="mb-3 font-sora text-xl font-bold text-white md:text-2xl">{items.title}</h4>
                     <p className="font-nunito text-sm font-medium uppercase text-white md:text-base">
-                      {items.desc}
+                      {items.description}
                     </p>
                   </div>
                   <button className="block">

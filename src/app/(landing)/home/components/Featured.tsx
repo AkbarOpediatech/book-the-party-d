@@ -10,9 +10,15 @@ import ServiceCard from '../../components/ServiceCard'
 import ServiceImage from '/public/assets/package1.png'
 
 const Featured = () => {
-  const { data: products, isLoading, isError } = useFetchServicesQuery({})
+  const {
+    data: products,
+    isLoading,
+    isError
+  } = useFetchServicesQuery({ populate: ['user', 'category', 'location'] })
   const fullResponse = products
   const serviceData = fullResponse?.data
+
+  console.log(serviceData, 'serviceData')
 
   if (isLoading) return <div>Loading products...</div>
   if (isError) return <div>Error loading products.</div>
@@ -60,6 +66,7 @@ const Featured = () => {
                   Href={`/services/${items.slug}`}
                   imgSrc={items.featured_image ? items.featured_image : ServiceImage}
                   title={items.title}
+                  info={items.infos.map(i => i) || 'information'}
                   review={10}
                   price={items.price?.[0]?.value || 0}
                   chooseLocation={items.location.title}

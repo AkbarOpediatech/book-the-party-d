@@ -147,10 +147,11 @@ export const servicesApi = createApi({
         title?: string
         category?: string[]
         location?: string[]
+        populate?: string[]
         description?: string
       }
     >({
-      query: ({ role, limit, page, title, description, category, location } = {}) => {
+      query: ({ role, limit, page, title, description, category, location, populate } = {}) => {
         const params: Record<string, string | number | undefined | string[]> = {
           ...(role && { role }),
           ...(limit && { limit: limit ?? 5 }),
@@ -158,12 +159,13 @@ export const servicesApi = createApi({
           ...(title && { title }),
           ...(description && { description }),
           ...(category && { category }),
-          ...(location && { location })
+          ...(location && { location }),
+          ...(populate && { populate })
         }
 
         const queryString = new URLSearchParams(
           Object.entries(params)
-            .filter(([_, value]) => value !== undefined) // Filter out undefined values
+            .filter(([_, value]) => value !== null) // Filter out undefined values
             .map(([key, value]) => [key, value!.toString()])
         ).toString()
 
