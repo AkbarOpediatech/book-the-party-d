@@ -18,6 +18,7 @@ import ProductFeature from './components/ProductFeature'
 import ProductReviews from './components/ProductReviews'
 import RelatedServices from './components/RelatedServices'
 import Unableable from '/public/assets/unableable.png'
+import Loader from '../../components/Loader/Loader'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
@@ -90,8 +91,8 @@ const ServiceSingle = () => {
       })
   }
 
-  if (isLoading) return <div>Loading products...</div>
-  if (isError) return <div>Error loading products.</div>
+  if (isLoading)return <Loader type="loading" message="Pleasw wait sometimes" />;
+  if (isError) return <Loader type="error" message="Please try again later." />;
 
   return (
     <>

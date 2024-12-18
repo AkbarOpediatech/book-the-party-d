@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import AddedModal from './add-new/components/AddedModal'
 import Listings from './components/Listings'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const VendorListing = () => {
   const router = useRouter()
@@ -46,11 +47,11 @@ const VendorListing = () => {
   }
 
   if (isLoading) {
-    return <div>Loading bookings...</div>
+    return <Loader type="loading" message="Pleasw wait sometimes" />;
   }
 
   if (isError) {
-    return <div>Error loading bookings. Please try again later.</div>
+    return <Loader type="error" message="Please try again later." />;
   }
 
   return (

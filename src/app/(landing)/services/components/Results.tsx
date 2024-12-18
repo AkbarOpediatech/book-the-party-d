@@ -61,7 +61,7 @@ const Results = ({ searchParams }: any) => {
   }
 
   if (isLoading) return <div>Loading products...</div>
-  if (isError) return <div>Error loading products.</div>
+  if (isError) return <Loader type="error" message="Please try again later." />;
 
   return (
     <>
