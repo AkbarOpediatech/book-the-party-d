@@ -37,6 +37,7 @@ import BHistory from '/public/assets/booking-history.png'
 import ICDisplay from '/public/assets/ic-display.svg'
 import ICFood from '/public/assets/ic-food.svg'
 import ICOutdoor from '/public/assets/ic-outdoor.svg'
+
 import ICPackage from '/public/assets/ic-package.svg'
 import ICTableSetting from '/public/assets/ic-table-setting.svg'
 import ICVehicle from '/public/assets/ic-vehicle.svg'
@@ -551,6 +552,7 @@ export const eventFeaturesIcon: IEventFeaturesIcon[] = [
   {
     id: 1,
     icon: ICPackage
+    
   },
   {
     id: 2,

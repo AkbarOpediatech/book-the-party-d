@@ -11,6 +11,8 @@ import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
 
+import CategoryModal from './CategoryModal'
+
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
   isEditListing?: boolean
@@ -22,6 +24,7 @@ type IProps = {
 const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formData }) => {
   const [pricingType, setPricingType] = useState<string>('fixed')
   const [file, setFile] = useState<File | null>(null) // To store the selected file
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
 
   const handleDayChange = (index: number, field: string, value: string) => {
     const updatedAvailability = [...formData.availability]
@@ -43,6 +46,13 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   }
 
   const [addService] = useAddServiceMutation()
+
+  const handleAddCategory = (category: { title: string; description: string; icon: string }) => {
+    // Here you would typically send the new category to your backend
+    console.log('New category:', category)
+    // Then you might want to refresh your categories list
+    // For now, we'll just log it
+  }
 
   const demoListingData = {
     user: '60d21b4667d0d8992e610c85',
@@ -122,10 +132,13 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
 
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
-      <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
-        {isEditListing === true ? 'Edit' : 'Add New'}
-      </p>
-      <form onSubmit={handleSubmit}>
+      <div className="flex items-center justify-between">
+        <p className="mb-6 text-xl font-bold text-clr-36 md:text-2xl">
+          {isEditListing === true ? 'Edit' : 'Add New'}
+        </p>
+        <DashboardButton name="Add Category" type="button" onClick={() => setIsCategoryModalOpen(true)} />
+      </div>
+      <form>
         <FormInput
           name="categories"
           label="Categories"
@@ -232,7 +245,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
         )}
-        {pricingType === 'Multiple pricing range' && (
+        {pricingType === 'multiple_fixed' && (
           <>
             <MultiplePrice
               onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
@@ -258,6 +271,11 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
 
         <DashboardButton name="Submit" type="submit" className="mt-5" />
       </form>
+      <CategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onSubmit={handleAddCategory}
+      />
     </div>
   )
 }
