@@ -1,13 +1,10 @@
 'use client'
-import useSearchQuery from '@/hooks/useSearchQuery'
 import { occasionItems } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import SectionHeading from '../../components/SectionHeading'
 
 const Occasion = () => {
-  const { formData } = useSearchQuery()
-
   return (
     <section className="section-padding px-0">
       <div className="container">
@@ -23,10 +20,7 @@ const Occasion = () => {
                 href={{
                   pathname: '/services',
                   query: {
-                    search: items.name,
-                    location: formData.location,
-                    categories: items.name,
-                    date: formData.date
+                    categories: 'occasion'
                   }
                 }}
               >

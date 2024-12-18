@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 // Define the shape of the listing schema
@@ -67,7 +68,7 @@ const listingSlice = createSlice({
 
         // Handle arrays (append to the array)
         if (Array.isArray(state.listing[field])) {
-          state.listing[field] = { ...(state.listing[field] as any[]), ...value }
+          state.listing[field] = { ...(state.listing[field] as string[]), ...value }
         }
         // Handle objects (merge with existing object)
         else if (typeof state.listing[field] === 'object' && state.listing[field] !== null) {

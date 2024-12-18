@@ -12,6 +12,7 @@ import SectionHeading from '../../components/SectionHeading'
 
 const Discover = () => {
   const { formData } = useSearchQuery()
+  console.log(formData.location)
 
   return (
     <section className="sm:pt-3 lg:pb-20">
@@ -27,10 +28,7 @@ const Discover = () => {
               href={{
                 pathname: '/services',
                 query: {
-                  search: items.name,
-                  location: formData.location,
-                  categories: items.name,
-                  date: formData.date
+                  location: items.name
                 }
               }}
             >
@@ -82,10 +80,7 @@ const Discover = () => {
                 href={{
                   pathname: '/services',
                   query: {
-                    search: items.name,
-                    location: formData.location,
-                    categories: items.name,
-                    date: formData.date
+                    location: formData.location
                   }
                 }}
               >

@@ -5,9 +5,9 @@ import { categories, daysOfWeek } from '@/utils'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import FileUpload from './FileUpload'
-import Inclusions from './Inclusions'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
+import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
 
@@ -33,10 +33,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   }
 
   const handleAddAvailability = () => {
-    const updatedAvailability = [
-      ...formData.availability,
-      { days: 'Mon', start_time: '', end_time: '' } // Default values
-    ]
+    const updatedAvailability = [...formData.availability, { days: 'Mon', start_time: '', end_time: '' }]
     handleChange('availability', updatedAvailability)
   }
 
@@ -51,14 +48,14 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     user: '60d21b4667d0d8992e610c85',
     title: 'Luxury Villa with Sea View dihanAbir',
     description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
-    slug: 'luxury-dihandsd-viefdsw',
-    featured_image: file, // Example image URL
+    slug: 'luxury-nahid-viefdsw',
+    featured_image: file,
     category: '60d21b4667d0d8992e610c84',
     location: '60d21b4667d0d8992e610c83',
     inclusions: ['Swimming Pool', 'Jacuzzi', 'Sauna', 'Free WiFi', 'Fully Equipped Kitchen'],
     infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
     is_featured: true,
-    price_type: 'hourly', // Assuming price type could be "hourly", "daily", or "weekly"
+    price_type: 'hourly',
     price: [{ text: 'Night', value: 300 }],
     security_deposit: 500,
     cancellation_period_hours: 48,
@@ -73,10 +70,8 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
       return
     }
 
-    // Create FormData object
     const formData = new FormData()
 
-    // Append each field from demoListingData to FormData
     formData.append('user', demoListingData.user)
     formData.append('title', demoListingData.title)
     formData.append('description', demoListingData.description || '')
@@ -85,14 +80,12 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     formData.append('category', demoListingData.category)
     formData.append('location', demoListingData.location)
 
-    // Handle inclusions and infos as arrays (if necessary, convert them to strings or JSON)
     formData.append('inclusions', JSON.stringify(demoListingData.inclusions || []))
     formData.append('infos', JSON.stringify(demoListingData.infos || []))
 
     formData.append('is_featured', demoListingData.is_featured ? 'true' : 'false')
     formData.append('price_type', demoListingData.price_type)
 
-    // For price, loop through the array and append each price entry
     demoListingData.price.forEach((price, index) => {
       formData.append(`price[${index}][text]`, price.text || '')
       formData.append(`price[${index}][value]`, price.value.toString())
@@ -101,8 +94,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     formData.append('security_deposit', demoListingData.security_deposit.toString())
     formData.append('cancellation_period_hours', demoListingData.cancellation_period_hours.toString())
 
-    // Handle availability (as array of objects, so convert to JSON string)
-    // formData.append('availability', JSON.stringify(demoListingData.availability || []))
     demoListingData.availability.forEach((availability, index) => {
       formData.append(`availability[${index}][days]`, availability.days || '')
       formData.append(`availability[${index}][start_time]`, availability.start_time.toString())
@@ -117,7 +108,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
       console.log('Service added response:', response)
       console.log('Service added successfully:', formData)
       alert('Service added successfully!')
-      // dispatch(clearNewServiceDraft())
     } catch (err) {
       console.error('Failed to add product:', err)
     }
@@ -269,7 +259,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
 
         <FileUpload onChange={e => handleChange('featured_image', e.target.value)} />
 
-        <DashboardButton name="Continue" type="button" className="mt-5" onClick={() => setStep(1)} />
+        <DashboardButton name="Submit" type="submit" className="mt-5" />
       </form>
     </div>
   )

@@ -6,6 +6,7 @@ import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -24,6 +25,7 @@ type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const ServiceSingle = () => {
+  const { data: session } = useSession() // Fetch session data
   const router = useRouter()
   const [tab, setTab] = useState(0)
   const [value, onChange] = useState<Value>(new Date())
@@ -46,6 +48,22 @@ const ServiceSingle = () => {
 
   const onClickFunc = () => {
     // Ensure singleService and user data are available
+    if (!session) {
+      Swal.fire({
+        title: 'Login Required',
+        text: 'You need to log in to add items to the cart.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel'
+      }).then(result => {
+        if (result.isConfirmed) {
+          router.push('/login')
+        }
+      })
+      return
+    }
+
     if (!singleService) {
       console.error('Service data is not available.')
       alert('Service data is missing. Please try again later.')
@@ -58,7 +76,7 @@ const ServiceSingle = () => {
 
     const cartItem = {
       service: singleService._id,
-      user: '671e315ed10e02c3ec3dacc3', //FIXME: change with user ID
+      user: session.user?._id, //FIXME: change with user ID
       price_id: singleService.price[0]._id,
       quantity: 1,
       selected_date: [

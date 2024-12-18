@@ -1,11 +1,16 @@
 'use client'
 import useSearchQuery from '@/hooks/useSearchQuery'
-import { eventFeatures } from '@/utils'
+import type { ICategory } from '@/redux/features/categories/apiSlice'
+import { eventFeaturesIcon } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import heroBg from '/public/assets/banner-img.png'
 
-const Hero = () => {
+type IProps = {
+  data: ICategory[]
+}
+
+const Hero: React.FC<IProps> = ({ data }) => {
   const { formData, handleInputChange, handleSearchClick, isLoading } = useSearchQuery()
 
   return (
@@ -106,26 +111,23 @@ const Hero = () => {
         </div>
 
         <ul className="md:justify-canter flex flex-wrap justify-center gap-2 md:gap-2">
-          {eventFeatures.map((eventItems, index) => (
+          {data.map((eventItems, index) => (
             <li key={index}>
               <Link
                 href={{
                   pathname: '/services',
                   query: {
-                    search: eventItems.name,
-                    location: formData.location,
-                    categories: eventItems.name,
-                    date: formData.date
+                    categories: eventItems.title
                   }
                 }}
                 className="inline-flex h-full w-[150px] flex-col flex-wrap rounded-2xl border border-white bg-clr-fb px-3 py-5 md:py-10"
               >
                 <div className="mb-3 flex justify-center">
-                  <Image src={eventItems.icon} alt="icon" />
+                  <Image src={eventFeaturesIcon[index]?.icon} alt="icon" />
                 </div>
 
                 <span className="block text-center font-sora text-sm font-semibold text-white">
-                  {eventItems.name}
+                  {eventItems.title}
                 </span>
               </Link>
             </li>

@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
 import LoginForm from '../components/LoginForm'
 
-const Login = () => {
+const LoginContent = () => {
   return (
     <>
       <LoginForm />
@@ -15,4 +16,11 @@ const Login = () => {
   )
 }
 
+const Login = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  )
+}
 export default Login
