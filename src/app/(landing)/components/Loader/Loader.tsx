@@ -6,7 +6,7 @@ import errorAnimation from "../../../../../public/assets/lottie-error.json"
 
 interface LoaderProps {
   type: 'loading' | 'error';
-  message?: string; // Optional message for error or loading
+  message?: string;
 }
 
 const Loader: React.FC<LoaderProps> = ({ type, message }) => {

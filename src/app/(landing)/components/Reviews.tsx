@@ -17,11 +17,11 @@ const Reviews = () => {
   const reviewsData = response?.data || []
 
   if (isLoading) {
-    return <Loader type="loading" message="Loading reviews..." />;
+    return <Loader type="loading" message="Pleasw wait sometimes" />;
   }
 
   if (isError) {
-    return <Loader type="error" message="Error loading reviews. Please try again later." />;
+    return <Loader type="error" message="Please try again later." />;
   }
 
   return (
