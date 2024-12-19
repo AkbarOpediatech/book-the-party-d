@@ -63,7 +63,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow">
             <DialogTitle as="h3" className="text-center font-medium">
-              Update Your Profile
+              Update vendor Profile details
             </DialogTitle>
             <form onSubmit={handleSubmit}>
               <FormInput

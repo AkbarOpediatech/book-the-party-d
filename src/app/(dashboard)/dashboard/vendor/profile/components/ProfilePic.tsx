@@ -12,7 +12,7 @@ type IProps = {
 }
 
 const ProfilePic: React.FC<IProps> = ({ setShowProfileEdit, data }) => {
-  console.log(data, 'data')
+  // console.log(data, 'data')
 
   return (
     <div className="mb-4 rounded-lg bg-white p-6 shadow">

@@ -3,32 +3,32 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 // Define the TypeScript types for your data
 export interface IUser {
-  _id: string
-  name: string
-  email: string
-  phone: string
-  password: string
-  avatar: string
-  role: string
-  languages: string[]
-  specialized: string[]
-  stripe_acct: {
+  _id?: string
+  name?: string
+  email?: string
+  phone?: string
+  password?: string
+  avatar?: string
+  role?: string
+  languages?: string[]
+  specialized?: string[]
+  stripe_acct?: {
     id: string
     capabilities: {
       card_payments: string
       transfers: string
     }
-    charges_enabled: boolean
-    payouts_enabled: boolean
-    details_submitted: boolean
-    requirements: {
-      disabled_reason: string | null
+    charges_enabled?: boolean
+    payouts_enabled?: boolean
+    details_submitted?: boolean
+    requirements?: {
+      disabled_reason?: string | null
     }
   } | null
-  about: string
-  email_verified_at: Date | null
-  phone_verified_at: Date | null
-  status: string
+  about?: string
+  email_verified_at?: Date | null
+  phone_verified_at?: Date | null
+  status?: string
 }
 
 export interface IUserPost {
@@ -72,8 +72,8 @@ export const usersApi = createApi({
     }),
 
     updateUser: builder.mutation<IUser, Partial<IUser> & Pick<IUser, '_id'>>({
-      query: ({ _id, ...rest }) => ({
-        url: `/users/${_id}`,
+      query: ({ ...rest }) => ({
+        url: `/users/671e315ed10e02c3ec3dacc3`,
         method: 'PUT',
         body: rest
       }),
