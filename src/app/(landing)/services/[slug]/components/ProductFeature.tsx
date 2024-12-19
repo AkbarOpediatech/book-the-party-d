@@ -16,7 +16,7 @@ type IProps = {
 
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {
   const [addToWishlist] = useAddToWishlistMutation()
-  const { data: session } = useSession() // Fetch session data
+  const { data: session } = useSession()
   const router = useRouter()
 
   const handleWishlist = () => {
@@ -38,7 +38,7 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
 
     const cartItem = {
       service: singleService._id,
-      user: session.user?.id //FIXME: change with user ID
+      user: session.user?.id
     }
     addToWishlist(cartItem)
       .unwrap()

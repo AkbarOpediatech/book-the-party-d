@@ -79,7 +79,7 @@ const Header = () => {
                 </li>
 
                 <li>
-                  <Link href="/favorite" className={iconContainerClasses}>
+                  <Link href="/wishlist" className={iconContainerClasses}>
                     <div className="relative">
                       <Image width={20} height={20} src={ICFav} alt="fav" />
                       <span className={badgeClasses}>10</span>
@@ -198,7 +198,7 @@ const Header = () => {
 
               <li className={cn('px-5 py-3 hover:bg-clr-fb/10')} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Link
-                  href="/favorite"
+                  href="/wishlist"
                   className={cn('flex items-center gap-3 text-base font-bold text-clr-96')}
                 >
                   <Image src={ICFavGray} alt="fav-icon" width={25} height={25} />

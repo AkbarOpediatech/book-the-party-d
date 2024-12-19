@@ -30,11 +30,11 @@ const ServiceSingle = () => {
   const router = useRouter()
   const [tab, setTab] = useState(0)
   const [value, onChange] = useState<Value>(new Date())
-  const { currentPage, pageLimit, handlePageChange } = usePagination({
-    initialLimit: 3
-  })
+  const { currentPage, pageLimit, handlePageChange } = usePagination({ initialLimit: 3 })
   const params = useParams()
   const { slug } = params
+
+  // Data Fetching
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
   const singleService = response?.data
   const singleServiceId = singleService?._id
@@ -47,7 +47,6 @@ const ServiceSingle = () => {
 
   const { response: cartItems } = useFetchCartService({})
   const cartItemsData = cartItems?.data
-
   const cartId = cartItemsData?.map(i => i.service?._id)
   const matchedId = cartId?.includes(singleServiceId)
 
@@ -56,7 +55,6 @@ const ServiceSingle = () => {
   const [addToCart] = useAddToCartMutation()
 
   const onClickFunc = () => {
-    // Ensure singleService and user data are available
     if (!session) {
       Swal.fire({
         title: 'Login Required',
@@ -99,25 +97,14 @@ const ServiceSingle = () => {
     addToCart(cartItem)
       .unwrap()
       .then(response => {
-        if (response) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Successfully added to cart',
-            showConfirmButton: false,
-            timer: 2000,
-            toast: true
-          })
-        } else {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'failed added to cart',
-            showConfirmButton: false,
-            timer: 2000,
-            toast: true
-          })
-        }
+        Swal.fire({
+          position: 'top-end',
+          icon: response ? 'success' : 'error',
+          title: response ? 'Successfully added to cart' : 'Failed to add to cart',
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true
+        })
       })
       .catch(error => {
         console.error('Error adding to cart:', error)
@@ -126,109 +113,92 @@ const ServiceSingle = () => {
   }
 
   if (isLoading) return <Loader type="loading" />
-  if (isError) return <Loader type="error" message="Plese try again later" />
+  if (isError) return <Loader type="error" message="Please try again later" />
 
   return (
-    <>
-      <section id="service_single" className="py-10 lg:py-20">
-        <div className="container max-w-[1440px]">
-          {singleService && <ProductFeature singleService={singleService} />}
-          <div className="mb-6 flex items-center gap-4">
-            <button
-              className={cn(
-                'rounded border px-3 py-[6px] text-lg font-medium',
-                tab === 0 && 'border-transparent bg-clr-fb/10 text-clr-fb'
-              )}
-              onClick={() => setTab(0)}
-            >
-              Description
-            </button>
+    <section id="service_single" className="py-10 lg:py-20">
+      <div className="container max-w-[1440px]">
+        {singleService && <ProductFeature singleService={singleService} />}
 
-            <button
-              className={cn(
-                'rounded border px-3 py-[6px] text-lg font-medium',
-                tab === 1 && 'border-transparent bg-clr-fb/10 text-clr-fb'
-              )}
-              onClick={() => setTab(1)}
-            >
-              Reviews
-            </button>
-          </div>
+        {/* Tabs */}
+        <div className="mb-6 flex items-center gap-4">
+          <button
+            className={cn(
+              'rounded border px-3 py-[6px] text-lg font-medium',
+              tab === 0 && 'border-transparent bg-clr-fb/10 text-clr-fb'
+            )}
+            onClick={() => setTab(0)}
+          >
+            Description
+          </button>
 
-          <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
-            <div className="col-span-2">
-              {tab === 0 && <Description singleService={singleService} />}
-              {tab === 1 && (
-                <ProductReviews
-                  reviewsData={reviewsData}
-                  totalRecords={ReviewRecords}
-                  currentPage={currentPage}
-                  pageLimit={pageLimit}
-                  handlePageChange={handlePageChange}
-                />
-              )}
-            </div>
-
-            <div className="col-span-1">
-              <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
-              {singleService?.is_unavailable === true ? (
-                <>
-                  <div className="relative">
-                    <Image src={Unableable} alt="unableable" />
-                    <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
-                      <p className="flex h-full items-center justify-center text-center text-2xl font-bold">
-                        Service Unavailable
-                      </p>
-                    </div>
-                  </div>
-
-                  <CustomBtn
-                    btnName={singleService?.is_unavailable === true ? 'Service Unavailable' : 'Book Now'}
-                    className={cn(
-                      singleService?.is_unavailable === true && 'cursor-not-allowed bg-gray-400',
-                      'w-full'
-                    )}
-                  />
-                </>
-              ) : (
-                <>
-                  <Calendar
-                    onChange={onChange}
-                    value={value}
-                    className="custom-calendar mb-5 w-full rounded-lg shadow-lg"
-                    navigationLabel={({ date }) => (
-                      <span className="text-lg font-semibold text-clr-fb">
-                        {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
-                      </span>
-                    )}
-                  />
-                  {matchedId ? (
-                    <CustomBtn
-                      btnName={'Service Booked'}
-                      className={'w-full cursor-not-allowed bg-gray-400'}
-                    />
-                  ) : (
-                    <CustomBtn onClickFunc={onClickFunc} btnName="Book Now" className="w-full" />
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-
-          <div className={cn(tab === 1 ? 'hidden' : 'block')}>
-            <ProductReviews
-              reviewsData={reviewsData}
-              totalRecords={ReviewRecords}
-              currentPage={currentPage}
-              pageLimit={pageLimit}
-              handlePageChange={handlePageChange}
-            />
-          </div>
-
-          {specialPackages && <RelatedServices />}
+          <button
+            className={cn(
+              'rounded border px-3 py-[6px] text-lg font-medium',
+              tab === 1 && 'border-transparent bg-clr-fb/10 text-clr-fb'
+            )}
+            onClick={() => setTab(1)}
+          >
+            Reviews
+          </button>
         </div>
-      </section>
-    </>
+
+        {/* Tab Content */}
+        <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-32 lg:grid-cols-3">
+          <div className="col-span-2">
+            {tab === 0 && <Description singleService={singleService} />}
+
+            {tab === 1 && (
+              <ProductReviews
+                reviewsData={reviewsData}
+                totalRecords={ReviewRecords}
+                currentPage={currentPage}
+                pageLimit={pageLimit}
+                handlePageChange={handlePageChange}
+              />
+            )}
+          </div>
+
+          {/* Booking Section */}
+          <div className="col-span-1">
+            <h2 className="mb-5 text-3xl font-semibold">Select Booking Date</h2>
+
+            {singleService?.is_unavailable ? (
+              <div className="relative">
+                <Image src={Unableable} alt="Service Unavailable" />
+                <div className="absolute left-0 top-0 z-20 h-full w-full backdrop-blur-md">
+                  <p className="flex h-full items-center justify-center text-center text-2xl font-bold">
+                    Service Unavailable
+                  </p>
+                </div>
+                <CustomBtn btnName="Service Unavailable" className="w-full cursor-not-allowed bg-gray-400" />
+              </div>
+            ) : (
+              <>
+                <Calendar
+                  onChange={onChange}
+                  value={value}
+                  className="custom-calendar mb-5 w-full rounded-lg shadow-lg"
+                  navigationLabel={({ date }) => (
+                    <span className="text-lg font-semibold text-clr-fb">
+                      {date.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                    </span>
+                  )}
+                />
+                <CustomBtn
+                  btnName={matchedId ? 'Service Booked' : 'Book Now'}
+                  onClickFunc={matchedId ? () => {} : onClickFunc}
+                  className={matchedId ? 'w-full cursor-not-allowed bg-gray-400' : 'w-full'}
+                />
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Related Services */}
+        {specialPackages && <RelatedServices />}
+      </div>
+    </section>
   )
 }
 

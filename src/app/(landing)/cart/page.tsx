@@ -4,6 +4,7 @@ import usePagination from '@/hooks/usePagination'
 import { useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import Loader from '../components/Loader/Loader'
 import SubTotal from '../components/SubTotal'
 import CartHead from './components/CartHead'
 import CartItems from './components/CartItems'
@@ -23,7 +24,7 @@ const Cart = () => {
   }, [status, router, pathname])
 
   if (status === 'loading') {
-    return <div>Loading...</div>
+    return <Loader type="loading" />
   }
 
   if (!session) {
