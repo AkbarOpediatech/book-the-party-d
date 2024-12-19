@@ -7,10 +7,10 @@ import edit from '/public/assets/edit-user.svg'
 
 type IProps = {
   setShowInfoEdit: (showIndex: boolean) => void
-  // data: IUser
+  data: IUser | undefined
 }
 
-const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit }) => {
+const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit, data }) => {
   return (
     <div>
       <div className="mb-6 flex items-center gap-2">
@@ -19,12 +19,15 @@ const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit }) => {
       </div>
       <div className="grid grid-cols-1 gap-6 border-b border-gray-200 pb-6 md:grid-cols-2 lg:gap-12">
         <div className="flex flex-col gap-5">
-          <Info title="Full name" value={'Joseph McFall'} />
+          <Info title="Full name" value={data?.name || 'Joseph McFall'} />
 
           <Info
             title="Description"
-            value={`Hello, I'm Helene Engels,
-USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow and others, Daily design tips & resources, Exploring Web3.`}
+            value={
+              data?.about ||
+              `Hello, I'm Helene Engels,
+USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow and others, Daily design tips & resources, Exploring Web3.`
+            }
           />
 
           <Info
@@ -35,14 +38,14 @@ USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow 
 
           <Info
             title="Specialized in"
-            value={'Frontend Developer'}
+            value={data?.specialized.map(i => i[0]) || 'Frontend Developer'}
             icon={<BriefcaseIcon className="size-3.5 text-gray-400" />}
           />
         </div>
         <div className="flex flex-col gap-5">
-          <Info title="Email Address" value={'yourname@example.com'} />
-          <Info title="Phone Number" value={'+1234 567 890 / +12 345 678 '} />
-          <Info title="Languages" value={'English, French, Spanish'} />
+          <Info title="Email Address" value={data?.email || 'yourname@example.com'} />
+          <Info title="Phone Number" value={data?.phone || '+1234 567 890 / +12 345 678 '} />
+          <Info title="Languages" value={data?.languages.map(i => i[0]) || 'English, French, Spanish'} />
         </div>
       </div>
 

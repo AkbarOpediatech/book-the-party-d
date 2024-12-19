@@ -5,11 +5,21 @@ type IProps = {
   placeholder?: string
   customClass?: string
   options?: string[]
+  value?: string
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => void | undefined
 }
-const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, placeholder, onChange }) => {
+const FormInput: React.FC<IProps> = ({
+  name,
+  label,
+  type,
+  options,
+  customClass,
+  placeholder,
+  onChange,
+  value
+}) => {
   return (
     <div className={customClass}>
       <label htmlFor={name} className="mb-2 block text-clr-ab">
@@ -40,6 +50,7 @@ const FormInput: React.FC<IProps> = ({ name, label, type, options, customClass, 
         <input
           type={type}
           name={name}
+          value={value}
           onChange={onChange}
           placeholder={placeholder}
           className="font-inter w-full rounded-md border border-gray-300 p-3 text-gray-500"

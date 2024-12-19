@@ -25,7 +25,7 @@ const wishlistSlice = createSlice({
   reducers: {
     updateSubtotal: (state, action: PayloadAction<number>) => {
       state.subTotal = action.payload
-      state.isDiscountApplied = true  
+      state.isDiscountApplied = true
     }
   },
   extraReducers: builder => {
@@ -33,10 +33,7 @@ const wishlistSlice = createSlice({
       .addMatcher(wishlistApi.endpoints.fetchWishlist.matchPending, state => {
         state.loading = true
       })
-      .addMatcher(wishlistApi.endpoints.fetchWishlist.matchFulfilled, (state, action: any) => {
-        state.loading = true
-        state.items = action.payload.data || []
-      })
+
       .addMatcher(wishlistApi.endpoints.fetchWishlist.matchRejected, (state, action) => {
         state.loading = false
         state.error = action.error?.message || 'Failed to fetch wishlist'

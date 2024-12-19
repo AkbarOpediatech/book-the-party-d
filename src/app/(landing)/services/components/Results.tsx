@@ -7,6 +7,7 @@ import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
+import Loader from '../../components/Loader/Loader'
 
 // Define types for props and state
 interface ResultsProps {
@@ -66,8 +67,8 @@ const Results = ({ searchParams }: ResultsProps) => {
     setViewMode('list')
   }
 
-  if (isLoading) return <div>Loading products...</div>
-  if (isError) return <div>Error loading products.</div>
+  if (isLoading) return <Loader type="loading" message="Please sometimes wait." />;
+  if (isError) return <Loader type="error" message="Please try again later." />;
 
   return (
     <>

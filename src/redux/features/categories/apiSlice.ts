@@ -15,7 +15,6 @@ export type IMedia = {
   updatedAt?: Date
 }
 
-// Define the TypeScript types for your data
 export type ICategory = {
   _id?: string
   title?: string
@@ -36,17 +35,6 @@ export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
   baseQuery,
   tagTypes: ['Categories'],
-  // endpoints: builder => ({
-  //   fetchCategories: builder.query<CategoriesResponse, { role?: string; limit?: number; page?: number }>({
-  //     query: ({ role, limit, page } = {}) => {
-  //       const params = role ? { role } : {}
-  //       return {
-  //         url: `/categories?limit=${limit}&page=${page}`,
-  //         params
-  //       }
-  //     },
-  //     providesTags: ['Categories']
-  //   })
   endpoints: builder => ({
     fetchCategories: builder.query<CategoriesResponse, void>({
       query: () => ({
@@ -55,21 +43,6 @@ export const categoriesApi = createApi({
       providesTags: ['Categories']
     })
   })
-
-  // fetchCategoriesById: builder.query<IUser, string>({
-  //   query: id => `/categories/${id}`,
-  //   providesTags: (result, error, id) => [{ type: 'Categories', id: id }]
-  // }),
-
-  // updateUser: builder.mutation<IUser, Partial<IUser> & Pick<IUser, '_id'>>({
-  //   query: ({ _id, ...rest }) => ({
-  //     url: `/categories/${_id}`,
-  //     method: 'PUT',
-  //     body: rest
-  //   }),
-  //   invalidatesTags: ['Categories']
-  // })
 })
 
-// export const { usefetchCategoriesQuery, usefetchCategoriesByIdQuery, useUpdateUserMutation } = categoriesApi
 export const { useFetchCategoriesQuery } = categoriesApi
