@@ -27,11 +27,12 @@ const FormInput: React.FC<IProps> = ({
       </label>
       {type === 'select' ? (
         <select
+          defaultValue=""
           onChange={onChange}
           name={name}
           className="font-inter w-full rounded-md border border-gray-300 p-3 text-gray-500"
         >
-          <option disabled selected>
+          <option disabled value="">
             Select option
           </option>
           {options?.map((option, index) => (

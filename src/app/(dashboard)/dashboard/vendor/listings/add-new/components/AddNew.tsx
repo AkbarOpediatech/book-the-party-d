@@ -52,10 +52,10 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   }
 
   const demoListingData = {
-    user: '60d21b4667d0d8992e610c85',
+    user: '60d21b4667d0d8992e610c85', // take user from session
     title: 'Luxury Villa with Sea View dihanAbir',
     description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
-    slug: 'luxury-nahid-dihanabir-',
+    slug: `${new Date()} luxury-nahifsdfd-dihanabir-`,
     featured_image: file,
     category: '60d21b4667d0d8992e610c84',
     location: '60d21b4667d0d8992e610c83',

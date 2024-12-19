@@ -13,19 +13,20 @@ import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import Swal from 'sweetalert2'
+import { useFetchCartService } from '../../cart/components/CartService'
 import CustomBtn from '../../components/CustomBtn'
+import Loader from '../../components/Loader/Loader'
 import Description from './components/Description'
 import ProductFeature from './components/ProductFeature'
 import ProductReviews from './components/ProductReviews'
 import RelatedServices from './components/RelatedServices'
 import Unableable from '/public/assets/unableable.png'
-import Loader from '../../components/Loader/Loader'
 
 type ValuePiece = Date | null
 type Value = ValuePiece | [ValuePiece, ValuePiece]
 
 const ServiceSingle = () => {
-  const { data: session } = useSession() // Fetch session data
+  const { data: session } = useSession()
   const router = useRouter()
   const [tab, setTab] = useState(0)
   const [value, onChange] = useState<Value>(new Date())
@@ -36,12 +37,20 @@ const ServiceSingle = () => {
   const { slug } = params
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
   const singleService = response?.data
+  const singleServiceId = singleService?._id
 
   const { data: reviewResponse } = useFetchReviewsQuery({
     reviews: response && response.data._id,
     limit: pageLimit,
     page: currentPage
   })
+
+  const { response: cartItems } = useFetchCartService({})
+  const cartItemsData = cartItems?.data
+
+  const cartId = cartItemsData?.map(i => i.service?._id)
+  const matchedId = cartId?.includes(singleServiceId)
+
   const reviewsData = reviewResponse?.data
   const ReviewRecords = reviewResponse?.pagination?.records || 0
   const [addToCart] = useAddToCartMutation()
@@ -76,7 +85,7 @@ const ServiceSingle = () => {
 
     const cartItem = {
       service: singleService._id,
-      user: session.user?._id, //FIXME: change with user ID
+      user: session.user?._id,
       price_id: singleService.price[0]._id,
       quantity: 1,
       selected_date: [
@@ -116,8 +125,8 @@ const ServiceSingle = () => {
       })
   }
 
-  if (isLoading)return <Loader type="loading" message="Please wait sometimes" />;
-  if (isError) return <Loader type="error" message="Plese try again later" />;
+  if (isLoading) return <Loader type="loading" />
+  if (isError) return <Loader type="error" message="Plese try again later" />
 
   return (
     <>
@@ -193,7 +202,14 @@ const ServiceSingle = () => {
                       </span>
                     )}
                   />
-                  <CustomBtn onClickFunc={onClickFunc} btnName="Book Now" className="w-full" />
+                  {matchedId ? (
+                    <CustomBtn
+                      btnName={'Service Booked'}
+                      className={'w-full cursor-not-allowed bg-gray-400'}
+                    />
+                  ) : (
+                    <CustomBtn onClickFunc={onClickFunc} btnName="Book Now" className="w-full" />
+                  )}
                 </>
               )}
             </div>
