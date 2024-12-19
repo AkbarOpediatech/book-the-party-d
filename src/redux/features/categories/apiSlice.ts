@@ -41,8 +41,16 @@ export const categoriesApi = createApi({
         url: '/categories'
       }),
       providesTags: ['Categories']
+    }),
+    addCategory: builder.mutation<ICategory, Partial<ICategory>>({
+      query: category => ({
+        url: '/categories',
+        method: 'POST',
+        body: category
+      }),
+      invalidatesTags: ['Categories']
     })
   })
 })
 
-export const { useFetchCategoriesQuery } = categoriesApi
+export const { useFetchCategoriesQuery, useAddCategoryMutation } = categoriesApi
