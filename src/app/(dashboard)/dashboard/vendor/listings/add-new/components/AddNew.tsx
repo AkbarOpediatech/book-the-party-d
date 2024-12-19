@@ -48,17 +48,14 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   const [addService] = useAddServiceMutation()
 
   const handleAddCategory = (category: { title: string; description: string; icon: string }) => {
-    // Here you would typically send the new category to your backend
     console.log('New category:', category)
-    // Then you might want to refresh your categories list
-    // For now, we'll just log it
   }
 
   const demoListingData = {
     user: '60d21b4667d0d8992e610c85',
     title: 'Luxury Villa with Sea View dihanAbir',
     description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
-    slug: 'luxury-nahid-viefdsw',
+    slug: 'luxury-nahid-dihanabir-',
     featured_image: file,
     category: '60d21b4667d0d8992e610c84',
     location: '60d21b4667d0d8992e610c83',
@@ -138,7 +135,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
         </p>
         <DashboardButton name="Add Category" type="button" onClick={() => setIsCategoryModalOpen(true)} />
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormInput
           name="categories"
           label="Categories"
