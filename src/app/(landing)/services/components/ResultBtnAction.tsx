@@ -15,7 +15,7 @@ const ResultBtnAction: React.FC<IProps> = ({
   handleGridClick,
   handleListClick,
   totalRecords,
-  currentPage,
+  currentPage, 
   pageLimit
 }) => {
   const totalPages = Math.ceil(totalRecords / pageLimit)
