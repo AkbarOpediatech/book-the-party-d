@@ -15,24 +15,19 @@ type IProps = {
 const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo }) => {
   const [updateUser, { isLoading, isError }] = useUpdateUserMutation()
 
-  // State for form data
   const [formData, setFormData] = useState({
-    fullName: userInfo?.name || '',
-    description: userInfo?.about || '',
-    // location: userInfo?. || '',
-    specialized: userInfo?.specialized || '',
-    email: userInfo?.email || '',
+    name: userInfo?.name || 'Dihan Opedia',
+    description: userInfo?.about || 'fsd f',
+    email: userInfo?.email || 'nahid.f@gmail.com',
     tel: userInfo?.phone || '',
     language: userInfo?.languages || 'Bangla'
   })
 
-  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!userInfo) {
@@ -40,15 +35,13 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
       return
     }
 
+    console.log('Service added response:', formData)
+
     try {
-      const updatedUserData = {
-        ...formData,
-        specialized: Array.isArray(formData.specialized) ? formData.specialized : [formData.specialized]
-      }
-      await updateUser({ _id: userInfo._id, ...updatedUserData }).unwrap()
-      setShowInfoEdit(false) // Close the dialog box
+      await updateUser(formData).unwrap()
+      setShowInfoEdit(false)
     } catch (error) {
-      console.error('Failed to update user:', error)
+      console.log('Error')
     }
   }
 
@@ -63,33 +56,33 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow">
             <DialogTitle as="h3" className="text-center font-medium">
-              Update Your Profile
+              Update vendor Profile details
             </DialogTitle>
             <form onSubmit={handleSubmit}>
               <FormInput
                 type="text"
-                name="fullName"
+                name="name"
                 placeholder="Enter Full Name"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={handleChange}
                 customClass="mb-4"
               />
               <FormInput
                 type="textarea"
-                name="description"
+                name="about"
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleChange}
                 customClass="mb-4"
               />
-              <FormInput
+              {/* <FormInput
                 type="text"
                 name="location"
                 placeholder="Location"
                 // value={formData.}
                 onChange={handleChange}
                 customClass="mb-4"
-              />
+              /> */}
               <FormInput
                 type="text"
                 name="specialized"

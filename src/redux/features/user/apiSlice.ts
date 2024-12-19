@@ -1,54 +1,73 @@
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
+import type { File } from 'buffer'
 
 // Define the TypeScript types for your data
 export interface IUser {
-  _id: string
-  name: string
-  email: string
-  phone: string
-  password: string
-  avatar: string
-  role: string
-  languages: string[]
-  specialized: string[]
-  stripe_acct: {
+  _id?: string
+  name?: string
+  email?: string
+  phone?: string
+  password?: string
+  avatar?: string
+  role?: string
+  languages?: string[]
+  specialized?: string[]
+  stripe_acct?: {
     id: string
     capabilities: {
       card_payments: string
       transfers: string
     }
-    charges_enabled: boolean
-    payouts_enabled: boolean
-    details_submitted: boolean
-    requirements: {
-      disabled_reason: string | null
+    charges_enabled?: boolean
+    payouts_enabled?: boolean
+    details_submitted?: boolean
+    requirements?: {
+      disabled_reason?: string | null
     }
   } | null
-  about: string
-  email_verified_at: Date | null
-  phone_verified_at: Date | null
-  status: string
+  about?: string
+  email_verified_at?: Date | null
+  phone_verified_at?: Date | null
+  status?: string
 }
 
 export interface IUserPost {
-  order: string
-  user: string
-  vendor: string
-  service: string
-  notes: string
-  quantity: number
-  price_id: string
-  selected_date: {
-    start_date: string
-    end_date: string
-  }[]
+  name?: string
+  email?: string
+  phone?: string
+  password?: string
+  avatar?: File | null
+  role?: string
+  languages?: string[]
+  specialized?: string[]
+  stripe_acct?: {
+    id: string
+    capabilities: {
+      card_payments: string
+      transfers: string
+    }
+    charges_enabled?: boolean
+    payouts_enabled?: boolean
+    details_submitted?: boolean
+    requirements?: {
+      disabled_reason?: string | null
+    }
+  } | null
+  about?: string
+  email_verified_at?: Date | null
+  phone_verified_at?: Date | null
+  status?: string
 }
 
 interface UserResponse {
   data: IUser
 }
 
+interface IProfileFormData {
+  name?: string
+  avatar?: File | null
+}
 // Redux Toolkit Query API
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -71,10 +90,10 @@ export const usersApi = createApi({
       providesTags: (result, error, id) => [{ type: 'User', id: id }]
     }),
 
-    updateUser: builder.mutation<IUser, Partial<IUser> & Pick<IUser, '_id'>>({
-      query: ({ _id, ...rest }) => ({
-        url: `/users/${_id}`,
-        method: 'PUT',
+    updateUser: builder.mutation<IUserPost, IProfileFormData>({
+      query: rest => ({
+        url: `/users/671e315ed10e02c3ec3dacc3`,
+        method: 'PATCH',
         body: rest
       }),
       invalidatesTags: ['User']

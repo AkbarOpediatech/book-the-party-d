@@ -38,14 +38,14 @@ USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow 
 
           <Info
             title="Specialized in"
-            value={data?.specialized.map(i => i[0]) || 'Frontend Developer'}
+            value={data?.specialized?.map(i => i[0]) || 'Frontend Developer'}
             icon={<BriefcaseIcon className="size-3.5 text-gray-400" />}
           />
         </div>
         <div className="flex flex-col gap-5">
           <Info title="Email Address" value={data?.email || 'yourname@example.com'} />
           <Info title="Phone Number" value={data?.phone || '+1234 567 890 / +12 345 678 '} />
-          <Info title="Languages" value={data?.languages.map(i => i[0]) || 'English, French, Spanish'} />
+          <Info title="Languages" value={data?.languages || 'English, French, Spanish'} />
         </div>
       </div>
 
