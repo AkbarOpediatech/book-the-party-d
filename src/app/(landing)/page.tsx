@@ -1,5 +1,6 @@
 'use client'
 import { useFetchCategoriesQuery } from '@/redux/features/categories/apiSlice'
+import Loader from './components/Loader/Loader'
 import Reviews from './components/Reviews'
 import Discover from './home/components/Discover'
 import Featured from './home/components/Featured'
@@ -12,11 +13,11 @@ export default function Home() {
   const categoriesData = categoriesResponse?.data || []
 
   if (isLoading) {
-    return <div>Loading bookings...</div>
+    return <Loader type="loading" />
   }
 
   if (isError) {
-    return <div>Error loading bookings. Please try again later.</div>
+    return <Loader type="error" />
   }
 
   return (

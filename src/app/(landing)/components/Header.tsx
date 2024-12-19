@@ -65,26 +65,29 @@ const Header = () => {
           {/* Desktop Navigation */}
           <ul className="hidden items-center gap-5 md:flex">
             {/* Cart */}
-            <li>
-              <Link href="/cart" className={iconContainerClasses}>
-                <div className="relative">
-                  <Image width={20} height={20} src={ICCart} alt="cart" />
-                  {cartItems?.data && cartItems?.data.length > 0 && (
-                    <span className={badgeClasses}>{cartItems?.data.length}</span>
-                  )}
-                </div>
-              </Link>
-            </li>
+            {session && (
+              <>
+                <li>
+                  <Link href="/cart" className={iconContainerClasses}>
+                    <div className="relative">
+                      <Image width={20} height={20} src={ICCart} alt="cart" />
+                      {cartItems?.data && cartItems?.data.length > 0 && (
+                        <span className={badgeClasses}>{cartItems?.data.length}</span>
+                      )}
+                    </div>
+                  </Link>
+                </li>
 
-            {/* Favorite */}
-            <li>
-              <Link href="/favorite" className={iconContainerClasses}>
-                <div className="relative">
-                  <Image width={20} height={20} src={ICFav} alt="fav" />
-                  <span className={badgeClasses}>10</span>
-                </div>
-              </Link>
-            </li>
+                <li>
+                  <Link href="/favorite" className={iconContainerClasses}>
+                    <div className="relative">
+                      <Image width={20} height={20} src={ICFav} alt="fav" />
+                      <span className={badgeClasses}>10</span>
+                    </div>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* Notifications */}
             <li>
