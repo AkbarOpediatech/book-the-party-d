@@ -1,17 +1,18 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
+import { useFetchCategoriesQuery } from '@/redux/features/categories/apiSlice'
 import { useAddServiceMutation, type ServiceItemPost } from '@/redux/features/services/apiSlice'
-import { categories, daysOfWeek } from '@/utils'
+import { daysOfWeek } from '@/utils'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
+import CategoryModal from './CategoryModal'
 import FileUpload from './FileUpload'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
-
-import CategoryModal from './CategoryModal'
 
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
@@ -25,7 +26,17 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   const [pricingType, setPricingType] = useState<string>('fixed')
   const [file, setFile] = useState<File | null>(null) // To store the selected file
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
-
+  const [options, setOptions] = useState<string[]>([])
+  const { data: session } = useSession()
+  const { data } = useFetchCategoriesQuery()
+  const catData = data?.data
+  // console.log(session.user?._id, 'session')
+  useEffect(() => {
+    if (catData) {
+      const titles: string[] = catData.map(category => category.title || 'Untitled')
+      setOptions(titles)
+    }
+  }, [catData])
   const handleDayChange = (index: number, field: string, value: string) => {
     const updatedAvailability = [...formData.availability]
     updatedAvailability[index] = {
@@ -108,12 +119,15 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     })
 
     formData.append('is_unavailable', demoListingData.is_unavailable ? 'true' : 'false')
-    formData.append('status', demoListingData.status || 'active') // Ensure you add a valid status if it's required
+    formData.append('status', demoListingData.status || 'active')
+
+    // Debugging Logs
+    console.log('Demo Listing Data:', demoListingData)
+    console.log('FormData:', Array.from(formData.entries()))
 
     try {
       const response = await addService(formData).unwrap()
       console.log('Service added response:', response)
-      console.log('Service added successfully:', formData)
       alert('Service added successfully!')
     } catch (err) {
       console.error('Failed to add product:', err)
@@ -141,7 +155,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           label="Categories"
           type="select"
           customClass="mb-4"
-          options={categories}
+          options={options}
           onChange={e => handleChange('category', e.target.value)}
         />
 
