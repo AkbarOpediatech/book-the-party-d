@@ -4,9 +4,9 @@ import { TrashIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import type { FC } from 'react'
 import Swal from 'sweetalert2'
+import Loader from '../../components/Loader/Loader'
 import Pagination from '../../services/components/Pagination'
 import Avatar from '/public/assets/package5.png'
-import Loader from '../../components/Loader/Loader'
 
 type IProps = {
   loading: boolean
@@ -22,6 +22,18 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
   const [removeFromCart, { isLoading: isDeleting }] = useRemoveFromCartMutation()
 
   const handleDelete = async (itemId: number) => {
+    if (!itemId) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Invalid item ID. Please refresh the page and try again.',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true
+      })
+      return
+    }
+
     try {
       await removeFromCart(itemId).unwrap()
       Swal.fire({
@@ -45,8 +57,8 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
     }
   }
 
-  if (loading) return <Loader type="loading" message="Please wait sometimes" />;
-  if (error) return <Loader type="error" message="Please try again later." />;
+  if (loading) return <Loader type="loading" message="Please wait sometimes" />
+  if (error) return <Loader type="error" message="Please try again later." />
 
   return (
     <div>
@@ -55,7 +67,7 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
           <table className="mb-5 min-w-full table-auto">
             <thead>
               <tr className="border-b text-left">
-                {[' Items for hire', 'Price', 'Quantity', 'Security Deposit', 'Actions'].map((i, index) => (
+                {['Items for hire', 'Price', 'Quantity', 'Security Deposit', 'Actions'].map((i, index) => (
                   <th
                     className="text-nowrap px-4 py-3 font-sora text-sm font-semibold md:text-lg"
                     key={index}
@@ -105,9 +117,15 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
                 ))}
               </tbody>
             ) : (
-              <p className="mx-auto mt-4 max-w-xs rounded-lg border border-red-200 bg-red-100 px-6 py-3 text-center text-lg text-red-500">
-                There is no service in your cart
-              </p>
+              <tbody>
+                <tr>
+                  <td colSpan={5}>
+                    <p className="mx-auto mt-4 max-w-xs rounded-lg border border-red-200 bg-red-100 px-6 py-3 text-center text-lg text-red-500">
+                      There is no service in your cart
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
             )}
           </table>
 

@@ -1,5 +1,6 @@
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
+import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 import type { StaticImageData } from 'next/image'
 
 export type IPagination = {
@@ -122,7 +123,7 @@ export interface ServiceItemPost extends GlobalServiceItem {
   user: string
   category?: string
   location?: string
-  featured_image: File | null | string
+  featured_image: File | null | string | StaticImport
 }
 
 interface ServiceResponse {
