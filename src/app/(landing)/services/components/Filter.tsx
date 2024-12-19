@@ -30,18 +30,15 @@ const Filter = ({}: FilterProps) => {
 
   const generateApiUrl = () => {
     const baseUrl = 'http://localhost:3000/services'
-    const queryParams = new URLSearchParams({})
 
-    if (selectedCategories.length) {
-      queryParams.set('categories', selectedCategories.join(','))
-    }
+    const categoryParam = selectedCategories.length ? `categories=${selectedCategories.join(',')}` : ''
 
-    if (selectedLocations.length) {
-      queryParams.set('location', selectedLocations.join(','))
-    }
+    const locationParam = selectedLocations.length ? `location=${selectedLocations.join(',')}` : ''
 
-    const apiUrl = `${baseUrl}?${queryParams.toString()}`
-    console.log('Generated API URL:', apiUrl)
+    const queryString = [categoryParam, locationParam].filter(Boolean).join('&')
+
+    const apiUrl = `${baseUrl}${queryString ? `?${queryString}` : ''}`
+    console.log('Generated API URL:', apiUrl, categoryParam, locationParam)
     router.push(apiUrl)
   }
 
