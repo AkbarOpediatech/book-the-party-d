@@ -1,5 +1,6 @@
 'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import { useState } from 'react'
 import Notification from './components/Notification'
 
@@ -30,7 +31,9 @@ const Notifications = () => {
       </div>
 
       {loading ? (
-        <p className="mt-4 text-center text-gray-500">Loading...</p>
+        <p className="mt-4 text-center text-gray-500">
+          <Loader type="loading" />
+        </p>
       ) : (
         visibleCount < allNotifications.length && (
           <DashboardButton
