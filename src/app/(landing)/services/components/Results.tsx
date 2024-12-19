@@ -3,11 +3,11 @@
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
 import { useEffect, useState } from 'react'
+import Loader from '../../components/Loader/Loader'
 import GridItems from './GridItems'
 import ListItems from './ListItems'
 import Pagination from './Pagination'
 import ResultBtnAction from './ResultBtnAction'
-import Loader from '../../components/Loader/Loader'
 
 // Define types for props and state
 interface ResultsProps {
@@ -17,6 +17,7 @@ interface ResultsProps {
 interface FilterState {
   title: string
   description: string
+  category: string[]
 }
 
 const Results = ({ searchParams }: ResultsProps) => {
@@ -25,24 +26,18 @@ const Results = ({ searchParams }: ResultsProps) => {
   const categoriesParam = searchParams.get('categories')
   const locationParam = searchParams.get('location')
 
-  const categories = categoriesParam
-    ? decodeURIComponent(categoriesParam).split(',').filter(Boolean) // Decode, split by commas, and filter out any empty strings
-    : []
+  const categories = categoriesParam ? decodeURIComponent(categoriesParam).split(',').filter(Boolean) : []
 
-  // Correctly decode and process the location
-  const location = locationParam
-    ? decodeURIComponent(locationParam).split(',').filter(Boolean) // Decode, split by commas, and filter out any empty strings
-    : []
+  const location = locationParam ? decodeURIComponent(locationParam).split(',').filter(Boolean) : []
 
-  // Log the cleaned-up categories and location
   useEffect(() => {
-    console.log('Categories:', categories)
-    console.log('Location:', location)
+    console.log('categories, location', categories, location)
   }, [categories, location])
 
   const [filters, setFilters] = useState<FilterState>({
     title: '',
-    description: ''
+    description: '',
+    category: categories
   })
 
   const {
@@ -67,8 +62,8 @@ const Results = ({ searchParams }: ResultsProps) => {
     setViewMode('list')
   }
 
-  if (isLoading) return <Loader type="loading" message="Please sometimes wait." />;
-  if (isError) return <Loader type="error" message="Please try again later." />;
+  if (isLoading) return <Loader type="loading" message="Please sometimes wait." />
+  if (isError) return <Loader type="error" message="Please try again later." />
 
   return (
     <>
