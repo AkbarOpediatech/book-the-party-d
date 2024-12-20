@@ -16,25 +16,30 @@ export type IMedia = {
 }
 
 export type ICategory = {
-  _id?: string
   title?: string
   description?: string
-  featured_image?: string
   icon?: string
-  slug?: string
-  hierarchy?: ICategory | null
-  status?: IStatus
+}
+
+interface CategoryPost {
+  title?: string
+  description?: string
+  icon?: string
+  featured_image?: File | null
+}
+export interface CategoryFetch extends ICategory {
+  featured_image?: string | null
 }
 
 interface CategoriesResponse {
-  data?: ICategory[]
+  data?: CategoryFetch[]
 }
 
 // Redux Toolkit Query API
 export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
   baseQuery,
-  tagTypes: ['Categories'],
+  tagTypes: ['Categories', 'Media'],
   endpoints: builder => ({
     fetchCategories: builder.query<CategoriesResponse, void>({
       query: () => ({
@@ -42,11 +47,11 @@ export const categoriesApi = createApi({
       }),
       providesTags: ['Categories']
     }),
-    addCategory: builder.mutation<ICategory, Partial<ICategory>>({
-      query: category => ({
+    addCategory: builder.mutation<CategoryPost, Partial<CategoryPost>>({
+      query: formdata => ({
         url: '/categories',
         method: 'POST',
-        body: category
+        body: formdata
       }),
       invalidatesTags: ['Categories']
     })
