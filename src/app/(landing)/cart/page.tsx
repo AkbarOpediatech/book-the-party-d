@@ -24,7 +24,11 @@ const Cart = () => {
   }, [status, router, pathname])
 
   if (status === 'loading') {
-    return <Loader type="loading" />
+    return (
+      <div>
+        <Loader type="loading" />
+      </div>
+    )
   }
 
   if (!session) {
