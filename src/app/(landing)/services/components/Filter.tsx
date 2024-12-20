@@ -1,6 +1,6 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-import { useFetchCategoriesQuery, type ICategory } from '@/redux/features/categories/apiSlice'
+import { useFetchCategoriesQuery, type CategoryFetch } from '@/redux/features/categories/apiSlice'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/16/solid'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -14,7 +14,7 @@ const Filter = ({}: FilterProps) => {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  const fetchedCategories: ICategory[] = category?.data || []
+  const fetchedCategories: CategoryFetch[] = category?.data || []
   const fetchedLocations = ['Melbourne', 'Sydney', 'Australia']
 
   const queryCategories = searchParams.get('categories')?.split(',') || []

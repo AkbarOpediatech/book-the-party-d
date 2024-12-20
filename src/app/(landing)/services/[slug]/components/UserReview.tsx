@@ -35,7 +35,7 @@ const UserReview: React.FC<IProps> = ({ data, totalRecords, currentPage, pageLim
 
             <p className="text-clr-[#0B0F0E] mb-1.5 text-base font-medium">&quot;{i.description}&quot;</p>
             <p className="text-sm text-[#818B9C]">
-              {i.user.updatedAt ? formatDate(i.user.updatedAt) : 'N/A'}
+              {i?.user?.updatedAt ? formatDate(i.user.updatedAt) : 'N/A'}
             </p>
           </div>
 

@@ -16,12 +16,10 @@ import details from '/public/assets/listing-details.png'
 const ListingDetails = () => {
   const [tab, setTab] = useState<number>(0)
   const params = useParams()
-  const { slug } = params
+  const { id } = params
 
-  const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
+  const { data: response, isLoading, isError } = useFetchServiceByIdQuery(id as string)
   const singleVendorData = response?.data
-
-  // const { data: response, isLoading, isError } = useDeleteServiceMutation(id)
 
   if (isLoading) {
     return <Loader type="loading" />

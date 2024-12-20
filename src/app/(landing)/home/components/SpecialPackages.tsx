@@ -1,5 +1,5 @@
 'use client'
-import type { ICategory } from '@/redux/features/categories/apiSlice'
+import type { CategoryFetch } from '@/redux/features/categories/apiSlice'
 import { ArrowRightCircleIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +9,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 type IProps = {
-  data: ICategory[]
+  data: CategoryFetch[]
 }
 
 const SpecialPackages: React.FC<IProps> = ({ data }) => {

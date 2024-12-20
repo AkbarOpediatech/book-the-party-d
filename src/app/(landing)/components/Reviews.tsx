@@ -71,14 +71,14 @@ const Reviews = () => {
                       width={32}
                       height={32}
                       className="rounded-full"
-                      src={items.user.avatar || avatar}
+                      src={items?.user?.avatar || avatar}
                       alt="avatar"
                     />
                     <div>
                       <h6 className="mb-1 font-sora text-sm font-semibold text-white md:text-base">
-                        {items.user.name}
+                        {items?.user?.name}
                       </h6>
-                      <p className="text-sm text-white">{items.user.role}</p>
+                      <p className="text-sm text-white">{items?.user?.role}</p>
                     </div>
                   </div>
                 </div>
