@@ -4,6 +4,7 @@ import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 type IProps = {
@@ -15,10 +16,13 @@ type IProps = {
 const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo }) => {
   const [updateUser, { isLoading, isError }] = useUpdateUserMutation()
 
+  const { data: session, update } = useSession() // Access session and update method
+  const user = session?.user
+
   const [formData, setFormData] = useState({
     name: userInfo?.name || 'Dihan Opedia',
     description: userInfo?.about || 'fsd f',
-    email: userInfo?.email || 'nahid.f@gmail.com',
+    email: userInfo?.email || user?.email,
     tel: userInfo?.phone || '',
     language: userInfo?.languages || 'Bangla'
   })
@@ -38,8 +42,16 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
     console.log('Service added response:', formData)
 
     try {
-      await updateUser(formData).unwrap()
+      const response = await updateUser(formData).unwrap()
       setShowInfoEdit(false)
+      await update({
+        user: {
+          ...session?.user,
+          name: response.name,
+          email: response.email,
+          avatar: response.avatar
+        }
+      })
     } catch (error) {
       console.log('Error')
     }
