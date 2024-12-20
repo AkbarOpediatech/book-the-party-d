@@ -34,8 +34,12 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   const { data: session } = useSession()
   const { data } = useFetchCategoriesQuery()
   const catData = data?.data
-  console.log(catData, 'session')
+  console.log(catData, 'catData')
   useEffect(() => {
+    if (!catData) {
+      setOptions([])
+      return
+    }
     const formattedOptions = catData?.map(cat => ({
       value: cat._id || '',
       title: cat.title || 'Untitled'
@@ -141,6 +145,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             label="Categories"
             type="select"
             customClass="mb-4"
+            catData={true}
             options={options}
             onChange={e => handleChange('category', e.target.value)}
           />

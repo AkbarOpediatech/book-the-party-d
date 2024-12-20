@@ -4,6 +4,7 @@ type IProps = {
   label?: string
   type: string
   placeholder?: string
+  catData?: boolean
   customClass?: string
   options?: (string | OptionType)[]
   value?: string
@@ -19,6 +20,7 @@ const FormInput: React.FC<IProps> = ({
   customClass,
   placeholder,
   onChange,
+  catData,
   value
 }) => {
   console.log('options', options)
@@ -37,11 +39,21 @@ const FormInput: React.FC<IProps> = ({
           <option disabled value="">
             Select option
           </option>
-          {options?.map((option, index) => (
-            <option key={index} value={option.value}>
-              {option?.title}
-            </option>
-          ))}
+          {catData
+            ? options?.map((option, index) =>
+                typeof option === 'object' ? (
+                  <option key={index} value={option.value}>
+                    {option.title}
+                  </option>
+                ) : null
+              )
+            : options?.map((option, index) =>
+                typeof option === 'string' ? (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ) : null
+              )}
         </select>
       ) : type === 'textarea' ? (
         <textarea
