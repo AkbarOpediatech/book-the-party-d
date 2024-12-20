@@ -3,11 +3,12 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import type { ServiceItemPost } from '../services/apiSlice'
 
 export interface WishlistItem {
-  service: string | undefined
+  service?: string | undefined
   user: string | undefined
 }
 
 export interface wishlistFetch {
+  _id?: string
   service?: ServiceItemPost
   user?: string | undefined
 }

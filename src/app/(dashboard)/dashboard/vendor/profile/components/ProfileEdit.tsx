@@ -31,24 +31,24 @@ const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit }) 
   const updateProfileHandler = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const formData = new FormData()
+    // const formData = new FormData()
 
-    if (file) {
-      formData.append('avatar', file)
-    }
+    // if (file) {
+    //   formData.append('avatar', file)
+    // }
 
-    for (const [key, value] of formData.entries()) {
-      console.log(`Data ${key}:`, value)
-    }
-    console.log('formData', formData)
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`Data ${key}:`, value)
+    // }
+    // console.log('formData', formData)
 
-    try {
-      const response = await updateUser(formData).unwrap()
-      console.log('Profile updated successfully:', response)
-      alert('Profile updated successfully!')
-    } catch (err) {
-      console.error('Failed to update profile:', err)
-    }
+    // try {
+    //   const response = await updateUser(formData).unwrap()
+    //   console.log('Profile updated successfully:', response)
+    //   alert('Profile updated successfully!')
+    // } catch (err) {
+    //   console.error('Failed to update profile:', err)
+    // }
   }
 
   return (

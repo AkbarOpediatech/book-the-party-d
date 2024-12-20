@@ -61,40 +61,50 @@ const Wishlist = () => {
                 </tr>
               </thead>
               <tbody>
-                {wishlistData?.map((item, index) => (
-                  <tr key={index} className="mb-4 border-b last:mb-0">
-                    <td className="px-4 py-4">
-                      <div className="flex flex-wrap items-center md:flex-nowrap">
-                        <Image
-                          width={80}
-                          height={80}
-                          src={(item.service?.featured_image as string) || productImage}
-                          alt="cart-img"
-                          className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
-                        />
-                        <div>
-                          <p className="mb-2 font-sora text-sm font-bold md:text-lg">{item.service?.title}</p>
+                {wishlistData && wishlistData.length > 0 ? (
+                  wishlistData.map((item, index) => (
+                    <tr key={index} className="mb-4 border-b last:mb-0">
+                      <td className="px-4 py-4">
+                        <div className="flex flex-wrap items-center md:flex-nowrap">
+                          <Image
+                            width={80}
+                            height={80}
+                            src={(item.service?.featured_image as string) || productImage}
+                            alt="cart-img"
+                            className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md object-cover md:mr-4"
+                          />
+                          <div>
+                            <p className="mb-2 font-sora text-sm font-bold md:text-lg">
+                              {item.service?.title}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
-                      ${item.service?.price?.[0]?.value || 'N/A'}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
-                      ${item.service?.security_deposit || 'N/A'}
-                    </td>
-                    <td className="px-4 py-4">
-                      <button
-                        className="text-red-400"
-                        onClick={() => handleDelete(item.service?._id as string)}
-                        disabled={isDeleting}
-                        aria-label="Delete item"
-                      >
-                        <TrashIcon className="h-6 w-6" />
-                      </button>
+                      </td>
+                      <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
+                        ${item.service?.price?.[0]?.value || 'N/A'}
+                      </td>
+                      <td className="px-4 py-4 text-sm text-gray-500 md:text-lg">
+                        ${item.service?.security_deposit || 'N/A'}
+                      </td>
+                      <td className="px-4 py-4">
+                        <button
+                          className="text-red-400"
+                          onClick={() => handleDelete(item._id as string)}
+                          disabled={isDeleting}
+                          aria-label="Delete item"
+                        >
+                          <TrashIcon className="h-6 w-6" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4} className="px-4 py-4 text-center text-gray-500">
+                      Wishlist is empty
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
