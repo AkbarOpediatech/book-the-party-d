@@ -1,7 +1,7 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import { useFetchCategoriesQuery } from '@/redux/features/categories/apiSlice'
-import { useAddServiceMutation, type ServiceItemPost } from '@/redux/features/services/apiSlice'
+import { useAddServiceMutation, type IPrice, type ServiceItemPost } from '@/redux/features/services/apiSlice'
 import { daysOfWeek } from '@/utils'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useSession } from 'next-auth/react'
@@ -22,20 +22,29 @@ type IProps = {
   handleChange: <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => void
 }
 
+type OptionType = {
+  value: string
+  title: string
+}
 const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formData }) => {
   const [pricingType, setPricingType] = useState<string>('fixed')
   const [file, setFile] = useState<File | null>(null) // To store the selected file
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
-  const [options, setOptions] = useState<string[]>([])
+  const [options, setOptions] = useState<OptionType[]>([])
   const { data: session } = useSession()
   const { data } = useFetchCategoriesQuery()
   const catData = data?.data
-  // console.log(session.user?._id, 'session')
+  console.log(catData, 'catData')
   useEffect(() => {
-    if (catData) {
-      const titles: string[] = catData.map(category => category.title || 'Untitled')
-      setOptions(titles)
+    if (!catData) {
+      setOptions([])
+      return
     }
+    const formattedOptions = catData?.map(cat => ({
+      value: cat._id || '',
+      title: cat.title || 'Untitled'
+    }))
+    setOptions(formattedOptions)
   }, [catData])
 
   const handleDayChange = (index: number, field: string, value: string) => {
@@ -63,25 +72,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     console.log('New category:', category)
   }
 
-  const demoListingData = {
-    user: '60d21b4667d0d8992e610c85', // take user from session
-    title: 'Luxury Villa with Sea View dihanAbir',
-    description: 'A beautiful luxury villa located near the coast with a breathtaking sea view.',
-    slug: `${new Date()} luxury-nahifsdfd-dihanabir-`,
-    featured_image: file,
-    category: '60d21b4667d0d8992e610c84',
-    location: '60d21b4667d0d8992e610c83',
-    inclusions: ['Swimming Pool', 'Jacuzzi', 'Sauna', 'Free WiFi', 'Fully Equipped Kitchen'],
-    infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
-    is_featured: true,
-    price_type: 'hourly',
-    price: [{ text: 'Night', value: 300 }],
-    security_deposit: 500,
-    cancellation_period_hours: 48,
-    availability: [{ days: 'mon', start_time: '08:00', end_time: '18:00' }],
-    is_unavailable: false,
-    status: 'publish'
-  }
+  // Submit form logic
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!pricingType) {
@@ -89,49 +80,47 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
       return
     }
 
-    const formData = new FormData()
+    const formDataToSubmit = new FormData()
+    formDataToSubmit.append('user', session?.user?.id || '676102fe02420191894a4e29')
+    formDataToSubmit.append('title', formData.title || '')
+    formDataToSubmit.append('description', formData.description || '')
+    formDataToSubmit.append('slug', formData.slug || '')
+    formDataToSubmit.append('featured_image', file || '')
+    formDataToSubmit.append('category', formData.category || '')
+    formDataToSubmit.append('location', '60d21b4667d0d8992e610c83')
 
-    formData.append('user', demoListingData.user)
-    formData.append('title', demoListingData.title)
-    formData.append('description', demoListingData.description || '')
-    formData.append('slug', demoListingData.slug || '')
-    formData.append('featured_image', demoListingData.featured_image || '')
-    formData.append('category', demoListingData.category)
-    formData.append('location', demoListingData.location)
+    formDataToSubmit.append('inclusions', JSON.stringify(formData.inclusions || []))
+    formDataToSubmit.append('infos', JSON.stringify(formData.infos || []))
+    formDataToSubmit.append('is_featured', formData.is_featured ? 'true' : 'false')
+    formDataToSubmit.append('price_type', formData.price_type || 'hourly')
 
-    formData.append('inclusions', JSON.stringify(demoListingData.inclusions || []))
-    formData.append('infos', JSON.stringify(demoListingData.infos || []))
-
-    formData.append('is_featured', demoListingData.is_featured ? 'true' : 'false')
-    formData.append('price_type', demoListingData.price_type)
-
-    demoListingData.price.forEach((price, index) => {
-      formData.append(`price[${index}][text]`, price.text || '')
-      formData.append(`price[${index}][value]`, price.value.toString())
+    formData.price.forEach((price: IPrice, index) => {
+      formDataToSubmit.append(`price[${index}][text]`, price.text || '')
+      formDataToSubmit.append(`price[${index}][value]`, '200') //FIXME: need to change price with actual price
     })
 
-    formData.append('security_deposit', demoListingData.security_deposit.toString())
-    formData.append('cancellation_period_hours', demoListingData.cancellation_period_hours.toString())
+    formDataToSubmit.append('security_deposit', formData.security_deposit.toString())
+    formDataToSubmit.append('cancellation_period_hours', formData.cancellation_period_hours.toString())
 
-    demoListingData.availability.forEach((availability, index) => {
-      formData.append(`availability[${index}][days]`, availability.days || '')
-      formData.append(`availability[${index}][start_time]`, availability.start_time.toString())
-      formData.append(`availability[${index}][end_time]`, availability.end_time.toString())
+    formData.availability.forEach((availability, index) => {
+      formDataToSubmit.append(`availability[${index}][days]`, availability.days || 'mon')
+      formDataToSubmit.append(`availability[${index}][start_time]`, availability.start_time.toString())
+      formDataToSubmit.append(`availability[${index}][end_time]`, availability.end_time.toString())
     })
 
-    formData.append('is_unavailable', demoListingData.is_unavailable ? 'true' : 'false')
-    formData.append('status', demoListingData.status || 'active')
+    formDataToSubmit.append('is_unavailable', formData.is_unavailable ? 'true' : 'false')
+    formDataToSubmit.append('status', formData.status || 'active')
 
     // Debugging Logs
-    console.log('Demo Listing Data:', demoListingData)
-    console.log('FormData:', Array.from(formData.entries()))
+    console.log('FormData:', Array.from(formDataToSubmit.entries()))
 
+    // Send form data (mocked API call for now)
     try {
-      const response = await addService(formData).unwrap()
+      const response = await addService(formDataToSubmit).unwrap()
       console.log('Service added response:', response)
       alert('Service added successfully!')
     } catch (err) {
-      console.error('Failed to add product:', err)
+      console.error('Failed to add service:', err)
     }
   }
 
@@ -151,14 +140,17 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
         <DashboardButton name="Add Category" type="button" onClick={() => setIsCategoryModalOpen(true)} />
       </div>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          name="categories"
-          label="Categories"
-          type="select"
-          customClass="mb-4"
-          options={options}
-          onChange={e => handleChange('category', e.target.value)}
-        />
+        {options?.length && (
+          <FormInput
+            name="categories"
+            label="Categories"
+            type="select"
+            customClass="mb-4"
+            catData={true}
+            options={options}
+            onChange={e => handleChange('category', e.target.value)}
+          />
+        )}
 
         <FormInput
           name="title"
@@ -174,7 +166,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           label="Description"
           type="textarea"
           customClass="mb-4"
-          onChange={e => handleChange('title', e.target.value)}
+          onChange={e => handleChange('description', e.target.value)}
         />
 
         {/* Location */}
@@ -244,7 +236,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
         {pricingType === 'fixed' && (
           <>
             <FixedPrice
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+              onChange={e => handleChange('price', [{ text: pricingType, value: String(e.target.value) }])}
             />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
@@ -252,7 +244,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
         {pricingType === 'hourly' && (
           <>
             <Hourly
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+              onChange={e => handleChange('price', [{ text: pricingType, value: String(e.target.value) }])}
             />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
@@ -260,7 +252,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
         {pricingType === 'multiple_fixed' && (
           <>
             <MultiplePrice
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+              onChange={e => handleChange('price', [{ text: pricingType, value: String(e.target.value) }])}
             />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>

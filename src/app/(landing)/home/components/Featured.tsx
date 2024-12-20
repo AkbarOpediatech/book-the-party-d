@@ -5,10 +5,10 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import Loader from '../../components/Loader/Loader'
 import SectionHeading from '../../components/SectionHeading'
 import ServiceCard from '../../components/ServiceCard'
 import ServiceImage from '/public/assets/package1.png'
-import Loader from '../../components/Loader/Loader'
 
 const Featured = () => {
   const {
@@ -21,8 +21,18 @@ const Featured = () => {
 
   console.log(serviceData, 'serviceData')
 
-  if (isLoading) return <div><Loader type="loading"/></div>
-  if (isError) return <div><Loader type='error'/></div>
+  if (isLoading)
+    return (
+      <div>
+        <Loader type="loading" />
+      </div>
+    )
+  if (isError)
+    return (
+      <div>
+        <Loader type="error" />
+      </div>
+    )
 
   return (
     <section className="section-padding featured">
@@ -69,7 +79,7 @@ const Featured = () => {
                   title={items.title}
                   info={items.infos.map(i => i) || 'information'}
                   review={10}
-                  price={items.price?.[0]?.value || 0}
+                  price={items?.price[0]?.value || 0}
                   chooseLocation={items.location?.title}
                 />
               </SwiperSlide>
