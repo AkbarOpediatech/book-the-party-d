@@ -10,6 +10,8 @@ import Hourly from './Hourly'
 import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
+import EditorJS from '@editorjs/editorjs';
+import { useEffect, useRef } from 'react';
 
 import CategoryModal from './CategoryModal'
 
@@ -25,6 +27,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
   const [pricingType, setPricingType] = useState<string>('fixed')
   const [file, setFile] = useState<File | null>(null) // To store the selected file
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
+  const editorRef = useRef<EditorJS | null>(null);
 
   const handleDayChange = (index: number, field: string, value: string) => {
     const updatedAvailability = [...formData.availability]
@@ -130,6 +133,30 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     }
   }
 
+  useEffect(() => {
+    editorRef.current = new EditorJS({
+      holder: 'description-editor',
+      tools: {
+        header: require('@editorjs/header'),
+        paragraph: require('@editorjs/paragraph'),
+      },
+      data: formData.description ? JSON.parse(formData.description) : undefined, // Optional: Prepopulate data
+      onChange: async () => {
+        if (editorRef.current) {
+          const savedData = await editorRef.current.save();
+          handleChange('description', JSON.stringify(savedData)); // Update formData with the editor content
+        }
+      },
+    });
+
+    return () => {
+      if (editorRef.current) {
+        editorRef.current.destroy();
+        editorRef.current = null;
+      }
+    };
+  }, [handleChange, formData.description]);
+
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <div className="flex items-center justify-between">
@@ -185,7 +212,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             <div key={index} className="flex items-center gap-2">
               <p className="w-full max-w-10 text-sm font-medium text-gray-900">{day}</p>
 
-              <select
+              {/* <select
                 value={formData.availability[index]?.start_time || ''}
                 onChange={e => handleDayChange(index, 'start_time', e.target.value)}
                 className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
@@ -194,9 +221,9 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
                 <option value="09:00">09:00</option>
                 <option value="10:00">10:00</option>
                 <option value="11:00">11:00</option>
-              </select>
+              </select> */}
 
-              <select
+              {/* <select
                 value={formData.availability[index]?.end_time || ''}
                 onChange={e => handleDayChange(index, 'end_time', e.target.value)}
                 className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
@@ -205,7 +232,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
                 <option value="11:00">11:00</option>
                 <option value="01:00">01:00</option>
                 <option value="02:00">02:00</option>
-              </select>
+              </select> */}
 
               <button type="button" onClick={handleAddAvailability}>
                 <PlusCircleIcon className="size-4 fill-gray-400" />
