@@ -56,7 +56,7 @@ const RelatedServices = () => {
               title={items.title}
               review={10}
               price={items.price?.[0]?.value || 0}
-              chooseLocation={items.location.title}
+              chooseLocation={items.location?.title}
             />
           </SwiperSlide>
         ))}

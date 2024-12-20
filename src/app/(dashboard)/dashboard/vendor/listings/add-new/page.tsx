@@ -9,26 +9,26 @@ import SetAvailability from './components/SetAvailability'
 
 const AddNewListing = () => {
   const [step, setStep] = useState<number>(0)
+  const [file, setFile] = useState<File | null>(null)
 
   const [formData, setFormData] = useState<ServiceItemPost>({
-    aproved_by: null,
-    availability: [],
-    cancellation_period_hours: 0,
-    description: 'fdsfasf',
-    featured_image: null,
-    inclusions: [],
-    infos: [],
-    is_featured: false,
+    user: '',
+    title: '',
+    description: '',
+    slug: `${new Date()} luxury-nahifsdfd-dihanabir-`,
+    featured_image: file,
+    category: '60d21b4667d0d8992e610c84',
+    location: '60d21b4667d0d8992e610c83',
+    inclusions: ['Swimming Pool', 'Jacuzzi', 'Sauna', 'Free WiFi', 'Fully Equipped Kitchen'],
+    infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
+    is_featured: true,
+    price_type: 'hourly',
+    price: [{ text: 'Night', value: 300 }],
+    security_deposit: 500,
+    cancellation_period_hours: 48,
+    availability: [{ days: 'mon', start_time: '08:00', end_time: '18:00' }],
     is_unavailable: false,
-    price: [],
-    price_type: 'fixed',
-    security_deposit: 0,
-    slug: 'fsdf',
-    status: 'pending',
-    title: 'fsdf',
-    user: '671e315ed10e02c3ec3dacc3',
-    category: '6728513598a0e504afae5eb5',
-    location: '6723595d8d9a6dbaaffbf3d9'
+    status: 'publish'
   })
 
   const handleChange = <T extends keyof ServiceItemPost>(field: T, value: ServiceItemPost[T]) => {

@@ -1,10 +1,11 @@
+type OptionType = { value: string; title: string }
 type IProps = {
   name: string
   label?: string
   type: string
   placeholder?: string
   customClass?: string
-  options?: string[]
+  options?: (string | OptionType)[]
   value?: string
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -20,6 +21,7 @@ const FormInput: React.FC<IProps> = ({
   onChange,
   value
 }) => {
+  console.log('options', options)
   return (
     <div className={customClass}>
       <label htmlFor={name} className="mb-2 block text-clr-ab">
@@ -36,8 +38,8 @@ const FormInput: React.FC<IProps> = ({
             Select option
           </option>
           {options?.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
+            <option key={index} value={option.value}>
+              {option?.title}
             </option>
           ))}
         </select>

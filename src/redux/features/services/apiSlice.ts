@@ -59,7 +59,7 @@ export type ILocation = {
 
 export type IPrice = {
   text: string
-  value?: number
+  value?: string
   _id?: string
 }
 
