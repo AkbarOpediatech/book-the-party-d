@@ -552,7 +552,6 @@ export const eventFeaturesIcon: IEventFeaturesIcon[] = [
   {
     id: 1,
     icon: ICPackage
-    
   },
   {
     id: 2,
@@ -907,7 +906,7 @@ export const listingImportantInfo: string[] = [
   'Flavor can be changed as per choice (charges may vary)'
 ]
 
-export const detailsTab: string[] = ['Details', 'Inclusions', 'Important info', 'Reviews(4)']
+export const detailsTab: string[] = ['Details', 'Inclusions', 'Reviews']
 
 export const adminDetailsTab: string[] = ['Details', 'Review(4)', 'Contact Info']
 

@@ -126,7 +126,7 @@ export interface ServiceItemPost extends GlobalServiceItem {
   featured_image: File | null | string | StaticImport
 }
 
-interface ServiceResponse {
+export interface ServiceResponse {
   data: ServiceItem[]
   pagination: IPagination
 }
@@ -197,7 +197,7 @@ export const servicesApi = createApi({
       }),
       invalidatesTags: ['Services']
     }),
-    deleteService: builder.mutation<void, number>({
+    deleteService: builder.mutation<void, string>({
       query: id => ({
         url: `/services/${id}`,
         method: 'DELETE'

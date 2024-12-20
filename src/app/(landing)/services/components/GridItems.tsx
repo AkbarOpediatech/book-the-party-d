@@ -17,7 +17,11 @@ const GridItems: React.FC<IProps> = ({ serviceData }) => {
             title={items.title}
             info={items.infos.map(i => i) || 'information'}
             price={items.price?.[0]?.value || 0}
+<<<<<<< HEAD
             chooseLocation={items.location?.title}
+=======
+            chooseLocation={items?.location.title}
+>>>>>>> 034e7669db2e5ff53e85316029ccb0dfa47ba4ee
           />
         </div>
       ))}
