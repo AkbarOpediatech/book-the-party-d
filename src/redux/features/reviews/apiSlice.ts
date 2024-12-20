@@ -67,32 +67,35 @@ export type GlobalReviewsItem = {
   availability?: IAvailability[]
   cancellation_period_hours?: number
   createdAt?: string
-  description: string
+  description?: string
   inclusions?: string[]
   infos?: string[]
-  is_featured: boolean
-  is_unavailable: boolean
-  price: IPrice[]
-  price_type: string
-  security_deposit: number
-  slug: string
-  status: string
-  title: string
+  is_featured?: boolean
+  is_unavailable?: boolean
+  price?: IPrice[]
+  price_type?: string
+  security_deposit?: number
+  slug?: string
+  status?: string
+  title?: string
   updatedAt?: string
   _id?: string
 }
 
 export interface ReviewsItem extends GlobalReviewsItem {
-  user: IUser
-  category: ICategory
-  location: ILocation
-  featured_image: string
+  user?: IUser
+  category?: ICategory
+  location?: ILocation
+  featured_image?: string
 }
 export interface ReviewsItemPost extends GlobalReviewsItem {
-  user: string
+  user?: string
   category?: string
+  rating?: number
+  service?: string
   location?: string
-  featured_image: File | null
+  hierarchy?: string
+  featured_image?: File | null
 }
 
 interface ReviewsResponse {
