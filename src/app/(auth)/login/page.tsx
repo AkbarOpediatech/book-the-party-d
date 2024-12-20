@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
 import LoginForm from '../components/LoginForm'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const LoginContent = () => {
   return (
@@ -18,7 +19,7 @@ const LoginContent = () => {
 
 const Login = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader type='loading'/>}>
       <LoginContent />
     </Suspense>
   )

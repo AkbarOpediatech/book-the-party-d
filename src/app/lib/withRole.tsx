@@ -2,6 +2,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 import { FC } from 'react'
+import Loader from '../(landing)/components/Loader/Loader'
 
 const withRole = (WrappedComponent: FC, allowedRoles: string[]) => {
   const RoleProtectedComponent: FC = props => {
@@ -9,7 +10,7 @@ const withRole = (WrappedComponent: FC, allowedRoles: string[]) => {
     const router = useRouter()
 
     if (status === 'loading') {
-      return <p>Loading...</p>
+      return <Loader type='loading'/>
     }
 
     if (status === 'unauthenticated') {

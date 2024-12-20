@@ -2,6 +2,7 @@
 
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useState } from 'react'
@@ -129,7 +130,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 <DashboardButton name="Cancel" onClick={() => setShowInfoEdit(false)} type="button" />
               </div>
             </form>
-            {isLoading && <p className="mt-2 text-center">Updating...</p>}
+            {isLoading && <p className="mt-2 text-center"><Loader type='loading'/></p>}
             {isError && <p className="mt-2 text-center text-red-500">Failed to update. Try again.</p>}
           </DialogPanel>
         </div>

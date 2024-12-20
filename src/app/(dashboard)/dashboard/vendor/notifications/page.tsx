@@ -38,7 +38,7 @@ const Notifications = () => {
       </div>
 
       {loading ? (
-        <p className="mt-4 text-center text-gray-500">Loading...</p>
+        <p className="mt-4 text-center text-gray-500"><Loader type='loading'/></p>
       ) : (
         visibleCount < allNotifications.length && (
           <DashboardButton

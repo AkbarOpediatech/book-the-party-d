@@ -8,6 +8,7 @@ import SubTotal from '../components/SubTotal'
 import CartHead from './components/CartHead'
 import CartItems from './components/CartItems'
 import { useFetchCartService } from './components/CartService'
+import Loader from '../components/Loader/Loader'
 
 const Cart = () => {
   const { currentPage, pageLimit, handlePageChange } = usePagination({ initialLimit: 5 })
@@ -23,7 +24,7 @@ const Cart = () => {
   }, [status, router, pathname])
 
   if (status === 'loading') {
-    return <div>Loading...</div>
+    return <div><Loader type='loading'/></div>
   }
 
   if (!session) {

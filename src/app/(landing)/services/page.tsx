@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import Reviews from '../components/Reviews'
 import Filter from './components/Filter'
 import Results from './components/Results'
+import Loader from '../components/Loader/Loader'
 
 const ServicesContent = () => {
   const searchParams = useSearchParams()
@@ -29,7 +30,7 @@ const ServicesContent = () => {
 
 const Services = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader type='loading'/>}>
       <ServicesContent />
     </Suspense>
   )

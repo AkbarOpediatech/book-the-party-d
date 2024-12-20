@@ -2,6 +2,7 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import { useState } from 'react'
 import Notification from './components/Notification'
+import Loader from '@/app/(landing)/components/Loader/Loader'
 
 const Notifications = () => {
   const allNotifications = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -30,7 +31,7 @@ const Notifications = () => {
       </div>
 
       {loading ? (
-        <p className="mt-4 text-center text-gray-500">Loading...</p>
+        <p className="mt-4 text-center text-gray-500"><Loader type='loading'/></p>
       ) : (
         visibleCount < allNotifications.length && (
           <DashboardButton
