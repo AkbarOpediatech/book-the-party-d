@@ -2,7 +2,7 @@
 
 import usePagination from '@/hooks/usePagination'
 import { useAddToCartMutation } from '@/redux/features/cart/apiSlice'
-import { useFetchReviewsQuery } from '@/redux/features/reviews/apiSlice'
+import { useFetchReviewByIdQuery } from '@/redux/features/reviews/apiSlice'
 import { useFetchServiceByIdQuery } from '@/redux/features/services/apiSlice'
 import { cn, specialPackages } from '@/utils'
 import '@smastrom/react-rating/style.css'
@@ -39,19 +39,29 @@ const ServiceSingle = () => {
   const singleService = response?.data
   const singleServiceId = singleService?._id
 
-  const { data: reviewResponse } = useFetchReviewsQuery({
-    reviews: response && response.data._id,
-    limit: pageLimit,
-    page: currentPage
-  })
+  const {
+    data: reviewResponse,
+    isLoading: isReviewLoading,
+    isError: isReviewError
+  } = useFetchReviewByIdQuery(singleServiceId as string)
+
+  const reviewsData = reviewResponse?.data
+
+  console.log(reviewsData, 'reviewsData')
+
+  // const { data: reviewResponse } = useFetchReviewsQuery({
+  //   reviews: response && response.data._id,
+  //   limit: pageLimit,
+  //   page: currentPage
+  // })
 
   const { response: cartItems } = useFetchCartService({})
   const cartItemsData = cartItems?.data
   const cartId = cartItemsData?.map(i => i.service?._id)
   const matchedId = cartId?.includes(singleServiceId)
 
-  const reviewsData = reviewResponse?.data
-  const ReviewRecords = reviewResponse?.pagination?.records || 0
+  // const reviewsData = reviewResponse?.data
+  // const ReviewRecords = reviewResponse?.pagination?.records || 0
   const [addToCart] = useAddToCartMutation()
 
   const onClickFunc = () => {
@@ -151,7 +161,7 @@ const ServiceSingle = () => {
             {tab === 1 && (
               <ProductReviews
                 reviewsData={reviewsData}
-                totalRecords={ReviewRecords}
+                // totalRecords={ReviewRecords}
                 currentPage={currentPage}
                 pageLimit={pageLimit}
                 handlePageChange={handlePageChange}

@@ -3,8 +3,8 @@ import type { ReviewsItem } from '@/redux/features/reviews/apiSlice'
 import UserReview from './UserReview'
 
 type IProps = {
-  reviewsData: ReviewsItem[] | undefined
-  totalRecords: number
+  reviewsData: ReviewsItem | undefined
+  // totalRecords: number
   currentPage: number
   pageLimit: number
   handlePageChange: (page: number) => void
@@ -12,7 +12,7 @@ type IProps = {
 
 const ProductReviews: React.FC<IProps> = ({
   reviewsData,
-  totalRecords,
+  // totalRecords,
   currentPage,
   pageLimit,
   handlePageChange
@@ -29,10 +29,9 @@ const ProductReviews: React.FC<IProps> = ({
         <RatingPieChart />
         <RatingBarChart />
       </div> */}
-      {reviewsData && reviewsData.length > 0 ? (
+      {Array.isArray(reviewsData) && reviewsData.length > 0 ? (
         <UserReview
           data={reviewsData}
-          totalRecords={totalRecords}
           currentPage={currentPage}
           pageLimit={pageLimit}
           handlePageChange={handlePageChange}
