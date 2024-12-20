@@ -37,6 +37,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
       setOptions(titles)
     }
   }, [catData])
+
   const handleDayChange = (index: number, field: string, value: string) => {
     const updatedAvailability = [...formData.availability]
     updatedAvailability[index] = {
@@ -196,7 +197,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             <div key={index} className="flex items-center gap-2">
               <p className="w-full max-w-10 text-sm font-medium text-gray-900">{day}</p>
 
-              <select
+              {/* <select
                 value={formData.availability[index]?.start_time || ''}
                 onChange={e => handleDayChange(index, 'start_time', e.target.value)}
                 className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
@@ -205,9 +206,9 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
                 <option value="09:00">09:00</option>
                 <option value="10:00">10:00</option>
                 <option value="11:00">11:00</option>
-              </select>
+              </select> */}
 
-              <select
+              {/* <select
                 value={formData.availability[index]?.end_time || ''}
                 onChange={e => handleDayChange(index, 'end_time', e.target.value)}
                 className="font-inter w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
@@ -216,7 +217,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
                 <option value="11:00">11:00</option>
                 <option value="01:00">01:00</option>
                 <option value="02:00">02:00</option>
-              </select>
+              </select> */}
 
               <button type="button" onClick={handleAddAvailability}>
                 <PlusCircleIcon className="size-4 fill-gray-400" />

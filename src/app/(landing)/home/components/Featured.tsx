@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionHeading from '../../components/SectionHeading'
 import ServiceCard from '../../components/ServiceCard'
 import ServiceImage from '/public/assets/package1.png'
+import Loader from '../../components/Loader/Loader'
 
 const Featured = () => {
   const {
@@ -20,8 +21,8 @@ const Featured = () => {
 
   console.log(serviceData, 'serviceData')
 
-  if (isLoading) return <div>Loading products...</div>
-  if (isError) return <div>Error loading products.</div>
+  if (isLoading) return <div><Loader type="loading"/></div>
+  if (isError) return <div><Loader type='error'/></div>
 
   return (
     <section className="section-padding featured">
