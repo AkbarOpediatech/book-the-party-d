@@ -1,6 +1,7 @@
 'use client'
 
 import { setActiveTab } from '@/redux/features/profileSlice'
+import { useFetchWishlistQuery } from '@/redux/features/wishlist/apiSlice'
 import { cn, profileMenuItems } from '@/utils'
 import { roleWiseRoute } from '@/utils/constand'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -34,6 +35,9 @@ const Header = () => {
 
   const { response: cartItems } = useFetchCartService()
   const { data: session } = useSession()
+
+  const { data: response } = useFetchWishlistQuery()
+  const wishlistData = response?.data.length
 
   const iconContainerClasses =
     'flex h-[40px] lg:h-[70px] w-[40px] lg:w-[70px] items-center justify-center rounded-full bg-[#CBA6FF]/60'
@@ -82,7 +86,7 @@ const Header = () => {
                   <Link href="/wishlist" className={iconContainerClasses}>
                     <div className="relative">
                       <Image width={20} height={20} src={ICFav} alt="fav" />
-                      <span className={badgeClasses}>10</span>
+                      <span className={badgeClasses}>{wishlistData}</span>
                     </div>
                   </Link>
                 </li>
