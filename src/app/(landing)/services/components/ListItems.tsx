@@ -41,7 +41,7 @@ const ListItems: React.FC<IProps> = ({ serviceData }) => {
               </div>
               <button className="flex items-center gap-2 text-sm font-extrabold italic text-neutral-500 md:text-base">
                 <MapPinIcon className="size-6" />
-                {items.location.title}
+                {items.location?.title}
               </button>
             </div>
 

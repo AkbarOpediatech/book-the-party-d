@@ -30,6 +30,8 @@ interface CategoryPost {
 }
 
 export interface CategoryFetch extends ICategory {
+  _id?: string
+  slug?: string
   featured_image?: string | null
 }
 
