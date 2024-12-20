@@ -8,7 +8,7 @@ type IProps = {
   imgSrc?: string | StaticImageData
   title?: string
   review?: number
-  price?: number
+  price?: number | string | undefined
   Href?: string
   info?: string[]
   chooseLocation?: string
