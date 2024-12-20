@@ -1,7 +1,8 @@
 'use client'
 import SectionHeading from '@/app/(landing)/components/SectionHeading'
 import type { ServiceItem } from '@/redux/features/services/apiSlice'
-import { useAddToWishlistMutation } from '@/redux/features/wishlist/apiSlice'
+import { useAddToWishlistMutation, useFetchWishlistQuery } from '@/redux/features/wishlist/apiSlice'
+import { cn } from '@/utils'
 import { HeartIcon } from '@heroicons/react/16/solid'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -15,9 +16,17 @@ type IProps = {
 }
 
 const ProductFeature: React.FC<IProps> = ({ singleService }) => {
+  const { data: response, isLoading: isFetching } = useFetchWishlistQuery()
+  const wishlistData = response?.data
+  const wishlistDataId = wishlistData?.map(i => i.service?._id)
+
   const [addToWishlist] = useAddToWishlistMutation()
+
   const { data: session } = useSession()
   const router = useRouter()
+
+  // Check if the current service is in the wishlist
+  const isInWishlist = wishlistDataId?.includes(singleService._id)
 
   const handleWishlist = () => {
     if (!session) {
@@ -47,7 +56,7 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Successfully added to cart',
+            title: 'Successfully added to wishlist',
             showConfirmButton: false,
             timer: 2000,
             toast: true
@@ -128,10 +137,14 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
             {singleService.price_type || 'Hourly'})
           </p>
           <button
-            onClick={() => handleWishlist()}
-            className="flex items-center gap-1 rounded-[6px] border px-3 py-2"
+            onClick={handleWishlist}
+            disabled={isInWishlist || isFetching}
+            className={`flex items-center gap-1 rounded-[6px] border px-3 py-2 ${
+              isInWishlist ? 'cursor-not-allowed bg-gray-300 text-red-800' : 'bg-white'
+            }`}
           >
-            <HeartIcon className="size-5 stroke-clr-fb" /> Add to wishlist
+            <HeartIcon className={cn('size-5', isInWishlist && 'fill-red-800')} />
+            {isInWishlist ? 'Already in wishlist' : 'Add to wishlist'}
           </button>
         </div>
       </div>
