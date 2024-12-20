@@ -23,10 +23,12 @@ export type ICategory = {
 
 interface CategoryPost {
   title?: string
+  user?: string
   description?: string
   icon?: string
   featured_image?: File | null
 }
+
 export interface CategoryFetch extends ICategory {
   featured_image?: string | null
 }
@@ -47,7 +49,7 @@ export const categoriesApi = createApi({
       }),
       providesTags: ['Categories']
     }),
-    addCategory: builder.mutation<CategoryPost, Partial<CategoryPost>>({
+    addCategory: builder.mutation<void, FormData>({
       query: formdata => ({
         url: '/categories',
         method: 'POST',

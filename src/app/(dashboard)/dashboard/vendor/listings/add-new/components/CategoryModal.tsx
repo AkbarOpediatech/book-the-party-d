@@ -78,14 +78,16 @@ export default function CategoryModal({ isOpen, onClose, onSubmit }: CategoryMod
 
     formData.append('title', newCategory.title || 'Demo')
     formData.append('description', newCategory.description || 'Demo descroiption')
-    formData.append('icon', icon)
+    formData.append('icon', (icon as string) || '')
     formData.append('featured_image', newCategory.featured_image || '')
+    formData.append('user', '671e14e2767fd06e13e1949a')
 
     console.log('newCategory', newCategory)
     console.log('FormData:', Array.from(formData.entries()))
 
     try {
       const response = await addCategory(formData).unwrap()
+      console.log('response', response)
       onClose()
     } catch (error) {
       console.error('Failed to add category:', error)
