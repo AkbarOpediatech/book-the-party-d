@@ -69,7 +69,7 @@ const Featured = () => {
                   info={items.infos.map(i => i) || 'information'}
                   review={10}
                   price={items.price?.[0]?.value || 0}
-                  chooseLocation={items.location.title}
+                  chooseLocation={items?.location?.title}
                 />
               </SwiperSlide>
             ))}
