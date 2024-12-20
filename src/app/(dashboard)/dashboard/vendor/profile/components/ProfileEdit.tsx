@@ -38,7 +38,7 @@ const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit }) 
     }
 
     for (const [key, value] of formData.entries()) {
-      console.log(`data ${key}:`, value)
+      console.log(`Data ${key}:`, value)
     }
     console.log('formData', formData)
 
