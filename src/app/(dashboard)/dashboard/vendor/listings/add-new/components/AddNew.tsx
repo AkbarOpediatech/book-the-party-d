@@ -1,3 +1,4 @@
+'use client'
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
 import { useFetchCategoriesQuery } from '@/redux/features/categories/apiSlice'
@@ -5,7 +6,9 @@ import { useAddServiceMutation, type IPrice, type ServiceItemPost } from '@/redu
 import { daysOfWeek } from '@/utils'
 import { PlusCircleIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { useSession } from 'next-auth/react'
+import dynamic from 'next/dynamic'
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
+import 'react-quill-new/dist/quill.snow.css'
 import CategoryModal from './CategoryModal'
 import FileUpload from './FileUpload'
 import FixedPrice from './FixedPrice'
@@ -13,7 +16,7 @@ import Hourly from './Hourly'
 import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
-import TextEditor from './TextEditor'
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false })
 
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
@@ -28,6 +31,7 @@ type OptionType = {
   title: string
 }
 const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formData }) => {
+  const [value, setValue] = useState('')
   const [pricingType, setPricingType] = useState<string>('fixed')
   const [file, setFile] = useState<File | null>(null) // To store the selected file
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
@@ -132,6 +136,11 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
     }
   }
 
+  const handleContentChange = (content: string) => {
+    handleChange('description', content)
+    // setFormData(prev => ({ ...prev, blogContent: content }))
+  }
+
   return (
     <div className="w-full max-w-[736px] rounded-lg bg-white p-6 shadow">
       <div className="flex items-center justify-between">
@@ -152,7 +161,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             onChange={e => handleChange('category', e.target.value)}
           />
         )}
-
         <FormInput
           name="title"
           label="Title"
@@ -162,17 +170,11 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           onChange={e => handleChange('title', e.target.value)}
         />
         {/* Description */}
-        {/* <TextEditor
-          value={formData.description || ''}
-          onChange={value => handleChange('description', value)} // Update description value on change
-        /> */}
-        {/* <FormInput
-          name="description"
-          label="Description"
-          type="textarea"
-          customClass="mb-4"
-          onChange={e => handleChange('description', e.target.value)}
-        /> */}
+
+        <div className="mb-4">
+          <label className="mb-2 block text-clr-ab">Description</label>
+          <ReactQuill theme="snow" value={formData.description} onChange={handleContentChange} />
+        </div>
 
         {/* Location */}
         <FormInput
@@ -183,12 +185,9 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           customClass="mb-4"
           onChange={e => handleChange('location', e.target.value)}
         />
-
         {/* inclusions */}
         <Inclusions onChange={e => handleChange('inclusions', [e.target.value])} />
-
         <p className="mb-2 text-sm font-medium text-gray-900">Scheduling window</p>
-
         <div className="mb-6 flex flex-col gap-2">
           {daysOfWeek.map((day, index) => (
             <div key={index} className="flex items-center gap-2">
@@ -228,7 +227,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             </div>
           ))}
         </div>
-
         <FormInput
           name="price"
           label="Price"
@@ -237,7 +235,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           onChange={e => handleChange('price_type', e.target.value)}
           customClass="mb-4"
         />
-
         {pricingType === 'fixed' && (
           <>
             <FixedPrice
@@ -262,7 +259,6 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
         )}
-
         <div className="mt-4">
           <label className="mb-2 block text-sm font-medium text-gray-700" htmlFor="featured_image">
             Featured Image
@@ -275,9 +271,7 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
             className="block w-full rounded-md border border-gray-300 text-sm text-gray-700"
           />
         </div>
-
         <FileUpload onChange={e => handleChange('featured_image', e.target.value)} />
-
         <DashboardButton name="Submit" type="submit" className="mt-5" />
       </form>
       <CategoryModal
