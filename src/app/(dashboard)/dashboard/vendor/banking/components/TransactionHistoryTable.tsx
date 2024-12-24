@@ -37,7 +37,7 @@ const TransactionHistoryTable: React.FC<IProps> = ({
           <div className="whitespace-nowrap">
             <p className="text-sm font-semibold text-clr-36">{row?.service?.title || 'Service name'}</p>
             <p
-              className="h-4 w-64 truncate text-sm text-clr-81"
+              className="h-5 w-64 truncate text-sm text-clr-81"
               dangerouslySetInnerHTML={{ __html: `<p>${row?.service?.infos}</p>` }}
             ></p>
           </div>

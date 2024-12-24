@@ -19,8 +19,6 @@ const Featured = () => {
   const fullResponse = products
   const serviceData = fullResponse?.data
 
-  console.log(serviceData, 'serviceData')
-
   if (isLoading)
     return (
       <div>

@@ -4,7 +4,6 @@ import { HeartIcon, MapPinIcon } from '@heroicons/react/16/solid'
 import '@smastrom/react-rating/style.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import ServiceImage from '/public/assets/package1.png'
 
 type IProps = {
@@ -12,18 +11,18 @@ type IProps = {
 }
 
 const ListItems: React.FC<IProps> = ({ serviceData }) => {
-  const [starRating, setStarRating] = useState(0)
+  // const [starRating, setStarRating] = useState(0)
 
   return (
     <>
       {serviceData?.map((items, index) => (
         <div className="mb-5 flex h-[250px] rounded-3xl border p-2 last:mb-0" key={index}>
-          <div className="overflow-hidden rounded-3xl">
+          <div className="flex-shrink-0 overflow-hidden rounded-3xl">
             <Image
               width={278}
               height={165}
               src={items?.featured_image ? items?.featured_image : ServiceImage}
-              className="w-full"
+              className="w-full flex-shrink-0"
               alt="image"
             />
           </div>
