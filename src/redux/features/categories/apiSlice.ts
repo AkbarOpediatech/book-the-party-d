@@ -36,7 +36,7 @@ export interface CategoryFetch extends ICategory {
 }
 
 interface CategoriesResponse {
-  data?: any[]
+  data?: CategoryFetch[]
 }
 
 // Redux Toolkit Query API
