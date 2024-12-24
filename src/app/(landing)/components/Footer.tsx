@@ -72,11 +72,7 @@ const Footer = () => {
         </Link>
       </div>
       <p className="py-5 text-center text-xs font-light md:text-base lg:text-sm">
-        Copyright © {year} Vacasky. All rights{' '}
-        <Link href={'https://iamashiqur.vercel.app/'} className="cursor-text" target="_blank">
-          reserved
-        </Link>
-        .
+        Copyright © {year} Vacasky. All rights reserved.
       </p>
     </footer>
   )

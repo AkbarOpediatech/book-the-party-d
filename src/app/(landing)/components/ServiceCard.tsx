@@ -22,12 +22,15 @@ const ServiceCard: React.FC<IProps> = ({ imgSrc, title, info, price, Href, choos
       </div>
       <div className="flex h-[200px] flex-col justify-between p-5">
         <div className="">
-          <Link href={Href || ''} className="mb-2 font-sora text-lg font-semibold text-neutral-900">
+          <Link
+            href={Href || ''}
+            className="mb-2 block truncate font-sora text-lg font-semibold text-neutral-900"
+          >
             {title}
           </Link>
 
           <div className="h-12 overflow-hidden">
-            <p className="text-sm font-extrabold italic text-neutral-500 md:text-base"> {info} </p>
+            <p className="truncate text-sm font-extrabold italic text-neutral-500 md:text-base"> {info} </p>
           </div>
         </div>
 
