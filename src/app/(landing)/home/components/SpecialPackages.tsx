@@ -60,7 +60,7 @@ const SpecialPackages: React.FC<IProps> = ({ data }) => {
               <Image
                 width={250}
                 height={250}
-                src={items.featured_image || ICdemo}
+                src={items?.featured_image || ICdemo}
                 className="h-[350px] w-full overflow-hidden object-fill"
                 alt="image"
               />

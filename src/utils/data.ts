@@ -839,12 +839,12 @@ export const footerNav = [
     id: 4,
     name: 'Terms & Conditions',
     url: '/terms-and-conditions'
-  },
-  {
-    id: 5,
-    name: 'Vendor',
-    url: '/dashboard/vendor'
   }
+  // {
+  //   id: 5,
+  //   name: 'Vendor',
+  //   url: '/dashboard/vendor'
+  // }
 ]
 
 export const footerSocialItems: IFooterSocialItems[] = [

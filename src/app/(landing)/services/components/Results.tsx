@@ -2,7 +2,7 @@
 
 import usePagination from '@/hooks/usePagination'
 import { useFetchServicesQuery } from '@/redux/features/services/apiSlice'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Loader from '../../components/Loader/Loader'
 import GridItems from './GridItems'
 import ListItems from './ListItems'
@@ -30,9 +30,9 @@ const Results = ({ searchParams }: ResultsProps) => {
 
   const location = locationParam ? decodeURIComponent(locationParam).split(',').filter(Boolean) : []
 
-  useEffect(() => {
-    console.log('categories, location', categories, location)
-  }, [categories, location])
+  // useEffect(() => {
+  //   console.log('categories, location', categories, location)
+  // }, [categories, location])
 
   const [filters, setFilters] = useState<FilterState>({
     title: '',

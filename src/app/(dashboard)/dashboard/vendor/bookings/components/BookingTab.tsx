@@ -1,5 +1,5 @@
 'use client'
-import type { IOrder } from '@/redux/features/bookings/apiSlice'
+import { type IOrder } from '@/redux/features/bookings/apiSlice'
 import { cn } from '@/utils'
 
 type IProps = {
@@ -10,7 +10,6 @@ type IProps = {
 }
 
 const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }) => {
-  console.log(totalRecords, 'bookingData')
   const allCount = totalRecords
   const completeCount = bookingData.filter(i => i.status === 'completed').length
   const pendingCount = bookingData.filter(i => i.status === 'pending').length
