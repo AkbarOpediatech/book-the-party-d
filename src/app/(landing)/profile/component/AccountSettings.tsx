@@ -1,4 +1,5 @@
 import type { IUser } from '@/redux/features/user/apiSlice'
+import { useUpdateUserMutation } from '@/redux/features/user/apiSlice'
 import { billingAddress, cn, personalInfo } from '@/utils'
 import React, { useCallback, useState } from 'react'
 import CustomBtn from '../../components/CustomBtn'
@@ -13,6 +14,7 @@ const AccountSettings: React.FC<IProps> = ({ data }) => {
   const [personalData, setPersonalData] = useState(personalInfo)
   const [billingData, setBillingData] = useState(billingAddress)
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({})
+  const [updateUser] = useUpdateUserMutation()
 
   const validateFields = useCallback((data: typeof personalData) => {
     const newErrors: { [key: string]: string } = {}
@@ -65,20 +67,43 @@ const AccountSettings: React.FC<IProps> = ({ data }) => {
   )
 
   const handleProfileInfoSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
+
+      const allData = [...personalData, ...billingData]
+      const formattedData = allData.reduce(
+        (acc, item) => {
+          acc[item.label] = item.value
+          return acc
+        },
+        {} as { [key: string]: string }
+      )
+
       if (isEditing) {
-        const allData = [...personalData, ...billingData]
         const newErrors = validateFields(allData)
 
         if (Object.keys(newErrors).length > 0) {
           setFieldErrors(newErrors)
           return
         }
-        setIsEditing(false)
+        setFieldErrors({})
+
+        const formData = new FormData()
+        Object.entries(formattedData).forEach(([key, value]) => {
+          formData.append(key, value)
+        })
+
+        try {
+          await updateUser({ id: data?._id, formData })
+          alert('Profile updated successfully!')
+          setIsEditing(false)
+        } catch (error) {
+          console.error('Error updating profile:', error)
+          alert('Failed to update profile. Please try again.')
+        }
       }
     },
-    [isEditing, personalData, billingData, validateFields]
+    [isEditing, personalData, billingData, validateFields, updateUser, data]
   )
 
   const renderInput = useCallback(

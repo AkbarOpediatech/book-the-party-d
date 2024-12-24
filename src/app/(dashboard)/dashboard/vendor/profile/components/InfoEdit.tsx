@@ -22,10 +22,12 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
 
   const [formData, setFormData] = useState({
     name: userInfo?.name || 'Dihan Opedia',
-    description: userInfo?.about || 'fsd f',
-    email: userInfo?.email || user?.email,
-    phone: userInfo?.phone || '',
-    language: userInfo?.languages || 'Bangla'
+    about: userInfo?.about || 'Your About',
+    email: userInfo?.email || user?.email || '',
+    phone: userInfo?.phone || '0123456789',
+    language: userInfo?.languages || 'Bangla',
+    specialized: userInfo?.specialized || '',
+    location: userInfo?.location || 'Your Location'
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -40,22 +42,31 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
       return
     }
 
-    console.log('Service added response:', formData)
+    console.log('Service added response:', userInfo._id)
 
-    // try {
-    //   const response = await updateUser(formData).unwrap()
-    //   setShowInfoEdit(false)
-    //   await update({
-    //     user: {
-    //       ...session?.user,
-    //       name: response.name,
-    //       email: response.email,
-    //       avatar: response.avatar
-    //     }
-    //   })
-    // } catch (error) {
-    //   console.log('Error')
-    // }
+    try {
+      const formDataToSubmit = new FormData()
+      formDataToSubmit.append('name', formData.name)
+      formDataToSubmit.append('about', formData.about)
+      formDataToSubmit.append('email', userInfo.email || formData.email)
+      formDataToSubmit.append('phone', formData.phone)
+      formDataToSubmit.append('language', formData.language.toString())
+      formDataToSubmit.append('specialized', formData.specialized.toString())
+      formDataToSubmit.append('location', formData.location)
+
+      const response = await updateUser({ id: userInfo._id, formData: formDataToSubmit }).unwrap()
+      setShowInfoEdit(false)
+      await update({
+        user: {
+          ...session?.user,
+          name: response.name,
+          email: response.email,
+          avatar: response.avatar
+        }
+      })
+    } catch (error) {
+      console.error('Error updating user:', error)
+    }
   }
 
   return (
@@ -84,23 +95,23 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="textarea"
                 name="about"
                 placeholder="Description"
-                value={formData.description}
+                value={formData.about}
                 onChange={handleChange}
                 customClass="mb-4"
               />
-              {/* <FormInput
+              <FormInput
                 type="text"
                 name="location"
-                placeholder="Location"
-                // value={formData.}
+                placeholder="Enter Location"
+                value={formData.location}
                 onChange={handleChange}
                 customClass="mb-4"
-              /> */}
+              />
               <FormInput
                 type="text"
                 name="specialized"
-                placeholder="Specialized in"
-                // value={formData.specialized}
+                placeholder="Specialized In"
+                value={formData.specialized}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -108,13 +119,14 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="email"
                 name="email"
                 placeholder="Email Address"
-                value={formData.email}
+                value={userInfo?.email}
                 onChange={handleChange}
                 customClass="mb-4"
+                readOnly={true}
               />
               <FormInput
                 type="tel"
-                name="tel"
+                name="phone"
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
@@ -124,7 +136,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="select"
                 name="language"
                 placeholder="Language"
-                // value={formData.language}
+                value={formData.language}
                 options={['Bangla', 'English', 'Spanish', 'French']}
                 onChange={handleChange}
                 customClass="mb-4"

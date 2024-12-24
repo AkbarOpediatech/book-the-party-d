@@ -7,7 +7,8 @@ type IProps = {
   catData?: boolean
   customClass?: string
   options?: (string | OptionType)[]
-  value?: string
+  value?: string | string[]
+  readOnly?: boolean
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => void | undefined
@@ -21,9 +22,9 @@ const FormInput: React.FC<IProps> = ({
   placeholder,
   onChange,
   catData,
-  value
+  value,
+  readOnly
 }) => {
-  console.log('options', options)
   return (
     <div className={customClass}>
       <label htmlFor={name} className="mb-2 block text-clr-ab">
@@ -58,6 +59,7 @@ const FormInput: React.FC<IProps> = ({
       ) : type === 'textarea' ? (
         <textarea
           name={name}
+          value={value}
           onChange={onChange}
           className="font-inter min-h-[164px] w-full rounded-md border border-gray-300 p-3 text-gray-500"
         ></textarea>
@@ -67,6 +69,7 @@ const FormInput: React.FC<IProps> = ({
           name={name}
           value={value}
           onChange={onChange}
+          readOnly={readOnly}
           placeholder={placeholder}
           className="font-inter w-full rounded-md border border-gray-300 p-3 text-gray-500"
         />

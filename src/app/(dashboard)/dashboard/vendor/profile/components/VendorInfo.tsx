@@ -9,8 +9,8 @@ type IProps = {
   setShowInfoEdit: (showIndex: boolean) => void
   data: IUser | undefined
 }
-
 const VendorInfo: React.FC<IProps> = ({ setShowInfoEdit, data }) => {
+  console.log(data, 'data')
   return (
     <div>
       <div className="mb-6 flex items-center gap-2">
@@ -32,13 +32,13 @@ USA Designer, Creating things that stand out, Featured by Adobe, Figma, Webflow 
 
           <Info
             title="Location"
-            value={'California, United States of America'} //TODO:: Data is not found
+            value={data?.location || 'California, United States of America'} //TODO:: Data is not found
             icon={<MapPinIcon className="size-3.5 text-gray-400" />}
           />
 
           <Info
             title="Specialized in"
-            value={data?.specialized?.map(i => i[0]) || 'Frontend Developer'}
+            value={data?.specialized?.map(i => i) || 'Frontend Developer'}
             icon={<BriefcaseIcon className="size-3.5 text-gray-400" />}
           />
         </div>

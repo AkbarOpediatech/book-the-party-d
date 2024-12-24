@@ -28,6 +28,7 @@ const Profile = () => {
   })
 
   const userInfo = response?.data
+  console.log(userInfo, 'userInfo')
 
   return (
     <div>
@@ -40,7 +41,11 @@ const Profile = () => {
         {tab === 1 && <BankingInfo setShowBankInfoEdit={setShowBankInfoEdit} />}
       </div>
 
-      <ProfileEdit showProfileEdit={showProfileEdit} setShowProfileEdit={setShowProfileEdit} />
+      <ProfileEdit
+        showProfileEdit={showProfileEdit}
+        data={userInfo}
+        setShowProfileEdit={setShowProfileEdit}
+      />
       <InfoEdit showInfoEdit={showInfoEdit} setShowInfoEdit={setShowInfoEdit} userInfo={userInfo} />
       <BankInfoEdit showBankInfoEdit={showBankInfoEdit} setShowBankInfoEdit={setShowBankInfoEdit} />
     </div>

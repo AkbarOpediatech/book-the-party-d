@@ -11,6 +11,7 @@ export interface IUser {
   password?: string
   avatar?: string
   role?: string
+  location?: string
   languages?: string[]
   specialized?: string[]
   stripe_acct?: {
@@ -117,13 +118,13 @@ export const usersApi = createApi({
       providesTags: (result, error, id) => [{ type: 'User', id: id }]
     }),
 
-    updateUser: builder.mutation<IUserPostUpdate, FormData>({
-      query: rest => ({
-        url: `/users/671e315ed10e02c3ec3dacc3`,
+    updateUser: builder.mutation<IUserPostUpdate, { id: string | undefined; formData: FormData }>({
+      query: ({ id, formData }) => ({
+        url: `/users/${id}`,
         method: 'PATCH',
-        body: rest
+        body: formData
       }),
-      invalidatesTags: ['User']
+      invalidatesTags: (result, error, { id }) => [{ type: 'User', id }]
     })
   })
 })

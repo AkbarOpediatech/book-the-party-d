@@ -1,13 +1,14 @@
-import { useUpdateUserMutation } from '@/redux/features/user/apiSlice'
+import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useRef, useState } from 'react'
 
 type IProps = {
   showProfileEdit: boolean
   setShowProfileEdit: (showIndex: boolean) => void
+  data: IUser | undefined
 }
 
-const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit }) => {
+const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit, data }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File | null>(null)
   const [ProfileformData, setFormData] = useState({})
@@ -43,7 +44,7 @@ const ProfileEdit: React.FC<IProps> = ({ setShowProfileEdit, showProfileEdit }) 
     console.log('formData', formData)
 
     try {
-      const response = await updateUser(formData).unwrap()
+      const response = await updateUser({ id: data?._id, formData: formData }).unwrap()
       console.log('Profile updated successfully:', response)
       alert('Profile updated successfully!')
     } catch (err) {
