@@ -7,7 +7,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import ICdemo from '/public/assets/ic-food.svg'
+import ICdemo from '/public/assets/package1.png'
 
 type IProps = {
   data: CategoryFetch[]
