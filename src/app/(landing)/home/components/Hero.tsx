@@ -4,6 +4,7 @@ import type { ICategory } from '@/redux/features/categories/apiSlice'
 import { eventFeaturesIcon } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import ICDemo from '/public//assets//ic-fb.svg'
 import heroBg from '/public/assets/banner-img.png'
 
 type IProps = {
@@ -123,7 +124,7 @@ const Hero: React.FC<IProps> = ({ data }) => {
                 className="inline-flex h-full w-[150px] flex-col flex-wrap rounded-2xl border border-white bg-clr-fb px-3 py-5 md:py-10"
               >
                 <div className="mb-3 flex justify-center">
-                  <Image src={eventFeaturesIcon[index]?.icon as string} alt="icon" />
+                  <Image width={20} height={20} src={eventFeaturesIcon[index]?.icon || ICDemo} alt="icon" />
                 </div>
 
                 <span className="block text-center font-sora text-sm font-semibold text-white">
