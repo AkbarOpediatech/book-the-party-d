@@ -24,7 +24,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
     name: userInfo?.name || 'Dihan Opedia',
     description: userInfo?.about || 'fsd f',
     email: userInfo?.email || user?.email,
-    tel: userInfo?.phone || '',
+    phone: userInfo?.phone || '',
     language: userInfo?.languages || 'Bangla'
   })
 
@@ -42,20 +42,20 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
 
     console.log('Service added response:', formData)
 
-    try {
-      const response = await updateUser(formData).unwrap()
-      setShowInfoEdit(false)
-      await update({
-        user: {
-          ...session?.user,
-          name: response.name,
-          email: response.email,
-          avatar: response.avatar
-        }
-      })
-    } catch (error) {
-      console.log('Error')
-    }
+    // try {
+    //   const response = await updateUser(formData).unwrap()
+    //   setShowInfoEdit(false)
+    //   await update({
+    //     user: {
+    //       ...session?.user,
+    //       name: response.name,
+    //       email: response.email,
+    //       avatar: response.avatar
+    //     }
+    //   })
+    // } catch (error) {
+    //   console.log('Error')
+    // }
   }
 
   return (
@@ -116,7 +116,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 type="tel"
                 name="tel"
                 placeholder="Phone Number"
-                value={formData.tel}
+                value={formData.phone}
                 onChange={handleChange}
                 customClass="mb-4"
               />
@@ -135,7 +135,11 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 <DashboardButton name="Cancel" onClick={() => setShowInfoEdit(false)} type="button" />
               </div>
             </form>
-            {isLoading && <p className="mt-2 text-center"><Loader type='loading'/></p>}
+            {isLoading && (
+              <p className="mt-2 text-center">
+                <Loader type="loading" />
+              </p>
+            )}
             {isError && <p className="mt-2 text-center text-red-500">Failed to update. Try again.</p>}
           </DialogPanel>
         </div>

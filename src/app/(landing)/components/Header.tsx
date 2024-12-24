@@ -76,7 +76,9 @@ const Header = () => {
                     <div className="relative">
                       <Image width={20} height={20} src={ICCart} alt="cart" />
                       {cartItems?.data && cartItems?.data.length > 0 && (
-                        <span className={badgeClasses}>{cartItems?.data.length}</span>
+                        <span className={badgeClasses}>
+                          {cartItems?.data.length ? cartItems?.data.length : 0}
+                        </span>
                       )}
                     </div>
                   </Link>

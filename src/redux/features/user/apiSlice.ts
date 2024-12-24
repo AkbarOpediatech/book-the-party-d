@@ -59,6 +59,33 @@ export interface IUserPost {
   phone_verified_at?: Date | null
   status?: string
 }
+export interface IUserPostUpdate {
+  name?: string
+  email?: string
+  phone?: string
+  password?: string
+  avatar?: File | null
+  role?: string
+  languages?: string[]
+  specialized?: string[]
+  stripe_acct?: {
+    id: string
+    capabilities: {
+      card_payments: string
+      transfers: string
+    }
+    charges_enabled?: boolean
+    payouts_enabled?: boolean
+    details_submitted?: boolean
+    requirements?: {
+      disabled_reason?: string | null
+    }
+  } | null
+  about?: string
+  email_verified_at?: Date | null
+  phone_verified_at?: Date | null
+  status?: string
+}
 
 interface UserResponse {
   data: IUser
@@ -90,7 +117,7 @@ export const usersApi = createApi({
       providesTags: (result, error, id) => [{ type: 'User', id: id }]
     }),
 
-    updateUser: builder.mutation<IUserPost, IProfileFormData>({
+    updateUser: builder.mutation<IUserPostUpdate, FormData>({
       query: rest => ({
         url: `/users/671e315ed10e02c3ec3dacc3`,
         method: 'PATCH',

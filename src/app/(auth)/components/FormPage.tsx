@@ -33,6 +33,7 @@ const FormPage: React.FC = () => {
     })
   }
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('Registration')
     e.preventDefault()
     dispatch(setLoading(true))
     dispatch(setError(null))
@@ -44,7 +45,7 @@ const FormPage: React.FC = () => {
     }
 
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_LIVE_API}/auth/registration`, formData, {
+      await axios.post(`http://localhost:5000/api/v1/auth/registration`, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -73,7 +74,7 @@ const FormPage: React.FC = () => {
   return (
     <>
       <p className="mb-5 text-xl font-medium">Let&apos;s create an account</p>
-      <form onSubmit={handleSubmit} className="mb-5">
+      <form className="mb-5">
         <div className="mb-4">
           <InputField
             LabelName="User Name"
@@ -145,13 +146,14 @@ const FormPage: React.FC = () => {
           />
         </div>
 
-        <button
+        {/* <button
           type="submit"
           className="flex w-full items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2"
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
-        </button>
+        </button> */}
+        <p onClick={handleSubmit}>Click</p>
         {error && <p className="mt-3 text-red-500">{error}</p>}
       </form>
     </>
