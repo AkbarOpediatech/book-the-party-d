@@ -31,10 +31,6 @@ const Results = ({ searchParams }: ResultsProps) => {
 
   const location = locationParam ? decodeURIComponent(locationParam).split(',').filter(Boolean) : []
 
-  // useEffect(() => {
-  //   console.log('categories, location', categories, location)
-  // }, [categories, location])
-
   const [filters, setFilters] = useState<FilterState>({
     title: titleParam || '',
     description: '',
