@@ -45,14 +45,6 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
     // try {
     //   const response = await updateUser(formData).unwrap()
     //   setShowInfoEdit(false)
-    //   await update({
-    //     user: {
-    //       ...session?.user,
-    //       name: response.name,
-    //       email: response.email,
-    //       avatar: response.avatar
-    //     }
-    //   })
     // } catch (error) {
     //   console.log('Error')
     // }

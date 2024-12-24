@@ -22,16 +22,12 @@ const Profile = () => {
   const { data: response } = useFetchUserByIdQuery(userId, {
     skip: !userId
   })
-
-  console.log('response', response)
   const userInfo = response?.data
 
   useEffect(() => {}, [])
 
-  console.log(userInfo, 'userInfo')
-
   const handleTabChange = (tabName: string) => {
-    dispatch(setActiveTab(tabName)) // Update the Redux state
+    dispatch(setActiveTab(tabName))
   }
 
   return (
