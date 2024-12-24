@@ -25,6 +25,7 @@ const Results = ({ searchParams }: ResultsProps) => {
   const { currentPage, pageLimit, handlePageChange } = usePagination()
   const categoriesParam = searchParams.get('categories')
   const locationParam = searchParams.get('location')
+  const titleParam = searchParams.get('title')
 
   const categories = categoriesParam ? decodeURIComponent(categoriesParam).split(',').filter(Boolean) : []
 
@@ -35,10 +36,12 @@ const Results = ({ searchParams }: ResultsProps) => {
   // }, [categories, location])
 
   const [filters, setFilters] = useState<FilterState>({
-    title: '',
+    title: titleParam || '',
     description: '',
     category: categories
   })
+
+  console.log('titleParam', titleParam)
 
   const {
     data: products,

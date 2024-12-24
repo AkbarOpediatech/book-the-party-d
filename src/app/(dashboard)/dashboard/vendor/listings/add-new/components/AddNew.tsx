@@ -13,6 +13,7 @@ import Hourly from './Hourly'
 import Inclusions from './Inclusions'
 import MultiplePrice from './MultiplePrice'
 import SecurityDeposit from './SecurityDeposit'
+import TextEditor from './TextEditor'
 
 type IProps = {
   setStep: Dispatch<SetStateAction<number>>
@@ -161,13 +162,17 @@ const AddNew: React.FC<IProps> = ({ setStep, isEditListing, handleChange, formDa
           onChange={e => handleChange('title', e.target.value)}
         />
         {/* Description */}
-        <FormInput
+        {/* <TextEditor
+          value={formData.description || ''}
+          onChange={value => handleChange('description', value)} // Update description value on change
+        /> */}
+        {/* <FormInput
           name="description"
           label="Description"
           type="textarea"
           customClass="mb-4"
           onChange={e => handleChange('description', e.target.value)}
-        />
+        /> */}
 
         {/* Location */}
         <FormInput
