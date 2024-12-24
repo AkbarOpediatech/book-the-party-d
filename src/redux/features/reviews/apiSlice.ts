@@ -87,6 +87,10 @@ export interface ReviewsItem extends GlobalReviewsItem {
   category?: ICategory
   location?: ILocation
   featured_image?: string
+  description: string
+  rating: number
+  Reviews: ReviewsItem
+  status: string
 }
 export interface ReviewsItemPost extends GlobalReviewsItem {
   user?: string
