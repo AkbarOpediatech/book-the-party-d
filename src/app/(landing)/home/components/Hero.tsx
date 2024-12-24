@@ -31,16 +31,16 @@ const Hero: React.FC<IProps> = ({ data }) => {
           <form onSubmit={handleSearchClick}>
             <ul className="flex flex-wrap items-center gap-5 xl:flex-nowrap">
               <li className="w-full border-b pb-5 md:border-b-0 md:pb-0">
-                <label htmlFor="search" className="mb-1 block font-sora text-sm font-semibold">
+                <label htmlFor="title" className="mb-1 block font-sora text-sm font-semibold">
                   Search
                 </label>
 
                 <input
                   className="w-full xl:w-64"
-                  id="search"
-                  type="search"
+                  id="title"
+                  type="text"
                   placeholder="Outdoor Marquee hire"
-                  value={formData.search}
+                  value={formData.title}
                   onChange={handleInputChange}
                   required
                 />
@@ -66,7 +66,7 @@ const Hero: React.FC<IProps> = ({ data }) => {
               </li>
 
               <li className="w-full border-b pb-5 md:border-b-0 md:pb-0 lg:mr-5 lg:pr-5 xl:border-r">
-                <label htmlFor="category" className="mb-1 block font-sora text-sm font-semibold">
+                <label htmlFor="categories" className="mb-1 block font-sora text-sm font-semibold">
                   Categories
                 </label>
 

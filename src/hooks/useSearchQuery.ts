@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface SearchFormData {
-  search: string
+  title: string
   location: string
   categories: string
   date: string
@@ -12,7 +12,7 @@ const useSearchQuery = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState<SearchFormData>({
-    search: '',
+    title: '',
     location: '',
     categories: '',
     date: ''
@@ -27,9 +27,12 @@ const useSearchQuery = () => {
     e.preventDefault()
     setIsLoading(true)
 
-    const query = new URLSearchParams(
-      Object.fromEntries(Object.entries(formData).map(([key, value]) => [key, value.toString()]))
-    ).toString()
+    // Filter out empty fields from formData
+    const filteredFormData = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value.trim() !== '')
+    )
+
+    const query = new URLSearchParams(filteredFormData).toString()
 
     // Simulate API call or navigation delay
     await new Promise(resolve => setTimeout(resolve, 1000)) // Simulated delay

@@ -36,11 +36,8 @@ const Footer = () => {
           {/* footer nav items */}
           <ul className="flex flex-wrap gap-1">
             {footerNav.map((i, index) => (
-              <li key={index}>
-                <Link
-                  className="mr-2 border-r border-r-gray-500 pr-2 text-sm font-light text-black md:text-base"
-                  href={i.url}
-                >
+              <li key={index} className="mr-2 border-r border-r-gray-500 pr-2 last:border-r-0">
+                <Link className="text-sm font-light text-black md:text-base" href={i.url}>
                   {i.name}
                 </Link>
               </li>
