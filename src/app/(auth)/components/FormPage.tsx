@@ -146,14 +146,15 @@ const FormPage: React.FC = () => {
           />
         </div>
 
-        {/* <button
+        <button
+          onClick={handleSubmit}
           type="submit"
           className="flex w-full items-center justify-center gap-2 rounded-md bg-clr-fb px-2 py-1 text-white lg:px-3 lg:py-2"
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
-        </button> */}
-        <p onClick={handleSubmit}>Click</p>
+        </button>
+        {/* <p onClick={handleSubmit}>Click</p> */}
         {error && <p className="mt-3 text-red-500">{error}</p>}
       </form>
     </>

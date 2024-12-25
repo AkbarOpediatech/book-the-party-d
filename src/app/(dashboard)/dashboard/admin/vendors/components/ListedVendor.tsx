@@ -1,51 +1,49 @@
-import { cn, vendorsData, type IVendorsData } from '@/utils'
+import type { IUser } from '@/redux/features/user/apiSlice'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import vendorImg from '/public/assets/avatar.jpeg'
 
-const ListedVendor = () => {
-  const columns: TableColumn<IVendorsData>[] = [
+type IProps = {
+  data: IUser[]
+}
+
+const ListedVendor: React.FC<IProps> = ({ data }) => {
+  const columns: TableColumn<IUser>[] = [
     {
       name: 'Vendor Name',
-      cell: (row: IVendorsData) => (
-        <Link href={`/dashboard/admin/vendors/${row.id}`} className="flex items-center gap-4">
+      cell: (row: IUser) => (
+        <Link href={`/dashboard/admin/vendors/${row?._id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row.image} alt="Product Image" />
+            <Image width={50} height={50} src={row?.avatar || vendorImg} alt="Product Image" />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.vendorName}</p>
-            <p className="text-sm text-clr-81">{row.vendorDesc}</p>
+            <p className="text-sm font-semibold text-clr-36">{row?.name}</p>
+            <p className="text-sm text-clr-81">{row?.about}</p>
           </div>
         </Link>
       ),
       sortable: true,
       width: '400px'
     },
+
     {
       name: 'Join date',
-      selector: (row: IVendorsData) => row.joinDate ?? '',
-      sortable: true
-    },
-    {
-      name: 'Availability',
-      cell: (row: IVendorsData) => (
-        <div
-          className={cn(
-            'rounded-md px-2 py-[1px] text-sm font-bold capitalize',
-            row.availability === 'available' ? 'bg-clr-1c/20 text-clr-1c' : 'bg-clr-d48/20 text-clr-d48'
-          )}
-        >
-          {row.availability}
-        </div>
-      ),
+      selector: (row: IUser) => row?.createdAt ?? '',
       sortable: true
     },
 
     {
-      name: 'Total Bookings',
-      selector: (row: IVendorsData) => row.totalBookings ?? 0,
+      name: 'Phone',
+      selector: (row: IUser) => row?.phone ?? '',
+      sortable: true
+    },
+
+    {
+      name: 'Email',
+      selector: (row: IUser) => row?.email ?? '',
       sortable: true
     },
 
@@ -65,11 +63,6 @@ const ListedVendor = () => {
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                 View Vendor
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Edit
               </button>
             </MenuItem>
             <MenuItem>
@@ -114,7 +107,7 @@ const ListedVendor = () => {
     <div className="p-2">
       <DataTable
         columns={columns}
-        data={vendorsData}
+        data={data}
         pagination
         customStyles={customStyles}
         selectableRows

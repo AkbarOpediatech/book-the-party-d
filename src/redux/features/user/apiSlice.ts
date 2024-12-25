@@ -5,6 +5,7 @@ import type { File } from 'buffer'
 // Define the TypeScript types for your data
 export interface IUser {
   _id?: string
+  createdAt?: string
   name?: string
   email?: string
   phone?: string

@@ -1,5 +1,4 @@
 'use client'
-import { useFetchUserQuery } from '@/redux/features/user/apiSlice'
 import { useState } from 'react'
 import BankInfoEdit from './components/BankInfoEdit'
 import BankingInfo from './components/BankingInfo'

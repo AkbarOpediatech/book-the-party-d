@@ -48,17 +48,17 @@ const TransactionHistoryTable: React.FC<IProps> = ({
     },
     {
       name: 'Amount',
-      selector: (row: IBanking) => row.amount,
+      selector: (row: IBanking) => row?.amount,
       sortable: true
     },
     {
       name: 'Date',
-      selector: (row: IBanking) => row.updatedAt,
+      selector: (row: IBanking) => row?.updatedAt,
       sortable: true
     },
     {
       name: 'ID',
-      selector: (row: IBanking) => row.order,
+      selector: (row: IBanking) => row?.order,
       sortable: true,
       width: '100px'
     },
@@ -68,11 +68,11 @@ const TransactionHistoryTable: React.FC<IProps> = ({
         <span
           className={cn(
             'whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-bold capitalize text-gray-500',
-            row.status === 'succeeded' && 'bg-green-100 text-green-500',
-            row.status === 'canceled' && 'bg-red-100 text-red-500'
+            row?.status === 'succeeded' && 'bg-green-100 text-green-500',
+            row?.status === 'canceled' && 'bg-red-100 text-red-500'
           )}
         >
-          {row.status}
+          {row?.status}
         </span>
       ),
       sortable: true,

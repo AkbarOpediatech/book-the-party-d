@@ -29,14 +29,11 @@ const BookingAllTable: React.FC<IProps> = ({
       cell: (row: IOrder) => (
         <div className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image
-              src={row.service_embedded.featured_image ? row.service_embedded.featured_image : productImage}
-              alt="Product Image"
-            />
+            <Image src={row?.service_embedded?.featured_image || productImage} alt="Product Image" />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.service_embedded.title}</p>
-            <p className="w-28 truncate text-sm text-clr-81">{row.order}</p>
+            <p className="text-sm font-semibold text-clr-36">{row?.service_embedded?.title}</p>
+            <p className="w-28 truncate text-sm text-clr-81">{row?.order}</p>
           </div>
         </div>
       ),
@@ -46,29 +43,29 @@ const BookingAllTable: React.FC<IProps> = ({
     {
       name: 'Start Date',
       selector: (row: IOrder) =>
-        row.selected_date.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
+        row?.selected_date?.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
       sortable: true
     },
     {
       name: 'End Date',
       selector: (row: IOrder) =>
-        row.selected_date.map(i => new Date(i.end_date).toLocaleDateString('en-GB')).join(', '),
+        row?.selected_date?.map(i => new Date(i.end_date).toLocaleDateString('en-GB')).join(', '),
       sortable: true
     },
     {
       name: 'Sale Total',
-      cell: (row: IOrder) => <div>${row.amount.total}</div>,
+      cell: (row: IOrder) => <div>${row?.amount?.total}</div>,
       sortable: true
     },
     {
       name: 'Fee(10%)',
-      cell: (row: IOrder) => <div>${row.amount.order_fee}</div>,
+      cell: (row: IOrder) => <div>${row?.amount?.order_fee}</div>,
 
       sortable: true
     },
     {
       name: 'Total payout(incl GST)',
-      cell: (row: IOrder) => <div>${row.amount.discounted_service_total}</div>,
+      cell: (row: IOrder) => <div>${row?.amount?.discounted_service_total}</div>,
       sortable: true
     },
     {
@@ -77,12 +74,12 @@ const BookingAllTable: React.FC<IProps> = ({
         <span
           className={cn(
             'whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-bold capitalize text-gray-500',
-            row.status === 'completed' && 'bg-green-100 text-green-500',
-            row.status === 'pending' && 'bg-red-100 text-red-500',
-            row.status === 'processing' && 'bg-yellow-100 text-yellow-500'
+            row?.status === 'completed' && 'bg-green-100 text-green-500',
+            row?.status === 'pending' && 'bg-red-100 text-red-500',
+            row?.status === 'processing' && 'bg-yellow-100 text-yellow-500'
           )}
         >
-          {row.status}
+          {row?.status}
         </span>
       ),
       sortable: true

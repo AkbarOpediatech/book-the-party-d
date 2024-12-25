@@ -46,17 +46,17 @@ const MultiplePrice = () => {
             <input
               type="text"
               placeholder="5-10"
-              value={row.range}
+              value={row?.range}
               onChange={e => handleInputChange(index, 'range', e.target.value)}
-              className={`max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 font-inter text-sm md:p-3 ${row.error ? 'border-red-500' : ''}`}
+              className={`font-inter max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm md:p-3 ${row?.error ? 'border-red-500' : ''}`}
             />
             <p className="text-xs text-clr-ab md:text-sm">will take</p>
             <input
               type="number"
               placeholder="$450.00"
-              value={row.price}
+              value={row?.price}
               onChange={e => handleInputChange(index, 'price', e.target.value)}
-              className="max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 font-inter text-sm md:p-3"
+              className="font-inter max-w-[110px] rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm md:p-3"
             />
             <button type="button" onClick={handleAddRow}>
               <PlusCircleIcon className="size-5 fill-gray-400" />
@@ -66,7 +66,7 @@ const MultiplePrice = () => {
             </button>
           </div>
 
-          {row.error && <p className="text-sm text-red-500">{row.error}</p>}
+          {row?.error && <p className="text-sm text-red-500">{row?.error}</p>}
         </div>
       ))}
 

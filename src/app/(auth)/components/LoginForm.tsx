@@ -48,6 +48,7 @@ const LoginForm = () => {
             onBlur={event => setEmail(event.target.value)}
           />
         </div>
+
         <div className="mb-2">
           <label htmlFor="password" className="mb-2 block font-sora font-light text-clr-0f">
             Password
@@ -75,6 +76,7 @@ const LoginForm = () => {
             </button>
           </div>
         </div>
+
         <div className="mb-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <input type="checkbox" id="remember" className="accent-clr-fb" />

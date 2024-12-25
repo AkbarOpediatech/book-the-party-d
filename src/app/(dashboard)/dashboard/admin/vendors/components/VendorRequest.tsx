@@ -1,3 +1,5 @@
+import { useFetchUserByIdQuery, useUpdateUserMutation } from '@/redux/features/user/apiSlice'
+import { useToken } from '@/redux/hooks/useToken'
 import { vendorsData, type IVendorsData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
@@ -10,13 +12,13 @@ const VendorRequest = () => {
     {
       name: 'Vendor Name',
       cell: (row: IVendorsData) => (
-        <Link href={`/dashboard/admin/vendors/${row.id}`} className="flex items-center gap-4">
+        <Link href={`/dashboard/admin/vendors/${row?.id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row.image} alt="Product Image" />
+            <Image src={row?.image} alt="Product Image" />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row.vendorName}</p>
-            <p className="text-sm text-clr-81">{row.vendorDesc}</p>
+            <p className="text-sm font-semibold text-clr-36">{row?.vendorName}</p>
+            <p className="text-sm text-clr-81">{row?.vendorDesc}</p>
           </div>
         </Link>
       ),
@@ -24,7 +26,7 @@ const VendorRequest = () => {
     },
     {
       name: 'Join date',
-      selector: (row: IVendorsData) => row.joinDate,
+      selector: (row: IVendorsData) => row?.joinDate,
       sortable: true
     },
     {
@@ -86,6 +88,7 @@ const VendorRequest = () => {
         color: '#637381'
       }
     },
+
     rows: {
       style: {
         backgroundColor: 'inherit !important',
@@ -95,6 +98,7 @@ const VendorRequest = () => {
         border: 'none'
       }
     },
+
     cells: {
       style: {
         padding: '16px',
@@ -103,6 +107,7 @@ const VendorRequest = () => {
       }
     }
   }
+
   return (
     <div className="p-2">
       <DataTable
