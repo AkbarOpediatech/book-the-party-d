@@ -1,11 +1,14 @@
-import type { ServiceItem } from '@/redux/features/services/apiSlice'
+import { useDeleteServiceMutation, type ServiceItem } from '@/redux/features/services/apiSlice'
 import { cn } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import ListingEditPopUp from './ListingEditPopUp'
 import productImage from '/public/assets/package1.png'
+import Swal from 'sweetalert2'
 
 type IProps = {
   data: ServiceItem[]
@@ -23,6 +26,51 @@ const ListingTable: React.FC<IProps> = ({
   onPageLimitChange,
   totalRecords
 }) => {
+  const [editListingPopup, setEditListingPopup] = useState(false)
+  const [selectedRowData, setSelectedRowData] = useState<ServiceItem | null>(null)
+  const [deleteService, { isLoading: isDeleting }] = useDeleteServiceMutation()
+  const handleEditClick = (row: ServiceItem) => {
+    setSelectedRowData(row)
+    setEditListingPopup(true)
+  }
+  const handleDeleteClick = async (id: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      background: '#f4f7fb',
+      color: '#4caf50'
+    }).then(async result => {
+      if (result.isConfirmed) {
+        try {
+          await deleteService(id).unwrap()
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Service has been deleted successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            background: '#f4f7fb',
+            color: '#4caf50'
+          })
+        } catch (error) {
+          console.error('Failed to delete service:', error)
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to delete the service. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            background: '#f4f7fb',
+            color: '#f44336'
+          })
+        }
+      }
+    })
+  }
+
   const columns: TableColumn<ServiceItem>[] = [
     {
       name: 'Item Name',
@@ -104,15 +152,18 @@ const ListingTable: React.FC<IProps> = ({
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link
-                href={'/dashboard/vendor/listings/edit-listing'}
+              <button
+                onClick={() => handleEditClick(row)}
                 className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
               >
                 Edit
-              </Link>
+              </button>
             </MenuItem>
             <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
+              <button
+                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
+                onClick={() => handleDeleteClick(row._id!)}
+              >
                 Delete
               </button>
             </MenuItem>
@@ -150,35 +201,43 @@ const ListingTable: React.FC<IProps> = ({
     }
   }
 
-  console.log(data)
-
   return (
-    <div className="p-2">
-      <DataTable
-        columns={columns}
-        data={data}
-        pagination
-        paginationServer
-        paginationTotalRows={totalRecords}
-        onChangePage={onPageChange}
-        paginationPerPage={pageLimit}
-        customStyles={customStyles}
-        paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
-        onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
-        paginationComponentOptions={{
-          rowsPerPageText: 'Rows per page:',
-          rangeSeparatorText: 'of',
-          noRowsPerPage: false,
-          selectAllRowsItem: false,
-          selectAllRowsItemText: 'All'
-        }}
-        highlightOnHover
-        striped
-        responsive
-        selectableRows
-        className="text-sm"
-      />
-    </div>
+    <>
+      <div className="p-2">
+        <DataTable
+          columns={columns}
+          data={data}
+          pagination
+          paginationServer
+          paginationTotalRows={totalRecords}
+          onChangePage={onPageChange}
+          paginationPerPage={pageLimit}
+          customStyles={customStyles}
+          paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+          onChangeRowsPerPage={newLimit => onPageLimitChange(newLimit)}
+          paginationComponentOptions={{
+            rowsPerPageText: 'Rows per page:',
+            rangeSeparatorText: 'of',
+            noRowsPerPage: false,
+            selectAllRowsItem: false,
+            selectAllRowsItemText: 'All'
+          }}
+          highlightOnHover
+          striped
+          responsive
+          selectableRows
+          className="text-sm"
+        />
+      </div>
+      {editListingPopup && (
+        <ListingEditPopUp
+          isOpen={editListingPopup}
+          onClose={() => setEditListingPopup(false)}
+          title="Edit Listing"
+          tableData={selectedRowData}
+        />
+      )}
+    </>
   )
 }
 

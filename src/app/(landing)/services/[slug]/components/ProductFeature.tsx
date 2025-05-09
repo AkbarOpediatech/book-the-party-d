@@ -8,25 +8,29 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
 import serviceImage from '/public/assets/discover-img.png'
 
 type IProps = {
   singleService: ServiceItem
+  setTab: (tab: number) => void
 }
 
-const ProductFeature: React.FC<IProps> = ({ singleService }) => {
+const ProductFeature: React.FC<IProps> = ({ singleService, setTab }) => {
+  const [hours, setHours] = useState(0)
+  const hourlyRate = singleService?.price?.[0]?.value || 0
+  const totalPrice = hours * Number(hourlyRate)
+
   const { data: response, isLoading: isFetching } = useFetchWishlistQuery()
   const wishlistData = response?.data
   const wishlistDataId = wishlistData?.map(i => i.service?._id)
+  const isInWishlist = wishlistDataId?.includes(singleService._id)
 
   const [addToWishlist] = useAddToWishlistMutation()
 
   const { data: session } = useSession()
   const router = useRouter()
-
-  // Check if the current service is in the wishlist
-  const isInWishlist = wishlistDataId?.includes(singleService._id)
 
   const handleWishlist = () => {
     if (!session) {
@@ -65,10 +69,34 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
       })
       .catch(error => {
         console.error('Error adding to cart:', error)
-        alert('Failed to book the service. Please try again.')
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to book the service. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'Retry'
+        })
       })
-    console.log('handleFavorite Clickted')
   }
+
+  const handleHourChange = (newHours: number) => {
+    if (newHours >= 0) {
+      setHours(newHours)
+    } else {
+      Swal.fire({
+        title: 'Invalid Input',
+        text: 'Hours cannot be less than zero.',
+        icon: 'warning',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }
+
+  const inclusions = Array.isArray(singleService.inclusions)
+    ? singleService.inclusions
+    : [singleService.inclusions || '']
 
   return (
     <div className="mb-9 grid grid-cols-1 gap-14 lg:grid-cols-2">
@@ -99,7 +127,7 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
           )}
 
           <p className="mb-4">
-            By <span className="text-lg font-medium">Partyscout</span>
+            By <span className="text-lg font-medium">{singleService.user?.name || 'Ashiqur Rahman'} </span>
           </p>
 
           {/* <p className="mb-4 text-lg text-[#444444]">{singleService.description || `Product Description`}</p> */}
@@ -108,17 +136,23 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
           </p>
 
           <p className="text-lg capitalize text-[#444444]">
-            inclusions:
-            {singleService.inclusions.map(i => i) || `Product Description`}
+            Inclusions:
+            {inclusions.map((i, index) => (
+              <span key={index}> {i}</span>
+            ))}
           </p>
 
           <p className="text-lg capitalize text-[#444444]">
             infos:
-            {singleService.infos.map(i => i) || `Product Description`}
+            {singleService?.infos?.map(i => i) || `Product Description`}
           </p>
 
           <div className="flex items-center gap-3">
-            <Link href={'#product-reviews'} className="text-xl font-medium text-clr-36">
+            <Link
+              href={'#product-reviews'}
+              onClick={() => setTab(1)}
+              className="text-xl font-medium text-clr-36"
+            >
               <span className="pb-5 underline">Reviews</span>
             </Link>
           </div>
@@ -128,14 +162,62 @@ const ProductFeature: React.FC<IProps> = ({ singleService }) => {
           <p className="text-base text-[#191919]">AUD(incl. of all taxes)</p>
           <p className="text-base text-[#191919]">
             <span className="text-[32px] font-bold text-clr-fb">
-              ${singleService.price.map(i => i.value) || '100'}
+              ${singleService?.price?.map(i => i.value) || 'N/A'}
             </span>
-            ({singleService.price_type || 'Hourly'})
+            ({singleService.price_type || 'N/A'})
           </p>
           <p className="mb-2 text-base text-[#191919]">
-            <span className="text-[32px] font-bold">Availability:</span> (
-            {singleService.price_type || 'Hourly'})
+            <span className="text-[32px] font-bold">Availability:</span> ({singleService.price_type || 'N/A'})
           </p>
+          {/* hourly  number input */}
+          {singleService.price_type === 'hourly' && (
+            <>
+              <p className="mb-2 text-base text-[#191919]">How many hours do you need?</p>
+
+              <div>
+                <button
+                  onClick={() => handleHourChange(hours - 1)}
+                  disabled={hours <= 0}
+                  className="rounded border bg-gray-200 p-3 hover:bg-gray-300 disabled:opacity-50"
+                >
+                  -
+                </button>
+
+                <input
+                  placeholder="Enter number of hours"
+                  type="number"
+                  min={0}
+                  value={hours}
+                  onChange={e => handleHourChange(Number(e.target.value))}
+                  className="w-16 border p-3 text-center"
+                  alt="input"
+                  onKeyDown={evt => {
+                    if (!['ArrowUp', 'ArrowDown'].includes(evt.key)) {
+                      evt.preventDefault()
+                      Swal.fire({
+                        title: 'Invalid Input',
+                        text: 'Please use the arrow buttons to adjust the number.',
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000
+                      })
+                    }
+                  }}
+                />
+
+                <button
+                  onClick={() => handleHourChange(hours + 1)}
+                  className="rounded border bg-gray-200 p-3 hover:bg-gray-300"
+                >
+                  +
+                </button>
+              </div>
+
+              <p>Total Price: ${totalPrice.toFixed(2)}</p>
+            </>
+          )}
           <button
             onClick={handleWishlist}
             disabled={isInWishlist || isFetching}

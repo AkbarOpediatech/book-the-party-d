@@ -5,8 +5,8 @@ import { ArrowRightEndOnRectangleIcon, Bars3Icon, UserIcon } from '@heroicons/re
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import NotificationPopup from './NotificationPopup'
 import Avatar from '/public/assets/avatar.jpeg'
+import ICNotification from '/public/assets/ic_notification.svg'
 
 type IProps = {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -63,7 +63,12 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
         <div className="flex flex-shrink-0 items-center gap-6">
           {role && (
             <>
-              <NotificationPopup />
+              <Link href="/dashboard/vendor/notifications" className="relative">
+                <Image className="size-6" src={ICNotification} alt="icon" />
+                <span className="absolute -top-1 right-0 flex size-3 items-center justify-center rounded-full bg-clr-fb text-[8px] text-white">
+                  8
+                </span>
+              </Link>
               <Menu>
                 <MenuButton className="size-8 overflow-hidden rounded-full lg:size-10">
                   <Image
@@ -71,7 +76,7 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
                     height={80}
                     src={session?.user?.avatar || Avatar}
                     alt="user-icon"
-                    className="center object-fill"
+                    className="center h-full w-full object-cover"
                   />
                 </MenuButton>
                 <MenuItems
@@ -86,7 +91,13 @@ const DashboardTopbar: React.FC<IProps> = ({ setSidebarOpen }) => {
           {!role && (
             <Menu>
               <MenuButton className="size-8 overflow-hidden rounded-full lg:size-10">
-                <Image width={80} height={80} src={Avatar} alt="user-icon" className="center object-fill" />
+                <Image
+                  width={80}
+                  height={80}
+                  src={Avatar}
+                  alt="user-icon"
+                  className="center h-full w-full object-cover"
+                />
               </MenuButton>
               <MenuItems
                 anchor="bottom end"

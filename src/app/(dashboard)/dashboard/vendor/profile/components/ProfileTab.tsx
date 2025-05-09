@@ -2,6 +2,7 @@ type IProps = {
   tab: number
   setTab: (tabIndex: number) => void
 }
+
 const ProfileTab: React.FC<IProps> = ({ tab, setTab }) => {
   return (
     <div className="mb-4 flex items-center gap-4 rounded-lg bg-white p-4 shadow">

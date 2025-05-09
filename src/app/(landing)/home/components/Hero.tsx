@@ -1,14 +1,21 @@
 'use client'
+
 import useSearchQuery from '@/hooks/useSearchQuery'
 import type { ICategory } from '@/redux/features/categories/apiSlice'
 import { eventFeaturesIcon } from '@/utils'
+import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import Link from 'next/link'
-import ICDemo from '/public//assets//ic-fb.svg'
 import heroBg from '/public/assets/banner-img.png'
+import ICDemo from '/public/assets/ic-package.svg'
 
 type IProps = {
   data: ICategory[]
+}
+
+function getIconByTitle(title: string): StaticImageData | null {
+  const feature = eventFeaturesIcon.find(item => item.title.toLowerCase() === title.toLowerCase())
+  return feature ? feature.icon : ICDemo
 }
 
 const Hero: React.FC<IProps> = ({ data }) => {
@@ -42,7 +49,7 @@ const Hero: React.FC<IProps> = ({ data }) => {
                   placeholder="Outdoor Marquee hire"
                   value={formData.title}
                   onChange={handleInputChange}
-                  required
+                  // required
                 />
               </li>
 
@@ -85,7 +92,7 @@ const Hero: React.FC<IProps> = ({ data }) => {
                 </select>
               </li>
 
-              <li className="w-full border-b pb-5 md:border-b-0 md:pb-0 lg:mr-5 lg:pr-5 xl:border-r">
+              {/* <li className="w-full border-b pb-5 md:border-b-0 md:pb-0 lg:mr-5 lg:pr-5 xl:border-r">
                 <label htmlFor="date" className="mb-1 block font-sora text-sm font-semibold">
                   Select Date
                 </label>
@@ -96,7 +103,7 @@ const Hero: React.FC<IProps> = ({ data }) => {
                   value={formData.date}
                   onChange={handleInputChange}
                 />
-              </li>
+              </li> */}
 
               <li>
                 <button
@@ -112,23 +119,23 @@ const Hero: React.FC<IProps> = ({ data }) => {
         </div>
 
         <ul className="md:justify-canter flex flex-wrap justify-center gap-2 md:gap-2">
-          {data.map((eventItems, index) => (
+          {data.map((eventItem, index) => (
             <li key={index}>
               <Link
-                href={{
-                  pathname: '/services',
-                  query: {
-                    categories: eventItems.title
-                  }
-                }}
+                href={{ pathname: '/services', query: { categories: eventItem.slug } }}
                 className="inline-flex h-full w-[150px] flex-col flex-wrap rounded-2xl border border-white bg-clr-fb px-3 py-5 md:py-10"
               >
                 <div className="mb-3 flex justify-center">
-                  <Image width={20} height={20} src={eventFeaturesIcon[index]?.icon || ICDemo} alt="icon" />
+                  <Image
+                    width={20}
+                    height={20}
+                    src={getIconByTitle(eventItem.title as string)?.src || ICDemo}
+                    alt={`${eventItem.title} icon`}
+                  />
                 </div>
 
                 <span className="block text-center font-sora text-sm font-semibold text-white">
-                  {eventItems.title}
+                  {eventItem.title}
                 </span>
               </Link>
             </li>

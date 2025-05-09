@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Swal from 'sweetalert2'
 import { RootState } from '../../../redux/store'
 import SuccessModal from '../checkout/components/SuccessModal'
 interface RootState1 {
@@ -16,7 +17,6 @@ interface RootState1 {
 
 function calculateSubtotal(cartItems: getCartItem[]) {
   let subtotal = 0
-  // console.log('cartItems', cartItems)
 
   if (cartItems) {
     cartItems.forEach(item => {
@@ -24,9 +24,7 @@ function calculateSubtotal(cartItems: getCartItem[]) {
       const quantity = item.quantity
       const priceId = item.price_id
 
-      // Find the matching price from the service's price array
       const matchedPrice = service?.price && service?.price.find(price => price._id === priceId)
-      // console.log('matchedPrice', matchedPrice)
 
       if (matchedPrice && matchedPrice?.value && quantity) {
         subtotal += matchedPrice?.value * quantity
@@ -65,7 +63,12 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
         //TODO: Simulate API call for payment
         setIsOpen(true)
       } catch (error) {
-        alert('Payment failed!')
+        Swal.fire({
+          title: 'Error',
+          text: 'Payment failed!',
+          icon: 'error',
+          confirmButtonText: 'Retry'
+        })
       } finally {
         setLoading(false)
       }
@@ -88,8 +91,20 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
       setSubtotalOld(subtotal)
       // Dispatch an action to update the subtotal in Redux state
       dispatch(updateSubtotal(newSubtotal))
+
+      Swal.fire({
+        title: 'Success!',
+        text: `Discount applied! You've saved $${discountAmount.toFixed(2)}.`,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      })
     } else {
-      alert('Invalid discount code!')
+      Swal.fire({
+        title: 'Error',
+        text: 'Invalid discount code! Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Retry'
+      })
     }
   }
 
@@ -101,7 +116,6 @@ const SubTotal: React.FC<IProps> = ({ isCart, cartItems }) => {
     setSubtotal(subtotalCal)
   }, [cartItems, subtotal])
 
-  // console.log('items from redux', items)
   return (
     <>
       <div className="border bg-white p-6">

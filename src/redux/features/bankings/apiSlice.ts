@@ -18,6 +18,7 @@ export interface IBanking {
   vendor: string
   order_item: string
   service: ServiceItemPost
+  stripe_ch_id?: string
   service_embedded?: string
   notes: string
   quantity: number
@@ -74,6 +75,15 @@ export const bankingsApi = createApi({
       providesTags: (result, error, slug) => [{ type: 'Bankings', id: slug }]
     }),
 
+    transferBanking: builder.mutation<IBanking, Partial<IBanking> & Pick<IBanking, '_id' | 'stripe_ch_id'>>({
+      query: ({ _id, stripe_ch_id, ...rest }) => ({
+        url: `/order-transfers/action`,
+        method: 'POST',
+        body: { id: _id, stripe_ch_id, ...rest }
+      }),
+      invalidatesTags: ['Bankings']
+    }),
+
     updateBanking: builder.mutation<IBanking, Partial<IBanking> & Pick<IBanking, '_id'>>({
       query: ({ _id, ...rest }) => ({
         url: `/order-transfers/${_id}`,
@@ -86,4 +96,9 @@ export const bankingsApi = createApi({
 })
 
 // Export hooks for using the API
-export const { useFetchBankingsQuery, useFetchBankingByIdQuery, useUpdateBankingMutation } = bankingsApi
+export const {
+  useFetchBankingsQuery,
+  useFetchBankingByIdQuery,
+  useUpdateBankingMutation,
+  useTransferBankingMutation
+} = bankingsApi

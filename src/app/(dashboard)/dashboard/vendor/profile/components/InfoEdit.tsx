@@ -2,7 +2,7 @@
 
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import Loader from '@/app/(landing)/components/Loader/Loader'
+import FullPageLoader from '@/app/(landing)/components/Loader/FullPageLoader'
 import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { useSession } from 'next-auth/react'
@@ -42,8 +42,6 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
       return
     }
 
-    console.log('Service added response:', userInfo._id)
-
     try {
       const formDataToSubmit = new FormData()
       formDataToSubmit.append('name', formData.name)
@@ -68,6 +66,9 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
       console.error('Error updating user:', error)
     }
   }
+  if (isLoading) {
+    return <FullPageLoader type="loading" />
+  }
 
   return (
     <Dialog
@@ -80,7 +81,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow">
             <DialogTitle as="h3" className="text-center font-medium">
-              Update vendor Profile details
+              Update Vendor Profile Details
             </DialogTitle>
             <form onSubmit={handleSubmit}>
               <FormInput
@@ -99,14 +100,7 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 onChange={handleChange}
                 customClass="mb-4"
               />
-              <FormInput
-                type="text"
-                name="location"
-                placeholder="Enter Location"
-                value={formData.location}
-                onChange={handleChange}
-                customClass="mb-4"
-              />
+
               <FormInput
                 type="text"
                 name="specialized"
@@ -132,26 +126,12 @@ const InfoEdit: React.FC<IProps> = ({ setShowInfoEdit, showInfoEdit, userInfo })
                 onChange={handleChange}
                 customClass="mb-4"
               />
-              <FormInput
-                type="select"
-                name="language"
-                placeholder="Language"
-                value={formData.language}
-                options={['Bangla', 'English', 'Spanish', 'French']}
-                onChange={handleChange}
-                customClass="mb-4"
-              />
 
               <div className="mt-5 flex items-center justify-center gap-4">
                 <DashboardButton name="Update" type="submit" />
                 <DashboardButton name="Cancel" onClick={() => setShowInfoEdit(false)} type="button" />
               </div>
             </form>
-            {isLoading && (
-              <p className="mt-2 text-center">
-                <Loader type="loading" />
-              </p>
-            )}
             {isError && <p className="mt-2 text-center text-red-500">Failed to update. Try again.</p>}
           </DialogPanel>
         </div>

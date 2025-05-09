@@ -1,3 +1,5 @@
+'use client'
+
 import { bookingAnalytics } from '@/utils'
 import Image from 'next/image'
 

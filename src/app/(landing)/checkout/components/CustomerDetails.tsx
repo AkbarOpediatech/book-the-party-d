@@ -1,5 +1,5 @@
 'use client'
-import { addNewAddress, deleteAddress, setDefaultAddress } from '@/redux/features/formSlice'
+import { addNewAddress, deleteAddress } from '@/redux/features/formSlice'
 import { AppDispatch, RootState } from '@/redux/store'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,13 +9,12 @@ import DeliveryAddress from './DeliveryAddress'
 type Address = {
   name: string
   email: string
-  mobileNumber: string
-  houseNo: string
-  streetName: string
-  suburb: string
+  phone: string
+  country: string
+  street: string
+  city: string
   state: string
-  postCode: string
-  isDefault: boolean
+  postcode: string
 }
 type AddressFormData = Omit<Address, 'isDefault'>
 const CustomerDetails: React.FC = () => {
@@ -25,12 +24,12 @@ const CustomerDetails: React.FC = () => {
   const [showForm, setShowForm] = useState(true)
 
   const handleAddAddress = (newAddress: AddressFormData) => {
-    dispatch(addNewAddress({ ...newAddress, isDefault: addresses.length === 0 }))
+    dispatch(addNewAddress({ ...newAddress }))
     setShowForm(false)
   }
 
   const handleSetDefault = (index: number) => {
-    dispatch(setDefaultAddress(index))
+    // dispatch(setDefaultAddress(index))
   }
 
   const handleDeleteAddress = (index: number) => {

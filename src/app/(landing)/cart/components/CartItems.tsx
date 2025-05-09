@@ -15,8 +15,17 @@ type IProps = {
   currentPage: number
   pageLimit: number
   handlePageChange: (page: number) => void
+  pagination?: boolean
 }
-const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePageChange, currentPage }) => {
+const CartItems: FC<IProps> = ({
+  loading,
+  error,
+  cartItems,
+  pageLimit,
+  handlePageChange,
+  currentPage,
+  pagination
+}) => {
   const totalRecords = cartItems?.pagination?.records || 0
 
   const [removeFromCart, { isLoading: isDeleting }] = useRemoveFromCartMutation()
@@ -60,6 +69,8 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
   if (loading) return <Loader type="loading" message="Please wait sometimes" />
   if (error) return <Loader type="error" message="Please try again later." />
 
+  console.log(cartItems?.data, 'nipaaaaaaaaaaaaa')
+
   return (
     <div>
       <div className="bg-white">
@@ -67,7 +78,7 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
           <table className="mb-5 min-w-full table-auto">
             <thead>
               <tr className="border-b text-left">
-                {['Items for hire', 'Price', 'Quantity', 'Security Deposit', 'Actions'].map((i, index) => (
+                {['Items for hire', 'Price', 'Quantity', 'Subtotal', 'Actions'].map((i, index) => (
                   <th
                     className="text-nowrap px-4 py-3 font-sora text-sm font-semibold md:text-lg"
                     key={index}
@@ -128,13 +139,14 @@ const CartItems: FC<IProps> = ({ loading, error, cartItems, pageLimit, handlePag
               </tbody>
             )}
           </table>
-
-          <Pagination
-            totalRecords={totalRecords}
-            currentPage={currentPage}
-            pageLimit={pageLimit}
-            handlePageChange={handlePageChange}
-          />
+          {pagination && (
+            <Pagination
+              totalRecords={totalRecords}
+              currentPage={currentPage}
+              pageLimit={pageLimit}
+              handlePageChange={handlePageChange}
+            />
+          )}
         </div>
       </div>
     </div>

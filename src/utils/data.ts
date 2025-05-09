@@ -129,6 +129,12 @@ export const adminNavigation: IAdminNavigation[] = [
   },
   {
     type: 'button',
+    name: 'banking',
+    href: '/dashboard/admin/banking',
+    icon: BankingIcon
+  },
+  {
+    type: 'button',
     name: 'bookings',
     href: '/dashboard/admin/bookings',
     icon: BookingsIcon
@@ -550,35 +556,35 @@ export const eventFeatures: IEventFeatures[] = [
 
 export const eventFeaturesIcon: IEventFeaturesIcon[] = [
   {
-    id: 1,
+    title: 'Party Packages',
     icon: ICPackage
   },
   {
-    id: 2,
+    title: 'Backdrops, floral & display props',
     icon: ICDisplay
   },
   {
-    id: 3,
+    title: 'Table & Seating',
     icon: ICTableSetting
   },
   {
-    id: 4,
+    title: 'Vehicle hire',
     icon: ICVehicle
   },
   {
-    id: 5,
+    title: 'Food & Bevarage',
     icon: ICFood
   },
   {
-    id: 6,
+    title: 'Sound, lighting & visual',
     icon: ICVisual
   },
   {
-    id: 7,
+    title: 'Outdoor hire',
     icon: ICOutdoor
   },
   {
-    id: 8,
+    title: "Kid's party entertainment",
     icon: ICKid
   }
 ]
@@ -739,8 +745,8 @@ export const formData: IFormData[] = [
   },
   {
     labelTitle: 'Mobile Number',
-    htmlFor: 'mobileNumber',
-    inputId: 'mobileNumber',
+    htmlFor: 'phone',
+    inputId: 'phone',
     inputType: 'number',
     inputPlaceholder: 'Mobile Number'
   },
@@ -752,9 +758,9 @@ export const formData: IFormData[] = [
     inputPlaceholder: 'House No 23'
   },
   {
-    labelTitle: 'Street Name',
-    htmlFor: 'streetName',
-    inputId: 'streetName',
+    labelTitle: 'Street',
+    htmlFor: 'street',
+    inputId: 'street',
     inputType: 'text',
     inputPlaceholder: 'Parker Rd. Allentown'
   },
@@ -774,8 +780,8 @@ export const formData: IFormData[] = [
   },
   {
     labelTitle: 'Postcode',
-    htmlFor: 'postCode',
-    inputId: 'postCode',
+    htmlFor: 'postcode',
+    inputId: 'postcode',
     inputType: 'text',
     inputPlaceholder: '311334'
   }
@@ -973,8 +979,8 @@ import ICOrderTrack from '/public/assets/ic_tracker.png'
 export const profileMenuItems: IProfileMenuItems[] = [
   { id: 0, icon: ICProfile, activeIcon: ICProfileActive, label: 'Account Settings' },
   { id: 1, icon: ICSetting, activeIcon: ICSettingActive, label: 'General Settings' },
-  { id: 2, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Order Tracking' },
-  { id: 3, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Payment Details' }
+  { id: 2, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Order Tracking' }
+  // { id: 3, icon: ICOrderTrack, activeIcon: ICOrderTrackActive, label: 'Payment Details' }
 ]
 
 export const personalInfo: IPersonalInfo[] = [

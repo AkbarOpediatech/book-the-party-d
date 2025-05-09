@@ -11,8 +11,10 @@ import ICDecrease from '/public/assets/ic_decrese.svg'
 import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
+import { useGetDashboardStatisticsQuery } from '@/redux/features/user/apiSlice'
 
 function AdminDashboard() {
+  const { data } = useGetDashboardStatisticsQuery('undefined')
   const [selectType, setSelectType] = useState('Status')
   const handleSelectChange = (value: string) => {
     setSelectType(value)
@@ -25,7 +27,7 @@ function AdminDashboard() {
           <div className="col-span-12 md:col-span-6">
             <DashboardCard
               title={'Total Income'}
-              total={'$8063.02'}
+              total={`$${data?.data?.totalAmount || 0}`}
               percent={'+3%'}
               imgSrc1={ICIncrease}
               imgSrc2={ICDecrease}
@@ -36,7 +38,7 @@ function AdminDashboard() {
           <div className="col-span-12 md:col-span-6">
             <DashboardCard
               title={'Total Bookings'}
-              total={'10'}
+              total={`${data?.data?.totalBookings || 0}`}
               percent={'-0.2%'}
               imgSrc1={ICRDecrese}
               imgSrc2={ICTBooking}
@@ -87,14 +89,19 @@ function AdminDashboard() {
               </Menu>
             </div>
           </div>
-          <BalanceStatistics />
+          <BalanceStatistics
+            data={selectType === 'Month' ? data?.data?.monthlyStatistics : data?.data?.yearlyStatistics}
+          />
         </div>
 
         <div className="w-full rounded-2xl bg-white shadow-one">
           <div className="mb-[69px] p-5">
             <p className="mb-1 text-lg font-bold capitalize text-clr-36">Booking Categories</p>
           </div>
-          <BookingCategories />
+          <BookingCategories
+            totalEarnings={data?.data.bookingCategories?.totalEarnings}
+            categories={data?.data?.bookingCategories?.categories}
+          />
         </div>
       </div>
 

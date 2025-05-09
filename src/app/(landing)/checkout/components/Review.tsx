@@ -1,82 +1,118 @@
-import { PencilIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
-import partyImage from '/public/assets/booking-history-3.png'
+import usePagination from '@/hooks/usePagination'
+import { useAddOrderMutation } from '@/redux/features/orders/apiSlice'
+import { updateClientSecret, updateOrderAmount, type OrderAmount } from '@/redux/features/orderSlice'
+import { useToken } from '@/redux/hooks/useToken'
+import type { RootState } from '@/redux/store'
+import { useRouter } from 'next/navigation'
+import { useCallback, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import CartItems from '../../cart/components/CartItems'
+import { useFetchCartService } from '../../cart/components/CartService'
+import CustomBtn from '../../components/CustomBtn'
+import Loader from '../../components/Loader/Loader'
+import AddressField from './AddressField'
 
 const Review = () => {
+  const { addresses } = useSelector((state: RootState) => state.form)
+  const [instructions, setInstructions] = useState('')
+  const { currentPage, pageLimit, handlePageChange } = usePagination({ initialLimit: 5 })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { response: cartItems, loading, error } = useFetchCartService({ limit: pageLimit, page: currentPage })
+  const cartItemIds = useMemo(() => cartItems?.data?.map(item => item._id) ?? [], [cartItems])
+  const dispatch = useDispatch()
+
+  const handleInstructionsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target
+    setInstructions(value)
+  }
+  const { session } = useToken()
+  const router = useRouter()
+  const userId = session?.user?.id ?? ''
+  const [addOrder, { isLoading, isError }] = useAddOrderMutation()
+
+  const handleSubmit = useCallback(async () => {
+    if (isSubmitting) return
+    setIsSubmitting(true)
+    const orderData = {
+      user: userId,
+      notes: instructions,
+      billing_details: addresses[0],
+      shipping_details: null,
+      carts: cartItemIds,
+      coupons: []
+    }
+
+    try {
+      const response = await addOrder(orderData).unwrap()
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const clientSecret = response?.data?.client_secret
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const OrderAmount: OrderAmount | undefined = response?.data?.amount
+
+      // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-expressions
+      response?.data?.client_secret && dispatch(updateClientSecret(response?.data?.client_secret))
+
+      // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-expressions
+      OrderAmount && dispatch(updateOrderAmount(OrderAmount))
+
+      router.push('/payment')
+    } catch (err) {
+      console.error('Error creating order:', err)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [userId, instructions, addresses, cartItemIds, isSubmitting, addOrder, router])
+  if (isLoading) {
+    return <Loader type="loading" message="Please wait sometimes" />
+  }
+
+  if (isError) {
+    return <Loader type="error" message="Please try again later." />
+  }
   return (
     <div className="space-y-6">
-      <h1 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">
-        Date of event : 08 October 2023
-      </h1>
-      <div className="flex gap-4">
-        <div>
-          <label htmlFor="startTime" className="mb-2 block text-sm text-clr-1d md:text-base">
-            Start time
-          </label>
-          <input
-            id="startTime"
-            type="time"
-            className="appearance-none rounded-lg border border-clr-ab/30 px-4 py-4"
-          />
-        </div>
-        <div>
-          <label htmlFor="endTime" className="mb-2 block text-sm text-clr-1d md:text-base">
-            End time
-          </label>
-          <input
-            id="endTime"
-            type="time"
-            className="appearance-none rounded-lg border border-clr-ab/30 px-4 py-4"
-          />
-        </div>
-      </div>
-      <ul className="space-y-6">
-        <li className="flex items-start justify-between">
-          <div className="flex w-full max-w-[830px] items-center gap-4 border-b pb-4">
-            <div className="h-[78px] w-[78px] overflow-hidden">
-              <Image width={78} height={78} src={partyImage} alt="thumbnail" />
-            </div>
-            <div>
-              <h2 className="mb-2 font-sora text-sm font-bold text-clr-0f md:text-base">Party Name here</h2>
-              <div className="flex gap-2">
-                <span className="text-sm font-light text-clr-0f md:text-base">$1999</span>
-                <span className="text-sm font-light text-clr-0f md:text-base">QTY: 1</span>
-              </div>
-            </div>
-          </div>
-          <div className="">
-            <input id="date" type="date" />
-          </div>
-        </li>
-      </ul>
-      <div>
-        <h3 className="mb-4 font-sora text-xl font-bold text-clr-0f">Event Address</h3>
-        <div className="flex items-center justify-between">
-          <div className="w-full max-w-[830px] border-b pb-4">
-            <p className="mb-2 text-sm font-bold text-clr-0f md:text-base">Perry Wilson</p>
-            <p className="text-sm font-light text-clr-0f">4140 Parker Rd. Allentown, New Mexico 31134</p>
-          </div>
-          <div className="inline-block bg-gray-50 p-[10px]">
-            <PencilIcon className="size-4" />
-          </div>
-        </div>
+      <h1 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Order List</h1>
+      <div className="mb-5 md:mb-0 lg:col-span-2">
+        <CartItems
+          loading={loading}
+          error={error}
+          cartItems={cartItems}
+          currentPage={currentPage}
+          pageLimit={pageLimit}
+          handlePageChange={handlePageChange}
+          pagination={false}
+        />
       </div>
       <div>
-        <h3 className="mb-4 font-sora text-xl font-bold text-clr-0f">Payment Method</h3>
-        <div className="flex items-center justify-between">
-          <div className="mb-4 w-full max-w-[830px] border-b pb-4">
-            <p className="mb-2 text-sm font-bold text-clr-0f md:text-base">Credit Card</p>
-            <p className="text-sm font-light text-clr-0f">8900 2671 4788 XX70</p>
-          </div>
-          <div className="inline-block bg-gray-50 p-[10px]">
-            <PencilIcon className="size-4" />
-          </div>
-        </div>
+        <h3 className="mb-6 font-sora text-xl font-bold text-clr-0f md:text-2xl">Your Address</h3>
+        {addresses?.length > 0 ? (
+          addresses.map((address, index) => (
+            <div key={index} className="space-y-4">
+              <AddressField label="Name" value={address.name} />
+              <AddressField label="Email" value={address.email} />
+              <AddressField label="Phone" value={address.phone} />
+              <AddressField label="Country" value={address.country} />
+              <AddressField label="City" value={address.city} />
+              <AddressField label="Street" value={address.street} />
+              <AddressField label="Post Code" value={address.postcode} />
+            </div>
+          ))
+        ) : (
+          <p className="text-sm text-clr-1d">No address available.</p>
+        )}
       </div>
       <div>
         <h3 className="mb-4 font-sora text-lg font-normal text-clr-0f">Add special instructions</h3>
-        <textarea name="" id="" className="h-[220px] w-full bg-gray-50 p-5"></textarea>
+        <textarea
+          name=""
+          id=""
+          className="h-[220px] w-full bg-gray-50 p-5"
+          onChange={handleInstructionsChange}
+        ></textarea>
       </div>
+      <CustomBtn btnName={isSubmitting ? 'Processing...' : 'Payment'} onClickFunc={handleSubmit} />
     </div>
   )
 }

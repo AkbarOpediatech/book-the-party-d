@@ -5,12 +5,12 @@ interface FormState {
   formData: {
     name: string
     email: string
-    mobileNumber: string
-    houseNo: string
-    streetName: string
-    suburb: string
+    phone: string
+    country: string
+    street: string
+    city: string
     state: string
-    postCode: string
+    postcode: string
   }
   categoryChecked: boolean
   saveAddress: boolean
@@ -20,12 +20,12 @@ const initialState: FormState = {
   formData: {
     name: '',
     email: '',
-    mobileNumber: '',
-    houseNo: '',
-    streetName: '',
-    suburb: '',
+    phone: '',
+    country: '',
+    street: '',
+    city: '',
     state: '',
-    postCode: ''
+    postcode: ''
   },
   categoryChecked: false,
   saveAddress: false

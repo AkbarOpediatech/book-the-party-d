@@ -1,4 +1,5 @@
-import { CheckIcon } from '@heroicons/react/16/solid'
+import { nextStep } from '@/redux/features/stepperSlice'
+import useStepper from '@/redux/hooks/useStepper'
 import { useState } from 'react'
 import CustomBtn from '../../components/CustomBtn'
 import InputForm from './InputForm'
@@ -7,12 +8,12 @@ import InputForm from './InputForm'
 type AddressFormData = {
   name: string
   email: string
-  mobileNumber: string
-  houseNo: string
-  streetName: string
-  suburb: string
+  phone: string
+  country: string
+  street: string
+  city: string
   state: string
-  postCode: string
+  postcode: string
 }
 
 // Define the props for the component
@@ -20,19 +21,18 @@ interface CustomerFormProps {
   onSave: (data: AddressFormData) => void
 }
 const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
+  const { dispatch } = useStepper()
   const [formValues, setFormValues] = useState({
     name: '',
     email: '',
-    mobileNumber: '',
-    houseNo: '',
-    streetName: '',
-    suburb: '',
+    phone: '',
+    country: '',
+    street: '',
+    city: '',
     state: '',
-    postCode: ''
+    postcode: ''
   })
 
-  const [categoryChecked, setCategoryChecked] = useState(false)
-  const [saveAddress, setSaveAddress] = useState(false)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
     setFormValues(prev => ({ ...prev, [id]: value }))
@@ -41,17 +41,18 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSave(formValues)
+    dispatch(nextStep())
   }
 
   const fields: { label: string; name: keyof AddressFormData; type: string; placeholder: string }[] = [
     { label: 'Name', name: 'name', type: 'text', placeholder: 'Enter your name' },
     { label: 'Email', name: 'email', type: 'email', placeholder: 'Enter your email' },
-    { label: 'Mobile Number', name: 'mobileNumber', type: 'tel', placeholder: 'Enter your mobile number' },
-    { label: 'House No', name: 'houseNo', type: 'text', placeholder: 'Enter house number' },
-    { label: 'Street Name', name: 'streetName', type: 'text', placeholder: 'Enter street name' },
-    { label: 'Suburb', name: 'suburb', type: 'text', placeholder: 'Enter suburb' },
+    { label: 'Mobile Number', name: 'phone', type: 'tel', placeholder: 'Enter your mobile number' },
+    { label: 'Country', name: 'country', type: 'text', placeholder: 'Enter Your Country' },
+    { label: 'City', name: 'city', type: 'text', placeholder: 'Enter your City' },
+    { label: 'Street Name', name: 'street', type: 'text', placeholder: 'Enter street name' },
     { label: 'State', name: 'state', type: 'text', placeholder: 'Enter state' },
-    { label: 'Post Code', name: 'postCode', type: 'text', placeholder: 'Enter post code' }
+    { label: 'Post Code', name: 'postcode', type: 'text', placeholder: 'Enter post code' }
   ]
 
   return (
@@ -70,7 +71,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
           onChange={handleChange}
         />
       ))}
-      <div className="mb-5 flex flex-wrap items-center gap-5">
+      {/* <div className="mb-5 flex flex-wrap items-center gap-5">
         <label className="flex w-full max-w-[410px] cursor-pointer items-center space-x-3">
           <div
             className={`relative h-4 w-4 rounded-md border border-gray-500 ${categoryChecked && 'border-purple-700 bg-purple-700'}`}
@@ -110,7 +111,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
           </div>
           <p className="text-sm font-light text-black md:text-base">Save address</p>
         </label>
-      </div>
+      </div> */}
       <CustomBtn btnName="Save" btnType="submit" />
     </form>
   )

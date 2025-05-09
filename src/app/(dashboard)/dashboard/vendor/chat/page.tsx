@@ -1,29 +1,36 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useAddToChatMutation, useFetchChatQuery } from '@/redux/features/chat/apiSlice'
+import { ADMIN_ID } from '@/utils/config'
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 const VendorChat: React.FC = () => {
-  const { data: messages, refetch } = useFetchChatQuery()
+  const { data: messages, refetch } = useFetchChatQuery(ADMIN_ID as string)
   const [sendMessage] = useAddToChatMutation()
   const [input, setInput] = useState('')
   const [file, setFile] = useState<File | null>(null)
+  const { data: session } = useSession()
 
   const handleSend = async () => {
-    if (input.trim() !== '' || file) {
-      const formData = new FormData()
-      formData.append('message', input)
-      formData.append('user', '671e1293a93691a0b492bc9b') // Replace with actual user data
-      formData.append('receiver', '671e315ed10e02c3ec3dacc3') // Replace with actual receiver data
-      if (file) {
-        formData.append('file', file)
-      }
+    if (ADMIN_ID && session?.user?.id) {
+      if (input.trim() !== '' || file) {
+        const formData = new FormData()
+        formData.append('message', input)
+        formData.append('user', session?.user?.id) // Replace with actual user data
+        formData.append('receiver', ADMIN_ID) // Replace with actual receiver data
+        if (file) {
+          formData.append('file', file)
+        }
 
-      await sendMessage(formData) // Send the FormData object
-      setInput('')
-      setFile(null)
-      refetch()
+        await sendMessage(formData) // Send the FormData object
+        setInput('')
+        setFile(null)
+        refetch()
+      }
     }
   }
 
@@ -33,9 +40,7 @@ const VendorChat: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    console.log('messages', messages)
-  }, [messages])
+  useEffect(() => {}, [messages])
 
   return (
     <div className="flex h-full flex-col bg-white">
@@ -44,15 +49,25 @@ const VendorChat: React.FC = () => {
         {messages?.data?.map((message: any) => (
           <div
             key={message.id}
-            className={`flex ${message.user === '671e315ed10e02c3ec3dacc3' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.user === session?.user?.id ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-xs rounded-lg px-4 py-2 ${
-                message.user === '671e315ed10e02c3ec3dacc3'
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-black'
+              className={`w-fit max-w-xs rounded-lg px-4 py-2 ${
+                message.user === session?.user?.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
               }`}
             >
+              {message.fileUrl && message.fileType?.startsWith('image/') && (
+                <img
+                  src={message.fileUrl}
+                  alt="Uploaded file"
+                  className="w-fit cursor-pointer rounded-lg"
+                  style={{
+                    maxWidth: '70%',
+                    height: 'auto',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
               {message.message}
               {message.file && (
                 <div className="mt-2 cursor-pointer text-sm text-blue-600 underline">{message.file}</div>

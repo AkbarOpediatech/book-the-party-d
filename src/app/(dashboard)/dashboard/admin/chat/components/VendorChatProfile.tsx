@@ -1,10 +1,10 @@
-import type { IChatData } from '@/utils'
+import type { IAdminChat, IChatData } from '@/utils'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { ChevronDownIcon, EnvelopeIcon, EyeIcon, PhoneIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 
 type IProps = {
-  selectedChat: IChatData
+  selectedChat: IAdminChat
 }
 
 const VendorChatProfile: React.FC<IProps> = ({ selectedChat }) => {
@@ -12,12 +12,14 @@ const VendorChatProfile: React.FC<IProps> = ({ selectedChat }) => {
     <div className="absolute w-2/3 border-l bg-white p-5 shadow lg:static lg:max-w-[350px] lg:shadow-none">
       <div className="flex justify-center">
         <div className="mb-3 h-[90px] w-[90px] overflow-hidden rounded-full">
-          <Image width={90} height={90} src={selectedChat.avatar} alt="avatar" />
+          <Image width={90} height={90} src={selectedChat.receiverInfo.avatar} alt="avatar" />
         </div>
       </div>
       <div className="mb-5">
-        <h2 className="text-center text-sm font-semibold capitalize text-clr-36">{selectedChat.name}</h2>
-        <p className="text-center text-sm capitalize text-clr-81">{selectedChat.type}</p>
+        <h2 className="text-center text-sm font-semibold capitalize text-clr-36">
+          {selectedChat.receiverInfo.name}
+        </h2>
+        <p className="text-center text-sm capitalize text-clr-81">{selectedChat.receiverInfo.type}</p>
       </div>
 
       <Disclosure defaultOpen={true}>
@@ -28,15 +30,15 @@ const VendorChatProfile: React.FC<IProps> = ({ selectedChat }) => {
           <ul className="space-y-3">
             <li className="flex items-center gap-2 text-sm capitalize text-clr-36">
               <EyeIcon className="size-[14px]" />
-              {selectedChat.location}
+              {selectedChat.receiverInfo.location}
             </li>
             <li className="flex items-center gap-2 text-sm text-clr-36">
               <PhoneIcon className="size-[14px]" />
-              {selectedChat.phone}
+              {selectedChat.receiverInfo.phone}
             </li>
             <li className="flex items-center gap-2 text-sm text-clr-36">
               <EnvelopeIcon className="size-[14px]" />
-              {selectedChat.mail}
+              {selectedChat.receiverInfo.email}
             </li>
           </ul>
         </DisclosurePanel>

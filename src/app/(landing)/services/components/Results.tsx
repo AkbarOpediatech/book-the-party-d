@@ -26,9 +26,7 @@ const Results = ({ searchParams }: ResultsProps) => {
   const categoriesParam = searchParams.get('categories')
   const locationParam = searchParams.get('location')
   const titleParam = searchParams.get('title')
-
   const categories = categoriesParam ? decodeURIComponent(categoriesParam).split(',').filter(Boolean) : []
-
   const location = locationParam ? decodeURIComponent(locationParam).split(',').filter(Boolean) : []
 
   const [filters, setFilters] = useState<FilterState>({
@@ -36,8 +34,6 @@ const Results = ({ searchParams }: ResultsProps) => {
     description: '',
     category: categories
   })
-
-  console.log('titleParam', titleParam)
 
   const {
     data: products,
@@ -47,6 +43,7 @@ const Results = ({ searchParams }: ResultsProps) => {
     limit: pageLimit,
     page: currentPage,
     populate: ['user', 'category', 'location'],
+    location: location,
     ...filters
   })
 
@@ -78,6 +75,7 @@ const Results = ({ searchParams }: ResultsProps) => {
           {viewMode === 'grid' ? (
             <GridItems serviceData={serviceData} />
           ) : (
+            // TODO:Need to added add to wishlist functionality
             <ListItems serviceData={serviceData} />
           )}
         </div>

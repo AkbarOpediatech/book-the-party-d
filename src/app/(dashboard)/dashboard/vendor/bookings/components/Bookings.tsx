@@ -49,7 +49,7 @@ const Bookings = () => {
   }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
-    return <Loader type="loading" message="Please wait sometimes" />
+    return <Loader type="loading" />
   }
 
   if (isError) {

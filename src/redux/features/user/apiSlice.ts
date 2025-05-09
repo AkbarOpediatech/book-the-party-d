@@ -1,8 +1,9 @@
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import type { File } from 'buffer'
+import type { IPagination } from '../services/apiSlice'
+import { IDashboardStatistics } from '@/utils'
 
-// Define the TypeScript types for your data
 export interface IUser {
   _id?: string
   createdAt?: string
@@ -61,6 +62,7 @@ export interface IUserPost {
   phone_verified_at?: Date | null
   status?: string
 }
+
 export interface IUserPostUpdate {
   name?: string
   email?: string
@@ -83,6 +85,7 @@ export interface IUserPostUpdate {
       disabled_reason?: string | null
     }
   } | null
+  url?: string
   about?: string
   email_verified_at?: Date | null
   phone_verified_at?: Date | null
@@ -93,17 +96,36 @@ interface UserResponse {
   data: IUser
 }
 
-interface IProfileFormData {
-  name?: string
-  avatar?: File | null
+export interface UserResponsePagination {
+  data: IUser[]
+  pagination: IPagination
 }
-// Redux Toolkit Query API
+
+interface passwordsData {
+  token?: string | null
+  email?: string
+  password?: string | null
+  new_password?: string
+  confirm_new_password?: string
+}
+
+interface UserStripe extends IUserPostUpdate {
+  data: IUserPostUpdate
+}
+
+interface IDashboardStatisticsResponse {
+  data: IDashboardStatistics
+}
+
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   baseQuery,
   tagTypes: ['User'],
   endpoints: builder => ({
-    fetchUser: builder.query<UserResponse, { role?: string; limit?: number; page?: number }>({
+    fetchUser: builder.query<
+      UserResponsePagination,
+      { role?: string; limit?: string | number; page?: number }
+    >({
       query: ({ role, limit, page } = {}) => {
         const params = role ? { role } : {}
         return {
@@ -111,7 +133,7 @@ export const usersApi = createApi({
           params
         }
       },
-      providesTags: ['User']
+      providesTags: result => (result ? [{ type: 'User', id: 'LIST' }] : [])
     }),
 
     fetchUserById: builder.query<UserResponse, string>({
@@ -125,9 +147,64 @@ export const usersApi = createApi({
         method: 'PATCH',
         body: formData
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'User', id }]
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'User', id },
+        { type: 'User', id: 'LIST' }
+      ]
+    }),
+
+    resetPassword: builder.mutation<passwordsData, { bodyData: passwordsData }>({
+      query: ({ bodyData }) => ({
+        url: `/auth/reset-password`,
+        method: 'POST',
+        body: bodyData
+      }),
+      invalidatesTags: (result, error) => [{ type: 'User' }]
+    }),
+
+    forgotPassword: builder.mutation<passwordsData, { bodyData: passwordsData }>({
+      query: ({ bodyData }) => ({
+        url: `/auth/forgot-password`,
+        method: 'POST',
+        body: bodyData
+      }),
+      invalidatesTags: (result, error) => []
+    }),
+
+    addToVendorOnBoarding: builder.mutation<UserStripe, { user: string | undefined }>({
+      query: data => ({
+        url: `/users/vendor-account-opening`,
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }]
+    }),
+
+    openingConnectorAccount: builder.mutation<UserStripe, { user: string | undefined }>({
+      query: data => ({
+        url: `/users/vendor-onboarding`,
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }]
+    }),
+
+    getDashboardStatistics: builder.query<IDashboardStatisticsResponse, string | undefined>({
+      query: () => `/order-items/dashboard/statistics`,
+      providesTags: ['User']
     })
   })
 })
 
-export const { useFetchUserQuery, useFetchUserByIdQuery, useUpdateUserMutation } = usersApi
+export const {
+  useFetchUserQuery,
+  useFetchUserByIdQuery,
+  useUpdateUserMutation,
+  useResetPasswordMutation,
+  useForgotPasswordMutation,
+  useAddToVendorOnBoardingMutation,
+  useOpeningConnectorAccountMutation,
+
+  // dashboard
+  useGetDashboardStatisticsQuery
+} = usersApi

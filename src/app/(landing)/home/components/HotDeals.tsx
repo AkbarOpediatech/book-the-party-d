@@ -28,7 +28,6 @@ const HotDeals = () => {
               prevEl: '#swiper-prev3'
             }}
             modules={[Autoplay, Navigation]}
-            grabCursor={true}
             className="relative max-w-[1440px]"
             breakpoints={{
               220: {

@@ -2,19 +2,16 @@ import { updateAddress } from '@/redux/features/formSlice'
 import { nextStep } from '@/redux/features/stepperSlice'
 import useStepper from '@/redux/hooks/useStepper'
 import { PencilIcon, TrashIcon } from '@heroicons/react/16/solid'
-import { CheckIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
-import EditAddressPopup from './EditAddressPopup'
 type Address = {
   name: string
   email: string
-  mobileNumber: string
-  houseNo: string
-  streetName: string
-  suburb: string
+  phone: string
+  country: string
+  street: string
+  city: string
   state: string
-  postCode: string
-  isDefault: boolean
+  postcode: string
 }
 
 interface DeliveryAddressProps {
@@ -35,13 +32,12 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
   const [formData, setFormData] = useState<Address>({
     name: '',
     email: '',
-    mobileNumber: '',
-    houseNo: '',
-    streetName: '',
-    suburb: '',
+    phone: '',
+    country: '',
+    street: '',
+    city: '',
     state: '',
-    postCode: '',
-    isDefault: false
+    postcode: ''
   })
   const handleSave = (updatedData: Address) => {
     if (currentEditIndex !== null) {
@@ -64,7 +60,7 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
         {addresses.map((addr, index) => (
           <li key={index}>
             <div className="mb-6 w-full max-w-[590px] bg-gray-50 p-6">
-              <label className="mb-6 flex w-full max-w-[410px] cursor-pointer items-start space-x-3">
+              {/* <label className="mb-6 flex w-full max-w-[410px] cursor-pointer items-start space-x-3">
                 <div
                   className={`relative h-4 w-4 rounded-md border border-gray-500 ${addr.isDefault && 'border-purple-700 bg-purple-700'}`}
                 >
@@ -85,7 +81,7 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
                   <p className="mb-5 font-sora text-2xl font-bold leading-5 md:text-[32px]">{addr.name}</p>
                   <p className="text-xl font-light md:text-2xl">{addr.streetName}</p>
                 </div>
-              </label>
+              </label> */}
               <div className="flex gap-6">
                 <button
                   className="flex w-full max-w-[240px] items-center justify-center gap-3 bg-gray-100 py-3"
@@ -124,12 +120,12 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({
           Add new address
         </button>
       </div>
-      <EditAddressPopup
+      {/* <EditAddressPopup
         isVisible={isPopupVisible}
         onClose={() => setIsPopupVisible(false)}
         onSave={handleSave}
         formData={formData}
-      />
+      /> */}
     </div>
   )
 }

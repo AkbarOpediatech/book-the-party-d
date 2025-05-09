@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react'
 type AddressFormData = {
   name: string
   email: string
-  mobileNumber: string
+  phone: string
   houseNo: string
-  streetName: string
+  street: string
   suburb: string
   state: string
-  postCode: string
-  isDefault: boolean
+  postcode: string
 }
 
 type EditAddressPopupProps = {

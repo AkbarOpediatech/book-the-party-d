@@ -4,21 +4,27 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const BookingCategories = () => {
+type IProps = {
+  totalEarnings: number | undefined
+  categories: {
+    series: number[]
+    labels: string[]
+  }
+}
+
+const BookingCategories = ({ totalEarnings, categories = { series: [], labels: [] } }: IProps) => {
   const [chartData] = useState<{
     series: number[]
     options: ApexOptions
   }>({
-    series: [14, 23, 21, 17, 15, 10, 12, 17],
+    series: categories?.series?.length ? categories.series : [],
     options: {
       chart: {
         type: 'polarArea'
       },
-
       stroke: {
         colors: ['#fff']
       },
-
       fill: {
         opacity: 0.8
       },
@@ -26,7 +32,6 @@ const BookingCategories = () => {
         position: 'right', // Default position for larger screens
         fontSize: '14px'
       },
-
       responsive: [
         {
           breakpoint: 768, // Adjust for tablets and smaller devices
@@ -53,17 +58,7 @@ const BookingCategories = () => {
           }
         }
       ],
-
-      labels: [
-        'Party setup & prop hire packages',
-        'Backdrops, Floral & display props',
-        'Table & Seating',
-        "Kid's Party Entertainment",
-        'Food & Beverage',
-        'Sound, lighting & Visual',
-        'Outdoor Party hire',
-        'Vehicle hire'
-      ]
+      labels: categories?.labels?.length ? categories.labels : []
     }
   })
 
@@ -80,7 +75,7 @@ const BookingCategories = () => {
 
         <div className="p-4 text-center">
           <h2 className="mb-2 text-sm text-clr-81">Total earning</h2>
-          <p className="text-2xl font-bold text-clr-48">$14,765</p>
+          <p className="text-2xl font-bold text-clr-48">${totalEarnings}</p>
         </div>
       </div>
     </>

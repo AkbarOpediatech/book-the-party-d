@@ -26,14 +26,19 @@ const ListingTable: React.FC<IProps> = ({
     {
       name: 'Item Name',
       cell: (row: ServiceItem) => (
-        <Link href={`/dashboard/vendor/listings/${row?.slug}`} className="flex items-center gap-4">
+        <Link href={`/dashboard/admin/listings/${row?.slug}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image width={40} height={40} src={row?.featured_image || productImage} alt="Product Image" />
+            <Image
+              width={40}
+              height={40}
+              className="center h-full w-full object-cover"
+              src={row?.featured_image || productImage}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
             <p className="text-sm font-semibold text-clr-36">{row?.title}</p>
             {/* <div dangerouslySetInnerHTML={{__html: '<p>First &middot; Second</p>'}}>{row.description}</div> */}
-
             <p
               className="h-4 w-64 truncate text-sm text-clr-81"
               dangerouslySetInnerHTML={{ __html: `<p>${row?.infos}</p>` }}
@@ -46,7 +51,7 @@ const ListingTable: React.FC<IProps> = ({
     },
     {
       name: 'Category',
-      selector: (row: ServiceItem) => row?.category?.title,
+      selector: (row: ServiceItem) => row?.category?.title || '',
       sortable: true
     },
     {
@@ -84,19 +89,6 @@ const ListingTable: React.FC<IProps> = ({
               >
                 View Listing
               </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link
-                href={'/dashboard/vendor/listings/edit-listing'}
-                className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10"
-              >
-                Edit
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Delete
-              </button>
             </MenuItem>
           </MenuItems>
         </Menu>

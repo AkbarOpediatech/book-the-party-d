@@ -1,17 +1,19 @@
 import FormInput from '@/app/(dashboard)/components/FormInput'
-import React, { useState } from 'react'
-import RadioBox from './RadioBox'
+import type { IPrice } from '@/redux/features/services/apiSlice'
+import React from 'react'
 
 type IProps = {
+  value?: IPrice[]
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => void | undefined
 }
 
-const FixedPrice: React.FC<IProps> = ({ onChange }) => {
+const FixedPrice: React.FC<IProps> = ({ onChange, value }) => {
   return (
     <div>
       <FormInput
+        value={value}
         onChange={onChange}
         name="priceValue"
         type="number"

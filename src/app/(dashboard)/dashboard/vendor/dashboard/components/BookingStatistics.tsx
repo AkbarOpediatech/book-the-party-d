@@ -16,7 +16,8 @@ const data = [
   { name: 'Dec', uv: 0, pv: 40 }
 ]
 
-const BookingStatistics = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const BookingStatistics = ({ data = [] }: any) => {
   return (
     <div style={{ height: '251px', maxHeight: 'auto' }}>
       <ResponsiveContainer width="100%" height="100%">

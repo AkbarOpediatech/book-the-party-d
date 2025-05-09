@@ -33,7 +33,6 @@ const FormPage: React.FC = () => {
     })
   }
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('Registration')
     e.preventDefault()
     dispatch(setLoading(true))
     dispatch(setError(null))
@@ -154,7 +153,7 @@ const FormPage: React.FC = () => {
         >
           {loading ? 'Registering...' : 'Register'}
         </button>
-        {/* <p onClick={handleSubmit}>Click</p> */}
+
         {error && <p className="mt-3 text-red-500">{error}</p>}
       </form>
     </>

@@ -1,5 +1,5 @@
 'use client'
-import { type IOrder } from '@/redux/features/bookings/apiSlice'
+import type { IOrder } from '@/types/common'
 import { cn } from '@/utils'
 
 type IProps = {
@@ -25,7 +25,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }
         onClick={() => setTab(0)}
       >
         all
-        <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">{allCount}</span>
+        {/* <span className="rounded-md bg-clr-0e8/20 p-1 text-xs font-bold text-clr-0e8">{allCount}</span> */}
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
@@ -42,7 +42,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }
         onClick={() => setTab(1)}
       >
         complete
-        <span className="rounded-md bg-clr-03/20 p-1 text-xs font-bold text-clr-03">{completeCount}</span>
+        {/* <span className="rounded-md bg-clr-03/20 p-1 text-xs font-bold text-clr-03">{completeCount}</span> */}
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
@@ -59,7 +59,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }
         onClick={() => setTab(2)}
       >
         pending
-        <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">{pendingCount}</span>
+        {/* <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">{pendingCount}</span> */}
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',
@@ -76,7 +76,7 @@ const BookingTab: React.FC<IProps> = ({ tab, setTab, totalRecords, bookingData }
         onClick={() => setTab(3)}
       >
         processing
-        <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">{processingCount}</span>
+        {/* <span className="rounded-md bg-clr-16/20 p-1 text-xs font-bold text-clr-16">{processingCount}</span> */}
         <span
           className={cn(
             'absolute bottom-0 left-1/2 h-[2px] w-1/2 -translate-x-1/2 bg-transparent',

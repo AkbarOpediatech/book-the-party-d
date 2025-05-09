@@ -49,11 +49,11 @@ const Bookings = () => {
   }, [currentStatus, setStatusFilter])
 
   if (isLoading) {
-    return <Loader type="loading" message="Please wait sometimes" />;
+    return <Loader type="loading" message="Please wait sometimes" />
   }
 
   if (isError) {
-    return <Loader type="error" message="Please try again later." />;
+    return <Loader type="error" message="Please try again later." />
   }
 
   return (

@@ -11,8 +11,6 @@ type IProps = {
 }
 
 const ListItems: React.FC<IProps> = ({ serviceData }) => {
-  // const [starRating, setStarRating] = useState(0)
-
   return (
     <>
       {serviceData?.map((items, index) => (

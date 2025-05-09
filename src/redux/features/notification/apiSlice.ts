@@ -1,18 +1,7 @@
+import { MyNotificationResponse, NotificationItem, NotificationItemResponse } from '@/utils'
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-export interface NotificationItem {
-  _id: string
-  type: string
-  message: string
-  isRead: boolean
-  user: string
-  status: string
-}
-
-interface NotificationItemResponse {
-  data: NotificationItem[]
-}
 export const notificationApi = createApi({
   reducerPath: 'notificationApi',
   baseQuery,
@@ -22,6 +11,11 @@ export const notificationApi = createApi({
       query: () => '/notifications',
       providesTags: ['Notification']
     }),
+    myNotifications: builder.query<MyNotificationResponse, { page: number }>({
+      query: ({ page = 1 }) => `/notifications/me/all?page=${page}`,
+      providesTags: ['Notification']
+    }),
+
     addToNotification: builder.mutation<NotificationItem, NotificationItem>({
       query: item => ({
         url: '/notifications',
@@ -40,5 +34,9 @@ export const notificationApi = createApi({
   })
 })
 
-export const { useFetchNotificationQuery, useAddToNotificationMutation, useRemoveFromNotificationMutation } =
-  notificationApi
+export const {
+  useFetchNotificationQuery,
+  useAddToNotificationMutation,
+  useRemoveFromNotificationMutation,
+  useMyNotificationsQuery
+} = notificationApi

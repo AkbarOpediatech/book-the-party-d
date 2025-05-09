@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
@@ -26,9 +27,40 @@ const LoginForm = () => {
       redirect: false
     })
 
-    if (!result?.ok) {
+    if (result?.error == 'Pending') {
+      Swal.fire({
+        title: 'Account Pending',
+        text: 'Your account is currently pending.',
+        icon: 'info',
+        confirmButtonText: 'OK'
+      })
+      setError("Your account has been 'pending'")
+    } else if (result?.error == 'inactive') {
+      Swal.fire({
+        title: 'Login Failed',
+        text: 'Your account is currently inactive.',
+        icon: 'error',
+        confirmButtonText: 'Retry'
+      })
+      setError('Contact with support.')
+    } else if (!result?.ok) {
+      Swal.fire({
+        title: 'Login Failed',
+        text: 'Invalid email or password. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Retry'
+      })
       setError('Invalid email or password.')
     } else {
+      Swal.fire({
+        position: 'top-end',
+        title: 'Login Successful',
+        text: 'Welcome back!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true
+      })
       router.push(callbackUrl)
     }
   }
@@ -85,7 +117,7 @@ const LoginForm = () => {
             </label>
           </div>
 
-          <Link href="/forget-password" className="text-sm font-light text-clr-0f">
+          <Link href="/forgot-password" className="text-sm font-light text-clr-0f">
             Forgot Password?
           </Link>
         </div>

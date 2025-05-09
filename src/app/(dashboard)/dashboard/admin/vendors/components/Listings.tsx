@@ -1,33 +1,43 @@
 'use client'
+
+import Loader from '@/app/(landing)/components/Loader/Loader'
+import usePagination from '@/hooks/usePagination'
 import { useFetchUserQuery, type IUser } from '@/redux/features/user/apiSlice'
 import { useState } from 'react'
+import InactiveVendor from './InactiveVendor'
 import ListedVendor from './ListedVendor'
 import ListingTab from './ListingTab'
 import VendorRequest from './VendorRequest'
 
 const Listings = () => {
   const [tab, setTab] = useState<number>(0)
-  const { data: vendors } = useFetchUserQuery({ role: 'vendor', limit: 10, page: 1 })
+  const { currentPage, pageLimit, handlePageChange, handlePageLimitChange } = usePagination()
+  const {
+    data: vendors,
+    isLoading,
+    isError
+  } = useFetchUserQuery({ role: 'vendor', limit: pageLimit, page: currentPage })
+
   const vendorData: IUser[] = Array.isArray(vendors?.data) ? vendors.data : []
+  const activeVendors = vendorData.filter(vendor => vendor.status === 'active')
+  const totalActiveVendors = activeVendors.length
+  const pendingVendors = vendorData.filter(vendor => vendor.status === 'pending')
+  const totalPendingVendors = activeVendors.length
+  const inactiveVendors = vendorData.filter(vendor => vendor.status === 'inactive')
+  const totalInactiveVendors = activeVendors.length
 
-  // const serviceData = fullResponse?.data //FIXME:
-  // const { session } = useToken()
-  // const userId = session?.user?.id ?? ''
-  // const {
-  //   data: response,
-  //   isLoading,
-  //   isError
-  // } = useFetchUserByIdQuery(userId, {
-  //   skip: !userId
-  // })
+  if (isLoading) {
+    return <Loader type="loading" message="Please wait sometimes" />
+  }
 
-  // const userInfo = response?.data
-  // console.log(userInfo, 'userInfo')
+  if (isError) {
+    return <Loader type="error" message="Please try again later." />
+  }
 
-  // const [updateUser] = useUpdateUserMutation()
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow">
       <ListingTab tab={tab} setTab={setTab} />
+
       <div className="p-4 md:px-6 md:py-5">
         <input
           type="search"
@@ -36,8 +46,36 @@ const Listings = () => {
           placeholder="Search by transaction id"
         />
       </div>
-      {tab === 0 && <ListedVendor data={vendorData} />}
-      {tab === 1 && <VendorRequest />}
+
+      {tab === 0 && (
+        <ListedVendor
+          data={activeVendors}
+          totalRecords={totalActiveVendors}
+          pageLimit={pageLimit}
+          handlePageChange={handlePageChange}
+          handlePageLimitChange={handlePageLimitChange}
+        />
+      )}
+
+      {tab === 1 && (
+        <VendorRequest
+          data={pendingVendors}
+          totalRecords={totalPendingVendors}
+          pageLimit={pageLimit}
+          handlePageChange={handlePageChange}
+          handlePageLimitChange={handlePageLimitChange}
+        />
+      )}
+
+      {tab === 2 && (
+        <InactiveVendor
+          data={inactiveVendors}
+          totalRecords={totalInactiveVendors}
+          pageLimit={pageLimit}
+          handlePageChange={handlePageChange}
+          handlePageLimitChange={handlePageLimitChange}
+        />
+      )}
     </div>
   )
 }

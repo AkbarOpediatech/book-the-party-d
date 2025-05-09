@@ -15,7 +15,7 @@ type IProps = {
 
 const SpecialPackages: React.FC<IProps> = ({ data }) => {
   return (
-    <section className="section-padding">
+    <section className="section-padding px-0">
       <Swiper
         slidesPerView={5}
         spaceBetween={20}
@@ -25,7 +25,6 @@ const SpecialPackages: React.FC<IProps> = ({ data }) => {
           disableOnInteraction: false
         }}
         modules={[Autoplay, Navigation, Pagination]}
-        grabCursor={true}
         className="SpecialPackagesSwiper"
         breakpoints={{
           220: {
@@ -53,7 +52,7 @@ const SpecialPackages: React.FC<IProps> = ({ data }) => {
               href={{
                 pathname: '/services',
                 query: {
-                  categories: items.title
+                  categories: items.slug
                 }
               }}
             >

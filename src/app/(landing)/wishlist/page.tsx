@@ -14,7 +14,6 @@ const Wishlist = () => {
   const [removeFromWishlist, { isLoading: isDeleting }] = useRemoveFromWishlistMutation()
 
   const handleDelete = async (itemId: string) => {
-    console.log(itemId, 'itemID')
     try {
       await removeFromWishlist(itemId).unwrap()
       Swal.fire({

@@ -11,6 +11,7 @@ declare module 'next-auth' {
     email?: string
     role?: string
     avatar?: string
+    subscription?: string
     token?: string
     refreshToken?: string | null
     accessToken?: string | null

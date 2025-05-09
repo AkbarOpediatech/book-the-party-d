@@ -4,19 +4,12 @@ import UserReview from './UserReview'
 
 type IProps = {
   reviewsData: ReviewsItem | undefined
-  // totalRecords: number
   currentPage: number
   pageLimit: number
   handlePageChange: (page: number) => void
 }
 
-const ProductReviews: React.FC<IProps> = ({
-  reviewsData,
-  // totalRecords,
-  currentPage,
-  pageLimit,
-  handlePageChange
-}) => {
+const ProductReviews: React.FC<IProps> = ({ reviewsData, handlePageChange }) => {
   return (
     <div id="product-reviews">
       <SectionHeading
@@ -24,18 +17,8 @@ const ProductReviews: React.FC<IProps> = ({
         sectionHeadingClass="md:text-[36px]"
         headingRootClass="lg:mb-5"
       />
-      {/* TODO: WORK WITH IT LETTER */}
-      {/* <div className="mb-8 flex flex-wrap items-center justify-between gap-5 border-b border-b-[#afafafb9] pb-8">
-        <RatingPieChart />
-        <RatingBarChart />
-      </div> */}
       {Array.isArray(reviewsData) && reviewsData.length > 0 ? (
-        <UserReview
-          data={reviewsData}
-          currentPage={currentPage}
-          pageLimit={pageLimit}
-          handlePageChange={handlePageChange}
-        />
+        <UserReview data={reviewsData} handlePageChange={handlePageChange} />
       ) : (
         'No Reviews'
       )}

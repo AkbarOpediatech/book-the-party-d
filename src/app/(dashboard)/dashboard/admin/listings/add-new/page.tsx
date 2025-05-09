@@ -39,7 +39,6 @@ const AddNewListing = () => {
   }
 
   // Changeable state
-  // console.log(formData, 'formData')
 
   const router = usePathname()
   const isEditListing = router === '/dashboard/vendor/listings/edit-listing'

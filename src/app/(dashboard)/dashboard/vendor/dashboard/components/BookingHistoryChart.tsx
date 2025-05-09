@@ -3,11 +3,18 @@ import { ApexOptions } from 'apexcharts'
 import dynamic from 'next/dynamic'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const BookingHistoryChart: React.FC = () => {
-  const series: number[] = [90, 50]
+type BookingHistoryProps = {
+  totalCompleted?: number
+  totalCancelled?: number
+}
+
+const BookingHistoryChart: React.FC<BookingHistoryProps> = ({ totalCompleted = 0, totalCancelled = 0 }) => {
+  // Dynamically calculate series values
+  const series: number[] = [totalCancelled, totalCompleted]
   const labels: string[] = ['Cancelled', 'Success']
   const colors: string[] = ['#9042FB', '#FFBD12']
 
+  // Configure chart options
   const options: ApexOptions = {
     chart: {
       height: 300,
@@ -37,8 +44,8 @@ const BookingHistoryChart: React.FC = () => {
             label: 'Total',
             fontSize: '18px',
             color: '#111',
-            formatter: function () {
-              return '20,500'
+            formatter: (): string => {
+              return (totalCancelled + totalCompleted).toString() // Return as string
             }
           }
         }
@@ -61,7 +68,7 @@ const BookingHistoryChart: React.FC = () => {
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="text-center">
               <p className="text-sm font-semibold text-clr-81">Total</p>
-              <p className="text-3xl font-bold text-clr-36">20,500</p>
+              <p className="text-3xl font-bold text-clr-36">{totalCancelled + totalCompleted}</p>
             </div>
           </div>
         </div>
@@ -72,6 +79,7 @@ const BookingHistoryChart: React.FC = () => {
           <div key={index} className="flex items-center gap-2">
             <div className="h-3 w-3 rounded-full" style={{ backgroundColor: colors[index] }}></div>
             <strong className="text-xs font-medium">{labels[index]}</strong>
+            <span className="text-xs font-medium">{value}</span>
           </div>
         ))}
       </div>

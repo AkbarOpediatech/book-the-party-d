@@ -1,8 +1,6 @@
 'use client'
-import { nextStep } from '@/redux/features/stepperSlice'
 import useStepper from '@/redux/hooks/useStepper'
 import CustomerDetails from './CustomerDetails'
-import PaymentOption from './PaymentOption'
 import Review from './Review'
 
 const CustomerInfo = () => {
@@ -11,8 +9,8 @@ const CustomerInfo = () => {
   return (
     <>
       {currentStep === 0 && <CustomerDetails />}
-      {currentStep === 1 && <PaymentOption onNext={() => dispatch(nextStep())} />}
-      {currentStep === 2 && <Review />}
+      {/* {currentStep === 1 && <PaymentOption onNext={() => dispatch(nextStep())} />} */}
+      {currentStep === 1 && <Review />}
     </>
   )
 }

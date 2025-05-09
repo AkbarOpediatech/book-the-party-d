@@ -20,7 +20,7 @@ const Occasion = () => {
                 href={{
                   pathname: '/services',
                   query: {
-                    categories: 'occasion'
+                    categories: 'party-packages2'
                   }
                 }}
               >

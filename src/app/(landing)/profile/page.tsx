@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import AccountSettings from './component/AccountSettings'
 import GeneralSettings from './component/GeneralSettings'
 import OrderTracking from './component/OrderTracking'
-import PaymentDetails from './component/PaymentDetails'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -72,7 +71,7 @@ const Profile = () => {
               {activeTab === 'Account Settings' && <AccountSettings data={userInfo} />}
               {activeTab === 'General Settings' && <GeneralSettings />}
               {activeTab === 'Order Tracking' && <OrderTracking />}
-              {activeTab === 'Payment Details' && <PaymentDetails />}
+              {/* {activeTab === 'Payment Details' && <PaymentDetails />} */}
             </div>
           </div>
         </div>

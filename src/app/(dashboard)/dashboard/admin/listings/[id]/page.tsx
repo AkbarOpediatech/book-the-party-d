@@ -20,9 +20,7 @@ const ListingDetails = () => {
 
   return (
     <div className="bg-white px-4 py-3 sm:px-6 lg:px-7">
-      <p className="mb-10 text-lg font-bold text-clr-36 sm:text-xl md:mb-[70px] md:text-2xl">
-        Listing Details {id}
-      </p>
+      <p className="mb-5 text-lg font-bold text-clr-36 sm:text-xl md:text-2xl">Listing Details {id}</p>
       <div className="mb-5 grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="col-span-2 md:col-span-1">
           <div className="w-full overflow-hidden rounded-xl lg:h-[478px]">

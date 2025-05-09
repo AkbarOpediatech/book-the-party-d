@@ -13,6 +13,7 @@ type IProps = {
   linkName?: string
   isBorderedLink?: boolean
   onClickFunc?: React.MouseEventHandler<HTMLButtonElement>
+  disabled?: boolean
 }
 
 const CustomBtn: React.FC<IProps> = ({

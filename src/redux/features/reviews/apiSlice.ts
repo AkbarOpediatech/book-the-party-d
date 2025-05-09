@@ -87,10 +87,10 @@ export interface ReviewsItem extends GlobalReviewsItem {
   category?: ICategory
   location?: ILocation
   featured_image?: string
-  description: string
-  rating: number
-  Reviews: ReviewsItem
-  status: string
+  description?: string
+  rating?: number
+  reviews?: ReviewsItem
+  status?: string
 }
 export interface ReviewsItemPost extends GlobalReviewsItem {
   user?: string
@@ -155,18 +155,20 @@ export const reviewsApi = createApi({
   endpoints: builder => ({
     fetchReviews: builder.query<ReviewsResponse, { reviews?: string; limit?: number; page?: number }>({
       query: ({ reviews, limit, page } = {}) => {
-        const params = reviews ? { reviews } : {} // Conditionally include `role` if it exists
+        const params = reviews ? { reviews } : {}
         return {
           url: `/reviews?limit=${limit}&page=${page}`,
-          params // Add query parameters dynamically
+          params
         }
       },
       providesTags: ['Reviews']
     }),
+
     fetchReviewById: builder.query<SingleReviewsResponse, string>({
-      query: slug => `/reviews/${slug}`,
-      providesTags: (result, error, slug) => [{ type: 'Reviews', slug }]
+      query: serviceId => `/reviews?service=${serviceId}`,
+      providesTags: (result, error, serviceId) => [{ type: 'Reviews', id: serviceId }]
     }),
+
     addReview: builder.mutation<ReviewsItemPost, Omit<ReviewsItemPost, 'id'>>({
       query: newReview => ({
         url: '/reviews',

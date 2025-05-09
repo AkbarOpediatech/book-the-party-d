@@ -33,7 +33,7 @@ const Featured = () => {
     )
 
   return (
-    <section className="section-padding featured">
+    <section className="section-padding featured px-0">
       <div className="container px-0 py-5">
         <SectionHeading title="Featured selection" linkName="View all Packages" linkURL={'/services'} />
       </div>
@@ -47,7 +47,6 @@ const Featured = () => {
             disableOnInteraction: false
           }}
           modules={[Autoplay, Navigation, Pagination]}
-          grabCursor={true}
           className="featuredSwiper"
           breakpoints={{
             220: {
@@ -75,9 +74,9 @@ const Featured = () => {
                   Href={`/services/${items.slug}`}
                   imgSrc={items.featured_image ? items.featured_image : ServiceImage}
                   title={items.title}
-                  info={items.infos.map(i => i) || 'information'}
+                  info={items?.infos?.map(i => i) || 'information'}
                   review={10}
-                  price={items?.price[0]?.value || 0}
+                  price={(items.price && items.price[0]?.value) || 0}
                   chooseLocation={items.location?.title}
                 />
               </SwiperSlide>

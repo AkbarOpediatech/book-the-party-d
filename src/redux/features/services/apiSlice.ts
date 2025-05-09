@@ -59,21 +59,21 @@ export type ILocation = {
 
 export type IPrice = {
   text: string
-  value?: number | string
+  value?: string | undefined
   _id?: string
 }
 
 export type IUser = {
   _id?: string
-  name: string
-  email: string
-  phone: string
-  password: string
-  avatar: string
-  role: string
-  languages: string[]
-  specialized: string[]
-  stripe_acct: {
+  name?: string
+  email?: string
+  phone?: string
+  password?: string
+  avatar?: string
+  role?: string
+  languages?: string[]
+  specialized?: string[]
+  stripe_acct?: {
     id: string
     capabilities: {
       card_payments: string
@@ -86,33 +86,34 @@ export type IUser = {
       disabled_reason: string | null
     }
   } | null
-  about: string
-  email_verified_at: Date | null
-  phone_verified_at: Date | null
-  status: string
+  about?: string
+  email_verified_at?: Date | null
+  phone_verified_at?: Date | null
+  status?: string
 }
 
 export type GlobalServiceItem = {
   aproved_by?: null | undefined
   availability: IAvailability[]
-  cancellation_period_hours: number
+  cancellation_period_hours?: number
   createdAt?: string
-  description: string
-  inclusions: string[]
-  infos: string[]
-  is_featured: boolean
-  is_unavailable: boolean
-  price: IPrice[]
-  price_type: string
-  security_deposit: number
-  slug: string
-  status: string
-  title: string
+  description?: string
+  inclusions?: string | string[]
+  infos?: string[]
+  is_featured?: boolean
+  is_unavailable?: boolean
+  price?: IPrice[]
+  price_type?: string
+  security_deposit?: number
+  slug?: string
+  status?: string
+  title?: string
   updatedAt?: string
-  _id?: string
+  _id?: string | IUser
 }
 
 export interface ServiceItem extends GlobalServiceItem {
+  _id: string
   user: IUser
   category: ICategory
   location: ILocation
@@ -120,10 +121,10 @@ export interface ServiceItem extends GlobalServiceItem {
 }
 
 export interface ServiceItemPost extends GlobalServiceItem {
-  user: string
+  user?: string
   category?: string
   location?: string
-  featured_image: File | null | string | StaticImport
+  featured_image?: File | null | string | StaticImport
 }
 
 export interface ServiceResponse {
@@ -132,6 +133,10 @@ export interface ServiceResponse {
 }
 interface SingleServiceResponse {
   data: ServiceItem
+}
+interface UpdateServiceParams {
+  _id: string
+  formData: FormData
 }
 
 export const servicesApi = createApi({
@@ -155,7 +160,7 @@ export const servicesApi = createApi({
       query: ({ role, limit, page, title, description, category, location, populate } = {}) => {
         const params: Record<string, string | number | undefined | string[]> = {
           ...(role && { role }),
-          ...(limit && { limit: limit ?? 5 }),
+          ...(limit && { limit: limit ?? 30 }),
           ...(page && { page: page ?? 1 }),
           ...(title && { title }),
           ...(description && { description }),
@@ -189,11 +194,11 @@ export const servicesApi = createApi({
       invalidatesTags: ['Services']
     }),
 
-    updateService: builder.mutation<ServiceItem, Partial<ServiceItem> & Pick<ServiceItem, 'slug'>>({
-      query: ({ slug, ...rest }) => ({
-        url: `/services/${slug}`,
-        method: 'PUT',
-        body: rest
+    updateService: builder.mutation<ServiceItemPost, UpdateServiceParams>({
+      query: ({ _id, formData }) => ({
+        url: `/services/${_id}`,
+        method: 'PATCH',
+        body: formData
       }),
       invalidatesTags: ['Services']
     }),

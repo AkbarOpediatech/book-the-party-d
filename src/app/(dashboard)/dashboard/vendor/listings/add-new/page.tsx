@@ -3,9 +3,6 @@ import type { ServiceItemPost } from '@/redux/features/services/apiSlice'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import AddNew from './components/AddNew'
-import ItemList from './components/ItemList'
-import ItemPricing from './components/ItemPricing'
-import SetAvailability from './components/SetAvailability'
 
 const AddNewListing = () => {
   const [step, setStep] = useState<number>(0)
@@ -23,7 +20,7 @@ const AddNewListing = () => {
     infos: ['Near Beach', 'Close to Restaurants', '24/7 Security'],
     is_featured: true,
     price_type: 'hourly',
-    price: [{ text: 'Night', value: 300 }],
+    price: [{ text: 'Night', value: '300' }],
     security_deposit: 500,
     cancellation_period_hours: 48,
     availability: [{ days: 'mon', start_time: '08:00', end_time: '18:00' }],
@@ -38,9 +35,6 @@ const AddNewListing = () => {
     }))
   }
 
-  // Changeable state
-  console.log(formData, 'formData')
-
   const router = usePathname()
   const isEditListing = router === '/dashboard/vendor/listings/edit-listing'
 
@@ -48,36 +42,6 @@ const AddNewListing = () => {
     <div>
       {step === 0 && (
         <AddNew
-          setStep={setStep}
-          isEditListing={isEditListing}
-          handleChange={handleChange}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      )}
-
-      {step === 1 && (
-        <ItemList
-          setStep={setStep}
-          isEditListing={isEditListing}
-          handleChange={handleChange}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      )}
-
-      {step === 2 && (
-        <SetAvailability
-          setStep={setStep}
-          isEditListing={isEditListing}
-          handleChange={handleChange}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      )}
-
-      {step === 3 && (
-        <ItemPricing
           setStep={setStep}
           isEditListing={isEditListing}
           handleChange={handleChange}

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { useFetchCategoriesQuery, type CategoryFetch } from '@/redux/features/categories/apiSlice'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/16/solid'
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -15,7 +15,20 @@ const Filter = ({}: FilterProps) => {
   const router = useRouter()
 
   const fetchedCategories: CategoryFetch[] = category?.data || []
-  const fetchedLocations = ['Melbourne', 'Sydney', 'Australia']
+  const fetchedLocations = [
+    {
+      id: '6723595d8d9a6dbaaffbf3d9',
+      title: 'Brisbane'
+    },
+    {
+      id: '672359bb8d9a6dbaaffbf3dd',
+      title: 'Melbourne'
+    },
+    {
+      id: '6723599b8d9a6dbaaffbf3db',
+      title: 'Sydney'
+    }
+  ]
 
   const queryCategories = searchParams.get('categories')?.split(',') || []
   const queryLocations = searchParams.get('location')?.split(',') || []
@@ -38,8 +51,7 @@ const Filter = ({}: FilterProps) => {
     const queryString = [categoryParam, locationParam].filter(Boolean).join('&')
 
     const apiUrl = `${baseUrl}${queryString ? `?${queryString}` : ''}`
-    console.log('Generated API URL:', apiUrl, categoryParam, locationParam)
-    router.push(apiUrl)
+    window.location.href = apiUrl
   }
 
   const handleCategoryChange = (slug: string) => {
@@ -48,9 +60,9 @@ const Filter = ({}: FilterProps) => {
     )
   }
 
-  const handleLocationChange = (location: string) => {
+  const handleLocationChange = (locationId: string) => {
     setSelectedLocations(prev =>
-      prev.includes(location) ? prev.filter(item => item !== location) : [...prev, location]
+      prev.includes(locationId) ? prev.filter(item => item !== locationId) : [...prev, locationId]
     )
   }
 
@@ -58,8 +70,8 @@ const Filter = ({}: FilterProps) => {
     <div className="hidden rounded-[32px] border px-8 py-5 md:block">
       <div className="mb-6 border-b pb-6">
         <Disclosure defaultOpen>
-          <DisclosureButton className="mb-6 cursor-pointer font-sora font-bold text-black">
-            Categories
+          <DisclosureButton className="mb-6 flex w-full cursor-pointer items-center justify-between font-sora font-bold text-black">
+            Categories <ChevronDownIcon className="size-4" />
           </DisclosureButton>
 
           <DisclosurePanel className="text-gray-500">
@@ -83,23 +95,23 @@ const Filter = ({}: FilterProps) => {
 
       <div className="mb-6 border-b pb-6">
         <Disclosure defaultOpen>
-          <DisclosureButton className="mb-6 cursor-pointer font-sora font-bold text-black">
-            Locations
+          <DisclosureButton className="mb-6 flex w-full cursor-pointer items-center justify-between font-sora font-bold text-black">
+            Locations <ChevronDownIcon className="size-4" />
           </DisclosureButton>
 
           <DisclosurePanel className="text-gray-500">
-            {fetchedLocations.map((loc, index) => (
+            {fetchedLocations.map((location, index) => (
               <label className="relative mb-4 flex cursor-pointer items-center gap-2" key={index}>
                 <input
                   type="checkbox"
-                  checked={selectedLocations.includes(loc)}
-                  onChange={() => handleLocationChange(loc)}
+                  checked={selectedLocations.includes(location.title)}
+                  onChange={() => handleLocationChange(location.title)}
                   className="peer hidden"
                 />
                 <div className="flex h-4 w-4 cursor-pointer items-center justify-center rounded border border-gray-500 bg-white peer-checked:border-purple-600 peer-checked:bg-purple-600">
                   <CheckIcon className="h-4 w-4 text-white peer-checked:block" />
                 </div>
-                <span className="text-base text-black">{loc}</span>
+                <span className="text-base text-black">{location.title}</span>
               </label>
             ))}
           </DisclosurePanel>

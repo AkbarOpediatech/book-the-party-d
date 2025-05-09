@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import upload from '/public/assets/upload.svg'
+import Swal from 'sweetalert2'
 
 // Define the component props
 type IProps = {
@@ -24,7 +25,12 @@ const FileUpload: React.FC<IProps> = ({ onFileUpload, onChange }) => {
 
   const handleUpload = () => {
     if (!file) {
-      alert('Please select a file before uploading.')
+      Swal.fire({
+        icon: 'warning',
+        title: 'No File Selected',
+        text: 'Please select a file before uploading.',
+        confirmButtonText: 'Okay'
+      })
       return
     }
 

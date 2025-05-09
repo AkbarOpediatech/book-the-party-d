@@ -38,30 +38,16 @@ const ServiceSingle = () => {
   const { data: response, isLoading, isError } = useFetchServiceByIdQuery(slug as string)
   const singleService = response?.data
   const singleServiceId = singleService?._id
+  const relateServiceSlug = singleService?.category?.slug
 
-  const {
-    data: reviewResponse,
-    isLoading: isReviewLoading,
-    isError: isReviewError
-  } = useFetchReviewByIdQuery(singleServiceId as string)
+  const { data: reviewResponse } = useFetchReviewByIdQuery(singleServiceId as string)
 
   const reviewsData = reviewResponse?.data
-
-  console.log(reviewsData, 'reviewsData')
-
-  // const { data: reviewResponse } = useFetchReviewsQuery({
-  //   reviews: response && response.data._id,
-  //   limit: pageLimit,
-  //   page: currentPage
-  // })
-
   const { response: cartItems } = useFetchCartService({})
   const cartItemsData = cartItems?.data
   const cartId = cartItemsData?.map(i => i.service?._id)
   const matchedId = cartId?.includes(singleServiceId)
 
-  // const reviewsData = reviewResponse?.data
-  // const ReviewRecords = reviewResponse?.pagination?.records || 0
   const [addToCart] = useAddToCartMutation()
 
   const onClickFunc = () => {
@@ -83,7 +69,12 @@ const ServiceSingle = () => {
 
     if (!singleService) {
       console.error('Service data is not available.')
-      alert('Service data is missing. Please try again later.')
+      Swal.fire({
+        title: 'Service Not Available',
+        text: 'Service data is missing. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
       return
     }
 
@@ -94,7 +85,7 @@ const ServiceSingle = () => {
     const cartItem = {
       service: singleService._id,
       user: session.user?._id,
-      price_id: singleService.price[0]._id,
+      price_id: singleService.price && singleService.price[0]._id,
       quantity: 1,
       selected_date: [
         {
@@ -118,7 +109,12 @@ const ServiceSingle = () => {
       })
       .catch(error => {
         console.error('Error adding to cart:', error)
-        alert('Failed to book the service. Please try again.')
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to book the service. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'Retry'
+        })
       })
   }
 
@@ -128,7 +124,7 @@ const ServiceSingle = () => {
   return (
     <section id="service_single" className="py-10 lg:py-20">
       <div className="container max-w-[1440px]">
-        {singleService && <ProductFeature singleService={singleService} />}
+        {singleService && <ProductFeature singleService={singleService} setTab={setTab} />}
 
         {/* Tabs */}
         <div className="mb-6 flex items-center gap-4">
@@ -161,7 +157,6 @@ const ServiceSingle = () => {
             {tab === 1 && (
               <ProductReviews
                 reviewsData={reviewsData}
-                // totalRecords={ReviewRecords}
                 currentPage={currentPage}
                 pageLimit={pageLimit}
                 handlePageChange={handlePageChange}
@@ -206,7 +201,7 @@ const ServiceSingle = () => {
         </div>
 
         {/* Related Services */}
-        {specialPackages && <RelatedServices />}
+        {specialPackages && <RelatedServices relatedService={relateServiceSlug} />}
       </div>
     </section>
   )

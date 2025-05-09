@@ -31,9 +31,7 @@ const ListingDetails = () => {
 
   return (
     <div className="bg-white px-4 py-3 sm:px-6 lg:px-7">
-      <p className="mb-10 text-lg font-bold text-clr-36 sm:text-xl md:mb-[70px] md:text-2xl">
-        {singleVendorData?.title}
-      </p>
+      <p className="mb-10 text-lg font-bold text-clr-36 sm:text-xl md:text-2xl">Listing Details</p>
       <div className="mb-5 grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="col-span-2 md:col-span-1">
           <div className="w-full overflow-hidden rounded-xl lg:h-[478px]">
@@ -52,15 +50,12 @@ const ListingDetails = () => {
             {singleVendorData?.status === 'publish' ? 'Listed' : 'Unlisted'}
           </span>
           <p className="mb-4 text-lg font-bold text-clr-36 sm:text-xl">{singleVendorData?.title}</p>
-          {/* <div className="mb-6 flex flex-wrap items-center gap-1">
-            <Ratings rating={4.5} />
-            <p className="text-xs text-clr-81 sm:text-sm"> (11.78kreviews)</p>
-          </div> */}
+
           <p className="mb-4 text-sm text-clr-81 sm:text-base">
             Location: {singleVendorData?.location?.title || 'N/A'}
           </p>
           <p className="mb-4 text-lg font-bold text-clr-36 sm:text-xl md:text-2xl">
-            ${singleVendorData?.price.map(i => i.value) || 0}
+            ${(singleVendorData?.price && singleVendorData?.price.map(i => i.value)) || 0}
           </p>
 
           <div className="mb-5 inline-flex flex-wrap items-center gap-4 rounded-lg border py-3 pl-3 pr-5 text-clr-ab sm:py-4">
@@ -86,8 +81,7 @@ const ListingDetails = () => {
       <DetailsTab tab={tab} setTab={setTab} />
       {tab === 0 && <Details onData={singleVendorData} />}
       {tab === 1 && <Inclusions onData={singleVendorData} />}
-      {/* {tab === 2 && <ImportantInfo />} */}
-      {tab === 2 && <Reviews />}
+      {tab === 2 && <Reviews onData={singleVendorData} />}
     </div>
   )
 }

@@ -69,6 +69,7 @@ const Listings: React.FC<IProps> = ({
           onPageLimitChange={handlePageLimitChange}
         />
       )}
+
       {tab === 1 && (
         <ListingTable
           data={filteredByStatus}
@@ -79,6 +80,7 @@ const Listings: React.FC<IProps> = ({
           onPageLimitChange={handlePageLimitChange}
         />
       )}
+
       {tab === 2 && (
         <ListingTable
           data={filteredByStatus}

@@ -15,7 +15,6 @@ const BankInfoEdit: React.FC<IProps> = ({ setShowBankInfoEdit, showBankInfoEdit 
         open={showBankInfoEdit}
         className="relative z-10 focus:outline-none"
         onClose={() => setShowBankInfoEdit(false)}
-        __demoMode
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">

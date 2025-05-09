@@ -1,7 +1,6 @@
 'use client'
 import CartHead from '../cart/components/CartHead'
 import { useFetchCartService } from '../cart/components/CartService'
-import SubTotal from '../components/SubTotal'
 import CustomerInfo from './components/CustomerInfo'
 import ProgressBar from './components/ProgressBar'
 
@@ -23,7 +22,7 @@ const Checkout = () => {
             <CustomerInfo />
           </div>
 
-          <SubTotal cartItems={cartItems?.data} isCart={true} />
+          {/* <SubTotal cartItems={cartItems?.data} isCart={true} /> */}
           {/* <SubTotal setCurrentStep={(step: number) => dispatch(setStep(step))} /> */}
         </div>
       </div>

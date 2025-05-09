@@ -3,13 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface Address {
   name: string
   email: string
-  mobileNumber: string
-  houseNo: string
-  streetName: string
-  suburb: string
+  phone: string
+  country: string
+  street: string
+  city: string
   state: string
-  postCode: string
-  isDefault: boolean
+  postcode: string
 }
 
 interface FormState {
@@ -32,9 +31,9 @@ const formSlice = createSlice({
     deleteAddress: (state, action: PayloadAction<number>) => {
       state.addresses.splice(action.payload, 1)
     },
-    setDefaultAddress: (state, action: PayloadAction<number>) => {
-      state.addresses.forEach((addr, idx) => (addr.isDefault = idx === action.payload))
-    },
+    // setDefaultAddress: (state, action: PayloadAction<number>) => {
+    //   state.addresses.forEach((addr, idx) => (addr.isDefault = idx === action.payload))
+    // },
     updateAddress: (state, action: PayloadAction<{ index: number; updatedAddress: Address }>) => {
       const { index, updatedAddress } = action.payload
       state.addresses = state.addresses.map((address, idx) =>
@@ -47,6 +46,5 @@ const formSlice = createSlice({
   }
 })
 
-export const { addNewAddress, deleteAddress, setDefaultAddress, updateAddress, toggleCategoryChecked } =
-  formSlice.actions
+export const { addNewAddress, deleteAddress, updateAddress, toggleCategoryChecked } = formSlice.actions
 export default formSlice.reducer

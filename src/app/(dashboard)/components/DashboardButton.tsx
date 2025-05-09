@@ -9,6 +9,7 @@ type ButtonProps = {
   className?: string
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined
   icon?: ReactNode
+  disabled?: boolean
 }
 
 type LinkProps = {

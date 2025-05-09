@@ -1,25 +1,32 @@
+import { ChatItem, ChatItemResponse, IAdminChatResponse } from '@/utils'
 import { baseQuery } from '@/utils/baseQuery'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-type ChatItem = {
-  message: string
-  file: string | null
-  receiver: string
+interface IAdminConversationPayload {
   user: string
+  receiver: string
 }
 
-interface ChatItemResponse {
-  data: ChatItem[]
-}
 export const chatApi = createApi({
   reducerPath: 'chatApi',
   baseQuery,
   tagTypes: ['Chat'],
   endpoints: builder => ({
-    fetchChat: builder.query<ChatItemResponse, void>({
-      query: () => '/chats',
+    fetchChat: builder.query<ChatItemResponse, string | void>({
+      query: (receiverId = '') => `/chats?receiver=${receiverId}`,
       providesTags: ['Chat']
     }),
+
+    adminChats: builder.query<IAdminChatResponse, string | void>({
+      query: (id = '') => `/chats/admin/${id}`,
+      providesTags: ['Chat']
+    }),
+
+    adminConversations: builder.query<ChatItemResponse, IAdminConversationPayload>({
+      query: ({ user, receiver }) => receiver && `/chats/admin/${user}/${receiver}`,
+      providesTags: ['Chat']
+    }),
+
     addToChat: builder.mutation<ChatItem, ChatItem | FormData>({
       query: (formData: ChatItem) => ({
         url: '/chats',
@@ -38,4 +45,10 @@ export const chatApi = createApi({
   })
 })
 
-export const { useFetchChatQuery, useAddToChatMutation, useRemoveFromChatMutation } = chatApi
+export const {
+  useFetchChatQuery,
+  useAddToChatMutation,
+  useRemoveFromChatMutation,
+  useAdminChatsQuery,
+  useAdminConversationsQuery
+} = chatApi

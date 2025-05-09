@@ -1,19 +1,59 @@
 'use client'
 import TitleAndBreadCrumbs from '@/app/(dashboard)/components/TitleAndBreadCrumbs'
-import type { IChatData } from '@/utils'
+import type { IAdminChat } from '@/utils'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
-import { useState } from 'react'
-import { chatData } from '../../../../../utils/data'
+import { useEffect, useState } from 'react'
+
 import ChatSidebar from './components/ChatSidebar'
 import ChatWindow from './components/ChatWindow'
+import { useAdminChatsQuery } from '@/redux/features/chat/apiSlice'
+import { useSession } from 'next-auth/react'
 
 const VendorChat: React.FC = () => {
-  const [selectedChat, setSelectedChat] = useState<IChatData>(chatData[0])
+  const { data: session } = useSession()
+  const [selectedChat, setSelectedChat] = useState<IAdminChat>({
+    _id: '',
+    user: {
+      _id: '',
+      name: '',
+      avatar: ''
+    },
+    receiver: {
+      _id: '',
+      name: '',
+      avatar: ''
+    },
+    message: '',
+    receiverInfo: {
+      _id: '',
+      name: '',
+      avatar: '',
+      location: '',
+      email: '',
+      type: '',
+      phone: ''
+    },
+    createdAt: ''
+  })
   const [isChatbarOpen, setChatbarOpen] = useState(false)
 
-  const handleChatSelect = (chat: IChatData) => {
+  const handleChatSelect = (chat: IAdminChat) => {
     setSelectedChat(chat)
   }
+
+  // Assuming useAdminChatsQuery is a hook for fetching data
+  const { data } = useAdminChatsQuery(session?.user?.id as string)
+
+  // State to store the chats
+  const [chats, setChats] = useState<IAdminChat[]>([])
+
+  // useEffect to update chats when data changes
+  useEffect(() => {
+    if (data?.data) {
+      setChats([...data.data])
+    }
+  }, [data])
+
   return (
     <>
       <TitleAndBreadCrumbs title={'Chat'} menuitem={'Dashboard'} breadcrumbs={'Chat'} className="mb-10" />
@@ -25,7 +65,7 @@ const VendorChat: React.FC = () => {
             } lg:relative lg:translate-x-0 lg:border-r`}
           >
             <ChatSidebar
-              chatData={chatData}
+              chatData={chats || []}
               onChatSelect={handleChatSelect}
               closeSidebar={() => setChatbarOpen(false)}
             />

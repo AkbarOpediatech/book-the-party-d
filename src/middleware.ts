@@ -13,18 +13,17 @@ export async function middleware(req: NextRequest) {
     // return NextResponse.redirect(`${client}/login`)
     return NextResponse.redirect(new URL(`/login?callbackUrl=${callbackUrl}`, req.url))
   }
-
   const userRole = token.role
 
-  if (url.pathname.startsWith('/dashboard/admin') && userRole !== 'admin') {
-    url.pathname = '/unauthorized'
-    return NextResponse.redirect(url)
-  }
+  // if (url.pathname.startsWith('/dashboard/admin/') && userRole !== 'admin') {
+  //   url.pathname = '/unauthorized'
+  //   return NextResponse.redirect(url)
+  // }
 
-  if (url.pathname.startsWith('/dashboard/vendor') && userRole !== 'vendor') {
-    url.pathname = '/unauthorized'
-    return NextResponse.redirect(url)
-  }
+  // if (url.pathname.startsWith('/dashboard/vendor') && userRole !== 'vendor') {
+  //   url.pathname = '/unauthorized'
+  //   return NextResponse.redirect(url)
+  // }
 
   return NextResponse.next()
 }

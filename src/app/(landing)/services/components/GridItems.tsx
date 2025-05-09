@@ -15,9 +15,10 @@ const GridItems: React.FC<IProps> = ({ serviceData }) => {
             Href={`/services/${items.slug}`}
             imgSrc={items.featured_image ? items.featured_image : ServiceImage}
             title={items.title}
-            info={items.infos.map(i => i) || 'information'}
+            info={items?.infos?.map(i => i) || 'information'}
             price={items.price?.[0]?.value || 0}
             chooseLocation={items.location?.title}
+            serviceId={items._id}
           />
         </div>
       ))}

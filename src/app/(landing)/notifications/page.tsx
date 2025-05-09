@@ -19,7 +19,6 @@ const Notifications = () => {
   }
 
   const { response: notificationItems, error } = useFetchServiceService()
-  console.log(notificationItems, 'NotificationItems')
 
   if (loading) return <Loader type="loading" message="Please sometimes wait." />
   if (error) return <Loader type="error" message="Please try again later." />

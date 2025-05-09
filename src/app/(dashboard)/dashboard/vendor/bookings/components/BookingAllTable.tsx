@@ -1,14 +1,18 @@
 'use client'
-import type { IOrder } from '@/redux/features/bookings/apiSlice'
+import FullPageLoader from '@/app/(landing)/components/Loader/FullPageLoader'
+import { useUpdateBookingMutation } from '@/redux/features/bookings/apiSlice'
+import type { IOrder } from '@/types/common'
 import { cn } from '@/utils'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
+import React, { useState } from 'react'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import Swal from 'sweetalert2'
+import ActionMenu from './ActionMenu'
 import productImage from '/public/assets/package1.png'
 
 type IProps = {
-  data: IOrder[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any
   currentPage: number
   pageLimit: number
   onPageChange: (page: number) => void
@@ -23,51 +27,166 @@ const BookingAllTable: React.FC<IProps> = ({
   onPageLimitChange,
   totalRecords
 }) => {
+  const [updateBooking] = useUpdateBookingMutation()
+  const [loading, setLoading] = useState(false)
+
+  const shouldRenderEmpty = (status: string): boolean => {
+    switch (status) {
+      case 'completed':
+      case 'cancelled':
+      case 'completed_request_vendor':
+      case 'draft':
+        return true
+      default:
+        return false
+    }
+  }
+
+  const handleProcessingOrder = async (id: string) => {
+    setLoading(true)
+    try {
+      await updateBooking({ _id: id, status: 'processing' }).unwrap()
+
+      Swal.fire({
+        title: 'Success!',
+        text: 'Order processing successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#4caf50'
+      })
+    } catch (error) {
+      console.error('Failed to processing order:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to process the order. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCancelOrder = async (id: string) => {
+    setLoading(true)
+    try {
+      await updateBooking({ _id: id, status: 'cancelled' }).unwrap()
+
+      Swal.fire({
+        title: 'Success!',
+        text: 'Order canceled successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#4caf50'
+      })
+    } catch (error) {
+      console.error('Failed to cancel order:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to cancel the order. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCompleteOrder = async (id: string) => {
+    setLoading(true)
+    try {
+      await updateBooking({ _id: id, status: 'completed' }).unwrap()
+      Swal.fire({
+        title: 'Success!',
+        text: 'Order completed successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#4caf50'
+      })
+    } catch (error) {
+      console.error('Failed to cancel order:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to complete the order. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleRequestApproval = async (id: string) => {
+    setLoading(true)
+    try {
+      await updateBooking({ _id: id, status: 'completed_request_vendor' }).unwrap()
+      Swal.fire({
+        title: 'Success!',
+        text: 'Approval requested successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#4caf50'
+      })
+    } catch (error) {
+      console.error('Failed to request approval:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to request approval. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const columns: TableColumn<IOrder>[] = [
     {
       name: 'Event',
       cell: (row: IOrder) => (
         <div className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row?.service_embedded?.featured_image || productImage} alt="Product Image" />
+            <Image
+              width={40}
+              height={40}
+              src={row?.service_embedded?.featured_image || productImage}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
             <p className="text-sm font-semibold text-clr-36">{row?.service_embedded?.title}</p>
-            <p className="w-28 truncate text-sm text-clr-81">{row?.order}</p>
+            <p className="w-28 truncate text-sm text-clr-81">{row?.order?.billing_details?.email}</p>
           </div>
         </div>
       ),
       sortable: true,
       width: '230px'
     },
-    {
-      name: 'Start Date',
-      selector: (row: IOrder) =>
-        row?.selected_date?.map(i => new Date(i.start_date).toLocaleDateString('en-GB')).join(', '),
-      sortable: true
-    },
-    {
-      name: 'End Date',
-      selector: (row: IOrder) =>
-        row?.selected_date?.map(i => new Date(i.end_date).toLocaleDateString('en-GB')).join(', '),
-      sortable: true
-    },
+
     {
       name: 'Sale Total',
       cell: (row: IOrder) => <div>${row?.amount?.total}</div>,
       sortable: true
     },
+
     {
       name: 'Fee(10%)',
       cell: (row: IOrder) => <div>${row?.amount?.order_fee}</div>,
+      sortable: true
+    },
 
-      sortable: true
-    },
-    {
-      name: 'Total payout(incl GST)',
-      cell: (row: IOrder) => <div>${row?.amount?.discounted_service_total}</div>,
-      sortable: true
-    },
     {
       name: 'Status',
       cell: (row: IOrder) => (
@@ -84,34 +203,22 @@ const BookingAllTable: React.FC<IProps> = ({
       ),
       sortable: true
     },
+
     {
       name: '',
-      cell: () => (
-        <Menu>
-          <MenuButton>
-            <EllipsisVerticalIcon className="size-4 fill-black/30" />
-          </MenuButton>
-
-          <MenuItems
-            transition
-            anchor="bottom end"
-            className="w-36 origin-top-right rounded-xl border bg-white p-1 text-sm/6 text-black shadow-sm transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-          >
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <PencilIcon className="size-4 fill-black/30" />
-                Edit
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                <Square2StackIcon className="size-4 fill-black/30" />
-                Duplicate
-              </button>
-            </MenuItem>
-          </MenuItems>
-        </Menu>
-      ),
+      cell: (row: IOrder) =>
+        shouldRenderEmpty(row.status as string) ? (
+          ''
+        ) : (
+          <ActionMenu
+            status={row.status}
+            id={row._id as string}
+            onCancel={handleCancelOrder}
+            onProcess={handleProcessingOrder}
+            onComplete={handleCompleteOrder}
+            onRequestApproval={handleRequestApproval}
+          />
+        ),
       width: '50px'
     }
   ]
@@ -144,6 +251,9 @@ const BookingAllTable: React.FC<IProps> = ({
       }
     }
   }
+  if (loading) {
+    return <FullPageLoader type="loading" />
+  }
 
   return (
     <div className="p-2">
@@ -151,7 +261,7 @@ const BookingAllTable: React.FC<IProps> = ({
         <>
           <DataTable
             columns={columns}
-            data={data}
+            data={data || []}
             pagination
             paginationServer
             paginationTotalRows={totalRecords}

@@ -1,17 +1,17 @@
-import { type IChatData } from '@/utils'
+import { IAdminChat, type IChatData } from '@/utils'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import Image from 'next/image'
 import React from 'react'
 
 type IProps = {
-  chatData: IChatData[]
-  onChatSelect: (chat: IChatData) => void
+  chatData: IAdminChat[]
+  onChatSelect: (chat: IAdminChat) => void
   closeSidebar: () => void
 }
 
 const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect, closeSidebar }) => {
-  const handleChatClick = (chat: IChatData) => {
+  const handleChatClick = (chat: IAdminChat) => {
     onChatSelect(chat)
     closeSidebar()
   }
@@ -45,16 +45,16 @@ const ChatSidebar: React.FC<IProps> = ({ chatData, onChatSelect, closeSidebar })
             >
               <div className="relative">
                 <div className="h-11 w-11 overflow-hidden rounded-full">
-                  <Image width={44} height={44} src={chat.avatar} alt="avatar" />
+                  <Image width={44} height={44} src={chat?.receiverInfo?.avatar} alt="avatar" />
                 </div>
-                {chat.status === 'active now' && (
+                {/* {chat?.status === 'active now' && (
                   <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
-                )}
+                )} */}
               </div>
 
               <div className="w-full max-w-[150px]">
                 <p className="flex w-full items-center justify-between text-sm font-semibold text-clr-36">
-                  {chat.name} <span className="text-xs text-clr-ab">{relativeTimeResult}</span>
+                  {chat?.receiverInfo?.name} <span className="text-xs text-clr-ab">{relativeTimeResult}</span>
                 </p>
                 <p className="truncate text-sm font-semibold text-clr-36">{chat.message}</p>
               </div>

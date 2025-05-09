@@ -1,48 +1,35 @@
-// BookingSummary.tsx
 'use client'
 
+import type { Order } from '@/redux/features/orders/apiSlice'
 import Image from 'next/image'
 import bookingImage from '/public/assets/booking-history-5.png'
 
 type BookingDetailsProps = {
-  currentStep: number
+  data: Order | undefined
 }
 
-const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
+const BookingDetails: React.FC<BookingDetailsProps> = ({ data }) => {
   const bookingData = [
-    { label: 'Customer Name', value: 'Maguire Harry' },
-    { label: 'Customer Email', value: 'someone@example.com' },
-    { label: 'Mobile Number', value: '23547956529' },
-    { label: 'Flat, House no.', value: 'House no 23' },
-    { label: 'Suburb', value: 'Sydney' },
-    { label: 'Postcode', value: '31134' },
-    { label: 'Street Name', value: 'Parker Rd.' },
-    { label: 'Street Name', value: 'Parker Rd.' },
-    { label: 'State', value: 'Australia' }
+    { label: 'Customer Name', value: data?.order?.billing_details?.name },
+    { label: 'Customer Email', value: data?.order?.billing_details?.email },
+    { label: 'Mobile Number', value: data?.order?.billing_details?.phone },
+    { label: 'City', value: data?.order?.billing_details?.city },
+    { label: 'State', value: data?.order?.billing_details?.state },
+    { label: 'Country', value: data?.order?.billing_details?.country },
+    { label: 'Postcode', value: data?.order?.billing_details?.postcode },
+    { label: 'Street', value: data?.order?.billing_details?.street }
   ]
 
   const getBgColor = () => {
-    switch (currentStep) {
-      case 0:
+    switch (data?.status) {
+      case 'pending':
         return 'bg-[#FFEDED]'
-      case 1:
+      case 'processing':
         return 'bg-[#FEF8E1]'
-      case 2:
+      case 'succeeded':
         return 'bg-[#E4F9E0]'
       default:
         return 'bg-[#FFEDED]'
-    }
-  }
-  const status = () => {
-    switch (currentStep) {
-      case 0:
-        return 'Pending'
-      case 1:
-        return 'In Progress'
-      case 2:
-        return 'Complete'
-      default:
-        return 'Pending'
     }
   }
 
@@ -52,16 +39,26 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ currentStep }) => {
         <Image
           width={86}
           height={86}
-          src={bookingImage}
+          src={data?.service_embedded?.featured_image || bookingImage}
           alt="Booking History"
           className="rounded-xl sm:h-auto sm:w-auto md:h-20 md:w-20 lg:mr-3"
         />
         <div>
-          <p className="text-lg font-semibold text-clr-1d sm:text-2xl">Your booking is {status()}</p>
-          <p className="text-sm font-normal text-clr-48 sm:text-base">
-            Lorem ipsum dolor sit amet consectetur. Viverra quam non at nunc massa. Turpis quisque lectus
-            tortor elementum gravida tellus purus.
+          <p className="text-lg font-semibold text-clr-1d sm:text-2xl">
+            Your booking is {data?.status === 'processing' && 'processing'}
+            {data?.status === 'completed' && 'completed'}
+            {data?.status === 'cancelled' && 'cancelled'}
+            {data?.status === 'completed_request_vendor' && 'completed request vendor'}
+            {data?.status === 'completed_request_customer' && 'completed request customer'}
           </p>
+          <p
+            className="text-sm font-normal text-clr-48 sm:text-base"
+            dangerouslySetInnerHTML={{
+              __html:
+                data?.service_embedded?.description ||
+                'Lorem ipsum dolor sit amet consectetur. Viverra quam non at nunc massa. Turpis quisque lectus tortor elementum gravida tellus purus.'
+            }}
+          />
         </div>
       </div>
       <h1 className="my-6 text-xl font-semibold sm:my-8 sm:text-3xl">Booking Information</h1>

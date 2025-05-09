@@ -1,7 +1,7 @@
 'use client'
 import type { RootState } from '@/redux/store'
 import { cn } from '@/utils'
-import { CreditCardIcon, DocumentTextIcon, HomeIcon } from '@heroicons/react/16/solid'
+import { DocumentTextIcon, HomeIcon } from '@heroicons/react/16/solid'
 import { useSelector } from 'react-redux'
 
 const ProgressBar = () => {
@@ -30,7 +30,7 @@ const ProgressBar = () => {
         </button>
       </li>
 
-      <li>
+      {/* <li>
         <button className="flex flex-col justify-start">
           <span
             className={cn('mb-3 inline-block rounded bg-gray-50 p-3', currentStep >= 1 && 'bg-[#3a3b4e]')}
@@ -39,14 +39,14 @@ const ProgressBar = () => {
           </span>
           <p className="font-sora text-sm font-light text-clr-0f md:text-2xl">Payment Method</p>
         </button>
-      </li>
+      </li> */}
 
       <li>
         <button className="flex flex-col items-end">
           <span
-            className={cn('mb-3 inline-block rounded bg-gray-50 p-3', currentStep === 2 && 'bg-[#a18457]')}
+            className={cn('mb-3 inline-block rounded bg-gray-50 p-3', currentStep === 1 && 'bg-[#a18457]')}
           >
-            <DocumentTextIcon className={`size-6 ${currentStep === 2 && 'fill-white'}`} />
+            <DocumentTextIcon className={`size-6 ${currentStep === 1 && 'fill-white'}`} />
           </span>
           <p className="font-sora text-sm font-light text-clr-0f md:text-2xl">Review</p>
         </button>

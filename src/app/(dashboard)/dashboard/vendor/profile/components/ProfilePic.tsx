@@ -12,8 +12,6 @@ type IProps = {
 }
 
 const ProfilePic: React.FC<IProps> = ({ setShowProfileEdit, data }) => {
-  // console.log(data, 'data')
-
   return (
     <div className="mb-4 rounded-lg bg-white p-6 shadow">
       <div className="mb-6 flex items-center gap-2">
@@ -22,7 +20,13 @@ const ProfilePic: React.FC<IProps> = ({ setShowProfileEdit, data }) => {
       </div>
       <div className="flex items-center gap-4 border-b border-gray-200 pb-6">
         <div className="size-[96px] overflow-hidden rounded">
-          <Image width={96} height={96} className="object-cover" src={data?.avatar || avater} alt="pic" />
+          <Image
+            width={150}
+            height={150}
+            className="center h-full w-full object-cover"
+            src={data?.avatar || avater}
+            alt="pic"
+          />
         </div>
         <div>
           <span className="rounded-md bg-[#1E429F]/20 px-3 py-0.5 text-sm font-medium text-[#1E429F]">

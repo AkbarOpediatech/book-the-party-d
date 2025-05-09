@@ -26,24 +26,28 @@ const Reviews = () => {
   return (
     <section className="reviews section-padding">
       <div className="container px-0">
-        <SectionHeading title="Reviews" desc="What our clients love about us." />
+        <SectionHeading
+          title="Reviews"
+          desc="What our clients love about us."
+          headingRootClass={'block'}
+          sectionHeadingClass={'mb-4'}
+        />
 
         <div className="relative">
           <Swiper
             slidesPerView={3}
             spaceBetween={20}
             loop={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false
-            }}
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false
+            // }}
             navigation={{
               nextEl: '#swiper-next2',
               prevEl: '#swiper-prev2'
             }}
             pagination={{ clickable: true }}
             modules={[Autoplay, Navigation]}
-            grabCursor={true}
             className="relative max-w-[1312px]"
             breakpoints={{
               220: {
@@ -64,21 +68,21 @@ const Reviews = () => {
               <SwiperSlide key={index}>
                 <div className="rounded-lg bg-clr-87 px-8 py-12">
                   <p className="mb-5 text-sm font-medium leading-[150%] text-white">
-                    &quot;{items.description}&quot;
+                    &quot;{items.description || 'The best way to predict the future is to create it'}&quot;
                   </p>
                   <div className="flex items-center gap-3">
                     <Image
                       width={32}
                       height={32}
-                      className="rounded-full"
+                      className="size-8 rounded-full"
                       src={items?.user?.avatar || avatar}
                       alt="avatar"
                     />
                     <div>
                       <h6 className="mb-1 font-sora text-sm font-semibold text-white md:text-base">
-                        {items?.user?.name}
+                        {items?.user?.name || 'Anonymous'}
                       </h6>
-                      <p className="text-sm text-white">{items?.user?.role}</p>
+                      <p className="text-sm text-white">{items?.user?.role || 'Project Manager'}</p>
                     </div>
                   </div>
                 </div>

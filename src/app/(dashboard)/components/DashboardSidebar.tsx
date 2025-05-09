@@ -1,5 +1,6 @@
 'use client'
 import { adminNavigation, vendorNavigation } from '@/utils'
+import { roleWiseRoute } from '@/utils/constand'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/16/solid'
 import { useSession } from 'next-auth/react'
@@ -23,23 +24,26 @@ const DashboardSidebar: React.FC<IProps> = ({ sidebarOpen, setSidebarOpen }) => 
   const role = session?.user?.role
   const navigation = role === 'admin' ? adminNavigation : role === 'vendor' ? vendorNavigation : []
 
+  const roleRoute = session?.user?.role as keyof typeof roleWiseRoute
+  const route = role ? roleWiseRoute[roleRoute] : '/'
+
   // Function to render user information
   const renderUserInfo = () => (
-    <div className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
+    <Link href={route} className="mb-4 flex items-center gap-4 bg-clr-14 px-5 py-4">
       <div className="user-img h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
         <Image
           src={session?.user?.avatar || Avatar}
           alt="avatar"
-          width={40}
-          height={40}
-          className="flex-shrink-0"
+          width={100}
+          height={100}
+          className="center h-full w-full flex-shrink-0 object-cover"
         />
       </div>
       <div className="user-info">
         <h3 className="text-sm font-semibold capitalize text-clr-48">{session?.user?.name || 'Ashiqur'}</h3>
         <p className="text-sm capitalize text-clr-81">{session?.user?.role || 'Vendor'}</p>
       </div>
-    </div>
+    </Link>
   )
 
   // Render sidebar navigation

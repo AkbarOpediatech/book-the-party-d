@@ -1,6 +1,5 @@
 import type { StaticImageData } from 'next/image'
 import type { xRole, xUserStatus, xUserType } from './data'
-import type { ReactNode } from 'react'
 
 export type INavigationItem = {
   type: 'button'
@@ -85,8 +84,8 @@ export type IEventFeatures = {
   name: string
 }
 export type IEventFeaturesIcon = {
-  id: number
-  icon: ReactNode
+  title: string
+  icon: StaticImageData | null
 }
 
 export type ISpecialPackages = {
@@ -235,4 +234,106 @@ export type ErrorResponseAuth = {
       message: string
     }
   }
+}
+
+export interface IAdminChat {
+  _id: string
+  user: {
+    _id: string
+    name: string
+    avatar: string
+  }
+  receiver: {
+    _id: string
+    name: string
+    avatar: string
+  }
+  message: string
+  receiverInfo: {
+    _id: string
+    name: string
+    avatar: string
+    location: string
+    email: string
+    type: string
+    phone: string
+  }
+  createdAt: string
+}
+
+export type IAdminChatMessage = {
+  message: string
+  file: string | null
+  receiver: string
+  user: string
+}
+
+export interface IAdminChatResponse {
+  data: IAdminChat[]
+  success: boolean
+}
+
+export type ChatItem = {
+  message: string
+  file: string | null
+  receiver: string
+  user: string
+  createdAt: Date
+}
+
+export interface ChatItemResponse {
+  data: ChatItem[]
+}
+
+export interface NotificationItem {
+  _id: string
+  type: string
+  message: string
+  isRead: boolean
+  user: string
+  status: string
+  createdAt: Date
+}
+
+export interface NotificationItemResponse {
+  data: NotificationItem[]
+}
+
+export interface MyNotificationResponse {
+  data: {
+    today: NotificationItem[]
+    thisWeek: NotificationItem[]
+    others: NotificationItem[]
+  }
+}
+
+export interface MonthlyStatistics {
+  name: string
+  uv: number
+  pv: number
+}
+
+export interface YearlyStatistics {
+  name: string
+  uv: number
+  pv: number
+}
+
+interface BookingCategories {
+  totalEarnings: number
+  categories: {
+    series: number[]
+    labels: string[]
+  }
+}
+
+export interface IDashboardStatistics {
+  totalAmount: number
+  totalBookings: number | string
+  totalCancelled?: number
+  totalCompleted?: number
+  monthlyStatistics: MonthlyStatistics[]
+  yearlyStatistics: YearlyStatistics[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bookingCategories: BookingCategories | any
 }

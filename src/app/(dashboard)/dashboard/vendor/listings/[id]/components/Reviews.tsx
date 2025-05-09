@@ -1,8 +1,13 @@
+import type { ServiceItem } from '@/redux/features/services/apiSlice'
 import Image from 'next/image'
 import Ratings from './Ratings'
 import avater from '/public/assets/avatar.jpeg'
 
-const Reviews = () => {
+type IProps = {
+  onData: ServiceItem | undefined
+}
+
+const Reviews: React.FC<IProps> = () => {
   return (
     <div className="p-6">
       <div className="mb-3 flex items-center gap-2">

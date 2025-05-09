@@ -5,6 +5,7 @@ import GrayBtn from '@/app/(dashboard)/components/GrayBtn'
 import { useAddServiceMutation, type ServiceItemPost } from '@/redux/features/services/apiSlice'
 import React, { useState, type Dispatch, type SetStateAction } from 'react'
 import { useDispatch } from 'react-redux'
+import Swal from 'sweetalert2'
 import FixedPrice from './FixedPrice'
 import Hourly from './Hourly'
 import MultiplePrice from './MultiplePrice'
@@ -47,7 +48,12 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!pricingType) {
-      alert('Please fill in all fields with valid values.')
+      Swal.fire({
+        title: 'Validation Error',
+        text: 'Please fill in all fields with valid values.',
+        icon: 'warning',
+        confirmButtonText: 'Ok'
+      })
       return
     }
 
@@ -92,12 +98,22 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
 
     try {
       const response = await addService(formData).unwrap()
-      console.log('Service added response:', response)
-      console.log('Service added successfully:', formData)
-      alert('Service added successfully!')
+
+      Swal.fire({
+        title: 'Success',
+        text: 'Service added successfully!',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      })
       // dispatch(clearNewServiceDraft())
     } catch (err) {
       console.error('Failed to add product:', err)
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to add service. Please try again later.',
+        icon: 'error',
+        confirmButtonText: 'Retry'
+      })
     }
   }
 
@@ -126,23 +142,21 @@ const ItemPricing: React.FC<IProps> = ({ setStep, isEditListing, formData, handl
         {pricingType === 'fixed' && (
           <>
             <FixedPrice
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+              onChange={e => handleChange('price', [{ text: pricingType, value: e.target.value }])}
             />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
         )}
         {pricingType === 'hourly' && (
           <>
-            <Hourly
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
-            />
+            <Hourly onChange={e => handleChange('price', [{ text: pricingType, value: e.target.value }])} />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>
         )}
         {pricingType === 'Multiple pricing range' && (
           <>
             <MultiplePrice
-              onChange={e => handleChange('price', [{ text: pricingType, value: Number(e.target.value) }])}
+              onChange={e => handleChange('price', [{ text: pricingType, value: e.target.value }])}
             />
             <SecurityDeposit onChange={e => handleChange('security_deposit', Number(e.target.value))} />
           </>

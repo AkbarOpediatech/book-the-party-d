@@ -5,13 +5,7 @@ import { useFetchWishlistQuery } from '@/redux/features/wishlist/apiSlice'
 import { cn, profileMenuItems } from '@/utils'
 import { roleWiseRoute } from '@/utils/constand'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import {
-  ArrowRightEndOnRectangleIcon,
-  Bars3Icon,
-  UserIcon,
-  WrenchScrewdriverIcon,
-  XMarkIcon
-} from '@heroicons/react/16/solid'
+import { ArrowRightEndOnRectangleIcon, Bars3Icon, UserIcon, XMarkIcon } from '@heroicons/react/16/solid'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,12 +13,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useFetchCartService } from '../cart/components/CartService'
-import CustomBtn from './CustomBtn'
 import ICCartGray from '/public/assets/ic-cart-gray.svg'
 import ICCart from '/public/assets/ic-cart.svg'
 import ICFavGray from '/public/assets/ic-fav-gray.svg'
 import ICFav from '/public/assets/ic-fav.svg'
-import ICNotify from '/public/assets/ic-notify.svg'
 import ICUser from '/public/assets/ic-user.svg'
 import NavBrand from '/public/assets/nav-brand.svg'
 
@@ -96,7 +88,7 @@ const Header = () => {
             )}
 
             {/* Notifications */}
-            <li>
+            {/* <li>
               <Menu>
                 <MenuButton>
                   <div className={iconContainerClasses}>
@@ -132,7 +124,7 @@ const Header = () => {
                   </MenuItem>
                 </MenuItems>
               </Menu>
-            </li>
+            </li> */}
 
             {/* User Menu */}
             <li>
@@ -141,13 +133,15 @@ const Header = () => {
                   <div
                     className={`overflow-hidden rounded-full border border-gray-300 ${iconContainerClasses}`}
                   >
-                    <Image
-                      width={session?.user?.avatar ? 80 : 20}
-                      height={session?.user?.avatar ? 80 : 20}
-                      src={session?.user?.avatar || ICUser}
-                      alt="user-icon"
-                      className="centre object-fill"
-                    />
+                    <div className={cn(session?.user?.avatar && 'h-[70px] w-[70px]')}>
+                      <Image
+                        width={session?.user?.avatar ? 80 : 20}
+                        height={session?.user?.avatar ? 80 : 20}
+                        src={session?.user?.avatar || ICUser}
+                        alt="user-icon"
+                        className="center h-full w-full object-cover"
+                      />
+                    </div>
                   </div>
                 </MenuButton>
 

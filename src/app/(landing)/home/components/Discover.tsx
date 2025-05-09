@@ -12,7 +12,6 @@ import SectionHeading from '../../components/SectionHeading'
 
 const Discover = () => {
   const { formData } = useSearchQuery()
-  console.log(formData.location)
 
   return (
     <section className="sm:pt-3 lg:pb-20">

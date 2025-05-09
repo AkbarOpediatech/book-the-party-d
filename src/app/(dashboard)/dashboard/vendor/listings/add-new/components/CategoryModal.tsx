@@ -1,7 +1,10 @@
 import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import FullPageLoader from '@/app/(landing)/components/Loader/FullPageLoader'
 import { useAddCategoryMutation } from '@/redux/features/categories/apiSlice'
+import { useToken } from '@/redux/hooks/useToken'
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 import ImageUpload from './ImageUpload'
 
 interface CategoryModalProps {
@@ -13,60 +16,16 @@ interface CategoryModalProps {
 export default function CategoryModal({ isOpen, onClose, onSubmit }: CategoryModalProps) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [loading, setLoading] = useState(false)
   const [icon, setIcon] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [addCategory] = useAddCategoryMutation()
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault()
-
-  //   // console.log('Title:', title)
-  //   // console.log('Description:', description)
-  //   // console.log('Icon:', icon)
-  //   // if (image) {
-  //   //   console.log('Image:', image.name)
-  //   // }
-
-  //   // onSubmit({ title, description, icon, image })
-  //   console.log({ title, description, icon, image })
-  //   onClose()
-  // }
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-
-  //   let featuredImage = ''
-  //   if (image) {
-  //     const formData = new FormData()
-  //     formData.append('media', image)
-  //     console.log("formData", formData)
-  //     try {
-  //       const uploadedImage = await addCategory(formData).unwrap()
-  //       featuredImage = uploadedImage?.sid || '' // Adjust based on your API's response
-  //     } catch (error) {
-  //       console.error('Image upload failed:', error)
-  //       return
-  //     }
-  //   }
-
-  //   const newCategory = {
-  //     title,
-  //     description,
-  //     icon,
-  //     featured_image: featuredImage
-  //   }
-  //   console.log(newCategory)
-
-  //   try {
-  //     await addCategory(newCategory).unwrap()
-  //     onClose()
-  //   } catch (error) {
-  //     console.error('Failed to add category:', error)
-  //   }
-  // }
+  const { session } = useToken()
+  const userId = session?.user?.id
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     const newCategory = {
       title,
       description,
@@ -80,22 +39,36 @@ export default function CategoryModal({ isOpen, onClose, onSubmit }: CategoryMod
     formData.append('description', newCategory.description || 'Demo descroiption')
     formData.append('icon', (icon as string) || '')
     formData.append('featured_image', newCategory.featured_image || '')
-    formData.append('user', '671e14e2767fd06e13e1949a')
+    formData.append('user', userId || '')
 
-    console.log('newCategory', newCategory)
-    console.log('FormData:', Array.from(formData.entries()))
+    setLoading(true)
 
     try {
       const response = await addCategory(formData).unwrap()
-      console.log('response', response)
+      Swal.fire({
+        icon: 'success',
+        title: 'Category Added',
+        text: 'The category has been successfully added!'
+      })
       onClose()
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: 'Failed to add the category. Please try again.'
+      })
       console.error('Failed to add category:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleImageUpload = (file: File | null) => {
     setImage(file)
+  }
+
+  if (loading) {
+    return <FullPageLoader type="loading" />
   }
 
   return (

@@ -48,7 +48,6 @@ const FilterGroup = () => {
       apiUrl += `&location=[${selectedLocations.join(',')}]`
     }
 
-    console.log('Generated API URL:', apiUrl)
     router.push(apiUrl)
   }
   const handleCategoryChange = (category: string) => {

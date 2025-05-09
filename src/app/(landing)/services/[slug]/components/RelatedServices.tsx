@@ -10,16 +10,21 @@ import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import ServiceImage from '/public/assets/package1.png'
 
-const RelatedServices = () => {
-  const { data: products, isLoading, isError } = useFetchServicesQuery({})
+type IProps = {
+  relatedService: string | undefined
+}
+
+const RelatedServices: React.FC<IProps> = ({ relatedService }) => {
+  const { data: products } = useFetchServicesQuery({})
   const serviceData = products?.data || []
+  const filteredServices = serviceData.filter(service => service?.category?.slug === relatedService)
 
   return (
-    <div>
+    <>
       <div className="mb-5 flex items-center justify-between lg:mb-10">
         <SectionHeading title="Related Services" headingRootClass="md:mb-0" />
         <Link
-          href={'/services'}
+          href={`/services?categories=${relatedService}`}
           className={cn(
             'flex shrink-0 items-center gap-5 rounded-full border border-clr-fb bg-white px-7 py-3 text-base font-bold text-clr-fb'
           )}
@@ -49,19 +54,21 @@ const RelatedServices = () => {
         modules={[Navigation, Autoplay]}
         className="special-packages-slider"
       >
-        {serviceData.map((items, index) => (
+        {filteredServices.map((items, index) => (
           <SwiperSlide key={index}>
             <ServiceCard
+              Href={`/services/${items.slug}`}
               imgSrc={items.featured_image ? items.featured_image : ServiceImage}
               title={items.title}
+              info={items?.infos?.map(i => i) || 'information'}
               review={10}
-              price={items.price?.[0]?.value || 0}
+              price={(items.price && items.price[0]?.value) || 0}
               chooseLocation={items.location?.title}
             />
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </>
   )
 }
 

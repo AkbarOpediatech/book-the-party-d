@@ -1,9 +1,16 @@
+import DashboardButton from '@/app/(dashboard)/components/DashboardButton'
+import FormInput from '@/app/(dashboard)/components/FormInput'
 import type { IUser } from '@/redux/features/user/apiSlice'
-import { useUpdateUserMutation } from '@/redux/features/user/apiSlice'
-import { billingAddress, cn, personalInfo } from '@/utils'
-import React, { useCallback, useState } from 'react'
+import { useFetchUserByIdQuery, useUpdateUserMutation } from '@/redux/features/user/apiSlice'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
+import React, { useEffect, useRef, useState } from 'react'
+import Swal from 'sweetalert2'
 import CustomBtn from '../../components/CustomBtn'
+import Loader from '../../components/Loader/Loader'
 import Avatar from './Avatar'
+import ICUser from '/public/assets/ic-user.svg'
 
 type IProps = {
   data: IUser | undefined
@@ -11,188 +18,196 @@ type IProps = {
 
 const AccountSettings: React.FC<IProps> = ({ data }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [personalData, setPersonalData] = useState(personalInfo)
-  const [billingData, setBillingData] = useState(billingAddress)
-  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({})
+  const { data: session, update } = useSession()
+  const [file, setFile] = useState<File | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const userId = session?.user?.id ?? ''
+  const { data: response, isLoading, isError } = useFetchUserByIdQuery(userId, { skip: !userId })
+  const userInfo = response?.data
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    location: ''
+  })
+
+  useEffect(() => {
+    if (userInfo) {
+      setFormData({
+        name: userInfo.name || '',
+        email: userInfo.email || '',
+        phone: userInfo.phone || '00000000',
+        location: userInfo.location || 'Location'
+      })
+    }
+  }, [userInfo])
+
   const [updateUser] = useUpdateUserMutation()
 
-  const validateFields = useCallback((data: typeof personalData) => {
-    const newErrors: { [key: string]: string } = {}
-    data.forEach(item => {
-      if (item.value.trim() === '') {
-        newErrors[item.label] = `Field "${item.label}" cannot be blank`
-      }
-    })
-    return newErrors
-  }, [])
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
 
-  const handleEditClick = useCallback(() => {
-    if (isEditing) {
-      const allData = [...personalData, ...billingData]
-      const newErrors = validateFields(allData)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
 
-      if (Object.keys(newErrors).length > 0) {
-        setFieldErrors(newErrors)
-        return
+    if (e.target instanceof HTMLInputElement && e.target.files) {
+      const selectedFile = e.target.files[0]
+      if (selectedFile) {
+        setFile(selectedFile)
       }
-      setFieldErrors({})
     }
-    setIsEditing(prev => !prev)
-  }, [isEditing, personalData, billingData, validateFields])
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, index: number, isPersonal: boolean) => {
-      const { value } = e.target
-      const updateData = (prevData: typeof personalData) => {
-        const newData = [...prevData]
-        newData[index].value = value
-        return newData
-      }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!userInfo) {
+      console.error('User info is undefined')
+      return
+    }
 
-      if (isPersonal) {
-        setPersonalData(updateData)
-      } else {
-        setBillingData(updateData)
-      }
+    try {
+      const formDataToSubmit = new FormData()
+      formDataToSubmit.append('avatar', file || userInfo.avatar || '')
+      formDataToSubmit.append('name', formData.name)
+      formDataToSubmit.append('email', formData.email)
+      formDataToSubmit.append('phone', formData.phone)
+      formDataToSubmit.append('location', formData.location)
 
-      if (value.trim() !== '') {
-        setFieldErrors(prev => {
-          const updated = { ...prev }
-          delete updated[isPersonal ? personalData[index].label : billingData[index].label]
-          return updated
-        })
-      }
-    },
-    [personalData, billingData]
-  )
-
-  const handleProfileInfoSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-
-      const allData = [...personalData, ...billingData]
-      const formattedData = allData.reduce(
-        (acc, item) => {
-          acc[item.label] = item.value
-          return acc
-        },
-        {} as { [key: string]: string }
-      )
-
-      if (isEditing) {
-        const newErrors = validateFields(allData)
-
-        if (Object.keys(newErrors).length > 0) {
-          setFieldErrors(newErrors)
-          return
+      const response = await updateUser({ id: userInfo._id, formData: formDataToSubmit }).unwrap()
+      await update({
+        user: {
+          ...session?.user,
+          name: response.name,
+          email: response.email,
+          avatar: response.avatar
         }
-        setFieldErrors({})
+      })
 
-        const formData = new FormData()
-        Object.entries(formattedData).forEach(([key, value]) => {
-          formData.append(key, value)
-        })
-
-        try {
-          await updateUser({ id: data?._id, formData })
-          alert('Profile updated successfully!')
-          setIsEditing(false)
-        } catch (error) {
-          console.error('Error updating profile:', error)
-          alert('Failed to update profile. Please try again.')
-        }
-      }
-    },
-    [isEditing, personalData, billingData, validateFields, updateUser, data]
-  )
-
-  const renderInput = useCallback(
-    (item: (typeof personalData)[0], index: number, isPersonal: boolean) => {
-      if (item.label === 'Gender') {
-        return (
-          <select
-            id={item.label}
-            className="w-full rounded-xl border px-4 py-3 text-sm font-semibold text-clr-27 md:text-xl"
-            value={item.value}
-            onChange={e => handleChange(e, index, isPersonal)}
-            required
-          >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        )
-      }
-
-      return (
-        <input
-          id={item.label}
-          type={item.label === 'Email' ? 'email' : 'text'}
-          className="w-full rounded-xl border px-4 py-3 text-sm font-semibold text-clr-27 md:text-xl"
-          value={item.value}
-          onChange={e => handleChange(e, index, isPersonal)}
-          required
-        />
-      )
-    },
-    [handleChange]
-  )
+      Swal.fire({
+        title: 'Success!',
+        text: 'Profile updated successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      })
+      setIsEditing(false)
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'An error occurred while updating the profile. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Retry'
+      })
+      setIsEditing(false)
+      console.error('Error updating user:', error)
+    }
+  }
 
   return (
     <>
-      <form onSubmit={handleProfileInfoSubmit}>
-        <Avatar onData={data} personalData={personalData} isEditing={isEditing} />
-
-        <ul className={cn(isEditing && 'mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6')}>
-          {isEditing &&
-            personalData.map((item, index) => (
-              <li key={item.label} className="col-span-1">
-                <label htmlFor={item.label}>
-                  <p className="mb-1 text-base text-clr-81 md:mb-4 md:text-xl">{item.label}</p>
-                  {renderInput(item, index, true)}
-
-                  {fieldErrors[item.label] && (
-                    <p className="mt-2 text-sm text-red-500">{fieldErrors[item.label]}</p>
-                  )}
-                </label>
-              </li>
-            ))}
-        </ul>
-
+      <form>
+        <Avatar onData={data} isEditing={isEditing} />
         <div className="mb-4">
-          <h2 className="text-xl font-bold md:text-2xl">Billing Address</h2>
+          <h2 className="text-xl font-bold md:text-2xl">Customer Information</h2>
         </div>
 
         <ul className="mb-12 grid gap-4 md:grid-cols-2 md:gap-6">
-          {billingData.map((item, index) => (
-            <li key={item.label} className="col-span-2 md:col-span-1">
-              <label htmlFor={item.label}>
-                <p className="mb-2 text-base text-clr-81 md:mb-4 md:text-xl">{item.label}</p>
-                {isEditing ? (
-                  <input
-                    id={item.label}
-                    className="w-full rounded-xl border px-4 py-3 text-sm font-light text-clr-27 md:text-xl"
-                    value={item.value}
-                    onChange={e => handleChange(e, index, false)}
-                    required
-                  />
-                ) : (
-                  <p className="text-base font-semibold text-clr-27 md:text-xl">{item.value}</p>
-                )}
-                {fieldErrors[item.label] && (
-                  <p className="mt-2 text-sm text-red-500">{fieldErrors[item.label]}</p>
-                )}
+          {[
+            { label: 'Name', value: userInfo?.name || 'Your Name' },
+            { label: 'Email', value: userInfo?.email || 'example@example.com' },
+            { label: 'Role', value: userInfo?.role || 'Customer' },
+            { label: 'Phone Number', value: userInfo?.phone || '+0961245795' },
+            { label: 'Status', value: userInfo?.status || 'Pending' }
+          ].map(({ label, value }, index) => (
+            <li key={index} className="col-span-2 md:col-span-1">
+              <label>
+                <p className="mb-2 text-base text-clr-81 md:mb-4 md:text-xl">{label}</p>
+                <p className="text-base font-semibold text-clr-27 md:text-xl">{value}</p>
               </label>
             </li>
           ))}
         </ul>
 
-        <CustomBtn
-          btnType={isEditing ? 'button' : 'submit'}
-          btnName={isEditing ? 'Save Changes' : 'Edit Profile'}
-          className="w-full"
-          onClickFunc={handleEditClick}
-        />
+        <CustomBtn btnType="button" btnName="Edit Profile" className="w-full" onClickFunc={handleEditClick} />
       </form>
+
+      {isEditing && (
+        <Dialog
+          as="div"
+          open={isEditing}
+          className="relative z-10 focus:outline-none"
+          onClose={() => setIsEditing(false)}
+        >
+          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4">
+              <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow">
+                <DialogTitle as="h3" className="mb-5 text-center font-medium">
+                  Update Customer Profile Details
+                </DialogTitle>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    className="hidden"
+                    accept=".svg, .png, .jpg, .gif"
+                    onChange={handleChange}
+                  />
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="font-inter flex h-[228px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 text-gray-500"
+                  >
+                    {file ? (
+                      <Image
+                        width={100}
+                        height={100}
+                        className="size-full object-cover"
+                        src={URL.createObjectURL(file)}
+                        alt="Profile Preview"
+                      />
+                    ) : (
+                      <>
+                        <Image width={40} height={40} src={ICUser} alt="icon" />
+                        <p className="text-sm">Change profile picture</p>
+                      </>
+                    )}
+                  </div>
+
+                  {[
+                    { name: 'name', placeholder: 'Enter Full Name', value: formData.name },
+                    { name: 'location', placeholder: 'Enter Location', value: formData.location },
+                    { name: 'email', placeholder: 'Email Address', value: formData.email, readOnly: true },
+                    { name: 'phone', placeholder: 'Phone Number', value: formData.phone }
+                  ].map(({ name, placeholder, value, readOnly }, index) => (
+                    <FormInput
+                      key={index}
+                      type={name === 'email' ? 'email' : 'text'}
+                      name={name}
+                      placeholder={placeholder}
+                      value={value}
+                      onChange={handleChange}
+                      customClass="mb-4"
+                      readOnly={readOnly}
+                    />
+                  ))}
+
+                  <div className="mt-5 flex items-center justify-center gap-4">
+                    <DashboardButton name="Update" type="submit" />
+                    <DashboardButton name="Cancel" onClick={() => setIsEditing(false)} type="button" />
+                  </div>
+                </form>
+                {isLoading && (
+                  <p className="mt-2 text-center">
+                    <Loader type="loading" />
+                  </p>
+                )}
+                {isError && <p className="mt-2 text-center text-red-500">Failed to update. Try again.</p>}
+              </DialogPanel>
+            </div>
+          </div>
+        </Dialog>
+      )}
     </>
   )
 }

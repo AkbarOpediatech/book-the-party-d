@@ -1,42 +1,153 @@
-import { useFetchUserByIdQuery, useUpdateUserMutation } from '@/redux/features/user/apiSlice'
-import { useToken } from '@/redux/hooks/useToken'
-import { vendorsData, type IVendorsData } from '@/utils'
+import FullPageLoader from '@/app/(landing)/components/Loader/FullPageLoader'
+import { useUpdateUserMutation, type IUser } from '@/redux/features/user/apiSlice'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import DataTable, { type TableColumn } from 'react-data-table-component'
+import Swal from 'sweetalert2'
+import avatar from '/public/assets/avatar.jpeg'
 
-const VendorRequest = () => {
-  const columns: TableColumn<IVendorsData>[] = [
+type IProps = {
+  data: IUser[]
+  handlePageChange: (page: number) => void
+  handlePageLimitChange: (limit: number) => void
+  totalRecords: number
+  pageLimit: number
+}
+
+const VendorRequest: React.FC<IProps> = ({
+  data,
+  handlePageChange,
+  handlePageLimitChange,
+  totalRecords,
+  pageLimit
+}) => {
+  const [updateUser] = useUpdateUserMutation()
+  const [loadingId, setLoadingId] = useState<string | null>(null)
+
+  const handleAccept = async (id: string) => {
+    setLoadingId(id)
+    const formData = new FormData()
+    formData.append('status', 'active')
+
+    try {
+      await updateUser({ id, formData }).unwrap()
+      Swal.fire({
+        title: 'Success!',
+        text: 'Vendor request accepted successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#4caf50'
+      })
+    } catch (error) {
+      console.error('Failed to accept vendor request:', error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'An error occurred while accepting the request.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoadingId(null)
+    }
+  }
+
+  const handleDecline = async (id: string) => {
+    setLoadingId(id)
+    const formData = new FormData()
+    formData.append('status', 'inactive')
+    try {
+      await updateUser({ id, formData }).unwrap()
+      Swal.fire({
+        title: 'Success!',
+        text: 'Vendor request declined successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } catch (error) {
+      console.error('Failed to decline vendor request:', error)
+
+      Swal.fire({
+        title: 'Error!',
+        text: 'An error occurred while declining the request.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        background: '#f4f7fb',
+        color: '#f44336'
+      })
+    } finally {
+      setLoadingId(null)
+    }
+  }
+  if (loadingId) {
+    return <FullPageLoader type="loading" />
+  }
+  const columns: TableColumn<IUser>[] = [
     {
       name: 'Vendor Name',
-      cell: (row: IVendorsData) => (
-        <Link href={`/dashboard/admin/vendors/${row?.id}`} className="flex items-center gap-4">
+      cell: (row: IUser) => (
+        <Link href={`/dashboard/admin/vendors/${row?._id}`} className="flex items-center gap-4">
           <div className="size-10 flex-shrink-0 overflow-hidden rounded-full">
-            <Image src={row?.image} alt="Product Image" />
+            <Image
+              width={40}
+              height={40}
+              className="center h-full w-full object-cover"
+              src={row?.avatar || avatar}
+              alt="Product Image"
+            />
           </div>
           <div className="whitespace-nowrap">
-            <p className="text-sm font-semibold text-clr-36">{row?.vendorName}</p>
-            <p className="text-sm text-clr-81">{row?.vendorDesc}</p>
+            <p className="text-sm font-semibold text-clr-36">{row?.name}</p>
+            <p className="w-72 truncate text-sm text-clr-81">{row?.about}</p>
           </div>
         </Link>
       ),
       sortable: true
     },
+
     {
       name: 'Join date',
-      selector: (row: IVendorsData) => row?.joinDate,
+      selector: (row: IUser) => {
+        if (!row?.createdAt) return ''
+        const date = new Date(row.createdAt)
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth() + 1).toString().padStart(2, '0') // Months are 0-indexed
+        const year = date.getFullYear()
+        return `${day}/${month}/${year}`
+      },
       sortable: true
     },
+
+    {
+      name: 'Email',
+      cell: (row: IUser) => <p className="text-sm font-semibold text-clr-36">{row?.email}</p>,
+      sortable: true
+    },
+
     {
       name: 'Action',
-      cell: () => (
+      cell: (row: IUser) => (
         <div className="flex gap-2">
-          <button className="rounded-md bg-clr-1c/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-1c">
+          <button
+            className="rounded-md bg-clr-1c/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-1c"
+            onClick={() => handleAccept(row?._id as string)}
+            disabled={loadingId === row._id}
+          >
             Accept
           </button>
-          <button className="rounded-md bg-clr-d48/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-d48">
+
+          <button
+            className="rounded-md bg-clr-d48/20 px-2 py-[1px] text-sm font-bold capitalize text-clr-d48"
+            onClick={() => handleDecline(row._id as string)}
+            disabled={loadingId === row._id}
+          >
             Decline
           </button>
         </div>
@@ -60,16 +171,6 @@ const VendorRequest = () => {
             <MenuItem>
               <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
                 View Vendor
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Edit
-              </button>
-            </MenuItem>
-            <MenuItem>
-              <button className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-[focus]:bg-black/10">
-                Delete
               </button>
             </MenuItem>
           </MenuItems>
@@ -112,13 +213,26 @@ const VendorRequest = () => {
     <div className="p-2">
       <DataTable
         columns={columns}
-        data={vendorsData}
+        data={data}
         pagination
+        paginationServer
+        paginationTotalRows={totalRecords}
+        onChangePage={handlePageChange}
+        paginationPerPage={pageLimit}
         customStyles={customStyles}
-        selectableRows
-        responsive
+        paginationRowsPerPageOptions={[5, 10, 15, 25, 30]}
+        onChangeRowsPerPage={newLimit => handlePageLimitChange(newLimit)}
+        paginationComponentOptions={{
+          rowsPerPageText: 'Rows per page:',
+          rangeSeparatorText: 'of',
+          noRowsPerPage: false,
+          selectAllRowsItem: false,
+          selectAllRowsItemText: 'All'
+        }}
         highlightOnHover
         striped
+        responsive
+        selectableRows
         className="text-sm"
       />
     </div>

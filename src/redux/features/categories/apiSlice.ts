@@ -17,6 +17,7 @@ export type IMedia = {
 
 export type ICategory = {
   title?: string
+  slug?: string
   description?: string
   icon?: string
 }
@@ -33,6 +34,7 @@ export interface CategoryFetch extends ICategory {
   _id?: string
   slug?: string
   featured_image?: string | null
+  user?: string
 }
 
 interface CategoriesResponse {

@@ -61,12 +61,12 @@ const Footer = () => {
           </p>
         </div>
 
-        <Link
+        {/* <Link
           href={navigation}
           className="fixed bottom-10 right-10 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-clr-fb"
         >
           <ChatBubbleLeftIcon className="size-5 text-white" />
-        </Link>
+        </Link> */}
       </div>
       <p className="py-5 text-center text-xs font-light md:text-base lg:text-sm">
         Copyright © {year} Vacasky. All rights reserved.

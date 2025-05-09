@@ -1,11 +1,11 @@
-import type { IChatData } from '@/utils'
+import type { IAdminChat, IChatData } from '@/utils'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 
 type IProps = {
   onProfileClick: () => void
-  selectedChat: IChatData
+  selectedChat: IAdminChat
 }
 
 const ChatHead: React.FC<IProps> = ({ onProfileClick, selectedChat }) => {
@@ -15,18 +15,19 @@ const ChatHead: React.FC<IProps> = ({ onProfileClick, selectedChat }) => {
         <div className="flex cursor-pointer items-center gap-4 py-3" onClick={onProfileClick}>
           <div className="relative">
             <div className="h-11 w-11 overflow-hidden rounded-full">
-              <Image width={44} height={44} src={selectedChat.avatar} alt="avatar" />
+              <Image width={44} height={44} src={selectedChat.receiverInfo?.avatar} alt="avatar" />
             </div>
-            {selectedChat.status === 'active now' && (
+            {/* {selectedChat?.status === 'active now' && (
               <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-clr-16"></div>
-            )}
+            )} */}
           </div>
 
           <div className="w-full max-w-[150px]">
             <p className="flex w-full justify-between text-sm font-semibold text-clr-36">
-              {selectedChat.name}
+              {selectedChat.receiverInfo?.name}
             </p>
-            <p className="truncate text-sm font-semibold capitalize text-clr-81">{selectedChat.status}</p>
+            <p className="truncate text-sm font-semibold capitalize text-clr-81">online</p>
+            {/* <p className="truncate text-sm font-semibold capitalize text-clr-81">{selectedChat?.status}</p> */}
           </div>
         </div>
 
