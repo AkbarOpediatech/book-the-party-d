@@ -45,7 +45,6 @@ import ICVisual from '/public/assets/ic-visual.svg'
 import BankingIcon from '/public/assets/ic_banking.svg'
 import BookingsIcon from '/public/assets/ic_booking.svg'
 import Canceled from '/public/assets/ic_canceled.svg'
-import LiveChatIcon from '/public/assets/ic_chat.svg'
 import Complete from '/public/assets/ic_complete.svg'
 import DashboardIcon from '/public/assets/ic_dashboard.svg'
 import ListingIcon from '/public/assets/ic_ecommerce.svg'
@@ -109,14 +108,14 @@ export const vendorNavigation: INavigationItem[] = [
     name: 'Subscription',
     href: '/dashboard/vendor/subscription',
     icon: SubscriptionIcon
-  },
-
-  {
-    type: 'button',
-    name: 'Live chat with admin',
-    href: '/dashboard/vendor/chat',
-    icon: LiveChatIcon
   }
+
+  // {
+  //   type: 'button',
+  //   name: 'Live chat with admin',
+  //   href: '/dashboard/vendor/chat',
+  //   icon: LiveChatIcon
+  // }
 ]
 
 export const adminNavigation: IAdminNavigation[] = [
@@ -151,19 +150,19 @@ export const adminNavigation: IAdminNavigation[] = [
     name: 'listings',
     href: '/dashboard/admin/listings',
     icon: ListingIcon
-  },
+  }
   // {
   //   type: 'button',
   //   name: 'email management',
   //   href: '/dashboard/admin/email-management',
   //   icon: DashboardIcon
   // },
-  {
-    type: 'button',
-    name: 'live chat',
-    href: '/dashboard/admin/chat',
-    icon: LiveChatIcon
-  }
+  // {
+  //   type: 'button',
+  //   name: 'live chat',
+  //   href: '/dashboard/admin/chat',
+  //   icon: LiveChatIcon
+  // }
 ]
 export const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 export const dashboardBookingHistory: IDashboardBookingHistory[] = [

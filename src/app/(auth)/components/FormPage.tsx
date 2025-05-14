@@ -44,7 +44,7 @@ const FormPage: React.FC = () => {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/v1/auth/registration`, formData, {
+      await axios.post(`${process.env.NEXT_PUBLIC_LIVE_API}/auth/registration`, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
