@@ -5,9 +5,9 @@
   "description": "opedia.vercel.app",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "tsc -p tsconfig.build.json && next build",
-    "start": "next start",
+    "dev": "node init && next dev",
+    "build": "node init && tsc -p tsconfig.build.json && next build",
+    "start": "node init && next start",
     "lint": "next lint"
   },
   "dependencies": {
