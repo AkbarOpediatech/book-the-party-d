@@ -1,63 +1,23 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabSize": 2,
-  "editor.detectIndentation": false,
   "search.exclude": {
-    "package-lock.json": true
+    "**/.sst": true
   },
-
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-
-  // TypeScript
-  "typescript.tsdk": "node_modules/typescript/lib", // Use the workspace version of TypeScript
-  "typescript.enablePromptUseWorkspaceTsdk": true, // For security reasons it's require that users opt into using the workspace version of typescript
-  "typescript.preferences.autoImportFileExcludePatterns": [
-    // useRouter should be imported from `next/navigation` instead of `next/router`
-    "next/router.d.ts",
-    "next/dist/client/router.d.ts",
-    // give priority for Link to next/link instead of lucide-react
-    "lucide-react"
-  ],
-  "typescript.preferences.preferTypeOnlyAutoImports": true, // Prefer type-only imports
-
-  // Disable the default formatter, use ESLint instead
-  "prettier.enable": true,
-  "editor.formatOnSave": true,
-  "prettier.requireConfig": true,
-  "prettier.jsxSingleQuote": true,
-
-  // Auto fix with ESLint on save
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit",
-    "source.addMissingImports": "explicit"
-  },
-
-  // Enable eslint for all supported languages
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "html",
-    "markdown",
-    "json",
-    "jsonc",
-    "yaml",
-    "toml",
-    "xml",
-    "gql",
-    "graphql",
-    "astro",
-    "css",
-    "less",
-    "scss",
-    "pcss",
-    "postcss",
-    "github-actions-workflow"
-  ],
-  "cSpell.words": ["Brandcamb"]
+  "task.allowAutomaticTasks": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "debug.openDebug": "neverOpen",
+  "problems.autoReveal": true,
+  "terminal.integrated.hideOnStartup": "always",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.inheritEnv": false,
+  "jestrunner.configPath": "jest.unit.config.cjs",
+  "compile-hero.disable-compile-files-on-did-save-code": true,
+  "tasks": {
+    "label": "lint on open",
+    "type": "shell",
+    "command": "npm run lint",
+    "runOn": "folderOpen"
+  }
 }

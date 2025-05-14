@@ -1,3 +1,5 @@
+'use client'
+
 import Loader from '@/app/(landing)/components/Loader/Loader'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -8,7 +10,7 @@ const LoginContent = () => {
     <>
       <LoginForm />
       <div className="flex items-center gap-1 text-sm font-medium">
-        <p className="text-gray-900"> Don’t have an account yet?</p>
+        <p className="text-gray-900">Don’t have an account yet?</p>
         <Link href="/register" className="text-clr-fb">
           Sign up
         </Link>
