@@ -1,5 +1,6 @@
 'use client'
 import withRole from '@/app/lib/withRole'
+import { useGetDashboardStatisticsQuery } from '@/redux/features/user/apiSlice'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
@@ -11,7 +12,6 @@ import ICDecrease from '/public/assets/ic_decrese.svg'
 import ICIncrease from '/public/assets/ic_increse.svg'
 import ICRDecrese from '/public/assets/ic_red_decrese.svg'
 import ICTBooking from '/public/assets/ic_tbooking.svg'
-import { useGetDashboardStatisticsQuery } from '@/redux/features/user/apiSlice'
 
 function AdminDashboard() {
   const { data } = useGetDashboardStatisticsQuery('undefined')

@@ -56,7 +56,6 @@ export const store = configureStore({
       .concat(bankingsApi.middleware)
       .concat(notificationApi.middleware)
       .concat(usersApi.middleware)
-      .concat(usersApi.middleware)
       .concat(wishlistApi.middleware)
       .concat(chatApi.middleware)
       .concat(categoriesApi.middleware)
